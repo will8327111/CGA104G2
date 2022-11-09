@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="../../resources/css/mylist.css">
+</head>
+<body>
+
+<ul id="list" class="tilesWrap">
+   </ul>
+
+
+<script>
+let memId = sessionStorage.getItem("id")
+
+getList()
+async function getList(){
+	let res  = await fetch(`../../activity/ActServlet?action=list&memId=${memId}`, { method: 'get' })
+   let result = await res.json();
+   let count = 1;
+   result.forEach(list => {
+         $("#list").append(`<li>
+            <h2>${count}</h2>
+            <img src="data:image/jpeg;base64,${list.photo}">
+            <h3>${list.activityName}</h3>
+            <p>
+               <br>開始時間:${list.activityStart}</br>
+               <br>結束時間:${list.activityEnd}</br>
+               <br>活動內容:${list.content}</br>
+            </p>  
+             <input type="button" onclick="change(${list.activityId})"   value="更改">
+             <input type="button" onclick="deleteAct(${list.activityId})"   value="刪除">      
+        </li>`)
+        count++
+   });
+   
+}
+
+
+
+async function deleteAct(actId){
+	let result = confirm("確定是否刪除")
+	if(result){
+	fetch("../../activity/ActServlet?action=delete&deleteId="+actId , { method: 'get' });
+	}
+	location.reload();
+	
+}
+
+
+function change(actId){
+	location =`../../activity/ActServlet?action=oneUpdate&actId=${actId}`;
+	
+}
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col,
+.col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm,
+.col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md,
+.col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg,
+.col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl,
+.col-xl-auto {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px; }
+  
+  
+ body {
+	background: ##f2f2f2;
+}
+  
+  
+  .flex_container {
+	display: flex;
+}  
+  
+  table {
+  border-collapse: collapse; }
+  
+  .table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529; }
+  .table th,
+  .table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6; }
+  .table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6; }
+  .table tbody + tbody {
+    border-top: 2px solid #dee2e6; }
+
+
+  
+  .table {
+  min-width: 1000px !important;
+  width: 100%;
+  background: #fff;
+  -webkit-box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
+  -moz-box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
+  box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29); }
+  .table thead.thead-primary {
+    background: #99b19c; }
+  .table thead th {
+    border: none;
+    padding: 30px;
+    font-size: 13px;
+    font-weight: 500;
+    color: white; }
+  .table tbody  tr {
+    margin-bottom: 10px; }
+  .table tbody  th , .table tbody  td {
+    border: none;
+    padding: 40px;
+    font-size: 14px;
+    background: #fff;
+    border-bottom: 4px solid #f8f9fd;
+    vertical-align: middle; }
+  .table tbody td .img {
+    width: 100px;
+    height: 80px; }
+  .table tbody td .email span {
+    display: block; }
+    .table tbody td .email span:last-child {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.3); }
+  .table tbody td .close span {
+    font-size: 12px;
+    color: #dc3545; }
+  
+  
+  
+  
+img {
+	width: 200px;
+	height: 200px
+}
+
+.frame1 { 
+	width: 30%; 
+	margin: 20px auto; 
+ 	text-align: center; 
+ } 
+
+button {
+	margin: 10px;
+	outline: none;
+}
+
+.custom-btn {
+	width: 100px;
+	height: 40px;
+	padding: 10px 25px;
+	border: 2px solid #000;
+	font-family: 'Lato', sans-serif;
+	font-weight: 100;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	position: relative;
+	display: inline-block;
+}
+
+.btn-4 {
+	position: relative;
+	color: #000;
+	z-index: 2;
+	line-height: 40px;
+	padding: 0;
+}
+
+.btn-4:hover {
+	border: none;
+}
+
+.btn-4:before, .btn-4:after {
+	position: absolute;
+	content: "";
+	width: 0%;
+	height: 0%;
+	border: 2px solid;
+	z-index: -1;
+	transition: all 0.3s ease;
+}
+
+.btn-4:before {
+	top: 0;
+	left: 0;
+	border-bottom-color: transparent;
+	border-right-color: transparent;
+	border-top-color: #000;
+	border-left-color: #000;
+}
+
+.btn-4:after {
+	bottom: 0;
+	right: 0;
+	border-top-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: #000;
+	border-right-color: #000;
+}
+
+.btn-4:hover:before, .btn-4:hover:after {
+	border-color: #000;
+	height: 100%;
+	width: 100%;
+}
+
+.flex_container {
+	display: flex;
+}  
+
+
+.selectstyle {
+  --selectsize:2rem;
+  --uibordercolor:#bbb;
+  --uibackground:#f8f8f8;
+  --uiborderradiusfactor:0;
+  --uihovercolor:#363636;
+  --uireversecolor:#fff;
+  --unicodepointer:"\25bc";
+}
+
+.selectstyle--style1 {
+  --uibordercolor:#ace;
+  --uibackground:#f8f8ff;
+  --uiborderradiusfactor:0.167;
+  --uihovercolor:#125FA6;
+  --uireversecolor:#fff;
+}
+ 
+.selectstyle__box {
+  margin:0 auto;
+  width:auto;
+  height:auto;
+  text-align:center;
+  overflow:visible;
+  position: relative;
+  display:inline-block;
+  font-size:calc(var(--selectsize) * 0.5);
+}
+
+.selectstyle__label {
+  font-size:calc(var(--selectsize) * 0.5);
+  position: relative;
+  display: inline-block;
+  margin:0 calc(var(--selectsize) * 0.5) 0 0;
+  white-space:nowrap;
+}
+.selectstyle__box__select {
+  position:relative;
+  display: inline-block;
+  border: 2px solid var(--uibordercolor);
+  padding: 0 calc(var(--selectsize) * 0.09) 0 calc(var(--selectsize) * 0.15);
+  margin: 0;
+  font: inherit;
+  height:var(--selectsize);
+  line-height: calc(var(--selectsize) * 0.92);
+  background: var(--uibackground);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* remove the strong OSX influence from Webkit */
+  border-radius: calc(var(--selectsize) * var(--uiborderradiusfactor));
+  cursor:pointer;
+}
+.selectstyle__box__select optgroup, .selectstyle__box__select optgroup option {
+  /* This helps the appearance of select dropdowns in Firefox to be more like other browsers.
+  Chrome and Safari ignore these rules */
+  color:black;
+  background:#ccc;
+  font-size:inherit;
+}
+
+/* for Webkit's CSS-only solution */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .selectstyle__box__select {
+    padding-right: calc(var(--selectsize) * 2);
+  }
+}
+/* Select arrow styling using unicode symbol */
+.selectstyle__box::after {
+  width:var(--selectsize);
+  height:var(--selectsize);
+  content: var(--unicodepointer);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 60%;
+  line-height: var(--selectsize);
+  padding: 0 7px;
+  background: var(--uibackground);
+  color: black;
+  pointer-events: none;
+  border-radius: 0 calc(var(--selectsize) * var(--uiborderradiusfactor)) calc(var(--selectsize) * var(--uiborderradiusfactor)) 0;
+  border: 2px solid var(--uibordercolor);
+}
+.selectstyle__box:hover::after, .selectstyle__box__select:hover {
+  background:var(--uihovercolor);
+  color:var(--uireversecolor);
+}
+.no-pointer-events .selectstyle__box__select:after {
+  content: none;
+}
