@@ -26,5 +26,8 @@
 		<mapping class="com.activitysignup.model.ActivitySignupVO" />
 		<mapping class="com.activityreport.model.ActivityReportVO" />
 		<mapping class="com.activityreply.model.ActivityReplyVO" />
+		
+		<mapping class="com.mail.model.MailVO" />
+		
 	</session-factory>
 </hibernate-configuration>
