@@ -24,14 +24,9 @@
             box-sizing: border-box;
         }
 
-        .form-control {
-            display: block;
-        }
 
-        .page-content {
-            display: block;
-            padding-left: 50px;
-        }
+
+
 
         .form-group {
             display: block;
