@@ -2,6 +2,7 @@ package com.member.controller;
 
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
 import java.util.*;
@@ -11,7 +12,10 @@ import com.member.model.*;
 import static java.lang.Integer.parseInt;
 import static java.lang.System.out;
 
-@MultipartConfig
+@WebServlet("/member/member.do")
+@MultipartConfig(fileSizeThreshold=1024*1024*10,  // 10 MB
+                 maxFileSize=1024*1024*50,       // 50 MB
+                 maxRequestSize=1024*1024*100)    // 100 MB
 public class MemberServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
@@ -37,7 +41,7 @@ public class MemberServlet extends HttpServlet {
             }
             if (!errorMsgs.isEmpty()) {
                 RequestDispatcher failureView = req.
-                        getRequestDispatcher("/member/select_page.jsp");
+                        getRequestDispatcher("/back-end/member/select_page.jsp");
                 failureView.forward(req, res);
                 return;
             }
@@ -49,7 +53,7 @@ public class MemberServlet extends HttpServlet {
             }
             if (!errorMsgs.isEmpty()) {
                 RequestDispatcher failureView = req
-                        .getRequestDispatcher("/member/select_page.jsp");
+                        .getRequestDispatcher("/back-end/member/select_page.jsp");
                 failureView.forward(req, res);
                 return;
             }
@@ -64,14 +68,14 @@ public class MemberServlet extends HttpServlet {
 
             if (!errorMsgs.isEmpty()) {
                 RequestDispatcher failureView = req
-                        .getRequestDispatcher("/member/select_page.jsp");
+                        .getRequestDispatcher("/back-end/member/select_page.jsp");
                 failureView.forward(req, res);
                 return;
             }
 
             /***************************3.查詢完成,準備轉交(Send the Success view)*************/
             req.setAttribute("memberVO", memberVO);
-            String url = "/member/listOneMember.jsp";
+            String url = "/back-end/member/listOneMember.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneMember.jsp
             successView.forward(req, res);
         }
@@ -91,7 +95,7 @@ public class MemberServlet extends HttpServlet {
 
             /***************************3.查詢完成,準備轉交(Send the Success view)************/
             req.setAttribute("memberVO", memberVO);         // 資料庫取出的memberVO物件,存入req
-            String url = "/member/update_member_input.jsp";
+            String url = "/back-end/member/update_member_input.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_member_input.jsp
             successView.forward(req, res);
         }
@@ -222,7 +226,7 @@ public class MemberServlet extends HttpServlet {
             if (!errorMsgs.isEmpty()) {
                 req.setAttribute("memberVO", memberVO);
                 RequestDispatcher failureView = req
-                        .getRequestDispatcher("/member/update_member_input.jsp");
+                        .getRequestDispatcher("/back-end/member/update_member_input.jsp");
                 failureView.forward(req, res);
                 return; //程式中斷
             }
@@ -236,7 +240,7 @@ public class MemberServlet extends HttpServlet {
 
             /***************************3.修改完成,準備轉交(Send the Success view)*************/
             req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的memberVO物件,存入req
-            String url = "/member/listOneMember.jsp";
+            String url = "/back-end/member/listOneMember.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneMember.jsp
             successView.forward(req, res);
         }
@@ -381,7 +385,7 @@ public class MemberServlet extends HttpServlet {
             if (!errorMsgs.isEmpty()) {
                 req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的memberVO物件,也存入req
                 RequestDispatcher failureView = req
-                        .getRequestDispatcher("/member/addMember.jsp");
+                        .getRequestDispatcher("/back-end/member/addMember.jsp");
                 failureView.forward(req, res);
                 return;
             }
@@ -394,7 +398,7 @@ public class MemberServlet extends HttpServlet {
                     regDate, memberIdState, acState ,memberpic);
 
             /***************************3.新增完成,準備轉交(Send the Success view)***********/
-            String url = "/member/listAllMember.jsp";
+            String url = "/back-end/member/listAllMember.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllMember.jsp
             successView.forward(req, res);
         }
@@ -413,7 +417,7 @@ public class MemberServlet extends HttpServlet {
             memberSvc.deleteMember(memberId);
 
             /***************************3.刪除完成,準備轉交(Send the Success view)***********/
-            String url = "/member/listAllMember.jsp";
+            String url = "/back-end/member/listAllMember.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
             successView.forward(req, res);
 
