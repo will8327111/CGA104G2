@@ -6,15 +6,13 @@
     <title>住戶個人資訊</title>
 
     <%--STYLE--%>
-    <link href="${pageContext.request.contextPath}/resources/assets/css/main/app.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/form-element-select.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/summernote.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css" rel="stylesheet">
 </head>
 <body>
 
 <div>
     <tr>
-        <td><h3 class="page-title-headings">住戶個人資訊查詢</h3></td>
+        <td><h3 class="page-title-headings">住戶個人資訊查詢 select_page</h3></td>
     </tr>
 </div>
 <br>
@@ -37,7 +35,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="row-cols-md-3">
-                            <li><a href="/CGA104G2/back-end/member/listAllMember.jsp">List All</a> 全部住戶 <br><br></li>
+                            <li><a href="${pageContext.request.contextPath}/back-end/member/listAllMember.jsp">List All</a> 全部住戶 <br><br></li>
                             <li>
                                 <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do">
                                     <b>請輸入住戶編號 (如數字：1):</b>

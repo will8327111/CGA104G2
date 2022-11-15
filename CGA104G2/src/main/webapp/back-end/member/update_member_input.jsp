@@ -10,9 +10,8 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>住戶資料修改 - update_member_input.jsp</title>
-    <link href="${pageContext.request.contextPath}/resources/assets/css/main/app.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/form-element-select.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/summernote.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -196,9 +195,9 @@
 <%--<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->--%>
 
 <link rel="stylesheet" type="text/css"
-      href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css"/>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+      href="<%=request.getContextPath()%>/resources/datetimepicker/jquery.datetimepicker.css"/>
+<script src="<%=request.getContextPath()%>/resources/datetimepicker/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/resources/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <style>
     .xdsoft_datetimepicker .xdsoft_datepicker {

@@ -13,10 +13,8 @@
 <html>
 <head>
     <title>所有住戶資料 - listAllMember.jsp</title>
-    <link href="${pageContext.request.contextPath}/resources/assets/css/main/app.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/form-element-select.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/summernote.css" rel="stylesheet">
-</head>
+    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css" rel="stylesheet">
+    </head>
 <body>
 
 <table id="table-1">
