@@ -1,0 +1,725 @@
+@charset "utf-8";
+
+
+/*===========================================================*/
+/*背景色延伸動畫-上至下
+/*===========================================================*/
+
+
+/*========= loading畫面CSS ===============*/
+#splash {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	z-index: 9999999;
+	text-align:center;
+	color:#fff;
+}
+
+#splash-logo {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#splash-logo img{
+	width:50px;
+}
+
+/*========= 畫面轉變CSS ===============*/
+
+/*畫面轉變動畫*/
+
+.splashbg{
+	display: none;
+}
+
+body.appear .splashbg{
+    display: block;
+    position:fixed;
+	z-index: 999;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+	left: 0;
+    transform: scaleY(0);
+    background-color: #ddcd83;/*伸展背景色*/
+	animation-name:PageAnime;
+	animation-duration:1.2s;
+	animation-timing-function:ease-in-out;
+	animation-fill-mode:forwards;
+
+}
+
+@keyframes PageAnime{
+	0% {
+		transform-origin:top;
+		transform:scaleY(0);
+	}
+	50% {
+		transform-origin:top;
+		transform:scaleY(1);
+	}
+	50.001% {
+		transform-origin:bottom;
+	}
+	100% {
+		transform-origin:bottom;
+		transform:scaleY(0);
+	}
+}
+
+/*畫面轉變css設定*/
+
+#wrapper{
+	opacity: 0;
+}
+
+
+body.appear #wrapper{
+	animation-name:PageAnimeAppear;
+	animation-duration:1s;
+	animation-delay: 0.8s;
+	animation-fill-mode:forwards;
+	opacity: 0;
+}
+
+@keyframes PageAnimeAppear{
+	0% {
+	opacity: 0;
+	}
+	100% {
+	opacity: 1;
+}
+}
+
+
+/*===========================================================*/
+/*從上方出現nav
+/*===========================================================*/
+#g-nav{
+    position:fixed;
+    z-index: 999;
+    /*nav出現位置與形狀*/
+	bottom:120%;
+	width:100%;
+    height: 100vh;
+	background:#d8cb7f;
+    /*動作*/
+	transition: all 0.6s;
+}
+
+/*動作位置到達設置成0*/
+#g-nav.panelactive{
+    bottom: 0;
+}
+
+/*nav縱scroll*/
+#g-nav #g-nav-list{
+    /*nav數增加時縦scroll*/
+    position: fixed;
+    z-index: 999; 
+    width: 100%;
+    height: 100vh;/*nav高*/
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/*nav*/
+#g-nav ul {
+    /*nav設置絕對值中央*/
+    position: absolute;
+    z-index: 999;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+/*list layout設定*/
+
+#g-nav li{
+	list-style: none;
+    text-align: center; 
+}
+
+#g-nav li a{
+	color: rgb(55, 119, 103);
+	text-decoration: none;
+	padding:10px;
+	display: block;
+	/*text-transform: uppercase;*/
+	letter-spacing: 0.1em;
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+/*===========================================================*/
+/*menu轉變成x
+/*===========================================================*/
+
+.openbtn{
+	position:fixed;
+    z-index: 9999;/*讓button在最前方*/
+	top:0;
+	right: 0;
+	cursor: pointer;
+    width: 80px;
+    height:70px;
+    border-left:2px solid #333;
+}
+	
+/*button內*/
+.openbtn span{
+    display: inline-block;
+    transition: all .4s;/*動畫設定*/
+    position: absolute;
+  }
+
+.openbtn span:nth-of-type(1),
+.openbtn span:nth-of-type(3) {
+    height: 2px;
+	background: #333;
+  	width:30%;
+    opacity: 0;
+    top:22px;
+    left:20px;
+ }
+
+.openbtn span:nth-of-type(2) {
+	top:22px;
+	left:18px;
+	/*text-transform: uppercase;*/
+	color: #333;
+    font-size: 0.9rem;
+}
+
+@media screen and (max-width:550px) {
+.openbtn span:nth-of-type(2) {
+    font-size: 0.8rem;
+    }
+    
+}
+
+.openbtn span:nth-of-type(3) {
+    top:35px;
+}
+
+
+/*設置active class,點選後線會回轉漸變成x、原本Menu跟表示的項目會變透明而消失*/
+
+.openbtn.active span:nth-of-type(1),
+.openbtn.active span:nth-of-type(3) {
+    opacity:1;
+}
+
+.openbtn.active span:nth-of-type(1) {
+    top: 28px;
+    left: 30px;
+    transform: translateY(6px) rotate(-45deg);
+}
+
+.openbtn.active span:nth-of-type(2) {
+	opacity:0;
+}
+
+.openbtn.active span:nth-of-type(3){
+    top: 40px;
+    left: 30px;
+    transform: translateY(-6px) rotate(45deg);
+}
+
+
+
+/*===========================================================*/
+/*上方menu跳轉位置效果
+/*===========================================================*/
+
+/*========= 跳轉位置設置 ===============*/
+
+#header{
+	position: fixed;/*header固定*/
+	height: 75px;/*Header高設定*/
+	width:100%;
+    z-index: 9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    background: rgb(225, 238, 234);
+	opacity: 90%;
+}
+
+@media screen and (max-width:990px) {
+#header{
+    height: 70px;
+	width:20%;
+	position: sticky;
+    }  
+}
+
+#pc-nav ul{
+	list-style: none;
+	display: flex;
+	justify-content: center;
+    /*text-transform: uppercase;*/
+    margin: 0  0 0;
+}
+
+#pc-nav li a{
+	display: block;
+	text-decoration: none;
+	color: rgb(64, 50, 43);
+	padding:0 20px;
+	transition:all 0.3s;
+	font-size: 1.2rem;
+}
+
+#pc-nav li.current a,
+#pc-nav li a:hover{
+	color: #3684d2;
+}
+
+/*===========================================================*/
+/*滑動線延伸效果*/
+/*===========================================================*/
+
+.scrollgress{
+	z-index:99;
+}
+
+/*===========================================================*/
+/*底線伸展改變背景色*/
+/*===========================================================*/
+
+
+.btnlinestretches3{
+    /*線基準設定relative*/
+	position:relative;
+    /*button形狀*/  
+	color:rgb(44, 93, 201);
+    padding: 5px 30px;
+	display:inline-block;
+    text-decoration: none;
+    outline: none;
+}
+
+/*text設定*/
+.btnlinestretches3 span{
+    /*為了要讓text先出現故設定位置高點的z軸*/
+	position:relative;
+	z-index: 2;
+}
+
+.btnlinestretches3:hover span{
+	color: #fff;
+}
+
+/*線設定*/
+.btnlinestretches3::after {
+	content:'';
+    /*設定線的絕對位置*/
+	position:absolute;
+	z-index:1;
+	bottom:0;
+	left:0;
+    /*線形狀*/
+	background:rgb(89, 189, 150);
+	width:100%;
+	height:3px;
+    /*動畫效果*/
+	transition:all 0.3s ease-in-out;
+}
+
+/*背景延伸的線*/
+.btnlinestretches3:hover::after {
+	height:100%;
+}
+
+/*===========================================================*/
+/*達到page指定的高度時會從右方出現*/
+/*===========================================================*/
+
+/*link形狀*/
+#page-top a{
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	background: #61c5fb;
+	width: 60px;
+	height: 60px;
+	color: #fff;
+	text-align: center;
+	/*text-transform: uppercase; */
+	text-decoration: none;
+	font-size:0.6rem;
+	transition:all 0.3s;
+	border-radius:50%;
+}
+
+#page-top a:hover{
+	background: #777;
+}
+
+/*固定link在右下位置*/
+#page-top {
+	position: fixed;
+	right: 0;
+	bottom:0;
+	z-index: 2;
+    /*初始設定未出現*/
+	opacity: 0;
+	transform: translateX(100px);
+}
+
+/*　左方動作　*/
+
+#page-top.LeftMove{
+	animation: LeftAnime 0.5s forwards;
+}
+
+@keyframes LeftAnime{
+  from {
+    opacity: 0;
+	transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+	transform: translateX(0);
+  }
+}
+
+/*　右方動作　*/
+
+#page-top.RightMove{
+	animation: RightAnime 0.5s forwards;
+}
+@keyframes RightAnime{
+  from {
+  	opacity: 1;
+	transform: translateX(0);
+  }
+  to {
+  	opacity: 1;
+	transform: translateX(100px);
+  }
+}
+
+/*===========================================================*/
+/*點選顯示隱藏收合*/
+/*===========================================================*/
+
+/*風琴全體設定*/
+.accordion-area{
+    list-style: none;
+    width: 96%;
+    max-width: 900px;
+    margin:0 auto;
+}
+
+.accordion-area li{
+    margin: 10px 0;
+}
+
+.accordion-area section {
+	border: 1px solid #ccc;
+}
+
+/*風琴title*/
+.title {
+    position: relative;/*以+為位置基準設定relative*/
+    cursor: pointer;
+    font-size:1rem;
+    font-weight: normal;
+    padding: 3% 3% 3% 50px;
+    transition: all .5s ease;
+}
+
+@media screen and (max-width:768px) {
+.title {
+    font-size:0.9rem;
+}
+}
+
+/*icon＋ & ×*/
+.title::before,
+.title::after{
+    position: absolute;
+    content:'';
+    width: 15px;
+    height: 2px;
+    background-color: #333;
+    
+}
+.title::before{
+    top:48%;
+    left: 15px;
+    transform: rotate(0deg);
+    
+}
+.title::after{    
+    top:48%;
+    left: 15px;
+    transform: rotate(90deg);
+
+}
+
+/*　加上close改變形狀　*/
+
+.title.close::before{
+	transform: rotate(45deg);
+}
+
+.title.close::after{
+	transform: rotate(-45deg);
+}
+
+/*風琴效果應用區域*/
+.box {
+    display: none;/*初始設定未顯示*/
+    background: #f3f3f3;
+	margin:0 3% 3% 3%;
+    padding: 3%;
+}
+
+
+/*===========================================================*/
+/*News Ticker
+/*===========================================================*/
+
+/*第一行周圍空白區間*/
+.slider a{
+    display: block;
+    background:#fff;
+    padding:10px 0;
+}
+
+/*時間*/
+.slider time{
+    display:inline-block;
+    font-size:0.8rem;
+    margin-right:10px;
+    color:#777;
+}
+
+/*768px以下*/
+@media screen and (max-width:768px) {
+    .slider {
+        padding:20px;
+        background:#fff;
+    }
+
+    .slider li {
+        border-bottom:1px dashed #ccc;
+    }
+
+    .slider li:last-child {
+        border-bottom:none;
+    }
+    .slider time {
+        display:block;
+		padding-bottom:10px;
+    }
+}
+
+
+
+/*左右切入*/
+.bgextend{
+	animation-name:bgextendAnimeBase;
+	animation-duration:1s;
+	animation-fill-mode:forwards;
+	position: relative;
+	overflow: hidden;
+	opacity:0;
+}
+
+@keyframes bgextendAnimeBase{
+  from {
+    opacity:0;
+  }
+
+  to {
+    opacity:1;  
+}
+}
+
+/*中間要素*/
+.bgappear{
+	animation-name:bgextendAnimeSecond;
+	animation-duration:1s;
+	animation-delay: 0.6s;
+	animation-fill-mode:forwards;
+	opacity: 0;
+}
+
+@keyframes bgextendAnimeSecond{
+	0% {
+	opacity: 0;
+	}
+	100% {
+	opacity: 1;
+}
+}
+
+.bgLRextend::before{
+	animation-name:bgLRextendAnime;
+	animation-duration:1s;
+	animation-fill-mode:forwards;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #53a79b;/*伸展開的背景色設定*/
+}
+@keyframes bgLRextendAnime{
+	0% {
+		transform-origin:bottom;
+		transform:scaleX(0);
+	}
+	50% {
+		transform-origin:bottom;
+		transform:scaleX(1);
+	}
+	50.001% {
+		transform-origin:top;
+	}
+	100% {
+		transform-origin:top;
+		transform:scaleX(0);
+	}
+}
+
+/* 從下方飄出 */
+
+.fadeUp{
+animation-name: fadeUpAnime;
+animation-duration:0.5s;
+animation-fill-mode:forwards;
+opacity:0;
+}
+
+@keyframes fadeUpAnime{
+  from {
+    opacity: 0;
+	transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+	transform: translateY(0);
+  }
+}
+
+
+/* 從左方出現停止 */
+.flipLeft{
+animation-name: flipLeftAnime;
+animation-duration:0.5s;
+animation-fill-mode:forwards;
+perspective-origin: left center;
+opacity:0;
+}
+
+@keyframes flipLeftAnime{
+  from {
+   transform: perspective(600px) translate3d(0, 0, 0) rotateY(30deg);
+ 	opacity: 0;
+  }
+
+  to {
+  transform: perspective(600px) translate3d(0, 0, 0) rotateY(0deg);
+  opacity: 1;
+  }
+}
+
+/* 手機畫面用。flipLeftTrigger的親要素如果沒設定會不太能動*/
+#vision,
+.service-area{
+    transform:  translate3d(0, 0, 0);
+}
+
+/* 滑下會出現先設定透明度為0　*/
+.bgLRextendTrigger,
+.bgappearTrigger,
+.fadeUpTrigger,
+.flipLeftTrigger{
+    opacity: 0;
+}
+
+
+/*===========================================================*/
+/* 往下滑被header覆蓋住*/
+/*===========================================================*/
+
+#top-main{
+	width:100%;
+	height: 100vh;
+	position: center;
+} 
+
+#top-main:before{
+	content: '';
+	position:fixed;
+	top:10vh;
+	left:10%;
+	z-index:-1;
+	width:80%;
+	height: 80vh;
+	/*背景設定*/
+	/* background:url("../img/hands2.jpg") no-repeat center; */
+	background-size:cover;
+}
+
+@media screen and (max-width:768px) {
+#top-main:before{
+    background-position: top center;
+    background-size:auto 75%;
+}
+}
+
+#container{
+	position: relative;
+	z-index:1;
+	background:#fff;
+}
+
+
+
+/*==================================================
+複數圖輪播
+===================================*/
+
+
+.slider2 img {
+	width:100%;/*スライダー内の画像を横幅100%に*/
+	height:auto;
+}
+
+.slider2 .slick-slide {
+	margin:10px 10px;/*スライド左右の余白調整*/
+}
+
+
+.slider-item01 {
+	background:url(../img/lunch.jpg);
+}
+
+.slider-item02 {
+	background:url(../img/hands2.jpg);
+}
+
+.slider-item03 {
+	background:url(../img/sunset.jpg);
+}
+
+.slider-item {
+	width: 100%;/*各スライダー全体の横幅を画面の高さいっぱい（100%）にする*/
+	height:90vh;/*各スライダー全体の縦幅を（80vh）にする*/
+	background-repeat: no-repeat;/*背景画像をリピートしない*/
+	background-position: center;/*背景画像の位置を中央に*/
+	background-size: cover;
+	/*背景画像が.slider-item全体を覆い表示*/
+}
+
+
