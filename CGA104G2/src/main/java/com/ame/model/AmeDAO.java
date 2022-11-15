@@ -22,7 +22,7 @@ public class AmeDAO implements AmeDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Test01");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Community");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

@@ -19,13 +19,13 @@ public class RecordDAO implements RecordDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Test01");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Community");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 	    private static final String INSERT_STMT = 
-			"INSERT INTO RECORD (RECORD_ID, MEMBER_ID, AME_ID, RECORD_DATE, RECORD_STATIME, RECORD_COUNT, RECORD_STATUS) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			"INSERT INTO RECORD (MEMBER_ID, AME_ID, RECORD_DATE, RECORD_STATIME, RECORD_COUNT) VALUES (?, ?, ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
 			"SELECT RECORD_ID, MEMBER_ID, AME_ID, RECORD_DATE, RECORD_STATIME, RECORD_COUNT, RECORD_STATUS FROM RECORD order by RECORD_ID";
 		private static final String GET_SOME_STMT = 
@@ -42,13 +42,11 @@ public class RecordDAO implements RecordDAO_interface {
 				con = ds.getConnection();
 				ps = con.prepareStatement(INSERT_STMT);
 				
-				ps.setInt(1, recordVO.getRecordId());
-				ps.setInt(2, recordVO.getMemberId());
-				ps.setInt(3, recordVO.getAmeId());
-				ps.setDate(4, recordVO.getRecordDate());
-				ps.setTime(5, recordVO.getRecordStatime());
-				ps.setInt(6, recordVO.getRecordCount());
-				ps.setInt(7, recordVO.getRecordStatus());
+				ps.setInt(1, recordVO.getMemberId());
+				ps.setInt(2, recordVO.getAmeId());
+				ps.setDate(3, recordVO.getRecordDate());
+				ps.setTime(4, recordVO.getRecordStatime());
+				ps.setInt(5, recordVO.getRecordCount());
 				
 				ps.executeUpdate();
 			} catch (SQLException se) {

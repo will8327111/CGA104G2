@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AmeJDBCDAO implements AmeDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/test01?serverTimezone=Asia/Taipei";
+	String url = "jdbc:mysql://localhost:3306/Community?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "password";
  

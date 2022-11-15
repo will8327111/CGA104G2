@@ -17,7 +17,7 @@ import javax.servlet.http.Part;
 import com.ame.model.AmeService;
 import com.ame.model.AmeVO;
 
-@WebServlet("/ame/ame.do")
+@WebServlet("/ame.do")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 10 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class Ame_Servlet extends HttpServlet {
 
@@ -33,7 +33,7 @@ public class Ame_Servlet extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		if ("search".equals(action)) {
-			String url ="/back-end/ame/showAme.jsp";
+			String url ="/front-end/ame/showAme.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}

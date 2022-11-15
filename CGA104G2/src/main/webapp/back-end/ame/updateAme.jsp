@@ -93,12 +93,6 @@ int first = op.indexOf("0");
 int last = op.lastIndexOf("0");
 %> 
 	<table>
-	
-
-	
-	
-	
-	
 		<tr>
 			<td>開放時間 :</td>
 		 	<td><input type="text" name="ameOpenning" value="<%=ameVO.getAmeOpening()%>"></td> 

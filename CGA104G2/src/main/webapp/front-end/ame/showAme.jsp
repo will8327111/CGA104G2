@@ -37,7 +37,7 @@ th, td {
 			<td>
 				<h1>顯示</h1>
 				<h4>
-					<a href="/CGA104G2/back-end/ame/First.jsp">回首頁喔</a>
+					<a href="/CGA104G2/front-end/ame/watchAme.jsp">回瀏覽頁</a>
 				</h4>
 			</td>
 		</tr>
@@ -63,7 +63,7 @@ th, td {
 				<td>${ameVO.ameMax}</td>
 				<td>${ameVO.ameOpening}</td>
 				<td>
-					<form METHOD="post" ACTION="../../ame/ame_sta.do" style="margin-bottom: 0px;">
+					<form METHOD="post" ACTION="../CGA104G2/ame_sta.do" style="margin-bottom: 0px;">
 						<input type="hidden" name="action" value="doRecord">
 						<input type="hidden" name="ameid" value="${ameVO.ameId}"> 
 						<input type="submit" value="我要預約">

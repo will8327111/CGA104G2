@@ -32,15 +32,12 @@ th, td {
 			</td>
 		</tr>
 	</table>
-	<form METHOD="POST" ACTION="../../ame/ame.do" >
-		<input type="hidden" name="action" value="search">
-		<input type="submit" value="瀏覽公設">
-	</form><br><br>
-	<form METHOD="POST" ACTION="../../ame/ame.do" >
+	
+	<form METHOD="POST" ACTION="../../ame.do" >
 		<input type="hidden" name="action" value="addView">
 		<input type="submit" value="新增公設">
 	</form><br><br>
-	<form METHOD="POST" ACTION="../../ame/ame.do" >
+	<form METHOD="POST" ACTION="../../ame.do" >
 		<input type="hidden" name="action" value="control">
 		<input type="submit" value="管理公設">
 	</form><br><br>

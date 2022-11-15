@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -18,7 +18,7 @@ public class Ame_StateDAO implements Ame_StateDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Test01");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Community");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -26,9 +26,11 @@ public class Ame_StateDAO implements Ame_StateDAO_interface {
 	private static final String INSERT_STMT =
 			"INSERT INTO AME_STATE (AME_ID, RECORD_DATE, RECORD_STATIME) VALUES (?, ?, ?)";
 	private static final String UPDATE =
-			"UPDATE AME_STATE set AME_STATE_ID = ?, AME_ID = ?, RECORD_DATE = ?, RECORD_STATIME = ? where AME_STATE_ID = ?";
+			"UPDATE AME_STATE set RECORD_STATIME = ? where AME_STATE_ID = ?";
 	private static final String GET_SOME_STMT = 
 			"SELECT  AME_ID, RECORD_DATE, RECORD_STATIME FROM AME_STATE where AME_ID = ?";
+	private static final String SELECT_ONE = 
+			"SELECT  AME_STATE_ID FROM AME_STATE where AME_ID = ? and RECORD_DATE = ? ";
 
 
 	public void insert(Ame_StateVO ame_StateVO) {
@@ -51,11 +53,8 @@ public class Ame_StateDAO implements Ame_StateDAO_interface {
 			con = ds.getConnection();
 			ps = con.prepareStatement(UPDATE);
 
-			ps.setInt(1, ame_StateVO.getAmeStateId());
-			ps.setInt(2, ame_StateVO.getAmeId());
-			ps.setDate(3, ame_StateVO.getRecordDate());
-			ps.setString(4, ame_StateVO.getRecordStatime());
-			ps.setInt(5, ame_StateVO.getAmeStateId());
+			ps.setString(1, ame_StateVO.getRecordStatime());
+			ps.setInt(2, ame_StateVO.getAmeStateId());
 
 			ps.executeUpdate();
 
@@ -82,10 +81,54 @@ public class Ame_StateDAO implements Ame_StateDAO_interface {
 	}
 	
 	
-	public List<Ame_StateVO> showAme_Statime(Integer AME_ID) {
+	public Ame_StateVO selectByIdDate(Ame_StateVO ame_StateVO) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			ps = con.prepareStatement(SELECT_ONE);
+
+			ps.setInt(1, ame_StateVO.getAmeId());
+			ps.setDate(2, ame_StateVO.getRecordDate());
+			
+			rs = ps.executeQuery();
+			
+			Ame_StateVO tmpVO = new Ame_StateVO();
+			while (rs.next()) {
+				tmpVO.setAmeStateId(rs.getInt("AME_STATE_ID"));
+			}
+			
+			return tmpVO;
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	
+	
+	
+	public Map<String, String> showAme_Statime(Integer AME_ID) {
 		
-		List<Ame_StateVO> list = new ArrayList<Ame_StateVO>();
-		Ame_StateVO ame_StateVO = null;
+		Map<String, String> map = new HashMap<String, String>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -98,14 +141,32 @@ public class Ame_StateDAO implements Ame_StateDAO_interface {
 
 			rs = ps.executeQuery();
 			
+			
+			
 			while (rs.next()) {
-				ame_StateVO = new Ame_StateVO();
+				String key = "";
+				String value = "";
 //				ame_StateVO.setAmeId(rs.getInt("AME_ID"));
-				ame_StateVO.setRecordDate(rs.getDate("RECORD_DATE"));
-				ame_StateVO.setRecordStatime(rs.getString("RECORD_STATIME"));
-//				JSONArray list = JSONArray.fromObject(list1);
-				list.add(ame_StateVO);
+//				ame_StateVO.setRecordDate(rs.getDate("RECORD_DATE"));
+//				ame_StateVO.setRecordStatime(rs.getString("RECORD_STATIME"));
+//				list.add(ame_StateVO);
+				
+				key = rs.getDate("RECORD_DATE").toString();
+				value = rs.getString("RECORD_STATIME").toString();
+				map.put(key, value);
 			}
+			
+//			JSONArray jsonArray = new JSONArray();
+//	    List<Dto> dtoList = new ArrayList<>();
+//	    for (int i = 0; i< 5; i++){
+//	        JSONObject obj= new JSONObject();
+//	        Dto dto= new Dto();
+//	        dto.setId("100"+i);
+//	        dto.setTime("200"+i);
+//	        obj.put("id",dto.getId());
+//	        obj.put("time",dto.getTime());
+//	        jsonArray.add(obj);
+	    
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -132,7 +193,7 @@ public class Ame_StateDAO implements Ame_StateDAO_interface {
 				}
 			}
 		}
-		return list;
+		return map;
 	}
 	
 //	public List<Ame_StateVO> getAll(){
