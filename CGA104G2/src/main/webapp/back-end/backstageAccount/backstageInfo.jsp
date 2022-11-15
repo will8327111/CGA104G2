@@ -3,12 +3,8 @@
 <%@ page import="java.util.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-BackstageAccountVO backstageAccountVO = (BackstageAccountVO) session.getAttribute("backstageAccountVO");
-%>
-<%=backstageAccountVO == null%>
-<html>
 
+<html>
 <head>
 <meta charset="UTF-8">
 <title>管理員帳號與權限</title>
@@ -31,8 +27,9 @@ a {
 </head>
 
 <body>
-	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.jsp">
+	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
+		<input type="hidden" name="action" value="BackstageLogOut">
 			<input type="submit" value="登出" style="float: right">
 		</div>
 	</form>
@@ -45,13 +42,11 @@ a {
 
 	<div id="header">
 		<h1>管理員帳號及權限管理 </h1>
-		<h1>${backstageAccountVO.bmId}</h1>
 	</div>
 
 	<form method="get"
 		action="<%=request.getContextPath()%>/back-end/backstageAccount/listOneInfo.jsp">
 		<div>
-			<input type="hidden" name="bmId" value="${backstageAccountVO.bmId}">
 			<input type="submit" value="我的資訊">
 		</div>
 	</form>

@@ -25,7 +25,7 @@ tr, td {
 </head>
 
 <body>
-<form method="get" action="MemberLogOut.do">
+<form method="get" action="<%=request.getContextPath()%>/front-end/memberLogin/memberLogin.jsp">
 	<div>
 		<h1>${memberLoginVO.memberName}您好，歡迎登入住戶管理系統！</h1>
 	</div>
@@ -78,7 +78,6 @@ tr, td {
 	</table>
 	<br>
 	<div>
-	<input type="hidden" name="action" value="textForLogOut"> <span>
 		<input type="submit" value="登出" name="logOut">
 	</div>
 </form>

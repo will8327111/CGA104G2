@@ -2,18 +2,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%
-BackstageAccountVO backstageAccountVO = (BackstageAccountVO) session.getAttribute("backstageAccountVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
-%>
-<%=backstageAccountVO == null%>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>我的基本資料</title>
 </head>
 <body>
-	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.jsp">
+	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
+		<input type="hidden" name="action" value="BackstageLogOut">
 			<input type="submit" value="登出" style="float: right">
 		</div>
 	</form>

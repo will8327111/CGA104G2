@@ -22,13 +22,30 @@ public class BackstageAuthorizationService {
 
 		return backstageAuthorizationVO;
 	};
+	
+	public BackstageAuthorizationVO getOneBmName(Integer bmId) {
 
+		return dao.getOneBmName(bmId);
+	};
+	
 	public void delete(Integer bmId, Integer bmCapabilitiesId) {
 		dao.delete(bmId, bmCapabilitiesId);
+	};
+	
+	public List<BackstageAuthorizationVO> getSelectedAuthorization(Integer bmId){
+		return dao.getSelectedAuthorization(bmId);
 	};
 	
 	public List<BackstageAuthorizationVO> getAll(){
 		return dao.getAll();
 	};
 
+	public List<BackstageAuthorizationVO> getBmIdAndBmName(){
+		return dao.getBmIdAndBmName();
+	};
+	
+	public List<BackstageAuthorizationVO> getBmCapIdAndBmCapName(){
+		return dao.getBmCapIdAndBmCapName();
+	};
+	
 }

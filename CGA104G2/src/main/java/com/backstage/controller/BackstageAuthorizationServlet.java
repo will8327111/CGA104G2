@@ -2,8 +2,10 @@ package com.backstage.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +20,7 @@ import com.backstageAccount.model.BackstageAccountVO;
 import com.backstageAuthorization.model.BackstageAuthorizationService;
 import com.backstageAuthorization.model.BackstageAuthorizationVO;
 import com.backstageCapabilities.model.BackstageCapabilitiesService;
+import com.backstageCapabilities.model.BackstageCapabilitiesVO;
 
 @WebServlet("/back-end/backstageAuthorization/BackstageAuthorization.do")
 public class BackstageAuthorizationServlet extends HttpServlet {
@@ -32,40 +35,28 @@ public class BackstageAuthorizationServlet extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
-
-
-		if ("getAll".equals(action)) { // 來自listAllEmp.jsp
-			BackstageAuthorizationService backstageAuthorizationSvc = new BackstageAuthorizationService();
-			PrintWriter out = res.getWriter();
-			out.write(backstageAuthorizationSvc.getAll().toString());
-
-			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+		
+		if ("getAll".equals(action)) { 
 			String url = "/back-end/backstageAuthorization/listAllAuthorization.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		}
+		
+		if ("selectOneAuthorization".equals(action)) { 
+			Integer bmId = Integer.parseInt(req.getParameter("selectedBmId"));
+			req.setAttribute("bmId", bmId);
+			String url = "/back-end/backstageAuthorization/selectOneAuthorization.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 
 		if ("insert".equals(action)) { // 來自update_emp_input.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-			Integer bmId = null;
-			try {
-				bmId = Integer.valueOf(req.getParameter("bmId").trim());
-			} catch (NumberFormatException e) {
-				errorMsgs.add("管理員編號不得為空");
-			}
-
-			Integer bmCapabilitiesId = null;
-			try {
-				bmCapabilitiesId = Integer.valueOf(req.getParameter("bmCapabilitiesId").trim());
-			} catch (NumberFormatException e) {
-				errorMsgs.add("權限功能編號不得為空");
-			}
-
+			Integer bmId = Integer.parseInt(req.getParameter("bmId").trim());
+			Integer bmCapabilitiesId = Integer.parseInt(req.getParameter("bmCapabilitiesId").trim());
 			/*************************************************/
 			BackstageAuthorizationVO backstageAuthorizationVO = new BackstageAuthorizationVO();
 			backstageAuthorizationVO.setBmId(bmId);
@@ -73,7 +64,7 @@ public class BackstageAuthorizationServlet extends HttpServlet {
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("backstageAuthorizationVO", backstageAuthorizationVO); // 含有輸入格式錯誤的empVO物件,也存入req
+//				req.setAttribute("backstageAuthorizationVO", backstageAuthorizationVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-end/backstageAuthorization/addAuthorization.jsp");
 				failureView.forward(req, res);
@@ -83,9 +74,13 @@ public class BackstageAuthorizationServlet extends HttpServlet {
 			/*************************** 2.開始新增資料 *****************************************/
 			BackstageAuthorizationService backstageAuthorizationSvc = new BackstageAuthorizationService();
 			backstageAuthorizationVO = backstageAuthorizationSvc.insert(bmId, bmCapabilitiesId);
-
+			
 			/*************************** 3.新增完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("backstageAuthorizationVO", backstageAuthorizationVO); // 資料庫insert成功後,正確的的empVO物件,存入req
+
+//			String param = "?bmId=" + backstageAuthorizationVO.getBmId() + "&bmName=" + backstageAuthorizationVO.getBmName() +
+//					"&bmCapabilitiesId=" + backstageAuthorizationVO.getBmCapabilitiesId() + 
+//					"&bmCapabilitiesName=" + backstageAuthorizationVO.getBmCapabilitiesName();
+			
 			String url = "/back-end/backstageAuthorization/listAllAuthorization.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);

@@ -5,7 +5,7 @@
 
 <%
 BackstageAccountService backstageAccountSvc = new BackstageAccountService();
-List<BackstageAccountVO> list = backstageAccountSvc.getAll();
+List<BackstageAccountVO> list = backstageAccountSvc.getAll();  // 設定Account的getAll集合
 pageContext.setAttribute("list", list);
 %>
 <html>
@@ -15,8 +15,9 @@ pageContext.setAttribute("list", list);
 </head>
 <body>
 
-	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.jsp">
+	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
+		<input type="hidden" name="action" value="BackstageLogOut">
 			<input type="submit" value="登出" style="float: right">
 		</div>
 	</form>

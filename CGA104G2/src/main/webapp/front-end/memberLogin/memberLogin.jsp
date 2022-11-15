@@ -18,7 +18,7 @@
 
 </head>
 <body>
-	<form method="get" action="MemberLogin.do">
+	<form method="get" action="<%=request.getContextPath()%>/front-end/memberLogin/MemberLogin.do">
 		<div id="border">
 			<div>
 				帳號: <input type="text" name="member_ac" ><span>

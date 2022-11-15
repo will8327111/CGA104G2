@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.memberLogin.model.MemberLoginService;
 import com.memberLogin.model.MemberLoginVO;
 
-@WebServlet("/front-end/MemberLogin.do")
+@WebServlet("/front-end/memberLogin/MemberLogin.do")
 public class MemberLoginServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -36,7 +36,7 @@ public class MemberLoginServlet extends HttpServlet {
 				}
 //				 Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberLogin.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberLogin/memberLogin.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -45,7 +45,7 @@ public class MemberLoginServlet extends HttpServlet {
 					errorMsgs.add("請輸入密碼");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberLogin.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberLogin/memberLogin.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -57,13 +57,13 @@ public class MemberLoginServlet extends HttpServlet {
 					errorMsgs.add("查無資料");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberLogin.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberLogin/memberLogin.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 //			=========================================資料驗證跳轉(Send the Success view) ================
 				req.setAttribute("memberLoginVO", memberLoginVO); 
-				String url = "/front-end/frontendIndex.jsp";
+				String url = "/front-end/memberLogin/memberInfo.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 			}

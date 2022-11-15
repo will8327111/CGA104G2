@@ -6,20 +6,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-BackstageAuthorizationService backstageAuthorizationSvc = new BackstageAuthorizationService();
-List<BackstageAuthorizationVO> list1 = backstageAuthorizationSvc.getAll();
-pageContext.setAttribute("list1", list1);// 給顯示所有管理員的權限功能使用的list
-%>
-<%
 BackstageAuthorizationService backstageAuthorizationSvc2 = new BackstageAuthorizationService();
 List<BackstageAuthorizationVO> list3 = backstageAuthorizationSvc2.getBmIdAndBmName();
-pageContext.setAttribute("list3", list3);// 給複合查詢使用的list
-%>
+pageContext.setAttribute("list3", list3);
 
+Integer bmId = (Integer)request.getAttribute("bmId");
+BackstageAuthorizationService backstageAuthorizationSvc3 = new BackstageAuthorizationService();
+List<BackstageAuthorizationVO> list4 = backstageAuthorizationSvc3.getSelectedAuthorization(bmId);
+pageContext.setAttribute("list4", list4);
+
+BackstageAuthorizationService test = new BackstageAuthorizationService();
+BackstageAuthorizationVO backstageAuthorizationVO = test.getOneBmName(bmId);
+pageContext.setAttribute("backstageAuthorizationVO", backstageAuthorizationVO);
+%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>所有管理員權限功能</title>
+<title>個人權限功能</title>
 </head>
 <body>
 
@@ -32,7 +35,7 @@ pageContext.setAttribute("list3", list3);// 給複合查詢使用的list
 	</form>
 
 	<form method="get"
-		action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageInfo.jsp">
+		action="<%=request.getContextPath()%>/back-end/backstageAuthorization/listAllAuthorization.jsp">
 		<div>
 			<input type="submit" value="返回上一頁">
 		</div>
@@ -51,11 +54,16 @@ pageContext.setAttribute("list3", list3);// 給複合查詢使用的list
 					<FORM METHOD="get"
 						ACTION="<%=request.getContextPath()%>/back-end/backstageAuthorization/BackstageAuthorization.do">
 						<b>選擇管理員姓名:</b> <select name="selectedBmId">
+						
 							<c:forEach var="backstageAuthorizationVO" items="${list3}">
-								<option value="${backstageAuthorizationVO.bmId}">${backstageAuthorizationVO.bmName}
+								<option value="${backstageAuthorizationVO.bmId}"
+								<c:if test="${backstageAuthorizationVO.bmId == selectedBmId}">selected</c:if>>${backstageAuthorizationVO.bmName}
+								</option>
 							</c:forEach>
-						</select> <input type="hidden" name="action" value="selectOneAuthorization"> 
-						<input type="submit" value="送出">
+						</select> 
+						
+						<input type="hidden" name="action" value="selectOneAuthorization"> <input
+							type="submit" value="送出">
 					</FORM>
 				</li>
 
@@ -72,7 +80,7 @@ pageContext.setAttribute("list3", list3);// 給複合查詢使用的list
 				</div>
 			</caption>
 		</tr>
-		<c:forEach var="backstageAuthorizationVO" items="${list1}">
+		<c:forEach var="backstageAuthorizationVO" items="${list4}">
 
 			<tr>
 				<th>管理員編號</th>
