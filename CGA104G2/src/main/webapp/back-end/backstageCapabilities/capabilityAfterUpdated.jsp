@@ -12,8 +12,9 @@ BackstageCapabilitiesVO backstageCapabilitiesVO = (BackstageCapabilitiesVO) requ
 <title>權限功能修改完成!</title>
 </head>
 <body>
-<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.jsp">
+<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
+		<input type="hidden" name="action" value="BackstageLogOut">
 			<input type="submit" value="登出" style="float: right">
 		</div>
 	</form>

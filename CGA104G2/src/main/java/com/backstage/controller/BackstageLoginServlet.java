@@ -19,6 +19,10 @@ import javax.servlet.http.HttpSession;
 
 import com.backstageAccount.model.BackstageAccountService;
 import com.backstageAccount.model.BackstageAccountVO;
+import com.backstageAuthorization.model.BackstageAuthorizationService;
+import com.backstageAuthorization.model.BackstageAuthorizationVO;
+import com.backstageCapabilities.model.BackstageCapabilitiesService;
+import com.backstageCapabilities.model.BackstageCapabilitiesVO;
 import com.mysql.cj.Session;
 
 @WebServlet("/back-end/backstageAccount/backstageLogin.do")
@@ -47,7 +51,8 @@ public class BackstageLoginServlet extends HttpServlet {
 					errorMsgs.add("請輸入帳號和密碼!");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageAccount/backstageLogin.jsp");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/backstageAccount/backstageLogin.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -55,9 +60,10 @@ public class BackstageLoginServlet extends HttpServlet {
 				if ((bmAccount == null || (bmAccount.trim()).length() == 0) && (bmPassword != null)) {
 					errorMsgs.add("請輸入帳號");
 				}
-//				 Send the use back to the form, if there were errors
+
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageAccount/backstageLogin.jsp");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/backstageAccount/backstageLogin.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -66,27 +72,33 @@ public class BackstageLoginServlet extends HttpServlet {
 					errorMsgs.add("請輸入密碼");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageAccount/backstageLogin.jsp");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/backstageAccount/backstageLogin.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 
-//			=============================================================================================
+//			===========================================依帳號密碼驗證==================================================
 				BackstageAccountService backstageAccountSvc = new BackstageAccountService();
 				BackstageAccountVO backstageAccountVO = backstageAccountSvc.findByAcAndPwd(bmAccount, bmPassword);
 				if (backstageAccountVO == null) {
 					errorMsgs.add("查無資料");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageAccount/backstageLogin.jsp");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/backstageAccount/backstageLogin.jsp");
 					failureView.forward(req, res);
 					return;
 				}
-//			=========================================資料驗證跳轉(Send the Success view) ================
-				session.setAttribute("backstageAccountVO", backstageAccountVO);
+
+//	 			=======================================登入後以session存取所有管理員的資訊=================================================
+				session.setAttribute("backstageAccountVO", backstageAccountVO); // 設定VO物件
+
+//				=========================================資料驗證跳轉(Send the Success view) ================
 				String url = "/back-end/backstageAccount/backstageIndex.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+
 			}
 
 //			========================================忘記密碼寄送錯誤訊息====================================================
@@ -99,7 +111,8 @@ public class BackstageLoginServlet extends HttpServlet {
 					sendMsgs.add("請輸入帳號和電子郵件!");
 				}
 				if (!sendMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageGetPassword/passwordForgotten.jsp");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/backstageGetPassword/passwordForgotten.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -109,7 +122,8 @@ public class BackstageLoginServlet extends HttpServlet {
 				}
 //				 Send the use back to the form, if there were errors
 				if (!sendMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageGetPassword/passwordForgotten.jsp");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/backstageGetPassword/passwordForgotten.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -118,7 +132,8 @@ public class BackstageLoginServlet extends HttpServlet {
 					sendMsgs.add("請輸入Email");
 				}
 				if (!sendMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageGetPassword/passwordForgotten.jsp");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/backstageGetPassword/passwordForgotten.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -129,7 +144,8 @@ public class BackstageLoginServlet extends HttpServlet {
 					sendMsgs.add("查無此帳號和電子郵件!");
 				}
 				if (!sendMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageGetPassword/passwordForgotten.jsp");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/backstageGetPassword/passwordForgotten.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -139,17 +155,18 @@ public class BackstageLoginServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}
-			
+
 //			=======================================================================
 			if ("sendConfirmation".equals(action)) {
 				List<String> sendMsgs = new LinkedList<String>();
 				req.setAttribute("sendMsgs", sendMsgs);
 
-				if (confirmCode == null || (confirmCode.trim().length() == 0)){
+				if (confirmCode == null || (confirmCode.trim().length() == 0)) {
 					sendMsgs.add("請輸入驗證碼!");
 				}
 				if (!sendMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageGetPassword/confirmationResend.jsp");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/backstageGetPassword/confirmationResend.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -171,10 +188,15 @@ public class BackstageLoginServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}
-			
-			
-			
-			
+
+//			=========================================登出 ================
+			if ("BackstageLogOut".equals(action)) {
+				session.invalidate();
+				String url = "/back-end/backstageAccount/backstageLogin.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			}
+
 //			===============================================驗證碼排程器==============================================
 //			if ("TimeTest".equals(action)) {
 //				timer = new Timer();

@@ -306,13 +306,13 @@ public class BackstageCapabilitiesJDBCDAO implements BackstageCapabilitiesDAO_in
 //			System.out.print(backstageCapabilitiesVO3.getBmCapabilitiesContent() + ",");
 		
 		// 查詢全部
-//		List<BackstageCapabilitiesVO> list = backstageCapabilitiesJDBCDAO.getAll();
-//		for (BackstageCapabilitiesVO aBackstageCapabilities : list) {
-//			System.out.print(aBackstageCapabilities.getBmCapabilitiesId() + ",");
-//			System.out.print(aBackstageCapabilities.getBmCapabilitiesName() + ",");
-//			System.out.print(aBackstageCapabilities.getBmCapabilitiesContent() + ",");
-//			System.out.println();
-//		}
+		List<BackstageCapabilitiesVO> list = backstageCapabilitiesJDBCDAO.getAll();
+		for (BackstageCapabilitiesVO aBackstageCapabilities : list) {
+			System.out.print(aBackstageCapabilities.getBmCapabilitiesId() + ",");
+			System.out.print(aBackstageCapabilities.getBmCapabilitiesName() + ",");
+			System.out.print(aBackstageCapabilities.getBmCapabilitiesContent() + ",");
+			System.out.println();
+		}
 		
 	}
 	

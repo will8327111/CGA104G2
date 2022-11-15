@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style>
+table#table-1 {
+	background-color: #CCCCFF;
+	border: 2px solid black;
+	text-align: center;
+}
+
+table#table-1 h4 {
+	color: red;
+	display: block;
+	margin-bottom: 1px;
+}
+
+h4 {
+	color: blue;
+	display: inline;
+}
+
+#getStoreAll {
+	border: 1px solid #CCCCFF;
+	width: 800px;
+	background-color: white;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#getStoreAll th {
+	border: 1px solid #CCCCFF;
+	padding: 5px;
+	text-align: center;
+}
+
+#getStoreAll td {
+	border: 1px solid #CCCCFF;
+	padding: 5px;
+	text-align: center;
+}
+</style>
+</head>
+
+<body >
+	<table id='getStoreAll'>
+		<tr id='tr'>
+			<th>商店編號</th>
+			<th>商店項目編號</th>
+			<th>商店內容</th>
+			<th>商店位置</th>
+			<th>商店經度</th>
+			<th>商店緯度</th>
+<!-- 			<th>商店圖片</th> -->
+			<th>修改</th>
+			<th>刪除</th>
+		</tr>
+	</table>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+	<script>
+		
+		 function showStore(json){
+	    	
+	    	let store = JSON.parse(json);
+			
+	    	for(let i = 0; i < store.length ; i++){
+	    		let str = null;
+	    		str+= "<tr><td>" + store[i].storeId + "</td>"
+            	+"<td>" + store[i].storeTypeId + "</td>"
+            	+"<td>" + store[i].storeInfo + "</td>"
+            	+"<td>" + store[i].storeLoc + "</td>"
+            	+"<td>" + store[i].storeLon + "</td>"
+            	+"<td>" + store[i].storeLat + "</td>"
+            	+"<td><img src=data:image/jpeg;base64 ,"+ store[i].storePhoto +"></td>"
+				+"<td><FORM METHOD='post' ACTION='#' style='margin-bottom: 0px;'>"
+	        	+"<input type='submit' value='修改'></td>"
+	        	+"<td><FORM METHOD='post' ACTION='#' style='margin-bottom: 0px;'>"
+	        	+"<input type='submit' value='刪除'></td></tr>";
+	        	
+// 	         	+"<td><img src = '/Community_Management/back-end/store/store.do?action=get&store_Id='"+ store[i].storeId +"></td>";
+	        	   
+	        	$("#tr").after(str); 
+	    	}
+	    }
+
+	    function getStore(){
+            let xhr = new XMLHttpRequest();
+            
+            xhr.onload = function(){
+	            if(xhr.status == 200){
+	            	showStore(xhr.responseText);
+	       		}else{
+	                alert(xhr.status);
+	       		}
+            }
+        	
+	         //建立好Post連接
+	        xhr.open("get", "/CGA104G2/back-end/store/store.do?action=getAll", true);
+	        xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+	        //送出請求
+	        xhr.send();
+        }
+    	
+       
+    </script>
+</body>
+
+</html>

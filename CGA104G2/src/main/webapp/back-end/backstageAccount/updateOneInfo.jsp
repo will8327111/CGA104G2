@@ -2,9 +2,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%
+<%-- 
 BackstageAccountVO backstageAccountVO = (BackstageAccountVO) session.getAttribute("backstageAccountVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
-%>
+--%>
 
 <html>
 <head>
@@ -13,8 +13,9 @@ BackstageAccountVO backstageAccountVO = (BackstageAccountVO) session.getAttribut
 </head>
 <body>
 
-	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.jsp">
+	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
+		<input type="hidden" name="action" value="BackstageLogOut">
 			<input type="submit" value="登出" style="float: right">
 		</div>
 	</form>
@@ -42,37 +43,40 @@ BackstageAccountVO backstageAccountVO = (BackstageAccountVO) session.getAttribut
 		<table>
 			<tr>
 				<td>管理員編號:<font color=red><b>*</b></font></td>
-				<td><%=backstageAccountVO.getBmId()%></td>
+				<td>${param.bmId}</td>
 			</tr>
 			<tr>
 				<td>管理員姓名:</td>
 				<td><input type="TEXT" name="bmName" size="45"
-					value="<%=backstageAccountVO.getBmName()%>" /><span style="color:red">${errorMsgs}</span></td>
+					value="${param.bmName}" /><span style="color:red">${errorMsgs.bmName}</span></td>
 			</tr>
 			<tr>
 				<td>帳號:</td>
 				<td><input type="TEXT" name="bmAccount" size="45"
-					value="<%=backstageAccountVO.getBmAccount()%>" /></td>
+					value="${param.bmAccount}" /><span style="color:red">${errorMsgs.bmAccount}</span></td>
 			</tr>
 			<tr>
 				<td>密碼:</td>
 				<td><input type="TEXT" name="bmPassword" size="45"
-					value="<%=backstageAccountVO.getBmPassword()%>"></td>
+					value="${param.bmPassword}"><span style="color:red">${errorMsgs.bmPassword}</span></td>
 			</tr>
 			<tr>
 				<td>電子郵件:</td>
 				<td><input type="TEXT" name="bmEmail" size="45"
-					value="<%=backstageAccountVO.getBmEmail()%>" /></td>
+					value="${param.bmEmail}" /><span style="color:red">${errorMsgs.bmEmail}</span></td>
 			</tr>
 			<tr>
 				<td>帳號狀態:</td>
-				<td><input type="TEXT" name="bmStatus" size="45"
-					value="<%=backstageAccountVO.getBmStatus()%>" /></td>
+				<td><select class="Status" name="bmStatus">
+				<option value="0" ${(backstageAccountVO.bmStatus==0)? 'selected': ''}>停用</option>
+				<option value="1" ${(backstageAccountVO.bmStatus==0)? 'selected': ''}>啟用</option>
+				</select>
+				</td>
 			</tr>
 
 		</table>
 		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="bmId" value="<%=backstageAccountVO.getBmId()%>">
+			type="hidden" name="bmId" value="${param.bmId}">
 		<input type="submit" value="送出修改">
 	</FORM>
 </body>

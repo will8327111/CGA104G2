@@ -4,11 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-Integer bmId = (Integer)session.getAttribute("bmId");
+Integer bmId = (Integer) session.getAttribute("bmId");
 BackstageAccountService backstageAccountSvc = new BackstageAccountService(); // List
 List<BackstageAccountVO> list = backstageAccountSvc.findOneAuthorization(bmId); //
-pageContext.setAttribute("list", list); 
-%> 
+pageContext.setAttribute("list", list);
+%>
 
 <html>
 <head>
@@ -18,9 +18,10 @@ pageContext.setAttribute("list", list);
 <body>
 
 	<form method="get"
-		action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.jsp">
+		action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
-			<input type="submit" value="登出" style="float: right">
+			<input type="hidden" name="action" value="BackstageLogOut"> <input
+				type="submit" value="登出" style="float: right">
 		</div>
 	</form>
 

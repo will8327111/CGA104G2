@@ -19,7 +19,8 @@
 			<th>
 				<FORM METHOD="get"
 					ACTION="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do"
-					style="margin-bottom: 0px;">
+					style="margin-bottom: 0px">
+					
 					<div>
 						原帳號: <input type="text" name="bmAccount">
 					</div>

@@ -2,8 +2,10 @@ package com.backstage.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
 
 import com.backstageAccount.model.BackstageAccountService;
 import com.backstageAccount.model.BackstageAccountVO;
@@ -30,17 +33,17 @@ public class BackstageAccountInfoServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
 
-		if ("getOne_for_Authorization".equals(action)) { // 來自listAllEmp.jsp
+		if ("getOne_for_Authorization".equals(action)) {
 			Integer bmId = Integer.parseInt(req.getParameter("bmId"));
-			req.getSession().setAttribute("bmId", bmId);
+			session.setAttribute("bmId", bmId);
 			String url = "/back-end/backstageAuthorization/listOneAuthorization.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 
 		if ("getOne_For_Update".equals(action)) {
 
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 ****************************************/
@@ -52,50 +55,51 @@ public class BackstageAccountInfoServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			session.setAttribute("backstageAccountVO", backstageAccountVO);
-			
-//			String param = "?bmId=" + backstageAccountVO.getBmId()+
-//					"&bmName=" + backstageAccountVO.getBmName()+
-//					"&bmAccount=" + backstageAccountVO.getBmAccount()+
-//					"&bmPassword=" + backstageAccountVO.getBmPassword()+
-//					"&bmEmail=" + backstageAccountVO.getBmEmail()+
-//					"&bmStatus=" + backstageAccountVO.getBmStatus();
-					
-			String url = "/back-end/backstageAccount/updateOneInfo.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+
+			String param = "?bmId=" + backstageAccountVO.getBmId() + "&bmName=" + backstageAccountVO.getBmName()
+					+ "&bmAccount=" + backstageAccountVO.getBmAccount() + "&bmPassword="
+					+ backstageAccountVO.getBmPassword() + "&bmEmail=" + backstageAccountVO.getBmEmail() + "&bmStatus="
+					+ backstageAccountVO.getBmStatus();
+			String url = "/back-end/backstageAccount/updateOneInfo.jsp" + param;
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 
-		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
+		if ("update".equals(action)) {
 
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer bmId = Integer.valueOf(req.getParameter("bmId").trim());
 
 			String bmName = req.getParameter("bmName");
-			String bmNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			String bmNameReg = "^[(\u4e00-\u9fa5)]{2,5}$";
+			String bmAcAndPwReg = "^[(a-zA-Z0-9_)]{6,12}$";
+			String bmEmailReg;
 			if (bmName == null || bmName.trim().length() == 0) {
-				errorMsgs.add("管理員姓名: 請勿空白");
-			} else if (!bmName.trim().matches(bmNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("管理員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				errorMsgs.put("bmName", "管理員姓名: 請勿空白");
+			} else if (!bmName.trim().matches(bmNameReg)) {
+				errorMsgs.put("bmName", "管理員姓名: 只能是中文字母, 且長度必需在2到5之間");
 			}
 
 			String bmAccount = req.getParameter("bmAccount").trim();
 			if (bmAccount == null || bmAccount.trim().length() == 0) {
-				errorMsgs.add("帳號請勿空白");
+				errorMsgs.put("bmAccount", "帳號: 請勿空白");
+			}else if (!bmAccount.trim().matches(bmAcAndPwReg)) {
+				errorMsgs.put("bmAccount", "管理員帳號: 只能是英文字母或數字, 且長度必需在6到12之間");
 			}
 
 			String bmPassword = req.getParameter("bmPassword").trim();
 			if (bmPassword == null || bmPassword.trim().length() == 0) {
-				errorMsgs.add("密碼請勿空白");
+				errorMsgs.put("bmPassword", "密碼: 請勿空白");
+			}else if (!bmPassword.trim().matches(bmAcAndPwReg)) {
+				errorMsgs.put("bmPassword", "管理員密碼: 只能是英文字母或數字, 且長度必需在6到12之間");
 			}
 
 			String bmEmail = req.getParameter("bmEmail").trim();
 			if (bmEmail == null || bmEmail.trim().length() == 0) {
-				errorMsgs.add("電子郵件請勿空白");
+				errorMsgs.put("bmEmail", "電子郵件: 請勿空白");
 			}
 
 			Integer bmStatus = Integer.parseInt(req.getParameter("bmStatus").trim());
@@ -108,9 +112,8 @@ public class BackstageAccountInfoServlet extends HttpServlet {
 			backstageAccountVO.setBmEmail(bmEmail);
 			backstageAccountVO.setBmStatus(bmStatus);
 
-			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("BackstageAccountVO", backstageAccountVO); // 含有輸入格式錯誤的empVO物件,也存入req
+//				req.setAttribute("backstageAccountVO", backstageAccountVO); 
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-end/backstageAccount/updateOneInfo.jsp");
 				failureView.forward(req, res);
@@ -122,60 +125,56 @@ public class BackstageAccountInfoServlet extends HttpServlet {
 			backstageAccountVO = backstageAccountSvc.update(bmId, bmName, bmAccount, bmPassword, bmEmail, bmStatus);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("backstageAccountVO", backstageAccountVO); // 資料庫update成功後,正確的的empVO物件,存入req
+			req.setAttribute("backstageAccountVO", backstageAccountVO);
 			String url = "/back-end/backstageAccount/listAllInfo.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 
-		if ("insert".equals(action)) { // 來自update_emp_input.jsp的請求
+		if ("insert".equals(action)) {
 
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String bmName = req.getParameter("bmName");
-			String bmNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			String bmNameReg = "^[(\u4e00-\u9fa5)]{2,5}$";
+			String bmAcAndPwReg = "^[(a-zA-Z0-9_)]{6,12}$";
+			String bmEmailReg;
 			if (bmName == null || bmName.trim().length() == 0) {
-				errorMsgs.add("管理員姓名: 請勿空白");
-			} else if (!bmName.trim().matches(bmNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("管理員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+				errorMsgs.put("bmName", "管理員姓名: 請勿空白");
+			} else if (!bmName.trim().matches(bmNameReg)) {
+				errorMsgs.put("bmName", "管理員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 			}
 
 			String bmAccount = req.getParameter("bmAccount").trim();
 			if (bmAccount == null || bmAccount.trim().length() == 0) {
-				errorMsgs.add("帳號請勿空白");
+				errorMsgs.put("bmAccount", "帳號: 請勿空白");
+			} else if (!bmAccount.trim().matches(bmAcAndPwReg)) {
+				errorMsgs.put("bmAccount", "管理員帳號: 只能是英文字母或數字, 且長度必需在6到12之間");
 			}
 
 			String bmPassword = req.getParameter("bmPassword").trim();
 			if (bmPassword == null || bmPassword.trim().length() == 0) {
-				errorMsgs.add("密碼請勿空白");
+				errorMsgs.put("bmPassword", "密碼: 請勿空白");
+			}else if (!bmPassword.trim().matches(bmAcAndPwReg)) {
+				errorMsgs.put("bmPassword", "管理員密碼: 只能是英文字母或數字, 且長度必需在6到12之間");
 			}
 
 			String bmEmail = req.getParameter("bmEmail").trim();
 			if (bmEmail == null || bmEmail.trim().length() == 0) {
-				errorMsgs.add("電子郵件請勿空白");
+				errorMsgs.put("bmEmail", "電子郵件: 請勿空白");
 			}
 
-			Integer bmStatus = null;
-			try {
-				bmStatus = Integer.valueOf(req.getParameter("bmStatus").trim());
-			} catch (NumberFormatException e) {
-				bmStatus = 0;
-				errorMsgs.add("狀態不得為空");
-			}
+			Integer bmStatus = Integer.parseInt(req.getParameter("bmStatus").trim());
 
 			BackstageAccountVO backstageAccountVO = new BackstageAccountVO();
-//			backstageAccountVO.setBmId(bmId);
 			backstageAccountVO.setBmName(bmName);
 			backstageAccountVO.setBmAccount(bmAccount);
 			backstageAccountVO.setBmPassword(bmPassword);
 			backstageAccountVO.setBmEmail(bmEmail);
 			backstageAccountVO.setBmStatus(bmStatus);
 
-			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 //				req.setAttribute("backstageAccountVO", backstageAccountVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageAccount/addInfo.jsp");

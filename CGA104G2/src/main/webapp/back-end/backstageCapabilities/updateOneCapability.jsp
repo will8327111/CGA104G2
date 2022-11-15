@@ -2,9 +2,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%
+<%-- 
 BackstageCapabilitiesVO backstageCapabilitiesVO = (BackstageCapabilitiesVO) session.getAttribute("backstageCapabilitiesVO"); 
-%>
+--%>
 
 <html>
 <head>
@@ -12,8 +12,9 @@ BackstageCapabilitiesVO backstageCapabilitiesVO = (BackstageCapabilitiesVO) sess
 <title>修改功能頁面</title>
 </head>
 <body>
-	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.jsp">
+	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
+		<input type="hidden" name="action" value="BackstageLogOut">
 			<input type="submit" value="登出" style="float: right">
 		</div>
 	</form>
@@ -41,22 +42,22 @@ BackstageCapabilitiesVO backstageCapabilitiesVO = (BackstageCapabilitiesVO) sess
 		<table>
 			<tr>
 				<td>權限功能編號:<font color=red><b>*</b></font></td>
-				<td><%=backstageCapabilitiesVO.getBmCapabilitiesId()%></td>
+				<td>${param.bmCapabilitiesId}</td>
 			</tr>
 			<tr>
 				<td>權限功能名稱:</td>
 				<td><input type="TEXT" name="bmCapabilitiesName" size="45"
-					value="<%=backstageCapabilitiesVO.getBmCapabilitiesName()%>" /></td>
+					value="${param.bmCapabilitiesName}" /><span style="color:red">${errorMsgs.bmCapabilitiesName}</span></td>
 			</tr>
 			<tr>
 				<td>權限功能內容:</td>
 				<td><input type="TEXT" name="bmCapabilitiesContent" size="45"
-					value="<%=backstageCapabilitiesVO.getBmCapabilitiesContent()%>" /></td>
+					value="${param.bmCapabilitiesContent}" /><span style="color:red">${errorMsgs.bmCapabilitiesContent}</span></td>
 			</tr>
 
 		</table>
 		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="bmCapabilitiesId" value="<%=backstageCapabilitiesVO.getBmCapabilitiesId()%>">
+			type="hidden" name="bmCapabilitiesId" value="${param.bmCapabilitiesId}">
 		<input type="submit" value="送出修改">
 	</FORM>
 

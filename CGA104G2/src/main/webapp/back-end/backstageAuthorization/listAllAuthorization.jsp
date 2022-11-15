@@ -1,13 +1,19 @@
 <%@page import="com.backstageAuthorization.model.*"%>
 <%@page import="com.backstageAccount.model.*"%>
+<%@page import="com.backstageCapabilities.model.*"%>
 <%@ page import="java.util.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 BackstageAuthorizationService backstageAuthorizationSvc = new BackstageAuthorizationService();
-List<BackstageAuthorizationVO> list = backstageAuthorizationSvc.getAll();
-pageContext.setAttribute("list", list);
+List<BackstageAuthorizationVO> list1 = backstageAuthorizationSvc.getAll();
+pageContext.setAttribute("list1", list1);// 給顯示所有管理員的權限功能使用的list
+%>
+<%
+BackstageAuthorizationService backstageAuthorizationSvc2 = new BackstageAuthorizationService();
+List<BackstageAuthorizationVO> list3 = backstageAuthorizationSvc2.getBmIdAndBmName();
+pageContext.setAttribute("list3", list3);// 給複合查詢使用的list
 %>
 
 <html>
@@ -18,9 +24,10 @@ pageContext.setAttribute("list", list);
 <body>
 
 	<form method="get"
-		action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.jsp">
+		action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
-			<input type="submit" value="登出" style="float: right">
+			<input type="hidden" name="action" value="BackstageLogOut"> <input
+				type="submit" value="登出" style="float: right">
 		</div>
 	</form>
 
@@ -31,7 +38,7 @@ pageContext.setAttribute("list", list);
 		</div>
 	</form>
 
-	<table id="backstageInfo" border="2" >
+	<table id="backstageInfo" border="2">
 		<tr>
 			<h4>
 				<a
@@ -39,19 +46,20 @@ pageContext.setAttribute("list", list);
 			</h4>
 
 			<ul>
-			
-			<li>
-				<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/back-end/backstageAuthorization/BackstageAuthorization.do">
-					<b>選擇管理員姓名:</b> <select size="1" name="bmId">
-						<c:forEach var="backstageAuthorizationVO" items="${list}">
-							<option value="${backstageAuthorizationVO.bmId}">${backstageAuthorizationVO.bmName}
-						</c:forEach>
-					</select> <input type="hidden" name="action" value="getOne_For_Display">
-					<input type="submit" value="送出">
-				</FORM>
-				</li>
-			</ul>
 
+				<li>
+					<FORM METHOD="get"
+						ACTION="<%=request.getContextPath()%>/back-end/backstageAuthorization/BackstageAuthorization.do">
+						<b>選擇管理員姓名:</b> <select name="selectedBmId">
+							<c:forEach var="backstageAuthorizationVO" items="${list3}">
+								<option value="${backstageAuthorizationVO.bmId}">${backstageAuthorizationVO.bmName}
+							</c:forEach>
+						</select> <input type="hidden" name="action" value="selectOneAuthorization"> 
+						<input type="submit" value="送出">
+					</FORM>
+				</li>
+
+			</ul>
 			<caption>
 				<h2>所有管理員權限功能</h2>
 				<div>
@@ -64,8 +72,8 @@ pageContext.setAttribute("list", list);
 				</div>
 			</caption>
 		</tr>
-		<c:forEach var="backstageAuthorizationVO" items="${list}">
-		
+		<c:forEach var="backstageAuthorizationVO" items="${list1}">
+
 			<tr>
 				<th>管理員編號</th>
 				<th>管理員姓名</th>

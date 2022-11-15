@@ -15,8 +15,9 @@ pageContext.setAttribute("list", list);
 <title>權限功能列表</title>
 </head>
 <body>
-	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.jsp">
+	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
+		<input type="hidden" name="action" value="BackstageLogOut">
 			<input type="submit" value="登出" style="float: right">
 		</div>
 	</form>
@@ -37,7 +38,7 @@ pageContext.setAttribute("list", list);
 				<h1>權限功能列表</h1>
 				<div>
 					<FORM METHOD="get"
-						ACTION="<%=request.getContextPath()%>/back-end/backstageCapabilities/BackstageCapabilities.do"
+						ACTION="<%=request.getContextPath()%>/back-end/backstageCapabilities/addCapabilities.jsp"
 						style="margin-bottom: 0px;">
 						<input type="submit" value="新增權限功能" style="float: right">
 						<input type="hidden" name="action" value="insert">

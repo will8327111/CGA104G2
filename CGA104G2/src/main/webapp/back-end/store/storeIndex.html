@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../resources/datetimepicker/jquery.datetimepicker.css" />
+	<link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
+	<link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script>
+	
+    <title>storeIndex.jsp</title>
+    <style type="text/css">
+        .header {
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 5px;
+        }
+
+        #title {
+            background-color: #AAAAAA;
+            display: inline-block;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        .MainContainer {
+            min-width: 960px;
+            max-width: 1600px;
+        }
+
+        .sidebar {
+            margin-top: 0px;
+            background-color: #DDDDDD;
+            width: 20%;
+            float: left;
+            margin-right: -180px;
+            border-right: 1px solid #ccc;
+            min-height: 500px;
+            padding: 5px;
+        }
+
+        .li li {
+            list-style: none;
+        }
+
+        .main {
+            float: left;
+            margin-left: 200px;
+            padding: 5px;
+        }
+
+        .content {
+            padding: 0 10px;
+        }
+
+        #main {
+            display: inline-block;
+            width: 75%;
+            height: 490px;
+        }
+
+        table#table-1 {
+            background-color: #CCCCFF;
+            border: 2px solid black;
+            text-align: center;
+        }
+
+        table#table-1 h4 {
+            color: red;
+            display: block;
+            margin-bottom: 1px;
+        }
+
+        h4 {
+            color: blue;
+            display: inline;
+        }
+
+        #getAllStroe {
+            border: 1px solid #CCCCFF;
+            width: 800px;
+            background-color: white;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        #getAllStroe th {
+            border: 1px solid #CCCCFF;
+            padding: 5px;
+            text-align: center;
+            word-break: keep-all;
+        }
+
+        #getAllStroe td {
+            border: 1px solid #CCCCFF;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <div class="header">
+            <div id="title">
+                <h1>特約商店系統</h1>
+            </div>
+        </div>
+
+        <div class="MainContainer">
+            <div class="sidebar">
+                <ul>
+                    <li class="li">特約商店管理
+                       
+                    </li>
+                </ul>
+            </div>
+
+            <div id="main" class="main">
+
+                <div class="row center-sm">
+                    <div class="col-sm-12">
+                        <p>
+                            <button id="addMail">新增郵件</button>
+                        </p>
+                    </div>
+
+                    <div>
+                        <span>郵件種類</span> <select id="select_mailType" name="select_mailType">
+                            <option style="display: none;">請選擇</option>
+                        </select>
+                        <input type="text" id="search_mailID" placeholder="輸入郵件編號"> <input type="button" id="searchMail"
+                            value="搜尋">
+
+                    </div>
+                </div>
+
+                <div id="showAllMail" class="showAllMail">
+                    <table id="getAllStroe">
+                        <tr>
+                            <th>商店編號</th>
+                            <th>商店項目編號</th>
+                            <th>商店內容</th>
+                            <th>商店位置</th>
+                            <th>商店經度</th>
+                            <th>商店緯度</th>
+                            <th>圖片</th>
+                            <th>修改</th>
+                            <th>刪除</th>
+                        </tr>
+                        <tr id="allStroe">
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="../../resources/datetimepicker/jquery.js"></script>
+	<script src="../../resources/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+	
+    <script>
+
+        window.addEventListener("load",async function () {
+			await fetch('../../back-end/store/store.do?action=getAll', {
+				method: 'get'
+			})
+			.then(res => res.json())	
+			.then(res =>{
+				showStore(res);
+			})
+        });
+
+        async function showStore(json) {
+            let store = json;
+
+            for (let i = 0; i < store.length; i++) {
+                let str = null;
+                str += "<tr><td>" + store[i].storeId + "</td>"
+                	+"<td>" + store[i].storeTypeId + "</td>"
+                	+"<td>" + store[i].storeInfo + "</td>"
+                	+"<td>" + store[i].storeLoc + "</td>"
+                	+"<td>" + store[i].storeLon + "</td>"
+                	+"<td>" + store[i].storeLat + "</td>"
+                    + "<td id='prePhoto'><img width='150px' height='100px'src=data:image/jpeg;base64," + store[i].base64img + "></td>"
+                    + "<td><form action='store.do' method='POST' enctype='multipart/form-data'>"
+                    + "<input type='submit' value='修改'>"
+                    + "<input type='hidden' name='storeId' value='" + store[i].storeId + "'>"
+                    + "<input type='hidden' name='action' value='getOne_For_Update'></td></form>"
+                    + "<td><input type='button' id='delete' value='刪除'></td></tr>";
+                $("#allStroe").after(str);
+                //=====================================預覽圖片=============================================
+
+                //=====================================刪除按鈕=============================================
+                let actionDelete = document.getElementById("delete");
+            	actionDelete.addEventListener("click", function(){
+            		
+            		const swalWithBootstrapButtons = Swal.mixin({
+            			  customClass: {
+            			    confirmButton: 'btn btn-success',
+            			    cancelButton: 'btn btn-danger'
+            			  },
+            			  buttonsStyling: false
+            			})
+
+            			swalWithBootstrapButtons.fire({
+            			  title: '確定要刪除嗎?',
+            			  icon: 'warning',
+            			  confirmButtonText: '確定',
+            			  cancelButtonText: '取消',
+            			  showCancelButton: true
+            			  
+            			}).then((result) => {
+            			  if (result.isConfirmed) {
+            			    fetch('../../back-end/store/store.do?action=delete&storeId='+ store[i].storeId, {method: 'get',});
+            			  }
+            			  	refresh();
+            			}) 
+       			 })
+            }
+        }
+        window.addEventListener("load", function () {
+	        document.getElementById("addMail").onclick = function(){
+	        	Swal.fire({
+    	            title: "新增郵件",
+    	            html:"<form>"
+    	                + "<table class='content'>"
+    	                + "<tr><td>商店項目編號:</td><td><input type='text' id='addStoreTypeId' value='1'></td></tr>"
+    	                + "<tr><td>商店位置:</td><td><input type='text' id='addStoreLoc' value='桃園市中壢區'></td></tr>"
+    	                + "<tr><td>商店經度:</td><td><input type='text' id='addStoreLon' value='0.99999'></td></tr>"
+    	                + "<tr><td>商店緯度:</td><td><input type='text' id='addStoreLat' value='0.99999'></td></tr>"
+    	                + "<tr><td>商店圖片:</td><td><input id='addStorePhoto' type='file' width='150px' height='100px'></td></tr>"
+    	                + "<tr><td></td><td><img id=img width='150px' height='100px'></td></tr>"
+    	                + "<tr><td>商店內容:</td><td><textarea id='addStoreInfo' rows='10px' cols='30px'>餐廳餐廳餐廳餐廳餐廳餐廳餐廳餐廳餐廳餐廳</textarea></td></tr>"
+    	                + "</form>",
+    	            confirmButtonColor:'#3085d6',
+    	        	confirmButtonText:'確定',
+    	        	showCancelButton:true,
+    	        	cancelButtonText:'取消',
+    	        	cancelButtonColor:'#d33',
+    	        	showLoaderOnConfirm: true,
+    	        	
+    	        	preConfirm: async function(){
+    	        		
+    	        		let addStoreTypeId = document.getElementById('addStoreTypeId').value,
+	    	        		addStoreLoc = document.getElementById('addStoreLoc').value,
+	    	        		addStoreLon = document.getElementById('addStoreLon').value,
+	    	        		addStoreLat = document.getElementById('addStoreLat').value,
+	    	        		addStorePhoto = document.getElementById('addStorePhoto').files[0],
+	    	        		addStoreInfo = document.getElementById('addStoreInfo').value;
+    	        		
+    	        		const fileReader = new FileReader();
+    	        		let base64Str = null;
+    	        		
+    	        			fileReader.onload = event => {
+        	                    const base64Str = btoa(event.target.result);
+    	    	        		console.log(base64Str);	
+    	    	        		console.log('22222');	
+        	                };
+        	                
+       	        			return{
+   	        					storeTypeId: addStoreTypeId,
+   	        					storeLoc: addStoreLoc,
+   	        					storeLon: addStoreLon,
+   	        					storeLat: addStoreLat,
+   	        					storePhoto: base64Str,
+   	        					storeInfo: addStoreInfo
+           	    			}
+//     	                fileReader.readAsBinaryString(addStorePhoto);
+    	        	}
+    	       
+    	        }).then(async function(result){
+    	        	try{
+    	        		if(result.isConfirmed){
+    	        			await fetch('../../back-end/store/store.do?action=insert', {
+    	    					method: 'post',
+    	    					headers: {
+    	    						'Content-Type': 'application/json'
+    	    					},
+    	    					body: JSON.stringify(result)
+    	    					
+    	    				})
+// 	    	        		await refresh();
+    	        		}
+    	        	}catch(e){
+    	        		alert(e);
+    	        	}
+//     	        	fr.readAsBinaryString(addStorePhoto);
+    	        });
+	        	
+        		$.datetimepicker.setLocale('zh');
+	            	$('#addMailDelTime').datetimepicker({
+		       		       theme: '',              //theme: 'dark',
+		       		       timepicker:false,       //timepicker:true,
+		       		       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+		       		       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+	       	     	});
+	            	
+	        };
+	        
+	    }, false);
+		
+        
+    //  =====================================搜尋=============================================		
+		async function get() {
+		    let res = await fetch("../../back-end/store/store.do?action=selectStoreType", { method: 'get' })
+		    data = await res.json()
+			data.forEach(type => {
+				$("#select_mailType").append(`<option value=${type.mailType}>${type.mailType}</option>`);	
+			})
+		}
+		
+    	document.getElementById("searchMail").onclick = async function searchMail(){
+			rest();
+			let select_mailType = $("#select_mailType").val();
+			let search_mailID = $("#search_mailID").val();
+			if(search_mailID === ""){
+				search_mailID = 0;
+			}
+			
+			let res = await fetch(`../../back-end/mail/mail.do?action=search&mailType=${select_mailType}&mailId=${search_mailID}`, { method: 'get' });
+			let data = await res.json();
+			 
+			$("#showAllMail").append(
+					`
+					<table id="getAllMail">
+					<tr>
+					<th>郵件編號</th>
+					<th>住戶編號</th>
+					<th>郵件項目</th>
+					<th>郵件到達日期</th>
+					<th>郵件領取日期</th>
+					<th>郵件狀態</th>
+					<th>修改</th>
+					<th>刪除</th>
+					</tr>
+					<tr id="allMail">
+					</tr>
+					</table>
+					<div><input type='button' id='backButton' value='回首頁'></div>`),
+
+					 
+					 
+			data.forEach(mail => {
+				$("#allMail").after(
+					`<tr><td> ${mail.mailId} </td>
+			    	<td> ${mail.memberId} </td>
+			    	<td> ${mail.mailType} </td>
+			    	<td> ${mail.mailDelTime} </td>
+			    	<td> ${mail.mailPickupTime === undefined ? "": mail.mailPickupTime} </td>
+			    	<td value='${mail.mailState}'> ${mail.mailStateName} </td>
+					<td><button id='update'>修改</button></td>
+			    	<td><input type='button' id='delete' value='刪除'></td></tr>`)
+			   
+		 //=====================================修改=============================================  		
+	         document.getElementById('backButton').addEventListener('click', function(){
+	        	 window.location.reload(); 
+	         })
+	         
+           document.getElementById('update').addEventListener('click', function(){
+          		Swal.fire({
+      	            title: "修改郵件",
+      	            html:"<table id='table-2'>"
+      	           	+ "<tr><td>郵件編號:</td>"
+      	            +"<td><input type='TEXT' id='updateMailId' size='45' value='"+ mail.mailId +"' disabled='true'></td></tr>"
+      	            +"<tr><td>住戶編號:</td>"
+      	            +"<td><input type='TEXT' id='updateMemberId' size='45' value='"+ mail.memberId +"'></td></tr>"
+      	        	+"<tr><td>郵件項目:</td>"
+				    +"<td><label for='pack'>"
+			        +"<input type='radio' id='pack' name='updateMailType' value='包裹'>包裹</label>"
+			        +"<label for='registered'>"
+			        +"<input type='radio' id='registered' name='updateMailType' value='掛號'>掛號"
+			        +"</label></td></tr>"
+      	            +"<tr><td>郵件到達時間:</td>"
+      	            +"<td><input type='TEXT' id='updateMailDelTime' value='"+ mail.mailDelTime +"'></td></tr>"
+      	            +"<tr><td>郵件取貨日期:</td>"
+      	            +"<td><input type='TEXT' id='updateMailPickupTime' value='"+ ((mail.mailPickupTime === undefined) ? "": mail.mailPickupTime) +"'></td></tr>"
+     	        	+"<tr><td>郵件狀態:</td>"
+		            +"<td><label for='unaccalimed'>"
+		            +"<input type='radio' id='unaccalimed' name='updateMailState' value='0' checked>未領取"
+		            +"</label><label for='received'>"
+		            +"<input type='radio' id='received' name='updateMailState' value='1'>已領取"
+		            +"</label><label for='returning'>"
+		            +"<input type='radio' id='returning' name='updateMailState' value='2'>退貨中"
+		            +"</label>"
+		            +"<label for='returnComplete'>"
+		            +"<input type='radio' id='returnComplete' name='updateMailState' value='3'>退貨完成"
+		            +"</label>"
+		            +" </td></table>",
+      	            confirmButtonColor:'#3085d6',
+      	        	confirmButtonText:'確定',
+      	        	showCancelButton:true,
+      	        	cancelButtonText:'取消',
+      	        	cancelButtonColor:'#d33',
+      	        	
+      	        	preConfirm: function(){
+      	        		let updateMailId = document.getElementById('updateMailId').value,
+      	        			updateMemberId = document.getElementById('updateMemberId').value,
+      	        			updateMailType = $("input[name='updateMailType']:checked").val(),
+      	        			updateMailDelTime = document.getElementById('updateMailDelTime').value,
+      	        			updateMailPickupTime = document.getElementById('updateMailPickupTime').value,
+      	        			updateMailState = $("input[name='updateMailState']:checked").val();
+      	        		
+      	        		
+   	        		
+	        	    		if(true){
+	        	    		return{
+	        	    			mailId: updateMailId,
+	        	    			memberId: updateMemberId,
+	        	    			mailType: updateMailType,
+	        	    			mailDelTime: updateMailDelTime,
+	        	    			mailPickupTime: updateMailPickupTime,
+	        	    			mailState: updateMailState
+	        	    			}
+	        	    		}
+      	        	}
+      	       
+      	        }).then(async function(result){
+      	        	try{
+      	        		if(result.isConfirmed){
+      	        			 await fetch('../../back-end/mail/mail.do?action=update', {
+      	    					method: 'post',
+      	    					headers: {
+      	    						'Content-Type': 'application/json'
+      	    					},
+      	    					body: JSON.stringify(result)
+      	    				});
+      	        			searchMail();
+      	        		}
+      	        	}catch(e){
+      	        		alert(e);
+      	        	}
+      	        });
+          		
+          		$.datetimepicker.setLocale('zh');
+ 	            	$('#updateMailDelTime').datetimepicker({
+ 		       		       theme: '',              //theme: 'dark',
+ 		       		       timepicker:false,       //timepicker:true,
+ 		       		       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+ 		       		       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+ 	       	     	});
+	            	
+ 	            	$('#updateMailPickupTime').datetimepicker({
+ 		       		       theme: '',              //theme: 'dark',
+ 		       		       timepicker:false,       //timepicker:true,
+ 		       		       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+ 		       		       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+ 	       	     	});	
+     	        });
+           
+          	//=====================================刪除=============================================
+          	
+          	let actionDelete = document.getElementById("delete");
+          	actionDelete.addEventListener("click", function(){
+          		
+          		const swalWithBootstrapButtons = Swal.mixin({
+          			  customClass: {
+          			    confirmButton: 'btn btn-success',
+          			    cancelButton: 'btn btn-danger'
+          			  },
+          			  buttonsStyling: false
+          			})
+
+          			swalWithBootstrapButtons.fire({
+          			  title: '確定要刪除嗎?',
+          			  icon: 'warning',
+          			  confirmButtonText: '確定',
+          			  cancelButtonText: '取消',
+          			  showCancelButton: true
+          			}).then((result) => {
+          			  if (result.isConfirmed) {
+          			    fetch('../../back-end/mail/mail.do?action=delete&mailId='+ mail[i].mailId, {method: 'get',});
+          			  }
+          			  window.location.reload(); 
+          			}) 
+          	});  
+		})
+		}
+        
+        function refresh(){
+			window.location.reload(); 
+		}
+        
+        
+        
+    </script>
+</body>
+
+</html>

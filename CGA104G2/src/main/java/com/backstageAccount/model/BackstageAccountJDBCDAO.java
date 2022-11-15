@@ -529,27 +529,27 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 
 		
 		// 查詢個人權限功能
-		List<BackstageAccountVO> list = backstageAccountJDBCDAO.findOneAuthorization(1);
-		for (BackstageAccountVO a : list) {
-			System.out.print(a.getBmId() + ",");
-			System.out.print(a.getBmName() + ",");
-			System.out.print(a.getBmCapabilitiesId() + ",");
-			System.out.print(a.getBmCapabilitiesName() + ",");
-			System.out.print(a.getBmCapabilitiesContent() + ",");
-			System.out.println();
-		}
-		
-		// 查詢全部
-//		List<BackstageAccountVO> list = backstageAccountJDBCDAO.getAll();
-//		for (BackstageAccountVO aBackstage : list) {
-//			System.out.print(aBackstage.getBmId() + ",");
-//			System.out.print(aBackstage.getBmName() + ",");
-//			System.out.print(aBackstage.getBmAccount() + ",");
-//			System.out.print(aBackstage.getBmPassword() + ",");
-//			System.out.print(aBackstage.getBmEmail() + ",");
-//			System.out.print(aBackstage.getBmStatus() + ",");
+//		List<BackstageAccountVO> list = backstageAccountJDBCDAO.findOneAuthorization(1);
+//		for (BackstageAccountVO a : list) {
+//			System.out.print(a.getBmId() + ",");
+//			System.out.print(a.getBmName() + ",");
+//			System.out.print(a.getBmCapabilitiesId() + ",");
+//			System.out.print(a.getBmCapabilitiesName() + ",");
+//			System.out.print(a.getBmCapabilitiesContent() + ",");
 //			System.out.println();
 //		}
+		
+		// 查詢全部
+		List<BackstageAccountVO> list = backstageAccountJDBCDAO.getAll();
+		for (BackstageAccountVO aBackstage : list) {
+			System.out.print(aBackstage.getBmId() + ",");
+			System.out.print(aBackstage.getBmName() + ",");
+			System.out.print(aBackstage.getBmAccount() + ",");
+			System.out.print(aBackstage.getBmPassword() + ",");
+			System.out.print(aBackstage.getBmEmail() + ",");
+			System.out.print(aBackstage.getBmStatus() + ",");
+			System.out.println();
+		}
 
 		// 忘記密碼(輸入驗證碼得到舊密碼)
 //		BackstageAccountVO backstageAccountVO1 = backstageAccountJDBCDAO.findByAcAndEmail

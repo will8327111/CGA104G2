@@ -23,5 +23,4 @@ public interface BackstageAccountDAO_interface {
 	
 	public List<BackstageAccountVO> getAll();
 
-//	 public Set<BackstageAuthorizationVO> getCapsByBmId(Integer bmId);
 }
