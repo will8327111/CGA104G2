@@ -1,14 +1,18 @@
 package com.activity.controller;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Base64;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,6 +32,11 @@ import com.activity.model.ActivityVO;
 import com.activityphoto.model.ActivityPhotoService;
 import com.activitysignup.model.ActivitySignupService;
 import com.activitysignup.model.ActivitySignupVO;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @WebServlet("/activity/ActServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 10 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -46,145 +55,44 @@ public class ActivityServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 
 		if ("insert".equals(action)) {
+			Integer memid = (Integer) session.getAttribute("id");
 
-			Integer memid = (Integer) session.getAttribute("ID");
-
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			byte[] photo1 = null;
 			List<byte[]> photo = new ArrayList<byte[]>();
-			InputStream is = null;
-			BufferedInputStream bis = null;
 
-			try {
-				for (Part part : req.getParts()) {
-					String filename = part.getSubmittedFileName();
-					if (filename != null && filename.length() != 0) {
-						is = part.getInputStream();
-						bis = new BufferedInputStream(is);
-						photo1 = new byte[bis.available()];
+			for (Part part : req.getParts()) {
+				String filename = part.getSubmittedFileName();
+				if (filename != null && filename.length() != 0) {
+					try (InputStream is = part.getInputStream();
+							BufferedInputStream bis = new BufferedInputStream(is)) {
+
+						byte[] photo1 = new byte[bis.available()];
 						bis.read(photo1);
 						photo.add(photo1);
+
+					} catch (IOException e) {
+						e.printStackTrace(System.err);
 					}
+
 				}
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-
-				// bis.close();
-				// is.close();
-
 			}
 
-			Integer acttype = Integer.valueOf(req.getParameter("acttypeno").trim());
-
-			String name = req.getParameter("actname");
-			String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-			if (name == null || name.trim().length() == 0) {
-				errorMsgs.add("活動名稱: 請勿空白");
-			} else if (!name.trim().matches(nameReg)) {
-				errorMsgs.add("活動名稱:請在2~10個中英數字");
-			}
-
-			String content = req.getParameter("actcontent");
-			String contentReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,500}$";
-			if (content == null || content.trim().length() == 0) {
-				errorMsgs.add("活動內容請勿空白");
-			} else if (!content.trim().matches(contentReg)) {
-				errorMsgs.add("活動內容請勿低於十個字或超過500個字,只能使用中英文和數字");
-			}
-
-			Integer max = null;
-			try {
-				max = Integer.valueOf(req.getParameter("actMax").trim());
-			} catch (NumberFormatException e) {
-				max = 10;
-				errorMsgs.add("請填入最參加大人數,目前預設幫你設定為10");
-			}
-
-			Integer min = null;
-			try {
-				min = Integer.valueOf(req.getParameter("actMin").trim());
-			} catch (NumberFormatException e) {
-				min = 1;
-				errorMsgs.add("請填入最小參加人數,目前預設幫你設定為1");
-			}
-
-			java.sql.Date sgst = null;
-			try {
-				sgst = java.sql.Date.valueOf(req.getParameter("singst").trim());
-			} catch (IllegalArgumentException e) {
-				errorMsgs.add("請輸入報名開始日期!");
-			}
-
-			java.sql.Date sget = null;
-			try {
-				sget = java.sql.Date.valueOf(req.getParameter("singet").trim());
-			} catch (IllegalArgumentException e) {
-				errorMsgs.add("請輸入報名截止日期!");
-			}
-
-			java.sql.Date actst = null;
-			try {
-				actst = java.sql.Date.valueOf(req.getParameter("actst").trim());
-			} catch (IllegalArgumentException e) {
-				errorMsgs.add("請輸入活動開始日期!");
-			}
-
-			java.sql.Date actet = null;
-			try {
-				actet = java.sql.Date.valueOf(req.getParameter("actet").trim());
-			} catch (IllegalArgumentException e) {
-				errorMsgs.add("請輸入活動開始日期!");
-			}
-
-			String country = req.getParameter("actcountry");
-
-			String location = req.getParameter("actlocation");
-			String locationReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-			if (location == null || location.trim().length() == 0) {
-				errorMsgs.add("活動地址: 請勿空白");
-			} else if (!location.trim().matches(locationReg)) {
-				errorMsgs.add("活動地址:請輸入活動地址");
-			}
-
-			Integer cost = null;
-			try {
-				cost = Integer.valueOf(req.getParameter("actcost").trim());
-			} catch (NumberFormatException e) {
-				cost = 0;
-			}
-
-			ActivityVO activityVO = new ActivityVO();
-			activityVO.setMemberId(memid);
-			activityVO.setActType(acttype);
-			activityVO.setActName(name);
-			activityVO.setActContent(content);
-			activityVO.setActMaxCount(max);
-			activityVO.setActMinCount(min);
-			activityVO.setSignStart(sgst);
-			activityVO.setSignEnd(sget);
-			activityVO.setActStart(actst);
-			activityVO.setActEnd(actet);
-			activityVO.setActCountry(country);
-			activityVO.setActLocation(location);
-			activityVO.setActCost(cost);
-
-			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("ActivityVO", activityVO);
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/activity/addactivity.jsp");
-				failureView.forward(req, res);
-				return;
-			}
-
+			Integer actType = Integer.valueOf(req.getParameter("actTypeNo").trim());
+			String name = req.getParameter("actName");
+			String content = req.getParameter("actContent");
+			Integer max = Integer.valueOf(req.getParameter("actMax").trim());
+			Integer min = Integer.valueOf(req.getParameter("actMin").trim());
+			java.sql.Date sgst = java.sql.Date.valueOf(req.getParameter("singStart").trim());
+			java.sql.Date sget = java.sql.Date.valueOf(req.getParameter("singEnd").trim());
+			java.sql.Date actst = java.sql.Date.valueOf(req.getParameter("actStart").trim());
+			java.sql.Date actet = java.sql.Date.valueOf(req.getParameter("actEnd").trim());
+			String country = req.getParameter("actCountry");
+			String location = req.getParameter("actLocation");
+			Integer cost = Integer.valueOf(req.getParameter("actCost").trim());
 			ActivityService actSvc = new ActivityService();
-			actSvc.addAct(memid, acttype, name, content, max, min, sgst, sget, actst, actet, country, location, cost,
+			actSvc.addAct(memid, actType, name, content, max, min, sgst, sget, actst, actet, country, location, cost,
 					photo);
-
-			String url = req.getContextPath() + "/front-end/activity/list.jsp";
-			res.sendRedirect(url);
+//			String url = req.getContextPath() + "/front-end/activity/list.jsp";
+//			res.sendRedirect(url);
 		}
 
 		// 有用
@@ -208,7 +116,7 @@ public class ActivityServlet extends HttpServlet {
 			getOne.forward(req, res);
 		}
 		
-		//有用
+		//有用(jsp)
 		if ("oneUpdate".equals(action)) {
 			
 			Integer actId = Integer.valueOf(req.getParameter("actId"));
@@ -217,6 +125,7 @@ public class ActivityServlet extends HttpServlet {
 			req.setAttribute("activity", activityVO);
 			
 			String parameter = "?actName="+activityVO.getActName()+
+								"&actType="+activityVO.getActType()+
 								"&actContent="+activityVO.getActContent()+
 								"&actMaxNumber="+activityVO.getActMaxCount()+
 								"&actMinNumber="+activityVO.getActMinCount()+
@@ -238,7 +147,7 @@ public class ActivityServlet extends HttpServlet {
 		if ("update".equals(action)) {
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-
+			Integer memid = (Integer) session.getAttribute("id");
 			Integer id = Integer.valueOf(req.getParameter("id"));
 
 			List<byte[]> photo = new ArrayList<byte[]>();
@@ -348,11 +257,11 @@ public class ActivityServlet extends HttpServlet {
 
 			ActivityService actSvc = new ActivityService();
 			actSvc.update(actType, name, content, max, min, sgst, sget, actst, actet, country, location, cost, photo,
-					id);
+					id,memid);
 
-			String url = "/front-end/activity/list.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
+//			String url = "/front-end/activity/homepage.html";
+//			RequestDispatcher successView = req.getRequestDispatcher(url);
+//			successView.forward(req, res);
 		}
 
 		if ("delete".equals(action)) {
@@ -398,7 +307,7 @@ public class ActivityServlet extends HttpServlet {
 		if ("adddata".equals(action)) {
 			Integer id = Integer.valueOf(req.getParameter("actid"));
 			ActivityService actSvc1 = new ActivityService();
-			out.write(actSvc1.getData(id).toString());
+			out.write(actSvc1.getOneJS(id).toString());
 		}
 
 		// 有用
@@ -435,6 +344,34 @@ public class ActivityServlet extends HttpServlet {
 			out.write(object.toString());
 		}
 
+			//有用
+		if("getOne".equals(action)) {
+			ActivityService actSvc = new ActivityService();
+			Integer actId = Integer.valueOf(req.getParameter("actId"));
+			out.write(actSvc.getOneJS(actId).toString());
+		}
+		
+		if("updateJS".equals(action)) {
+			Gson gson = new Gson();
+			gson = new GsonBuilder().setDateFormat("yyyy-mm-dd").create();
+			JsonObject json = gson.fromJson(req.getReader(), JsonObject.class);
+			ActivityVO vo = gson.fromJson(json.get("activity"), ActivityVO.class);
+			String[] photo64 = gson.fromJson(json.get("photo"), String[].class);
+			System.out.println(vo.getActContent());
+			List<byte[]> photo = new ArrayList<byte[]>();
+			
+			if(photo64.length!=0) {
+			for(String image:photo64) {
+				String base64Image = image.split(",")[1];
+			byte[] transform = Base64.getDecoder().decode(base64Image);
+					photo.add(transform);
+				}
+			}
+			ActivityService actSvc = new ActivityService();
+			actSvc.updateJS(vo, photo);
+		}
+		
+		
 	}
 
 }

@@ -38,48 +38,34 @@ public class ActivityService implements ActivityServiceCommon {
 
 	public void addAct(Integer mem, Integer actType, String name, String content, Integer max, Integer min, Date sgst,
 			Date sget, Date actst, Date actet, String country, String location, Integer cost, List<byte[]> actPhoto) {
-//
-//		ActivityVO activityVO = new ActivityVO();
-//
-//		activityVO.setMemberId(mem);
-//		;
-//		activityVO.setActType(actType);
-//		activityVO.setActName(name);
-//		activityVO.setActContent(content);
-//		activityVO.setActMaxCount(max);
-//		activityVO.setActMinCount(min);
-//		activityVO.setActStart(actst);
-//		activityVO.setActEnd(actet);
-//		activityVO.setSignStart(sgst);
-//		activityVO.setSignEnd(sget);
-//		activityVO.setActCountry(country);
-//		activityVO.setActLocation(location);
-//		activityVO.setActCost(cost);
-//
-//		Integer actid = null;
-//
-//		try {
-//			beginTranscation();
-//			actid = dao.insert(activityVO);
-//			commit();
-//		} catch (Exception e) {
-//			rollback();
-//		}
-//
-//		if (!IsNullOrEmpty(actPhoto) && actid != null) {
-//			for (byte[] photo : actPhoto) {
-//				ActivityPhotoVO vo = new ActivityPhotoVO();
-//				try {
-//					beginTranscation();
-//					vo.setActId(actid);
-//					vo.setActPhoto(photo);
-//					daoPhoto.insert(vo);
-//					commit();
-//				} catch (Exception e) {
-//					rollback();
-//				}
-//			}
-//		}
+
+		ActivityVO activityVO = new ActivityVO();
+
+		activityVO.setMemberId(mem);
+		activityVO.setActType(actType);
+		activityVO.setActName(name);
+		activityVO.setActContent(content);
+		activityVO.setActMaxCount(max);
+		activityVO.setActMinCount(min);
+		activityVO.setActStart(actst);
+		activityVO.setActEnd(actet);
+		activityVO.setSignStart(sgst);
+		activityVO.setSignEnd(sget);
+		activityVO.setActCountry(country);
+		activityVO.setActLocation(location);
+		activityVO.setActCost(cost);
+
+		Integer actid = null;
+		actid = dao.insert(activityVO);
+
+		if (!(actPhoto.size()==0)) {
+			for (byte[] photo : actPhoto) {
+				ActivityPhotoVO vo = new ActivityPhotoVO();
+				vo.setActId(actid);
+				vo.setActPhoto(photo);
+				daoPhoto.insert(vo);
+			}
+		}
 	}
 
 	// 有用
@@ -100,9 +86,10 @@ public class ActivityService implements ActivityServiceCommon {
 
 	public void update(Integer actType, String name, String content, Integer max, Integer min, Date sgst, Date sget,
 			Date actst, Date actet, String country, String location, Integer cost, List<byte[]> actPhoto,
-			Integer actid) {
+			Integer actid,Integer memid) {
 		ActivityVO activityVO = new ActivityVO();
-
+		
+		activityVO.setActId(actid);
 		activityVO.setActType(actType);
 		activityVO.setActName(name);
 		activityVO.setActContent(content);
@@ -115,10 +102,10 @@ public class ActivityService implements ActivityServiceCommon {
 		activityVO.setActCountry(country);
 		activityVO.setActLocation(location);
 		activityVO.setActCost(cost);
-		activityVO.setActId(actid);
+		activityVO.setMemberId(memid);
 		dao.update(activityVO);
-
-		if (!IsNullOrEmpty(actPhoto)) {
+		
+		if (!(actPhoto.size()==0)) {
 			for (byte[] photo : actPhoto) {
 				ActivityPhotoVO vo = new ActivityPhotoVO();
 				vo.setActId(actid);
@@ -129,10 +116,7 @@ public class ActivityService implements ActivityServiceCommon {
 
 	}
 
-	private boolean IsNullOrEmpty(List<byte[]> actPhoto) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 	public void delete(Integer actId) {
 		daoPhoto.deleteAct(actId);
@@ -147,8 +131,8 @@ public class ActivityService implements ActivityServiceCommon {
 		return dao.findCountry();
 	}
 
-	public JSONObject getData(Integer actId) {
-		return dao.getdata(actId);
+	public JSONObject getOneJS(Integer actId) {
+		return dao.getOneJS(actId);
 	}
 
 	public JSONArray getById(Integer memId) {
@@ -177,4 +161,21 @@ public class ActivityService implements ActivityServiceCommon {
 
 	}
 
+	public void updateJS(ActivityVO activityVO, List<byte[]> actPhoto) {
+		
+		dao.update(activityVO);
+		
+		if (!(actPhoto.size()==0)) {
+			for (byte[] photo : actPhoto) {
+				ActivityPhotoVO vo = new ActivityPhotoVO();
+				vo.setActId(activityVO.getActId());
+				vo.setActPhoto(photo);
+				daoPhoto.insert(vo);
+			}
+		}
+
+	}
+
+		
+	
 }

@@ -17,7 +17,7 @@ public interface ActivityDAO_interface extends ActivityCommon{
 	public void delete(Integer actId); 	
 	public JSONArray search(String actCountry,Integer actType,String actName);
 	public ActivityVO getOne(Integer actId);
-	public JSONObject getdata(Integer actId);
+	public JSONObject getOneJS(Integer actId);
 	public JSONArray getById(Integer memberId);
 	public JSONArray findCountry();
 	public List<Integer> getAll();

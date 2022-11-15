@@ -15,8 +15,9 @@ public class ActivityPhotoDAO implements ActivityPhotoDAO_interface{
 
 	@Override
 	public void insert(ActivityPhotoVO VO) {
+		beginTranscation();
 		getSession().persist(VO);
-		
+		commit();
 	}
 
 	@Override
@@ -29,8 +30,8 @@ public class ActivityPhotoDAO implements ActivityPhotoDAO_interface{
 	public void deleteAct(Integer actId) {
 		beginTranscation();
 		try {
-			final String sql = "DELETE ActivityPhotoVO where actId = :actId ";
-			getSession().createQuery(sql).setParameter("actId", actId).executeUpdate();
+			final String hql = "DELETE ActivityPhotoVO where actId = :actId ";
+			getSession().createQuery(hql).setParameter("actId", actId).executeUpdate();
 		commit();
 	} catch (Exception e) {
 		rollback();

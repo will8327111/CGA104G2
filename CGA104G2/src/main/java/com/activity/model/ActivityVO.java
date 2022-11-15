@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,16 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.Session;
-
-import com.activity.common.HibernateUtil;
 import com.activityphoto.model.ActivityPhotoVO;
 import com.activityreply.model.ActivityReplyVO;
 import com.activityreport.model.ActivityReportVO;
-import com.activitytype.model.ActivityTypeVO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,7 +43,7 @@ public class ActivityVO implements Serializable{
 	private String actName;
 	@Column(name = "ACTIVITY_CONTENT")
 	private String actContent;
-	@Column(name = "ACTIVITY_CURRENT_COUNT" ,insertable = false )
+	@Column(name = "ACTIVITY_CURRENT_COUNT" ,insertable = false,updatable = false )
 	private Integer actCurrentCount;
 	@Column(name = "ACTIVITY_MAX_COUNT")
 	private Integer actMaxCount;
@@ -67,7 +63,7 @@ public class ActivityVO implements Serializable{
 	private String actLocation;
 	@Column(name = "ACTIVITY_COST")
 	private Integer actCost;
-	@Column(name = "ACTIVITY_STATUS" ,insertable = false)
+	@Column(name = "ACTIVITY_STATUS" ,insertable = false,updatable = false)
 	private Integer actStatus;
 	
 
