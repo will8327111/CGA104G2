@@ -34,15 +34,15 @@
         }
     </style>
 
-    <link href="${pageContext.request.contextPath}/resources/assets/css/main/app.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/form-element-select.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/summernote.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css" rel="stylesheet">
+<%--    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/pages/form-element-select.css" rel="stylesheet">--%>
+<%--    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/pages/summernote.css" rel="stylesheet">--%>
     <title>index</title>
 </head>
 
 <body>
 <h1>Index</h1>
-<h4><a href="member/select_page.jsp"></a></h4>
+<h4><a href="${pageContext.request.contextPath}/back-end/member/member_index.jsp"></a></h4>
 <div class="m_title">
     <h2>${ "住戶資訊管理專區" }</h2>
 </div>
@@ -52,7 +52,7 @@
     <br>
     <h4>${ "住戶管理" }</h4>
     <li><a href="${pageContext.request.contextPath}/back-end/member/listAllMember.jsp">修改住戶資料</a> update all Members
-        <a href="${pageContext.request.contextPath}/back-end/member/listAllMember2.jsp">修改住戶資料-地址</a> update all Members
+        <a href="${pageContext.request.contextPath}/back-end/member/listAllMember2.jsp">修改住戶資料-地址</a> update all Members2
         <br><br></li>
     <li><a href="${pageContext.request.contextPath}/back-end/member/addMember.jsp">新增住戶資料</a> add Members <br><br></li>
 
@@ -62,13 +62,13 @@
     </li>
 
     ！===施工測試中===！
-    <li><a href="${pageContext.request.contextPath}/CGA104G2-front-end/index.html">前台首頁</a> Web-back-end <br><br>
+    <li><a href="${pageContext.request.contextPath}/front-end/web/front-index.html">前台首頁</a> Web-back-end <br><br>
     </li>
-    <li><a href="${pageContext.request.contextPath}/CGA104G2-back-end/dist/index.jsp">後台首頁</a> Web-back-end <br><br>
+    <li><a href="${pageContext.request.contextPath}/back-end/web/back-index.html">後台首頁</a> Web-back-end <br><br>
     </li>
 
-    <script src="${pageContext.request.contextPath}/resources/assets/js/pages/form-element-select.js" rel="stylesheet"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/pages/form-editor.js" rel="stylesheet"></script>
+<%--    <script src="${pageContext.request.contextPath}/resources/back-end/assets/js/pages/form-element-select.js" rel="stylesheet"></script>--%>
+<%--    <script src="${pageContext.request.contextPath}/resources/back-end/assets/js/pages/form-editor.js" rel="stylesheet"></script>--%>
 </div>
 </body>
 </html>
