@@ -12,10 +12,10 @@ public class TransferService {
 		dao = new TransferJNDIDAO();
 	}
 
-	public TransferVO insert(Integer memberBillId, String bankId, Integer bankNumber, Integer memberId) {
+	public TransferVO insert(String billGroup, String bankId, Integer bankNumber, Integer memberId) {
 
 		TransferVO transferVO = new TransferVO();
-		transferVO.setMemberBillId(memberBillId);
+		transferVO.setBillGroup(billGroup);
 		transferVO.setBankId(bankId);
 		transferVO.setBankNumber(bankNumber);
 		transferVO.setMemberId(memberId);

@@ -1,102 +1,245 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-	pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.memberbill.model.*"%>
+<%@ page import="com.memberbill.controller.*"%>
+<%
+List<MemberBillVO> listBillVos = (List) request.getAttribute("listBillVos");
+%>
+
+<%=(listBillVos == null) ? "true" : "false"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- CSS only -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-	crossorigin="anonymous">
-<!-- JavaScript Bundle with Popper -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-	crossorigin="anonymous"></script>
-<!--     <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-<!--     <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-
-<!--     <title>πÔ∏‹Æÿ</title> -->
-<!--     <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css"> -->
-<!--     <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
-<!--     <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> -->
-<!--     <link rel="stylesheet" href="jqueryui/style.css"> -->
 <style>
-div{
-	padding: 5px;
-	text-align: center;
+div { 
+ 	padding: 10px; 
+ 	text-align: center; 
+ } 
+.total-price-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+.total-price-row .total-line_name {
+    max-width: 70%;
+}
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+@media (min-width: 992px)
+.d-lg-block {
+    display: block!important;
+}
+.total-price-row .total-line_price {
+    font-weight: 500;
+}
+*, :after, :before {
+    box-sizing: border-box;
+}
+div,span {
+    display: block;
+    width: 100%;
+}
+.summary-section #total-price,h1 {
+    font-size: 1.8rem;
+}
+*, :after, :before {
+    box-sizing: border-box;
+}
+.total-price-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+
+}
+@media (min-width: 993px)
+.checkout-container .cart-container {
+    width: 45%;
+}
+body {
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,Liberation Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+}
+.cart-drawer .cart-drawer-wrapper .cart-drawer-content .cart-sticky-button .btn.checkout {
+    width: 100%;
+    margin-bottom: 0 !important;
+    border-radius: 0;
+    padding: 18px 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #C1B9AF;
 }
 
+.btn.checkout {
+    min-width: 180px;
+    letter-spacing: 1.3px;
+}
+.update-cart, .checkout {
+    margin-bottom: 10px !important;
+}
+.btn, input[type="submit"], .btn--tertiary, input.btn--tertiary, .btn--secondary, input.btn--secondary {
+    font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+    font-weight: bold;
+    font-size: 1.2em;
+    box-shadow: 0px 2px 15px rgb(0 0 0 / 40%);
+    display: inline-block;
+    padding: 12px 34px;
+    margin: 0;
+    margin-bottom: 3px;
+    line-height: 1.42;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 8px;
+    background-color: #8e8686;
+    color: #fff;
+    -webkit-transition: background-color 0.1s ease-in;
+    -moz-transition: background-color 0.1s ease-in;
+    -ms-transition: background-color 0.1s ease-in;
+    -o-transition: background-color 0.1s ease-in;
+    transition: background-color 0.1s ease-in;
+}
+button, input[type="submit"] {
+    cursor: pointer;
+}
+button, input[type="text"], input[type="search"], input[type="password"], input[type="email"], input[type="file"], input[type="number"], input[type="tel"], input[type="submit"], textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+input, textarea, button, select {
+    font-size: 1em;
+}
+button {
+    overflow: visible;
+}
+body, input, textarea, button, select {
+    font-size: 12px;
+    line-height: 1.7;
+    font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+}
+*, *:after, *:before {
+    outline: none;
+}
+*, input, :before, :after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+button {
+    appearance: auto;
+    writing-mode: horizontal-tb !important;
+    font-style: ;
+    font-variant-ligatures: ;
+    font-variant-caps: ;
+    font-variant-numeric: ;
+    font-variant-east-asian: ;
+    font-weight: ;
+    font-stretch: ;
+    font-size: ;
+    font-family: ;
+    text-rendering: auto;
+    color: buttontext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: default;
+    box-sizing: border-box;
+    background-color: buttonface;
+    margin: 0em;
+    padding: 1px 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
+}
 </style>
 </head>
 <body>
-	<div class="border border-info">
-		<div>
-			<span>11§Î∫ﬁ≤z∂O</span>
-		</div>
-		<div>
-			<span>√∫∂O¥¡≠≠</span>
-		</div>
-		<div>
-			<span>´›æP±b™˜√B</span>
-		</div>
-		<div>
-			<span>∂µ•ÿ©˙≤”</span>
-		</div>
-		<div>
-			<span>∫ﬁ≤z∂O</span>
-		</div>
-		<div>
-			<span>®Æ¶Ï≤Mº‰∂O</span>
-		</div>
-		<div>
-			<span>--------------------------</span>
-		</div>
-		<div>
-			<span>¶X≠p</span>
-		</div>
-	</div>
-	<div>
-		<button id="opener">´e©π√∫∂O</button>
-		<div>
-			<ul>
-				<div id="dialog" onclick="transfer()" title="Basic dialog">
-					<a href="../../transfer?action=transfer">
-						<p>∂◊¥⁄</p>
-					</a> <a href="Card.html">
-						<p>®Í•d</p>
-					</a>
-					<button id="save">ΩTª{</button>
+<div class="cart-container bg-light">
+<h1 class="store-name">Â∏≥ÂñÆÊòéÁ¥∞</h1>
+
+	<form action="<%=request.getContextPath()%>/member/bill.do"
+		METHOD="post">
+
+		<table class="table caption-top">
+			<thead>
+			
+			<c:forEach var="memberBillVO" items="${listBillVos}">
+				<div id="collapseSummary" class="summary-section">
+				
+				<div class="total-price-row" >
+					<div class="total-line_name">Â∏≥ÂñÆÊúà‰ªΩ</div>
+					<div class="total-line_price">${memberBillVO.billDate}</div>
 				</div>
-
-				</li>
-			</ul>
+				<div class="total-price-row">
+					<div>ÊòéÁ¥∞</div>
+					<div>${memberBillVO.costName}</div>
+				</div>
+				<div class="total-price-row">
+					<div>ÈáëÈ°ç</div>
+					<div>NT$ ${memberBillVO.billAmount}</div>
+				</div>
+				<hr>
+				<div class="total-price-row">
+					<div>ÂêàË®à:</div>
+					<span id="total-price" class="total-line_price">NT$ ${memberBillVO.billAmount}</span>
+				</div>
+				 </div>
+			</c:forEach>
+			
+			</thead>
+		</table>
+		<div>
+			<button id="opener" type="button" class="btn w-100 mb-3 d-flex align-items-center voucher-toggle" data-toggle="modal" data-target="#voucherModal">
+          <div class="d-flex flex-column align-items-start">
+            <small class="font-weight-bold">ÂâçÂæÄÁπ≥Ë≤ª</small>
+          </div>
+        </button>
 		</div>
+
+		<div>
+		<input type="hidden" name="action" value="transfer"> 
+		<input type="submit" value="ÂåØÊ¨æ">
+		
+
+		<input type="hidden" name="action" value="pay"> 
+		<input type="submit" value="Âà∑Âç°">
+		</div>
+	</form>
 	</div>
-	<script>
-		$(function() {
-			$("#dialog").dialog({
-				autoOpen : false,
-				show : {
-					effect : "blind",
-					duration : 1000
-				},
-				hide : {
-					effect : "explode",
-					duration : 1000
-				}
-			});
-			$("#opener").click(function() {
-				$("#dialog").dialog("open");
-			});
-
-		})
-
-		function transfer() {
-			windows.location.href = "Transfer.jsp"
-		}
-	</script>
 </body>
 </html>

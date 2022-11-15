@@ -25,20 +25,22 @@ import com.transfer.model.TransferVO;
 @MultipartConfig
 public class TransferServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
 		String action = req.getParameter("action");
 
 		if ("insert".equals(action)) {
-			Integer memId = (Integer) session.getAttribute("memberId");
+//			 (Integer) session.getAttribute("memberId");
+			Integer memId =9;
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-
-			Integer memberBillId = Integer.valueOf(req.getParameter("billDate"));
+			
+//			Integer memberBillId = Integer.valueOf(req.getParameter("billDate"));
+			String billgroup = (String)req.getParameter("billGroup");
 			String bankId = req.getParameter("bankId"); // 請求銀行資訊
 			String bankNumber = req.getParameter("bankNumber").trim();// 請求後五碼
 			String bankNumber1 = "^[0-9]{1,5}$";
@@ -62,7 +64,7 @@ public class TransferServlet extends HttpServlet {
 			/*************************** 2.開始新增資料 *****************************************/
 
 			TransferService transferService = new TransferService();
-			transferVO = transferService.insert(memberBillId, bankId, bankNumber2, memId);
+			transferVO = transferService.insert(billgroup, bankId, bankNumber2, memId);
 
 			/*************************** 3.開始新增照片 *****************************************/
 
@@ -72,10 +74,10 @@ public class TransferServlet extends HttpServlet {
 			byte[] memberPhoto = file.getInputStream().readAllBytes(); // 把所有轉byte[]的檔案讀進來(取到)
 			MemberBillVO vo = new MemberBillVO(); // 從VO取
 			vo.setMemberPhoto(memberPhoto);
-			vo.setMemberBillId(memberBillId); // 有帳單ID才能改變照片值
+			vo.setBillGroup(billgroup); // 有帳單ID才能改變照片值
 			memberBillService.uploadPhoto(vo);
 
-			MemberBillVO vo1 = memberBillService.updateMemberPay(memberBillId);//繳費狀態為待審核// 把方法傳進來
+			MemberBillVO vo1 = memberBillService.updateMemberPay(billgroup);//繳費狀態為待審核// 把方法傳進來
 
 			/*************************** 4.新增完成,準備轉交(Send the Success view) *************/
 
@@ -120,8 +122,18 @@ public class TransferServlet extends HttpServlet {
 ////			res.sendRedirect("bill.do?action=getAll");			// 除了forward另一種跳轉的方式sendRedirect
 //			RequestDispatcher successView0 = req.getRequestDispatcher(url0);// 成功轉交
 //			successView0.forward(req, res);
-
+			
 		}
+//		if ("transfer".equals(action)) {// 從資料庫抓出住戶未繳費的月份
+//			String billGroup2 = (String)req.getParameter("bill_Group");
+//			MemberBillService memberBillService = new MemberBillService();
+//			String billGroup = billGroup2;											//req.getParameter("billGroup");//(Integer) session.getAttribute("memberId");
+//			billGroup="9";
+//			MemberBillVO billDateList = memberBillService.getBillDate(billGroup);
+//			session.setAttribute("billDateList", billDateList);
+//			res.sendRedirect(req.getContextPath() + "/front-end/memberbill/transfer.jsp");
+//			System.out.print("onnn");
+//		}
 	}
 
 	@Override
@@ -129,11 +141,14 @@ public class TransferServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
 		if ("transfer".equals(action)) {// 從資料庫抓出住戶未繳費的月份
+			String billGroup2 = (String)req.getParameter("bill_Group");
 			MemberBillService memberBillService = new MemberBillService();
-			Integer memberId = (Integer) session.getAttribute("memberId");// Attribute預設值為String所以要轉int
-			List<MemberBillVO> billDateList = memberBillService.getBillDate(memberId);
+//			Integer memberId = (Integer) session.getAttribute("memberId");// Attribute預設值為String所以要轉int
+			String billGroup = "9";//req.getParameter("billGroup");//(Integer) session.getAttribute("memberId");
+			MemberBillVO billDateList = memberBillService.getBillDate(billGroup);
 			session.setAttribute("billDateList", billDateList);
 			res.sendRedirect(req.getContextPath() + "/front-end/memberbill/transfer.jsp");
+			System.out.print("on");
 		}
 	}
 }

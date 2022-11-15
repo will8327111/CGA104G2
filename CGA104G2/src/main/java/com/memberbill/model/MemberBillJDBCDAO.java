@@ -17,9 +17,10 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 	private static final String GET_ONE_MEMBER_BILL_ID = "SELECT * FROM MEMBER_BILL";
 	private static final String UPDATE = "UPDATE MEMBER_BILL SET MEMBER_PAY=? WHERE MEMBER_BILL_ID = ?";//修改狀態
 	private static final String MEMBER_PHOTO = "SELECT MEMBER_PHOTO FROM MEMBER_BILL  WHERE MEMBER_BILL_ID = ?";
-	private static final String GET_BILL_DATE = "SELECT distinct BILL_DATE,MEMBER_BILL_ID FROM MEMBER_BILL WHERE MEMBER_ID= ? and MEMBER_PAY=0"; // 拿住戶本月未繳費的日期(重複月份不出現);0為未繳費
-	private static final String UPDATE_memberPay = "UPDATE  MEMBER_BILL SET MEMBER_PAY=2 WHERE MEMBER_BILL_ID=?";// 把這個function放進insert裡面先new放進值在一起跑更改狀態為待審核
-
+	private static final String GET_BILL_DATE = "SELECT distinct BILL_DATE,BILL_GROUP FROM MEMBER_BILL WHERE BILL_GROUP= ? and MEMBER_PAY=0"; // 用"編號群組"拿住戶本月未繳費的日期(重複月份不出現);0為未繳費
+	private static final String UPDATE_memberPay = "UPDATE  MEMBER_BILL SET MEMBER_PAY=2 WHERE BILL_GROUP=?";// 把這個function放進insert裡面先new放進值在一起跑更改狀態為待審核
+	
+	
 	private DataSource ds;
 
 	public MemberBillJDBCDAO() {
@@ -117,7 +118,8 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 				MemberBillVO.setModifyUser(rs.getString("MODIFY_USER"));
 				MemberBillVO.setModifyDate(rs.getDate("MODIFY_DATE"));
 //				Member_billVO.setMember_photo(rs.getByte("MEMBER_PHOTO"));
-
+				//帳單群組
+				MemberBillVO.setBillGroup(rs.getString("BILL_GROUP"));
 				list.add(MemberBillVO);
 			}
 
@@ -155,10 +157,10 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 
 		MemberBillVO Member_bill = new MemberBillVO();
 
-		Member_bill.setMemberId(10);
+		Member_bill.setMemberId(2);
 		Member_bill.setCostId(1);
 		Member_bill.setMemberName("柚子");
-		Member_bill.setBillAmount("3000");
+		Member_bill.setBillAmount("1500");
 		Member_bill.setBillDate("2022-10");
 		Member_bill.setMemberPay("0");
 		Member_bill.setMemberPayDate(java.sql.Date.valueOf("2022-10-20"));
@@ -167,6 +169,8 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 		Member_bill.setModifyUser("PG");
 		Member_bill.setModifyDate(java.sql.Date.valueOf("2022-10-16"));
 		Member_bill.setMemberPhoto(null);
+//		Member_bill.setBillGroup("2");
+		
 
 		dao.insert(Member_bill);
 
@@ -185,7 +189,9 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 			System.out.print(mem.getModifyUser() + ",");
 			System.out.print(mem.getModifyDate() + ",");
 			System.out.print(mem.getMemberPhoto() + ",");
-
+//			System.out.print(mem.getBillGroup());
+			
+			
 			System.out.println();
 
 		}
@@ -227,10 +233,10 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 	public void updatePhoto(MemberBillVO vo) {
 		try (Connection con = ds.getConnection();
 				PreparedStatement pstmt = con
-						.prepareStatement("UPDATE MEMBER_BILL SET MEMBER_PHOTO= ? WHERE MEMBER_BILL_ID = ?");// PreparedStatement查詢資料庫
+						.prepareStatement("UPDATE MEMBER_BILL SET MEMBER_PHOTO= ? WHERE BILL_GROUP = ?");// PreparedStatement查詢資料庫
 		) {
 			pstmt.setBytes(1, vo.getMemberPhoto());
-			pstmt.setInt(2, vo.getMemberBillId());
+			pstmt.setString(2, vo.getBillGroup());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -297,7 +303,7 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 	}
 
 	@Override
-	public void updatePay(Integer memberPay) {
+	public void updatePay(String memberPay) {
 
 		try (Connection con = ds.getConnection();
 				PreparedStatement pstmt = con
@@ -313,22 +319,23 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 	}
 
 	@Override
-	public List<MemberBillVO> getBillDate(Integer memberId) {// 從資料庫拿出住戶「未繳費」的「帳單月份」
-		try (										   		//用<String>裝接下來會新增的字串(帳單月份)
+	public MemberBillVO getBillDate(String billGroup) {// 從資料庫拿出住戶「未繳費」的「帳單月份」
+		try (										   		
 			Connection con = DriverManager.getConnection("jdbc:mysql:///db01", "root", "password");
 			PreparedStatement pstmt = con.prepareStatement(GET_BILL_DATE);
 		) {
-			pstmt.setInt(1, memberId);
+			pstmt.setString(1, billGroup);
 			try (ResultSet rs = pstmt.executeQuery()) {
-				List<MemberBillVO> list = new ArrayList<MemberBillVO>();
-				while (rs.next()) {
-					MemberBillVO MemberBillVO = null;
+				//List<MemberBillVO> list = new ArrayList<MemberBillVO>();
+				MemberBillVO MemberBillVO = new MemberBillVO();
+				if (rs.next()) {
+					//MemberBillVO MemberBillVO = null;
 					MemberBillVO = new MemberBillVO();// 新增一個VO物件
 					MemberBillVO.setBillDate(rs.getString("BILL_DATE"));
-					MemberBillVO.setMemberBillId(rs.getInt("MEMBER_BILL_ID"));
-					list.add(MemberBillVO);
+					MemberBillVO.setBillGroup(rs.getString("BILL_GROUP"));
+					
 				}
-				return list;
+				return MemberBillVO;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -337,7 +344,7 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 	}
 
 	@Override
-	public MemberBillVO updateMemberPay(Integer memberBillId) {// 繳費狀態因不同需求需更改
+	public MemberBillVO updateMemberPay(String billGroup) {// 繳費狀態因不同需求需更改//11.14
 		MemberBillVO vo1 = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -346,7 +353,7 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_memberPay);
-			pstmt.setInt(1, memberBillId);
+			pstmt.setString(1, billGroup);
 
 			pstmt.executeUpdate();
 
@@ -372,6 +379,34 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 		return vo1;
 
 	}
+	@Override
+	public List<MemberBillVO> getAllCost(String billGroup) {//查詢出放在選擇繳費頁面的value，主要給刷卡使用，因綠界是需要的value
+		List<MemberBillVO> list = new ArrayList<MemberBillVO>();
+		try (Connection conn = ds.getConnection();
+				PreparedStatement ps = conn
+						.prepareStatement("select o.COST_NAME,m.BILL_AMOUNT,m.bill_Date\r\n"
+								+ "	from MEMBER_BILL m\r\n"
+								+ "    join COST o\r\n"
+								+ "		on o.COST_ID=m.COST_ID where bill_Group=?\r\n")) {//繳費月份由前面帶入value?,登入?,刷卡,"刷卡編號"轉綠界時自動填入?,未繳費
+			ps.setString(1,billGroup);		//帳單群組=?
+			//ps.setString(2,memberPay);		//繳費狀態=未繳費
+			
+			ResultSet rs = ps.executeQuery();
 
+			while (rs.next()) {
+				MemberBillVO member_bill = new MemberBillVO();
+				
+				member_bill.setCostName(rs.getString("COST_NAME"));	//費用名稱
+				member_bill.setBillAmount(rs.getString("BILL_AMOUNT"));	//帳單金額
+				member_bill.setBillDate(rs.getString("BILL_DATE"));		//帳單月份(年,月)
+				
+				
+				list.add(member_bill);//把上面的物件加進list裡面//要拿的話直接拿list就好了
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+		return list;
+	}
 
 }

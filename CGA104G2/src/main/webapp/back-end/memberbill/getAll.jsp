@@ -117,11 +117,12 @@
 				</FORM>
 			</td>
 			<script>
-				let ed${s.count} = document.getElementById("edit${s.count}");
-				let op${s.count} = document.getElementById("open${s.count}");
-				ed${s.count}.addEventListener("click", function() {
-					op${s.count}.disabled = false
-				});
+			//TODO: 20221113 點擊編輯按鈕待修正
+// 				let ed${s.count} = document.getElementById("edit${s.count}");
+// 				let op${s.count} = document.getElementById("open${s.count}");
+// 				ed${s.count}.addEventListener("click", function() {
+// 					op${s.count}.disabled = false
+// 				});
 			</script>
 		</c:forEach>
 	</table>

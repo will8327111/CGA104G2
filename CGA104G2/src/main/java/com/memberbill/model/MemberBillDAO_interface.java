@@ -15,13 +15,15 @@ public interface MemberBillDAO_interface {
 
 	public List<MemberBillVO> getUnpaid(Integer memberId);
 
-	public void updatePay(Integer memberPay);
+	public void updatePay(String memberPay);
 
-	public List<MemberBillVO> getBillDate(Integer memberId);
+	public MemberBillVO getBillDate(String billGroup);//11.14
 
 	//public MemberBillVO getMemberBill(String billDate, String memberPay, byte[] memberPhoto);
 
-	public MemberBillVO updateMemberPay(Integer memberbillid);
+	public MemberBillVO updateMemberPay(String billGroup);//11.14
+	
+	public List<MemberBillVO> getAllCost(String billGroup);
 
 
 }

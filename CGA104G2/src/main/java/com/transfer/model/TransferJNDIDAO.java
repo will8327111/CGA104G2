@@ -24,7 +24,7 @@ public class TransferJNDIDAO implements TransferDAO_interface {
 		}
 	}
 
-	private static final String INSERT_TRANSFER = "INSERT INTO TRANSFER(member_Bill_Id,BANK_ID,BANK_NUMBER,member_Id) values(?, ?, ?,?)";// 住戶新增匯款資料進去資料
+	private static final String INSERT_TRANSFER = "INSERT INTO TRANSFER(Bill_Group,BANK_ID,BANK_NUMBER,member_Id) values(?, ?, ?,?)";// 住戶新增匯款資料進去資料
 
 	public void insert(TransferVO transferVO) {
 		Connection con = null;
@@ -34,7 +34,7 @@ public class TransferJNDIDAO implements TransferDAO_interface {
 			con = DriverManager.getConnection("jdbc:mysql:///db01", "root", "password");
 			pstmt = con.prepareStatement(INSERT_TRANSFER);
 
-			pstmt.setInt(1, transferVO.getMemberBillId());
+			pstmt.setString(1, transferVO.getBillGroup());
 			pstmt.setString(2, transferVO.getBankId());
 			pstmt.setInt(3, transferVO.getBankNumber());
 			pstmt.setInt(4, transferVO.getMemberId());

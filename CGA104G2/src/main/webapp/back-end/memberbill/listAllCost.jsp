@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div>刷卡繳費完成，謝謝!</div>
+
 </body>
 </html>

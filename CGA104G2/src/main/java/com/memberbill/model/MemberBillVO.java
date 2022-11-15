@@ -1,7 +1,10 @@
 package com.memberbill.model;
 
 import java.sql.Date;
+import java.sql.ResultSet;
 
+
+//帳單
 public class MemberBillVO implements java.io.Serializable {
 
 	private Integer memberBillId;	//住戶帳單編號
@@ -17,6 +20,10 @@ public class MemberBillVO implements java.io.Serializable {
 	private String modifyUser;		//修改人員
 	private Date modifyDate;		//修改時間
 	private byte[] memberPhoto;		//匯款證明
+	private String costName;		//費用名稱
+	private Integer cardNumber;		//刷卡編號
+	private String billGroup;		//編號群組
+	private Integer bmId;			//管理員編號
 
 	public Integer getMemberBillId() {
 		return memberBillId;
@@ -121,5 +128,37 @@ public class MemberBillVO implements java.io.Serializable {
 	public void setMemberPhoto(byte[] memberPhoto) {
 		this.memberPhoto = memberPhoto;
     }
+	
+	public String getCostName() {
+		return costName;
+	}
+
+	public void setCostName(String costName) {
+		this.costName = costName;
+	}
+	
+	public Integer getCardNumber() {
+		return cardNumber;
+	}
+
+	public void setCardNumber(Integer cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+	
+	public String getBillGroup() {
+		return billGroup;
+	}
+
+	public void setBillGroup(String billGroup) {
+		this.billGroup = billGroup;
+	}
+	
+	public Integer getBmId() {
+		return bmId;
+	}
+
+	public void setBmId(Integer bmId) {
+		this.bmId = bmId;
+	}
 
 }
