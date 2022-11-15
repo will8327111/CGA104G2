@@ -44,28 +44,23 @@
 <h1>Index</h1>
 <h4><a href="member/select_page.jsp"></a></h4>
 <div class="m_title">
-    <h2>${ "住戶資訊管理專區" }</h2>
+    <h2>${ "測試專區" }</h2>
+    更新日：11/13
 </div>
 <br>
 
 <div class="form-group">
     <br>
-    <h4>${ "住戶管理" }</h4>
-    <li><a href="${pageContext.request.contextPath}/member/listAllMember.jsp">修改住戶資料</a> update all Members
-        <a href="${pageContext.request.contextPath}/member/listAllMember2.jsp">修改住戶資料-地址</a> update all Members
+    <h4>${ "前台" }</h4>
+    <li><a href="${pageContext.request.contextPath}/front-end/web/front-index.html"> 前台首頁 Web-front-end</a>/front-end/frontendIndex.jsp
         <br><br></li>
-    <li><a href="${pageContext.request.contextPath}/member/addMember.jsp">新增住戶資料</a> add Members <br><br></li>
 
-    <h4>${ "住戶查詢" }</h4>
+    <h4>${ "後台" }</h4>
 
-    <li><a href="${pageContext.request.contextPath}/member/select_page.jsp">查詢住戶資料</a> search one Members <br><br>
+    <li><a href="${pageContext.request.contextPath}/back-end/web/back-index.html"> 後台首頁 Web-back-end</a> /back-end/index/index/html <br><br>
     </li>
 
     ！===施工測試中===！
-    <li><a href="${pageContext.request.contextPath}/CGA104G2-front-end/index.html">前台首頁</a> Web-back-end <br><br>
-    </li>
-    <li><a href="${pageContext.request.contextPath}/CGA104G2-back-end/dist/index.jsp">後台首頁</a> Web-back-end <br><br>
-    </li>
 
     <script src="${pageContext.request.contextPath}/resources/assets/js/pages/form-element-select.js" rel="stylesheet"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/pages/form-editor.js" rel="stylesheet"></script>
