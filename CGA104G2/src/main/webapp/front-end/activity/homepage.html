@@ -42,7 +42,7 @@
 		</form>
 		
 		<a href="mylist.html">我舉辦的活動</a>
-		
+		<a href="addactivity.html">新增活動</a>
 	</div>
 	
 	
@@ -289,6 +289,13 @@
 // 		location ="reportactivity.jsp";
 // 	}
 	
+	web()
+	function web(){
+	   let path = window.location.pathname;
+    console.log(path)
+             let webCtx = path.substring(0, path.indexOf('/', 1));
+        console.log(webCtx)
+	}
 	
 
 </script>

@@ -51,7 +51,8 @@ async function deleteAct(actId){
 
 
 function change(actId){
-	location =`../../activity/ActServlet?action=oneUpdate&actId=${actId}`;
+	const act =sessionStorage.setItem("actId",actId)
+	location="update.html"
 	
 }
 
