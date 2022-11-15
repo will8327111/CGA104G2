@@ -1,6 +1,9 @@
 package com.mail.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -15,8 +18,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.boot.xsd.ConfigXsdSupport;
+import org.hibernate.type.LocaleType;
+import org.json.JSONObject;
+
+import com.activity.model.ActivityService;
+import com.google.gson.Gson;
+import com.google.gson.annotations.JsonAdapter;
 import com.mail.model.MailService;
 import com.mail.model.MailVO;
+import com.store.model.StoreService;
 
 @WebServlet("/back-end/mail/mail.do")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,maxFileSize = 10 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -30,7 +41,16 @@ public class MailServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		res.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		PrintWriter out = res.getWriter();
+		
+		if ("getAll".equals(action)) { 
+			MailService mailSvc = new MailService();
+		    out.write(mailSvc.getAll().toString());	
+
+		}
+		
 		if ("getOne_For_Display".equals(action)) { 
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -89,76 +109,57 @@ public class MailServlet extends HttpServlet {
 		/******************************************************************/
 		if ("get_Member_Name".equals(action)) { 
 
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			String memberName = req.getParameter("memberName");
-			if (memberName == null || (memberName.trim()).length() == 0) {
-				errorMsgs.add("請輸入住戶姓名");
-			}
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/mail/addMail.jsp");
-				failureView.forward(req, res);
-				return; 
-			}
-
-			MailService mailSvc = new MailService();
-			MailVO mailVO = mailSvc.getOneId(memberName);
-			if (mailVO == null) {
-				errorMsgs.add("查無此住戶請重新輸入");
-			}
-			/******************************************************************/			
-			req.setAttribute("mailVO", mailVO); 
-			String url = "/back-end/mail/addMail.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); 
-			successView.forward(req, res);
+//			List<String> errorMsgs = new LinkedList<String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+//			String memberName = req.getParameter("memberName");
+//			if (memberName == null || (memberName.trim()).length() == 0) {
+//				errorMsgs.add("請輸入住戶姓名");
+//			}
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/mail/addMail.jsp");
+//				failureView.forward(req, res);
+//				return; 
+//			}
+//
+//			MailService mailSvc = new MailService();
+//			MailVO mailVO = mailSvc.getOneId(memberName);
+//			if (mailVO == null) {
+//				errorMsgs.add("查無此住戶請重新輸入");
+//			}
+//			/******************************************************************/			
+//			req.setAttribute("mailVO", mailVO); 
+//			String url = "/back-end/mail/addMail.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url); 
+//			successView.forward(req, res);
 		}
-		
 		
 		// ====================================================
 		if ("insert".equals(action)) {
-			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			String enameReg = "^[0-9]*$";
-			Integer memberId = null;
-			
-			String strMemberId = req.getParameter("memberId");
-			System.out.println(strMemberId);
-			
-			if (strMemberId == null || strMemberId.trim().length() == 0) {
-				errorMsgs.put("memberId","請輸入住戶編號");
-			}else if(!strMemberId.trim().matches(enameReg)) {
-				errorMsgs.put("memberId","住戶編號: 只能是數字");
-	        }else {
-	        	memberId = Integer.valueOf(strMemberId);
-	        }
-			
-			String mailType = req.getParameter("mailType");
-			
-			java.sql.Date mailDelTime = null;
-			try {
-				mailDelTime = java.sql.Date.valueOf(req.getParameter("mailDelTime").trim());
-			} catch (IllegalArgumentException e) {
-				mailDelTime = new java.sql.Date(System.currentTimeMillis());
-				errorMsgs.put("mailDelTime","請輸入到貨日期");
+			BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream(),"utf-8"));
+			String json= "";
+			if(br !=null) {
+				json = br.readLine();
 			}
-
+			
+			JSONObject obj =new JSONObject(json); 
+			JSONObject updateMail = obj.getJSONObject("value");
+			System.out.println(updateMail);
+			
+			Integer memberId = Integer.valueOf((String) updateMail.get("memberId"));
+			String mailType = String.valueOf((String) updateMail.get("mailType"));
+			Date mailDelTime = Date.valueOf((String) updateMail.get("mailDelTime"));
+			
+			
+			System.out.println(memberId);
 			
 			MailVO mailVO = new MailVO();
-
-			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("mailVO", mailVO); 
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/mail/addMail.jsp");
-				failureView.forward(req, res);
-				return;
-			}
-			/*************************** 2.開始查詢資料 ***************************************/
+			mailVO.setMemberId(memberId);
+			mailVO.setMailType(mailType);
+			mailVO.setMailDelTime(mailDelTime);
+			
 			MailService mailSvc = new MailService();
-			mailVO = mailSvc.addMail(memberId,mailType,mailDelTime);
+			mailSvc.addMail(mailVO);
 
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) ***********/
-			String url = "/back-end/mail/listAllMail.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); 
-			successView.forward(req, res);
 
 		}
 		// ====================================================================================
@@ -181,84 +182,63 @@ public class MailServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-
 		// ====================================================================================
 		if ("update".equals(action)) {
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/******************************************************************/
-			Integer mailId = Integer.valueOf(req.getParameter("mailId").trim());
-
-			Integer memberId = null;
-			try {
-				memberId = Integer.valueOf(req.getParameter("memberId").trim());
-			} catch (NumberFormatException e) {
-				memberId = 0;
-				errorMsgs.add("請輸入住戶編號");
-			}
-			String mailType = req.getParameter("mailType");
-			String mailTypeReg = "^[(\u4e00-\u9fa5)]{2,10}$";
-
-			if (mailType == null || mailType.trim().length() == 0) {
-				errorMsgs.add("請輸入郵件項目");
-			} else if (!mailType.trim().matches(mailTypeReg)) {
-				errorMsgs.add("郵件項目格是不正確");
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream(),"utf-8"));
+			String json= "";
+			if(br !=null) {
+				json = br.readLine();
 			}
 			
-			Date mailDelTime = Date.valueOf(req.getParameter("mailDelTime").trim());
-			Date mailPickupTime = Date.valueOf(req.getParameter("mailPickupTime"));
-			Integer mailState = Integer.valueOf(req.getParameter("mailState").trim());
+			JSONObject obj =new JSONObject(json); 
+			JSONObject updateMail = obj.getJSONObject("value");
+			Integer mailId = Integer.valueOf((String) updateMail.get("mailId"));
+			Integer memberId = Integer.valueOf((String) updateMail.get("memberId"));
+			String mailType = String.valueOf((String) updateMail.get("mailType"));
+			Date mailDelTime = Date.valueOf((String) updateMail.get("mailDelTime"));
+			Date mailPickupTime = Date.valueOf((String) updateMail.get("mailPickupTime"));
+			Integer mailState = Integer.valueOf((String) updateMail.get("mailState"));
 			
-
 			MailVO mailVO = new MailVO();
+			mailVO.setMailId(mailId);
 			mailVO.setMemberId(memberId);
 			mailVO.setMailType(mailType);
 			mailVO.setMailDelTime(mailDelTime);
 			mailVO.setMailPickupTime(mailPickupTime);
 			mailVO.setMailState(mailState);
-
-			// Send the use back to the form, if there were errors
-			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("mailVO", mailVO); 
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/mail/update_mail_input.jsp");
-				failureView.forward(req, res);
-				return; 
-			}
-
-			/******************************************************************/
+			
 			MailService mailSvc = new MailService();
-			mailVO = mailSvc.updateEmp(mailId,memberId, mailType,mailDelTime,mailPickupTime,mailState);
-
-			/******************************************************************/
-			req.setAttribute("mailVO", mailVO); 
-			String url = "/back-end/mail/listAllMail.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); 
-			successView.forward(req, res);
+			mailSvc.updateMail(mailVO);
 		}
-
 		if ("delete".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/***************************  ***************************************/
+			/******************************************************************/
 			Integer mailId = Integer.valueOf(req.getParameter("mailId"));
-
+			
+			System.out.println(mailId);
 			/******************************************************************/
 			MailService mailSvc = new MailService();
 			mailSvc.deleteMail(mailId);
 
 			/*************************************/
-			String url = "/back-end/mail/listAllMail.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
 		}
 		
+		if("select_mailType".equals(action)) {
+			MailService mailSvc = new MailService();
+			out.write(mailSvc.findMailType().toString());
+		}
+		
+		if("search".equals(action)) {
+			String mailType = req.getParameter("mailType");
+			Integer mailId = Integer.valueOf(req.getParameter("mailId").trim());
+			MailService mailSvc = new MailService();
+//			if(mailId == 0) {
+//				out.write(mailSvc.singleSearch(mailType).toString());
+//			}
+			System.out.println(mailType);
+			System.out.println(mailId);
+			out.write(mailSvc.search(mailType,mailId).toString());
+		}
 //		if("get".equals(action)) {
 //			Integer id = Integer.valueOf(req.getParameter("memberId"));
 //			MailService mailSvc = new MailService();

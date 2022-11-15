@@ -36,7 +36,7 @@
 <!--     </style> -->
 <!-- </head> -->
 
-<%-- <%-- 錯誤表列 --%> --%>
+<%-- 錯誤表列 --%>
 <%-- <c:if test="${not empty errorMsgs}"> --%>
 <!-- 	<font style="color:red" class="err">請修正以下錯誤:</font> -->
 <!-- 	<ul class="err"> -->
@@ -68,7 +68,7 @@
 <!--                 <tr> -->
 <!--                     <td>住戶編號:</td> -->
 <%--                     <td><input type="text" name="memberId" value="${mailVO.memberId}"></td> --%>
-<%-- <%--                     <td>${errorMsgs.ename}</td> --%> --%>
+<%--                     <td>${errorMsgs.ename}</td> --%>
 <!--                 </tr> -->
 
 <!--                 <tr> -->

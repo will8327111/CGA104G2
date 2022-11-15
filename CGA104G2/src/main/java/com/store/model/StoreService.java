@@ -60,5 +60,9 @@ public class StoreService {
 		return dao.findByPrimaryKey(storeId);
 	}
 
+	public JSONArray findStoreType() {
+		return dao.findStoreType();	
+		}
+
 
 }

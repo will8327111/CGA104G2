@@ -31,7 +31,7 @@ public class StoreJDBCDAO implements StoreDAO_interface {
 	
 	@Override
 	public JSONArray getAll() {
-		JSONArray list = new JSONArray();
+		JSONArray array = new JSONArray();
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -57,10 +57,11 @@ public class StoreJDBCDAO implements StoreDAO_interface {
 				store.put("storeLon", rs.getBigDecimal("STORE_LON"));
 				store.put("storeLat", rs.getBigDecimal("STORE_LAT"));
 				
-				byte[] photo = rs.getBytes("STORE_PHOTO");
-				img = encoder.encodeToString(photo);
-				store.put("base64img", img);
-				list.put(store);
+//				byte[] photo = rs.getBase64img("STORE_PHOTO");
+//				img = encoder.encodeToString(photo);
+				store.put("base64img",rs.getString("STORE_PHOTO"));
+				
+				array.put(store);
 			}
 
 			// Handle any driver errors
@@ -95,7 +96,7 @@ public class StoreJDBCDAO implements StoreDAO_interface {
 				}
 			}
 		}
-		return list;
+		return array;
 	}
 
 	@Override
@@ -121,7 +122,7 @@ public class StoreJDBCDAO implements StoreDAO_interface {
 			}
 			pstmt = con.prepareStatement(INSERT_STORE_PHOTO);
 			pstmt.setInt(1, storeId);
-			pstmt.setBytes(2, storeVO.getStorePhoto());
+			pstmt.setString(2, storeVO.getBase64img());
 			pstmt.executeUpdate();
 
 		} catch (ClassNotFoundException e) {
@@ -318,6 +319,12 @@ public class StoreJDBCDAO implements StoreDAO_interface {
 			}
 		}
 		return storeVO;
+	}
+
+	@Override
+	public JSONArray findStoreType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

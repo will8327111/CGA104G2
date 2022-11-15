@@ -10,5 +10,7 @@ public interface StoreDAO_interface {
 	    public JSONArray getAll();
 //	    public byte[] getPhoto(Integer member_Id);
 //		public byte[] getStorePhoto(Integer store_Id);
+		public JSONArray findStoreType();
 
 }
+

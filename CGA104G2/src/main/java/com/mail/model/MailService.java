@@ -2,7 +2,8 @@ package com.mail.model;
 
 import java.sql.Date;
 import java.util.List;
-import com.mail.model.MailDAO_interface;
+
+import org.json.JSONArray;
 
 public class MailService {
 	private MailDAO_interface dao;
@@ -10,30 +11,14 @@ public class MailService {
 	public MailService() {
 		dao = new MailDAO();
 	}
-	public MailVO addMail(Integer memberId, String mailType, Date mailDelTime) {
+	public MailVO addMail(MailVO mailVO) {
+//		MailVO mailVO = dao.findByMemberName(memberName);
 
-		MailVO mailVO = new MailVO();
-
-		mailVO.setMemberId(memberId);
-		mailVO.setMailType(mailType);
-		mailVO.setMailDelTime(mailDelTime);
 		dao.insert(mailVO);
-
 		return mailVO;
 	}
-	public MailVO updateEmp(Integer mailId,Integer memberId, String mailType ,Date mailDelTime, Date mailPickupTime , Integer mailState) {
-
-		MailVO mailVO = new MailVO();
-
-		mailVO.setMailId(mailId);
-		mailVO.setMemberId(memberId);
-		mailVO.setMailType(mailType);
-		mailVO.setMailDelTime(mailDelTime);
-		mailVO.setMailPickupTime(mailPickupTime);
-		mailVO.setMailState(mailState);
-		
+	public MailVO updateMail(MailVO mailVO) {
 		dao.update(mailVO);
-
 		return mailVO;
 	}
 	public void deleteMail(Integer mailId) {
@@ -44,15 +29,24 @@ public class MailService {
 		return dao.findByPrimaryKey(mailId);
 	}
 
-	public List<MailVO> getAll() {
+	public JSONArray getAll() {
 		return dao.getAll();
 	}
+	public JSONArray findMailType() {
+		return dao.findMailType();
+	}
+	public JSONArray search(String mailType, Integer mailId) {
+		return dao.search(mailType, mailId);
+	}
+//	public JSONArray singleSearch(String mailType) {
+//		return dao.singleSearch(mailType);
+//	}
 	
 //	public byte[] getPhoto(Integer member_Id) {
 //		return dao.getPhoto(member_Id);
 //	}
-	public MailVO getOneId(String memberName) {
-		return dao.findByMemberName(memberName);
-	}
+//	public MailVO getOneId(String memberName) {
+//		return dao.findByMemberName(memberName);
+//	}
 
 }

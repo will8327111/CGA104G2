@@ -8,7 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,7 +41,9 @@ public class MailVO implements Serializable {
 	private Date mailPickupTime;
 	@Column(name = "MAIL_STATE",insertable = false)
 	private	Integer mailState;
-//	@Column(name = "MEMBER_NAME",insertable = false)
+	@Transient
+	private String mailStateName;
+//	
 //	private String memberName;
 
 	

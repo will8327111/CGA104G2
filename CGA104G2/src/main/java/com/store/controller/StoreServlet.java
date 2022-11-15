@@ -1,10 +1,13 @@
 package com.store.controller;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +19,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.json.JSONObject;
 
 import com.mail.model.MailService;
 import com.mail.model.MailVO;
@@ -32,7 +37,6 @@ public class StoreServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		res.setContentType("text/html; charset=UTF-8");
 		res.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		PrintWriter out = res.getWriter();
@@ -44,40 +48,36 @@ public class StoreServlet extends HttpServlet {
 		}
 		
 		if ("insert".equals(action)) {
-			Integer storeTypeId = null;
-			try {
-				storeTypeId = Integer.valueOf(req.getParameter("storeTypeId").trim());
-			} catch (Exception e) {
-				System.out.println("請輸入商店項目編號");
+			BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream(),"utf-8"));
+			String json = "";
+			if(br != null) {
+				json = br.readLine();
 			}
 			
-			String storeInfo = req.getParameter("storeInfo").trim();
+			JSONObject obj = new JSONObject(json); 
+			JSONObject addMail = obj.getJSONObject("value");
 			
-			String storeLoc = req.getParameter("storeLoc").trim();
+			Double storeLon = Double.valueOf((String)addMail.get("storeLon"));
+			Double storeLat = Double.valueOf((String)addMail.get("storeLat"));
 			
-			String bigDecimal = req.getParameter("storeLon").trim();
-			BigDecimal storeLon = new BigDecimal(bigDecimal);
+			Integer storeTypeId = Integer.valueOf((String) addMail.get("storeTypeId"));
+			String storeLoc = String.valueOf((String) addMail.get("storeLoc"));
+			BigDecimal storeLon2 = BigDecimal.valueOf(storeLon);
+			BigDecimal storeLat2 = BigDecimal.valueOf(storeLat);
+			String addStorePhoto = String.valueOf((String) addMail.get("storePhoto"));
+			String storeInfo = String.valueOf((String) addMail.get("storeInfo"));
 			
-			String bigDecimal2 = req.getParameter("storeLat").trim();
-			BigDecimal storeLat = new BigDecimal(bigDecimal2);
 			
-			Part part = req.getPart("storePhoto");
-			byte[] storePhoto = null;
-			InputStream is = part.getInputStream();
-			BufferedInputStream bis = new BufferedInputStream(is);
-			storePhoto = new byte[bis.available()];
-			bis.read(storePhoto);
-			is.close();
-			
-			/*************************** 2.開始加入資料 ***************************************/
-			StoreService storeSvc = new StoreService();
 			StoreVO storeVO = new StoreVO();
-			storeVO = storeSvc.addStore(storeTypeId, storeInfo, storeLoc, storeLon, storeLat,storePhoto);
+			storeVO.setStoreTypeId(storeTypeId);
+			storeVO.setStoreLoc(storeLoc);
+			storeVO.setStoreLon(storeLon2);
+			storeVO.setStoreLat(storeLat2);
+			storeVO.setBase64img(addStorePhoto);
+			storeVO.setStoreInfo(storeInfo);
 			
-			/*************************** 3.加入完成,準備轉交(Send the Success view) ***********/
-			String url = "/back-end/store/storeIndex.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); 
-			successView.forward(req, res);
+			StoreService storeSvc = new StoreService();
+			storeSvc.addStore(storeVO);
 		}
 		
 		if ("delete".equals(action)) {
@@ -146,7 +146,22 @@ public class StoreServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
+		if("selectStoreType".equals(action)) {
+			StoreService storeSvc = new StoreService();
+			out.write(storeSvc.findStoreType().toString());
+		}
 		
+		if("search".equals(action)) {
+			String mailType = req.getParameter("mailType");
+			Integer mailId = Integer.valueOf(req.getParameter("mailId").trim());
+			MailService mailSvc = new MailService();
+//			if(mailId == 0) {
+//				out.write(mailSvc.singleSearch(mailType).toString());
+//			}
+			System.out.println(mailType);
+			System.out.println(mailId);
+			out.write(mailSvc.search(mailType,mailId).toString());
+		}
 	}
 
 }
