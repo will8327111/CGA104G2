@@ -14,7 +14,7 @@
     <!-- !!固定!! 後台樣板 css -->
     <link rel="stylesheet" href="../../resources/back-end/assets/css/main/app.css">
 
-    <!-- !!固定!! favicon 網址列屬於我們網站的小圖示 -->
+    <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
     <link rel="shortcut icon" href="../../resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
 <!--=============================================================================================-->
 <!--    需要用自己的css請放在這邊註解下方覆蓋 start -->
@@ -29,11 +29,12 @@
 </head>
 
 <body>
-<!-- !!固定!! 旁邊導覽列sidebar menu start -->
+<!-- !!固定!! 旁邊導覽列sidebar menu start (不是js動態產生的,放body)-->
 <script src="../../resources/back-end/assets/js/sidebar.js"></script>
 <!-- !!固定!! 旁邊導覽列sidebar menu end -->
 
-<!-- 這邊以下是右上方放小鈴鐺+登出+通知等等的 navbar 使用的樣板格式(目前為假資料) -->
+
+<!-- !!Home頁面? 固定!!  右上方放小鈴鐺+登出+通知等等的 navbar 使用的樣板格式(目前為假資料) -->
 <div id="main" class='layout-navbar'>
                 <header class='mb-3'>
                     <nav class="navbar navbar-expand navbar-light navbar-top">
@@ -132,16 +133,10 @@
                         </div>
                     </nav>
                 </header>
-                <!-- !!固定!! 右上方 navbar end -->
+<!-- !!固定!! 右上方 navbar end -->
 
-<!--
-六角學院有中文翻譯解說boot strap可以參考：https://bootstrap5.hexschool.com/docs/5.1/getting-started/introduction/
-想用boot strap只需要設 ex: class="form control" 即可使用boot strap定義的表單控制 (Form controls)樣式元件
--->
 
-    <!-- 頁面 START!　網頁請從這邊以下開始修改，不需要此格式想用自己的請刪除 ~　-->
-
-<!--    page start-->
+<!-- 頁面 START!　網頁請從這邊以下開始修改，不需要此格式想用自己的請刪除 ~　-->
             <div id="main-content">
                     <div class="page-heading">
                         <div class="page-title">
@@ -157,7 +152,7 @@
                                 <div class="col-12 col-md-6 order-md-2 order-first">
                                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="back-index.html">Home</a></li>
                                             <li class="breadcrumb-item active" aria-current="page">Home Page</li>
                                         </ol>
                                     </nav>
@@ -165,38 +160,16 @@
                             </div>
                         </div>
 
-
-<!-- 網頁內頁排版用section(可複製多個使用，會直接套用RWD效果) START -->
+<!-- 內頁排版section(會直接套用RWD效果) START -->
                         <section class="section">
                             <div class="card">
                                 <div class="card-header">
+                                <!--標題-->
                                     <h4 class="card-title"></h4>
                                 </div>
+                                <!--內容區塊-->
                                 <div class="card-body">
-                                    <img src="../../resources/back-end/assets/images/main/work_l2.jpg" alt="Logo" srcset="" width="100%">
 
-                                </div>
-                            </div>
-                        </section>
-
-                        <section class="section">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title"></h4>
-                                </div>
-                                <div class="card-body">
-                                    <img src="../../resources/back-end/assets/images/main/work_l2.jpg" alt="Logo" srcset="" width="100%">
-
-                                </div>
-                            </div>
-                        </section>
-                        <section class="section">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title"></h4>
-                                </div>
-                                <div class="card-body">
-                                    <img src="../../resources/back-end/assets/images/main/work_l2.jpg" alt="Logo" srcset="" width="100%">
 
                                 </div>
                             </div>
@@ -204,7 +177,7 @@
 <!-- 網頁排版用section END -->
 
         </div>
-                <!-- page end -->
+<!-- 整頁page end -->
 
 
 <!-- !!固定!! footer(擺每個頁面最下方的版權用) START -->
@@ -222,11 +195,11 @@
                 </div>
             </div>
 
+
 <!-- 樣板用js start -->
 <script src="../../resources/back-end/assets/js/bootstrap.js"></script>
 <script src="../../resources/back-end/assets/js/app.js"></script>
 <!-- 樣板用js end -->
-
 </body>
 
 </html>
