@@ -52,12 +52,12 @@
 <div class="form-group">
     <br>
     <h4>${ "前台" }</h4>
-    <li><a href="${pageContext.request.contextPath}/front-end/frontendIndex.jsp"> 前台首頁 Web-front-end</a>/front-end/frontendIndex.jsp
+    <li><a href="${pageContext.request.contextPath}/front-end/web/front-index.html"> 前台首頁 Web-front-end</a>/front-end/frontendIndex.jsp
         <br><br></li>
 
     <h4>${ "後台" }</h4>
 
-    <li><a href="${pageContext.request.contextPath}/back-end/backendIndex.jsp"> 後台首頁 Web-back-end</a> /back-end/backendIndex.jsp <br><br>
+    <li><a href="${pageContext.request.contextPath}/back-end/web/back-index.html"> 後台首頁 Web-back-end</a> /back-end/index/index/html <br><br>
     </li>
 
     ！===施工測試中===！
