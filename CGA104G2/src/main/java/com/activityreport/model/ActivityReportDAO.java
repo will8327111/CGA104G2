@@ -17,7 +17,14 @@ public class ActivityReportDAO implements ActivityReportDAO_interface{
 
 	@Override
 	public void insert(ActivityReportVO activityReportVO) {
-		// TODO Auto-generated method stub
+			try {
+				beginTranscation();
+				getSession().persist(activityReportVO);
+				commit();
+			} catch (Exception e) {
+				e.getStackTrace();
+				rollback();
+			}
 		
 	}
 

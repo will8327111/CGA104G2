@@ -132,8 +132,8 @@ public class ActivityDAO implements ActivityDAO_interface {
 		jsonObject.put("actContent",vo.getActContent());
 		jsonObject.put("actMaxCount",vo.getActMaxCount());
 		jsonObject.put("actMinCount",vo.getActMinCount());
-		jsonObject.put("actSignStart",vo.getSignStart());
-		jsonObject.put("actSignEnd",vo.getSignEnd());
+		jsonObject.put("signStart",vo.getSignStart());
+		jsonObject.put("signEnd",vo.getSignEnd());
 		jsonObject.put("actStart",vo.getActStart());
 		jsonObject.put("actEnd",vo.getActEnd());
 		jsonObject.put("actCountry",vo.getActCountry());
