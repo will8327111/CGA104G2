@@ -271,7 +271,7 @@ function report(){
 	             }).then(function(result){
 		    	if(result.isConfirmed){
 		    		   let web = getWeb();
-		    		  fetch(web+'/activity/ActReportServlet?action=addReport', {
+		    		  fetch(web+'/activity/ActReport?action=addReport', {
 		                   method: 'post',
 		                   headers: {
 		                    'Content-Type': 'application/json'
