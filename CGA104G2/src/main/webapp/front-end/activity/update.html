@@ -193,14 +193,14 @@ color: red;
 
             
             <label>活動報名開始時間</label>
-            <Datepicker v-model="activity.actSignStart"  placeholder="請選擇時間" required></Datepicker>
-            <v-field  v-show="false" type="date" :rules="checkDay" name="活動報名開始時間"  v-model="activity.actSignStart"></v-field> 
+            <Datepicker v-model="activity.signStart"  placeholder="請選擇時間" ></Datepicker>
+            <v-field  v-show="false" type="date" :rules="checkDay" name="活動報名開始時間"  v-model="activity.signStart"></v-field> 
             <error-message name="活動報名開始時間" class="invalid-feedback"></error-message>
             
 
             <label>活動報名結束時間</label>
-            <Datepicker v-model="activity.actSignEnd"  name="actSignEnd" ></Datepicker>
-            <v-field  v-show="false" type="date"  :rules="checkSingEnd" name="actSignEnd"  v-model="activity.actSignEnd"></v-field> 
+            <Datepicker v-model="activity.signEnd"   name="actSignEnd" ></Datepicker>
+            <v-field  v-show="false" type="date"  :rules="checkSingEnd" name="actSignEnd"  v-model="activity.signEnd"></v-field> 
             <error-message name="actSignEnd" class="invalid-feedback"></error-message>
 
             <label>活動開始時間</label>
@@ -244,12 +244,23 @@ color: red;
             <label>活動費用:</label> 
             <v-field type="text" name="活動費用" rules="required|min_value:1" v-model="activity.actCost"></v-field>
             <error-message name="活動費用" class="invalid-feedback"></error-message>
+		
+			<label>原有照片修改:</label>
+			<div v-for="photo in photos">
+                <img :src="`data:image/png;base64,${photo.photo}`">
+            </div>
+			 
+
 
         </fieldset>
         <button type="submit" >送出修改</button>      
+        
+ 		
           
     </v-form>
-        
+       
+      
+
 
 </div>
 
@@ -289,6 +300,7 @@ Vue.createApp({
         activity:{},
         type:[],
         photo:[],
+        photos:[]
     }
     },
 
@@ -297,20 +309,8 @@ Vue.createApp({
 
 onSubmit() {
     let web = getWeb();
-    fetch(web+'/activity/ActServlet?action=updateJS', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        photo: this.photo,  //陣列
-                        activity:this.activity //物件
-                    })
-                });
-
-
-  
-    // axios.post(web+'/activity/ActServlet?action=updateJS', thisphoto)
+ 
+     axios.post(web+'/activity/ActServlet?action=updateJS', {photo:this.photo,activity:this.activity })
 },
 
         
@@ -337,22 +337,22 @@ onSubmit() {
         checkDay(value){
             let currentDay = new Date();
             currentDay= moment(currentDay).format('YYYY-MM-DD')
-            let signStart = this.activity.actSignStart
+            let signStart = this.activity.signStart
             signStart = moment(signStart).format('YYYY-MM-DD')
              return (signStart>=currentDay&&signStart)? true : "此欄位必填,選擇日期不能小於今天"
 
         },
         
         checkSingEnd(value){
-            let signStart = this.activity.actSignStart
+            let signStart = this.activity.signStart
             signStart = moment(signStart).format('YYYY-MM-DD')
-            let signEnd = this.activity.actSignEnd
+            let signEnd = this.activity.signEnd
             signEnd = moment(signEnd).format('YYYY-MM-DD')
             return (signEnd>=signStart)? true : "選擇的日期不能小於開始報名日"
         },
 
         checkActStart(value){
-            let signEnd = this.activity.actSignEnd
+            let signEnd = this.activity.signEnd
             signEnd = moment(signEnd).format('YYYY-MM-DD')
             let actStart = this.activity.actStart
             actStart = moment(actStart).format('YYYY-MM-DD')
@@ -387,7 +387,6 @@ onSubmit() {
             }
           
         }
-        console.log(this.photo)
     }
     }
     },
@@ -403,7 +402,13 @@ onSubmit() {
                   .then((resp)=> {
                     this.type=resp.data
                   })
-                
+
+
+         axios.get(web+'/activity/ActPhotoServlet?action=actPhoto&actId=' + actId)         
+                  .then((resp)=>{
+                    this.photos=resp.data
+     
+                  })
     }
         
     

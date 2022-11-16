@@ -1,31 +1,28 @@
 package com.activityreport.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+import javax.persistence.PersistenceContext;
+
+import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import com.activity.model.ActivityVO;
-import com.activitysignup.model.ActivitySignupVO;
 
+
+@Repository
 public class ActivityReportDAO implements ActivityReportDAO_interface{
+	
+	@PersistenceContext
+	private Session session;
 
 	@Override
 	public void insert(ActivityReportVO activityReportVO) {
-			try {
-				beginTranscation();
-				getSession().persist(activityReportVO);
-				commit();
-			} catch (Exception e) {
-				e.getStackTrace();
-				rollback();
-			}
-		
+			
+
+				session.persist(activityReportVO);
+				//getSession().persist(activityReportVO);
+
 	}
 
 	@Override
@@ -48,14 +45,11 @@ public class ActivityReportDAO implements ActivityReportDAO_interface{
 
 	@Override
 	public void deleteAct(Integer actId) {
-			beginTranscation();
-			try {
+			
+			
 				final String sql = "DELETE ActivityReportVO where actId = :actId ";
-				getSession().createQuery(sql).setParameter("actId", actId).executeUpdate();
-			commit();
-		} catch (Exception e) {
-			rollback();
-		}	
+				session.createQuery(sql).setParameter("actId", actId).executeUpdate();
+			
 			
 	}
 	

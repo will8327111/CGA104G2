@@ -1,8 +1,13 @@
-package com.activityreport.model;
+	package com.activityreport.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
 public class ActivityReportService {
 
-	
+	@Autowired
 	private ActivityReportDAO_interface dao;
 	
 	public ActivityReportService() {
@@ -10,11 +15,11 @@ public class ActivityReportService {
 		
 	}
 	
-	
+	@Transactional
 	public void insert(ActivityReportVO activityReportVO) {
 		dao.insert(activityReportVO);
 	}
-	
+	@Transactional
 	public void deleteAct(Integer actId) {
 		dao.delete(actId);
 	}
