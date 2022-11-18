@@ -8,14 +8,26 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
+import org.hibernate.Session;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Repository;
 
 import com.activitysignup.model.ActivitySignupVO;
 
+
+@Repository
 public class ActivityReplyDAO implements ActivityReplyDAO_interface {
+	
+	
+	
+	
+	@PersistenceContext
+	private Session session;
+	
 
 	@Override
 	public void insert(ActivityReplyVO activityReplyvo) {

@@ -1,13 +1,34 @@
 package com.activity.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 import java.util.List;
 
+
+import javax.sql.DataSource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.persistence.PersistenceContext;
+
+import org.hibernate.Session;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public class ActivityDAO implements ActivityDAO_interface {
+	
+	
+	
+	@PersistenceContext
+	private Session session;
+	
 
 	// 有用
 	@Override
@@ -254,8 +275,8 @@ public class ActivityDAO implements ActivityDAO_interface {
 
 	@Override
 	public void removeNumber(Integer currentNumber, Integer number, Integer actId) {
-		beginTranscation();
 		try {
+			beginTranscation();
 			Integer updateNumber = currentNumber - number;
 			final String hql = " update ActivityVO SET actCurrentCount = :number where actId = :id  ";
 			getSession().createQuery(hql).setParameter("number", updateNumber).setParameter("id", actId)
@@ -264,6 +285,69 @@ public class ActivityDAO implements ActivityDAO_interface {
 		} catch (Exception e) {
 			rollback();
 		}
+	}
+
+	@Override
+	public JSONObject name(Integer memberId) {
+		DataSource ds = null;
+		try{
+		Context ctx = new InitialContext();
+		ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB3");
+		}catch(NamingException e) {
+			e.printStackTrace();
+		}
+		
+		String NAME = " select MEMBER_NAME from MEMBER where MEMBER_ID=?";
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	   JSONObject object = new JSONObject();
+
+		try {
+			
+			con=ds.getConnection();
+			pstmt=con.prepareStatement(NAME);
+			pstmt.setInt(1, memberId);
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				object.put("name",rs.getString("MEMBER_NAME"));
+			}
+						
+			
+		} catch (SQLException se) {
+			se.printStackTrace(System.err);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+				se.printStackTrace(System.err);
+				}		
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+						
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}								
+		}
+
+		
+		return object;
+		
+				
 	}
 
 }

@@ -30,8 +30,10 @@ import org.json.JSONObject;
 import com.activity.model.ActivityService;
 import com.activity.model.ActivityVO;
 import com.activityphoto.model.ActivityPhotoService;
+import com.activityreport.model.ActivityReportService;
 import com.activitysignup.model.ActivitySignupService;
 import com.activitysignup.model.ActivitySignupVO;
+import com.activity.common.SpringUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -267,6 +269,8 @@ public class ActivityServlet extends HttpServlet {
 		if ("delete".equals(action)) {
 
 			Integer actId = Integer.valueOf(req.getParameter("deleteId"));
+			ActivityReportService report = SpringUtil.getBean(getServletContext(), ActivityReportService.class);
+			 report.deleteAct(actId);
 			ActivityService service = new ActivityService();
 			service.delete(actId);
 		}
@@ -297,6 +301,7 @@ public class ActivityServlet extends HttpServlet {
 		}
 
 		if ("ID".equals(action)) {
+			System.out.println("我有執行");
 			Integer id = Integer.valueOf(req.getParameter("ID"));
 			session.setAttribute("id", id);
 			String url = req.getContextPath() + "/front-end/activity/homepage.html";
@@ -371,6 +376,16 @@ public class ActivityServlet extends HttpServlet {
 			actSvc.updateJS(vo, photo);
 		}
 		
+		
+		if("getName".equals(action)) {
+		
+			
+			Integer memId = Integer.valueOf(req.getParameter("memId"));
+			
+			ActivityService actSvc = new ActivityService();
+			out.write(actSvc.name(memId).toString());
+			
+		}
 		
 	}
 

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 
 import com.activity.model.ActivityVO;
@@ -38,9 +40,19 @@ public class ActivityReportDAO implements ActivityReportDAO_interface{
 	}
 
 	@Override
-	public List<ActivityVO> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public JSONArray getAll() {
+		final String sql = "FROM ActivityReportVO where reportStatus=0";
+		List<ActivityReportVO> list = session.createQuery(sql,ActivityReportVO.class).list();
+		JSONArray array = new JSONArray();
+		for(ActivityReportVO vo : list ) {
+			JSONObject json = new JSONObject();
+			System.out.println(vo.getReportContent());
+			json.put("reportContent", vo.getReportContent());
+			json.put("reportStatus", vo.getReportStatus());
+			json.put("name", vo.getActivityVO().getActName());
+			array.put(json);
+		}		
+		return array;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.activityreport.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,6 +33,7 @@ public class ActivityReport extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		HttpSession session =   req.getSession();
+		PrintWriter out = res.getWriter();
 		
 		if("report".equals(action)) {
 			Integer actId =  Integer.valueOf(req.getParameter("actId"));
@@ -40,18 +42,16 @@ public class ActivityReport extends HttpServlet {
 					.getRequestDispatcher("/front-end/activity/reportactivity.jsp");
 			failureView.forward(req, res);		
 			
-		}
-		
-		
-	if("addReport".equals(action)) {
+		}else if("addReport".equals(action)) {
 		Gson gson = new Gson();
 		ActivityReportVO activityReportVO = gson.fromJson(req.getReader(), ActivityReportVO.class);
 		ActivityReportService service = SpringUtil.getBean(getServletContext(), ActivityReportService.class);
 		service.insert(activityReportVO);
 	
-	
+	}else if("getAll".equals(action)){
+		ActivityReportService service = SpringUtil.getBean(getServletContext(), ActivityReportService.class);
+		out.write(service.getAll().toString());	
 	}
-		
 		
 		
 	

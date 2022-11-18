@@ -22,6 +22,20 @@
         box-sizing: border-box;
     }
     
+
+    img {
+        width: 300px;
+        height: 200px;
+    }
+
+
+     .deletePhoto{
+		padding: 13px 13px;
+        width: 67px;
+        height: 46px;
+
+     }  
+
     body {
         font-family: 'Nunito', sans-serif;
         color: #384047;
@@ -246,9 +260,10 @@ color: red;
             <error-message name="活動費用" class="invalid-feedback"></error-message>
 		
 			<label>原有照片修改:</label>
-			<div v-for="photo in photos">
+			<span v-for="photo in photos">
                 <img :src="`data:image/png;base64,${photo.photo}`">
-            </div>
+                <button @click="deletePhoto(photo.actPhotoId)" class="deletePhoto" >刪除</button>
+            </span>
 			 
 
 
@@ -312,6 +327,16 @@ onSubmit() {
  
      axios.post(web+'/activity/ActServlet?action=updateJS', {photo:this.photo,activity:this.activity })
 },
+
+
+deletePhoto(deletePhoto){
+    let web = getWeb();
+    axios.post(web+'/activity/ActPhotoServlet?action=deleteById',{id:deletePhoto})
+    .then(function(){
+        location.reload();
+    })
+},
+
 
         
         checkName(value){
