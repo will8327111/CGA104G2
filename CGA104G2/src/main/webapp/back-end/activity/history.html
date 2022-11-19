@@ -141,19 +141,14 @@
 							<th>檢舉原因</th>
 							<th>處理狀態</th>
 							<th>備註</th>
-							<th>確認處理</th>
 						</tr>
 						<tr v-for="report in reports" >
 							<td>{{report.name}}</td>
 							<td>{{report.reportContent}}</td>
-							<td><select v-model="report.reportStatus" class="choices form-select choices__input">
-							<option value="0">未處理</option>	
-							<option value="1">違反規定</option>	
-							<option value="2">未違反規定</option>	
-							</select>
+							<td v-if="report.reportStatus === 1 " >違反規定</td> 
+                            <td v-if="report.reportStatus === 2 " >未違反規定</td> 
 							</td>
-							<td><button  class="btn btn-primary" @click="write(report.actReportId)">輸入備註</button></td>
-							<td><button type="submit" class="btn btn-primary" @click="submit(report)">確認修改</button></td>
+							<td>{{report.reportNote}}</td>
 						</tr>
 					</table>
 				</div>
@@ -209,76 +204,8 @@ Vue.createApp({
 	
 	methods:{
 
-		submit(report){
-			let web = getWeb();
-			axios.post(web+'/activity/ActReport?action=updateStatus',{report})
-			.then(
-				function(){
-					location.reload();
-				}
-			)
 
 
-		},
-
-
-
-	
-	write(actReportId){
-
-		sessionStorage.setItem("id",actReportId);
-
-		    Swal.fire({
-		    	title:"備註內容",
-		    	html:`
-		    	<textarea  style="resize:none;width:300px;height:200px;" id="report"></textarea>`,
-				background: '#fff url(https://sweetalert2.github.io/images/trees.png)',
-  backdrop: `
-    rgba(0,0,123,0.4)
-    url("https://sweetalert2.github.io/images/nyan-cat.gif")
-    left top
-    no-repeat
-  `,
-  padding: '3em',
-				confirmButtonText:'送出',
-	             showCancelButton:true,
-	             cancelButtonText:'取消',
-	             cancelButtonColor:'#d33',	  
-				 background: '#fff url(/images/trees.png)',
-				 
-	             preConfirm:function(){
-	            	 let reportNote = document.getElementById('report').value
-						 actReportId = sessionStorage.getItem("id")
-						 if(true){
-			                   return{
-								actReportId: actReportId,
-								reportNote: reportNote,
-			                   }
-			                  }
-						
-	             },	          
-	             }).then(function(result){
-		    	if(result.isConfirmed){
-		    		   let web = getWeb();
-		    		  fetch(web+'/activity/ActReport?action=updateContent', {
-		                   method: 'post',
-		                   headers: {
-		                    'Content-Type': 'application/json'
-		                   },
-		                   body: JSON.stringify(result.value)
-		                  });
-		    		  
-		    		  Swal.fire({
-		    			  icon: 'success',
-		    			  title: '成功留言',
-		    			  showConfirmButton: false,
-		    			  timer: 1500
-		    			})		    		
-		    	}else{
-		    		Swal.fire('取消','取消留言');
-		    	}	            	 	            	 
-		    })	  
-		  }
 		
 	},
 	
@@ -286,7 +213,7 @@ Vue.createApp({
 	
 	
 	let web = getWeb();
-	axios.post(web+ '/activity/ActReport?action=getAll')
+	axios.post(web+ '/activity/ActReport?action=getHistory')
 	.then((resp)=>{
 		this.reports = resp.data
 	

@@ -278,7 +278,7 @@ public class ActivityDAO implements ActivityDAO_interface {
 		try {
 			beginTranscation();
 			Integer updateNumber = currentNumber - number;
-			final String hql = " update ActivityVO SET actCurrentCount = :number where actId = :id  ";
+			final String hql = " UPDATE ActivityVO SET actCurrentCount = :number where actId = :id  ";
 			getSession().createQuery(hql).setParameter("number", updateNumber).setParameter("id", actId)
 					.executeUpdate();
 			commit();

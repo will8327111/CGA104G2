@@ -25,9 +25,24 @@ public class ActivityReportService {
 		dao.deleteAct(actId);
 	}
 
-	
+	@Transactional
 	public JSONArray getAll() {
 		return dao.getAll();
+	}
+	
+	@Transactional
+	public void updateNote(ActivityReportVO activityReportVO) {
+		dao.updateNote(activityReportVO);
+	}
+	
+	@Transactional
+	public void updateStatus(ActivityReportVO activityReportVO) {
+		dao.updatStatus(activityReportVO);
+	}
+	
+	@Transactional
+	public JSONArray getHistory() {
+		return dao.getHistory();
 	}
 	
 }
