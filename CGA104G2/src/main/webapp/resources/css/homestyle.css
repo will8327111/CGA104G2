@@ -50,7 +50,7 @@
     background: #99b19c; }
   .table thead th {
     border: none;
-    padding: 30px;
+    padding: 20px;
     font-size: 13px;
     font-weight: 500;
     color: white; }
@@ -58,7 +58,7 @@
     margin-bottom: 10px; }
   .table tbody  th , .table tbody  td {
     border: none;
-    padding: 40px;
+    padding: 27px;
     font-size: 14px;
     background: #fff;
     border-bottom: 4px solid #f8f9fd;
@@ -78,7 +78,7 @@
   
   
   
-img {
+.homepageImg {
 	width: 200px;
 	height: 200px
 }
@@ -158,95 +158,29 @@ button {
 	display: flex;
 }  
 
+.flex_container {
+	display: flex;
+}  
 
-.selectstyle {
-  --selectsize:2rem;
-  --uibordercolor:#bbb;
-  --uibackground:#f8f8f8;
-  --uiborderradiusfactor:0;
-  --uihovercolor:#363636;
-  --uireversecolor:#fff;
-  --unicodepointer:"\25bc";
-}
 
-.selectstyle--style1 {
-  --uibordercolor:#ace;
-  --uibackground:#f8f8ff;
-  --uiborderradiusfactor:0.167;
-  --uihovercolor:#125FA6;
-  --uireversecolor:#fff;
-}
- 
-.selectstyle__box {
-  margin:0 auto;
-  width:auto;
-  height:auto;
-  text-align:center;
-  overflow:visible;
-  position: relative;
-  display:inline-block;
-  font-size:calc(var(--selectsize) * 0.5);
-}
-
-.selectstyle__label {
-  font-size:calc(var(--selectsize) * 0.5);
-  position: relative;
-  display: inline-block;
-  margin:0 calc(var(--selectsize) * 0.5) 0 0;
-  white-space:nowrap;
-}
-.selectstyle__box__select {
-  position:relative;
-  display: inline-block;
-  border: 2px solid var(--uibordercolor);
-  padding: 0 calc(var(--selectsize) * 0.09) 0 calc(var(--selectsize) * 0.15);
-  margin: 0;
-  font: inherit;
-  height:var(--selectsize);
-  line-height: calc(var(--selectsize) * 0.92);
-  background: var(--uibackground);
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  /* remove the strong OSX influence from Webkit */
-  border-radius: calc(var(--selectsize) * var(--uiborderradiusfactor));
-  cursor:pointer;
-}
-.selectstyle__box__select optgroup, .selectstyle__box__select optgroup option {
-  /* This helps the appearance of select dropdowns in Firefox to be more like other browsers.
-  Chrome and Safari ignore these rules */
-  color:black;
-  background:#ccc;
-  font-size:inherit;
-}
-
-/* for Webkit's CSS-only solution */
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  .selectstyle__box__select {
-    padding-right: calc(var(--selectsize) * 2);
-  }
-}
-/* Select arrow styling using unicode symbol */
-.selectstyle__box::after {
-  width:var(--selectsize);
-  height:var(--selectsize);
-  content: var(--unicodepointer);
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  font-size: 60%;
-  line-height: var(--selectsize);
-  padding: 0 7px;
-  background: var(--uibackground);
-  color: black;
-  pointer-events: none;
-  border-radius: 0 calc(var(--selectsize) * var(--uiborderradiusfactor)) calc(var(--selectsize) * var(--uiborderradiusfactor)) 0;
-  border: 2px solid var(--uibordercolor);
-}
-.selectstyle__box:hover::after, .selectstyle__box__select:hover {
-  background:var(--uihovercolor);
-  color:var(--uireversecolor);
-}
-.no-pointer-events .selectstyle__box__select:after {
-  content: none;
+.form-select {
+    -moz-padding-start: calc(.75rem - 3px);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 16px 12px;
+    border: 1px solid #dce7f1;
+    border-radius: 0.25rem;
+    color: #607080;
+    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    width: 100%;
 }

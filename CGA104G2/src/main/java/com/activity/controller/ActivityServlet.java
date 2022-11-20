@@ -340,7 +340,7 @@ public class ActivityServlet extends HttpServlet {
 			List<Integer> list = actSvc.getAll();
 			JSONObject object = new JSONObject();
 			Integer number = 0;
-			if (list.size() / 3 != 0) {
+			if (list.size() % 3 != 0) {
 				number = (list.size() / 3) + 1;
 			} else {
 				number = (list.size() / 3);
