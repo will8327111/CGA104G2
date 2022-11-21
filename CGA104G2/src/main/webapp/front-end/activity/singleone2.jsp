@@ -13,9 +13,20 @@ Integer status = (Integer) request.getAttribute("status");
 <html lang="en">
 <head>
 <title></title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <title>社區業務管理系統-陪你e生e世</title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--=============Google Font ===============-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
+    <!--==============css===============-->
+    <link rel="stylesheet" href="../../resources/css/homestyle.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/jquery.bxslider.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
 <link href="https://cdn.bootcss.com/flexslider/2.6.3/flexslider.min.css"
 	rel="stylesheet">
 <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
@@ -24,24 +35,67 @@ Integer status = (Integer) request.getAttribute("status");
 <link rel="stylesheet" href="../resources/css/formstyle.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- 文字 -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
 
-
-
-<style>
-
-        body {
-            font-family: Lato,sans-serif,'huninn',serif;
+    <style>
+        @font-face {
+            font-family: 'huninn';
+            src: url('/resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
         }
-        
-</style>
+        body {
+            font-family: 'huninn',serif;
+        }
+    </style>
+
+
 
 </head>
 <body>
 
-<h3><a style="padding:570px" href="../front-end/activity/front-index.html">返回首頁</a></h3>
+ <div id="splash">
+        <div id="splash-logo">
+            <div class="bgextend bgLRextend"><span class="bgappear">Community Management</span><br>
+                <span class="bgappear">陪你e生e世 社區服務平台</span></div>
+        </div>
+        <!--/splash-->
+    </div>
+    <div class="splashbg"></div>
+    <!---画面遷移用-->
 
+
+  <div id="container">
+
+        <header id="header">
+<!--            <h3><a href="#"><span class="bgextend bgLRextendTrigger">-->
+            <h1><div> <a href="front-index.html"><img src="../../resources/front-end/assets/img/logo11_trans4.png" alt="" style="width: 50%"></a></div></h1>
+<!--            </a></h3>-->
+                        <!-- <span class="bgappearTrigger">陪你e生e世</span> -->
+
+<!--                    </span></a></h1>-->
+
+            <nav id="pc-nav">
+<!--                    <li><span class="bgappearTrigger"><img src="img/logo11_trans.png" alt="" style="width: 40%"></span></li>-->
+                <ul>
+                    <li><a href="#vision"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">帳號管理</span></span></a></li>
+                    <li><a href="#service"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">活動</span></span></a></li>
+                    <li><a href="#about"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">公共設施</span></span></a></li>
+                    <li><a href="#faq"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">檢舉與維修</span></span></a></li>
+                    <li><a href="#contact"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">特約商店</span></span></a></li>
+                    <li><a href="#contact"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">社區帳單</span></span></a></li>
+                    <li><a href="#contact"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">聯絡我們</span></span></a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+ <main id="main-area">
+	<div><a>返回首頁</a></div>
 	<div class="wrapper">
 		<div class="title">活動詳情</div>
 		<div class="flexslider">
@@ -55,7 +109,7 @@ Integer status = (Integer) request.getAttribute("status");
 					style="background-color: transparent; border: 0">
 			</div>
 			<div class="inputfield">
-				<label>活動內容</label> <input type="text" class="input" 
+				<label>活動內容</label> <input type="text" class="input"
 					value="<%=activityVO.getActContent()%>" readonly
 					style="background-color: transparent; border: 0">
 			</div>
@@ -76,7 +130,7 @@ Integer status = (Integer) request.getAttribute("status");
 			</div>
 			<div class="inputfield">
 				<label>活動費用</label> <input type="text" class="input"
-					value="<%=activityVO.getActCost()%>元" readonly
+					value="<%=activityVO.getActCost()%>" readonly
 					style="background-color: transparent; border: 0">
 			</div>
 
@@ -123,7 +177,9 @@ Integer status = (Integer) request.getAttribute("status");
 					style="width: 100px; margin-left: 41px;">
 			</div>
 
-			<h3 id="reply" style=" margin-left: 260px">留言板</h3>
+			<h3 style=" margin-left: 260px">留言板</h3>
+			<div class="inputfield" id="reply">
+			</div>
 		<form >
 			<div class="inputfield">
 				<label>我要留言</label>
@@ -135,6 +191,43 @@ Integer status = (Integer) request.getAttribute("status");
 		</form>	
 		</div>
 	</div>
+ </main>
+
+ <footer id="footer">
+
+            <div class="openbtn"><span></span><span>Menu</span><span></span></div>
+            <div id="g-nav">
+                <div id="g-nav-list">
+                    <ul>
+                        <li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
+                        <li><a href="#vision">社區起源</a></li>
+                        <li><a href="#service">個人管理</a></li>
+                        <li><a href="#about">活動</a></li>
+                        <li><a href="#faq">公共設施</a></li>
+                        <li><a href="#contact">檢舉與維修</a></li>
+                    </ul>
+                </div>
+            </div>
+               <p class="footer-logo">CommunityManagement</p>
+            <small>&copy; CommunityManagement：社區物業管理系統-陪你e生e世</small>
+        </footer>
+        <!--/wrapper-->
+    </div>
+
+
+    <!--=============JS ===============-->
+    <!--jQuery-->
+    <script src="../../resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
+    <!--news tickerー-->
+    <script src="../../resources/front-end/assets/js/jquery.bxslider.min.js"></script>
+    <!--背景線延伸效果-->
+    <script src="../../resources/front-end/assets/js/scrollgress.min.js"></script>
+    <!--apang 動畫-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apng-canvas/2.1.1/apng-canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+ <script src="../../resources/front-end/assets/js/script.js"></script>
+    <script src="../../resources/front-end/assets/js/modaal.min.js"></script>
+
 
 
 	<script>
@@ -223,9 +316,9 @@ async function showReply(){
 	let res = await fetch(`<%=request.getContextPath()%>/activity/ActivityReplyServlet?action=search&actId=<%=activityVO.getActId()%>`,{ method: 'get' })
 	let data = await res.json();
 	data.forEach(reply=>{
-	$("#reply").after(`<div class="inputfield"><label>住戶姓名:\${reply.memId}</label><input type="text" class="input"
+	$("#reply").append(`<label>住戶姓名:\${reply.memId}</label> <input type="text" class="input"
 			value="\${reply.content}" readonly
-			style="background-color: transparent; border: 0"></div>`)
+			style="background-color: transparent; border: 0">`)	
 	})
 	
 }

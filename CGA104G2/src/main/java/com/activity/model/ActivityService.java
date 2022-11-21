@@ -173,7 +173,10 @@ public class ActivityService implements ActivityServiceCommon {
 
 	}
 
-		
+	public void updateStatus(Integer actId) {
+		dao.updateStatus(actId);
+	}	
+
 	
 	public JSONObject name(Integer memberId) {
 		return  dao.name(memberId);

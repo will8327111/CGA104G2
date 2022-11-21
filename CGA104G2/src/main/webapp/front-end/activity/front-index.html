@@ -23,8 +23,10 @@
             src: url('/resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
         }
         body {
-            font-family: 'huninn',serif;
+            font-family: Lato,sans-serif,'huninn',serif;
         }
+        
+       
     </style>
 </head>
 
@@ -96,16 +98,17 @@
                             </span>
 
                         <input id="name"  type="text" placeholder="活動名稱" style="border-style:double">
-                         <input type="button" name="submit" value="查詢" onclick="getData()" />
+                         <input type="button" name="submit" value="查詢" onclick="getData()" class= "btn btn-secondary" />
                     </form>
                     <a href="mylist.html">我舉辦的活動</a>
                     <a href="addactivity.html">新增活動</a>
+                    <a href="myaddlist.html">新增活動</a>
                 </div>
                 
                 
                 
             
-                <div  style="float: left; width: 70%;margin-top:47px">
+                <div  style="float: left; width: 70%;margin-top:47px" class="font-family: 'Noto Sans TC', sans-serif">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-wrap">
@@ -175,7 +178,7 @@
 		let data = await res.json();
 		let number = data.button
 		for(let i=0;i<number;i++){
-			$("#button").append(`<button type="submit" onclick="showInfo(${i})">第${i+1}頁</button>`)
+			$("#button").append(`<button type="submit" class="custom-btn btn-4" onclick="showInfo(${i})">第${i+1}頁</button>`)
 		}
 		showInfo(0)
 		getCountry();
@@ -184,7 +187,7 @@
 	
 	
 	async function showInfo(page){
-		rest()
+		rest()       
 		let res = await fetch("../../activity/ActServlet?action=getPage&page="+page, { method: 'get' })
 		let data = await res.json();
 		
@@ -192,12 +195,12 @@
 				$("#addPage").append(`<tr class="alert" role="alert"><td><img class="homepageImg" src="data:image/jpeg;base64,${act.photo}"></td>
 								<td>
 									<div class="email">
-									<span>活動名稱:${act.activityName}</span><span>報名開始時間:${act.activitySignst}</span> <span>活動開始時間:${act.activityStart}
+									<span>活動名稱:${act.activityName}</span><span>報名開始時間:${act.activitySignst}</span> <span>報名結束時間:${act.activitySignet}</span><span>活動開始時間:${act.activityStart}
 										</span><span>活動結束時間:${act.activityEnd}</span><span></span>
 									</div>
 								</td>
 								<td><span>${act.activityCurrent}/${act.activityMax}</span></td>
-								<td>${act.actLocation}</td><span></span><span></span><td><a href="../../activity/ActServlet?action=view&actId=${act.activityId}">活動詳情</a></td><tr>`)	
+								<td>${act.actLocation}</td><span></span><span></span><td><a class="btn btn-outline-secondary"  href="../../activity/ActServlet?action=view&actId=${act.activityId}">活動詳情</a></td><tr>`)	
 		} )
 	}
 	
@@ -245,14 +248,17 @@
 			$("#addPage").append(`<tr class="alert" role="alert"><td><img  class="homepageImg" src="data:image/jpeg;base64,${act.photo}"></td>
 							<td>
 								<div class="email">
-								<span>活動名稱:${act.activityName}</span><span>報名開始時間:${act.activitySignst}</span> <span>活動開始時間:${act.activityStart}
+								<span>活動名稱:${act.activityName}</span><span>報名開始時間:${act.activitySignst}</span><span>報名結束時間:${act.activitySignet}</span> <span>活動開始時間:${act.activityStart}
 									</span><span>活動結束時間:${act.activityEnd}</span><span></span>
 								</div>
 							</td>
 							<td>${act.activityCurrent}/${act.activityMax}</td>
 							<td>${act.actLocation}</td><span></span><span></span><td><a href="../../activity/ActServlet?action=view&actId=${act.activityId}">活動詳情</a></td><tr>`)	
 	} )
-
+	
+			$("#type").val(0) 
+			$("#country").val("")
+			$("#name").val("")
 	
  	$("#button").append(`<button type="submit" class="custom-btn btn-4" onclick="getButton(0)">返回總查詢</button>`)
 	

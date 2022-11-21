@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.activityreport.model.ActivityReportService;
 import com.activityreport.model.ActivityReportVO;
 import com.activity.common.SpringUtil;
+import com.activity.model.ActivityService;
+import com.activityreply.model.ActivityReplyService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -68,10 +70,14 @@ public class ActivityReport extends HttpServlet {
 		 ActivityReportVO vo = gson.fromJson(json.get("report"), ActivityReportVO.class);  
 		ActivityReportService service = SpringUtil.getBean(getServletContext(), ActivityReportService.class);
 		service.updateStatus(vo);
-		
+		ActivityService service2 = new ActivityService();
+		System.out.println(vo.getActId());
+		service2.updateStatus(vo.getActId());
 	}else if("getHistory".equals(action)) {
 		ActivityReportService service = SpringUtil.getBean(getServletContext(), ActivityReportService.class);
 		out.write(service.getHistory().toString());	
+		
+		
 	}
 		
 		

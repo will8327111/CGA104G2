@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 
+import com.activity.model.ActivityVO;
 import com.activitysignup.model.ActivitySignupVO;
 
 
@@ -57,8 +58,12 @@ public class ActivityReplyDAO implements ActivityReplyDAO_interface {
 		JSONArray array = new JSONArray();
 		for (ActivityReplyVO vo : list) {
 			JSONObject object = new JSONObject();
-			object.put("memId", vo.getMemberId());
 			object.put("content",vo.getReplyContent());
+			
+		final String sql ="SELECT MEMBER_NAME FROM ACTIVITY_REPLY ar join MEMBER mb on ar.MEMBER_ID = mb.MEMBER_ID where mb.MEMBER_ID = :memId and ACTIVITY_REPLY_ID = :replyId";
+		String name = (String) getSession().createNativeQuery(sql).setParameter("memId", vo.getMemberId()).setParameter("replyId", vo.getActReplyId()).uniqueResult();
+			
+			object.put("memId", name);
 			array.put(object);
 		}
 		commit();

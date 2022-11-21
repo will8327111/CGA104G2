@@ -40,6 +40,7 @@ public class ActivityReportDAO implements ActivityReportDAO_interface{
 			json.put("reportContent", vo.getReportContent());
 			json.put("reportStatus", vo.getReportStatus());
 			json.put("actReportId", vo.getActReportId());
+			json.put("actId", vo.getActId());
 			json.put("name", vo.getActivityVO().getActName());
 			array.put(json);
 		}		

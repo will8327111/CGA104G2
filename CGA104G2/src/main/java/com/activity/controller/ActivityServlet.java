@@ -301,10 +301,9 @@ public class ActivityServlet extends HttpServlet {
 		}
 
 		if ("ID".equals(action)) {
-			System.out.println("我有執行");
 			Integer id = Integer.valueOf(req.getParameter("ID"));
 			session.setAttribute("id", id);
-			String url = req.getContextPath() + "/front-end/activity/homepage.html";
+			String url = req.getContextPath() + "/front-end/activity/front-index.html";
 			res.sendRedirect(url);
 
 		}

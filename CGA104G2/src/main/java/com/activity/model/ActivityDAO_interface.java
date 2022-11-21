@@ -27,5 +27,6 @@ public interface ActivityDAO_interface extends ActivityCommon{
 	public void updateNumber(Integer number,Integer actId);
 	public void removeNumber(Integer currentNumber,Integer number, Integer actId);
 	public JSONObject name(Integer memberId);
+	public void updateStatus (Integer actId);
 	
 }

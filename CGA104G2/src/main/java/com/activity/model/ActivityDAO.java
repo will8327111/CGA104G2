@@ -140,6 +140,8 @@ public class ActivityDAO implements ActivityDAO_interface {
 	
 	
 	
+	
+	
 
 	@Override
 	public JSONObject getOneJS(Integer actId) {
@@ -147,6 +149,7 @@ public class ActivityDAO implements ActivityDAO_interface {
 		final String sql = "select * from ACTIVITY where ACTIVITY_ID = :actId ";
 		ActivityVO vo = getSession().createNativeQuery(sql, ActivityVO.class).setParameter("actId", actId)
 				.uniqueResult();	
+		Encoder encoder = Base64.getEncoder();
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("actId",vo.getActId());
 		jsonObject.put("actName", vo.getActName());
@@ -161,6 +164,10 @@ public class ActivityDAO implements ActivityDAO_interface {
 		jsonObject.put("actType",vo.getActType());
 		jsonObject.put("actLocation",vo.getActLocation());
 		jsonObject.put("actCost",vo.getActCost());
+		if (vo.getPhotos().size() != 0) {
+			String photo64 = encoder.encodeToString(vo.getPhotos().get(0).getActPhoto());
+			jsonObject.put("photo", photo64);
+		}		
 		commit();
 		return jsonObject;
 	}
@@ -233,7 +240,7 @@ public class ActivityDAO implements ActivityDAO_interface {
 	@Override
 	public JSONArray getPage(Integer number) {
 		beginTranscation();
-		final StringBuilder sql = new StringBuilder().append("SELECT * FROM ACTIVITY ");
+		final StringBuilder sql = new StringBuilder().append("SELECT * FROM ACTIVITY  WHERE ACTIVITY_STATUS = 0  ");
 		String first = Integer.toString(number * 3);
 		sql.append(" " + "LIMIT" + " " + first + "," + "3");
 		List<ActivityVO> list = getSession().createNativeQuery(sql.toString(), ActivityVO.class).list();
@@ -348,6 +355,20 @@ public class ActivityDAO implements ActivityDAO_interface {
 		return object;
 		
 				
+	}
+
+	@Override
+	public void updateStatus(Integer actId) {
+		try {
+			beginTranscation();
+			final String hql = " UPDATE ActivityVO SET actStatus = 3 where actId = :id  ";
+			getSession().createQuery(hql).setParameter("id", actId)
+					.executeUpdate();
+			commit();
+		} catch (Exception e) {
+			rollback();
+		}
+		
 	}
 
 }
