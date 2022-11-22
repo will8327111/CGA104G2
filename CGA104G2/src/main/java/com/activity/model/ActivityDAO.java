@@ -224,17 +224,6 @@ public class ActivityDAO implements ActivityDAO_interface {
 
 	}
 
-	@Override
-	public JSONArray getAllJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<JSONArray> getMemberJson(Integer memberId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	// 有用
 	@Override
@@ -362,6 +351,29 @@ public class ActivityDAO implements ActivityDAO_interface {
 		try {
 			beginTranscation();
 			final String hql = " UPDATE ActivityVO SET actStatus = 3 where actId = :id  ";
+			getSession().createQuery(hql).setParameter("id", actId)
+					.executeUpdate();
+			commit();
+		} catch (Exception e) {
+			rollback();
+		}
+		
+	}
+
+	@Override
+	public List<ActivityVO> get() {
+		beginTranscation();
+		final String hql = "FROM ActivityVO";
+		List<ActivityVO> list = getSession().createQuery(hql,ActivityVO.class).list();
+		commit();
+		return list;
+	}
+
+	@Override
+	public void expired(Integer actId) {
+		try {
+			beginTranscation();
+			final String hql = " UPDATE ActivityVO SET actStatus = 1 where actId = :id  ";
 			getSession().createQuery(hql).setParameter("id", actId)
 					.executeUpdate();
 			commit();

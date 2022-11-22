@@ -79,7 +79,7 @@
 
             <main id="main-area">
             	<div style="float: left; width: 18%; margin-top:97px;margin-left:-36px">
-                    <h4>查詢活動</h4>
+                    <h4 >查詢活動</h4>
                  
                     <form id="form">
                
@@ -98,7 +98,7 @@
                             </span>
 
                         <input id="name"  type="text" placeholder="活動名稱" style="border-style:double">
-                         <input type="button" name="submit" value="查詢" onclick="getData()" class= "btn btn-secondary" />
+                         <input type="button" name="submit" value="查詢" onclick="getData()" class= "btn btn-outline-secondary" />
                     </form>
                     <a href="mylist.html">我舉辦的活動</a>
                     <a href="addactivity.html">新增活動</a>
@@ -135,7 +135,7 @@
 
         </div>
 
-        <footer id="footer">
+        <footer id="footer" style="margin-top:171px">
 
             <div class="openbtn"><span></span><span>Menu</span><span></span></div>
             <div id="g-nav">
@@ -178,11 +178,13 @@
 		let data = await res.json();
 		let number = data.button
 		for(let i=0;i<number;i++){
-			$("#button").append(`<button type="submit" class="custom-btn btn-4" onclick="showInfo(${i})">第${i+1}頁</button>`)
+			$("#button").append(`<button type="submit" class="btn btn-outline-secondary" onclick="showInfo(${i})">第${i+1}頁</button>`)
 		}
 		showInfo(0)
 		getCountry();
 		getType();
+		update()
+		
 	}
 	
 	
@@ -260,7 +262,7 @@
 			$("#country").val("")
 			$("#name").val("")
 	
- 	$("#button").append(`<button type="submit" class="custom-btn btn-4" onclick="getButton(0)">返回總查詢</button>`)
+ 	$("#button").append(`<button type="submit" class="btn btn-outline-secondary" onclick="getButton(0)">返回總查詢</button>`)
 	
 	}		
 
@@ -293,6 +295,12 @@
 	}
 	
     
+	
+	async  function update(){
+		let web = web()
+		let res = await fetch( web+"ActivityUpdate", { method: 'post' })	
+	}
+	
     
     </script>
     

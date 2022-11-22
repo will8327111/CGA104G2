@@ -153,10 +153,7 @@ public class ActivityService implements ActivityServiceCommon {
 		dao.removeNumber(currentNumber, number, actId);
 	}
 
-	public List<JSONArray> getOneJson(Integer memberId) {
-		return dao.getMemberJson(memberId);
 
-	}
 
 	public void updateJS(ActivityVO activityVO, List<byte[]> actPhoto) {
 		
@@ -182,5 +179,18 @@ public class ActivityService implements ActivityServiceCommon {
 		return  dao.name(memberId);
 		
 	}
+	
+	
+	public List<ActivityVO> get() {
+		return  dao.get();
+		
+	}
+	
+	
+	public void expired(Integer actId) {
+			dao.expired(actId);
+	}
+	
+	
 	
 }
