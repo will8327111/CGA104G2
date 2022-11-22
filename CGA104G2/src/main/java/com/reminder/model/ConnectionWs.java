@@ -1,4 +1,4 @@
-package com.reminder.controller;
+package com.reminder.model;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -18,11 +18,6 @@ import javax.websocket.server.ServerEndpoint;
 public class ConnectionWs {
 	private static final Set<Session> connectedSessions = Collections.synchronizedSet(new HashSet<>());
 
-	/*
-	 * 憒����ttpSession��ervletContext敹�祕雿�
-	 * ServerEndpointConfig.Configurator.modifyHandshake()嚗�
-	 * ���ttps://stackoverflow.com/questions/21888425/accessing-servletcontext-and-httpsession-in-onmessage-of-a-jsr-356-serverendpoint
-	 */
 	@OnOpen
 	public void onOpen(@PathParam("userName") String userName, Session userSession) throws IOException {
 		connectedSessions.add(userSession);
@@ -33,8 +28,7 @@ public class ConnectionWs {
 	@OnMessage
 	public void onMessage(Session userSession, String message) {
 		for (Session session : connectedSessions) {
-			if (session.isOpen())
-				session.getAsyncRemote().sendText(message);
+			if (session.isOpen())session.getAsyncRemote().sendText(message );
 		}
 		System.out.println("Message received: " + message);
 	}

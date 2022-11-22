@@ -99,7 +99,7 @@
     </style>
 </head>
 
-<body>
+<body onload="connect();">
     <div class="page">
 
         <div class="header">
@@ -120,24 +120,24 @@
             <div id="main" class="main">
 
                 <div class="row center-sm">
-                    <div class="col-sm-12">
                         <p>
-                            <button id="addMail">新增郵件</button>
+                            <button id="addMail">新增特約商店</button>
                         </p>
-                    </div>
+                        
+                        <textarea type='text' id='reminder'></textarea>
+                        
 
                     <div>
                         <span>郵件種類</span> <select id="select_mailType" name="select_mailType">
                             <option style="display: none;">請選擇</option>
                         </select>
-                        <input type="text" id="search_mailID" placeholder="輸入郵件編號"> <input type="button" id="searchMail"
-                            value="搜尋">
+                        <input type="text" id="search_mailID" placeholder="輸入郵件編號"> <input type="button" id="searchMail" value="搜尋">
 
                     </div>
                 </div>
 
                 <div id="showAllMail" class="showAllMail">
-                    <table id="getAllStroe">
+                    <table id="getAllStroe" >
                         <tr>
                             <th>商店編號</th>
                             <th>商店項目編號</th>
@@ -157,6 +157,7 @@
             </div>
         </div>
     </div>
+    </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script src="../../resources/datetimepicker/jquery.js"></script>
@@ -164,6 +165,36 @@
 	<script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
 	
     <script>
+    var MyPoint = "/TogetherWS/will";
+	var host = window.location.host;
+	var path = window.location.pathname;
+	var webCtx = path.substring(0, path.indexOf('/', 1));
+	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+
+	var statusOutput = document.getElementById("statusOutput");
+	var webSocket;
+    
+    
+    function connect() {
+		// create a websocket
+		webSocket = new WebSocket(endPointURL);
+
+		webSocket.onopen = function(event) {
+			console.log("已連線");
+		};
+
+		webSocket.onmessage = function(event) {
+			console.log("訊息");
+			var reminder = document.getElementById("reminder");
+			var jsonObj = JSON.parse(event.data);
+			var message = jsonObj.userName + ": " + jsonObj.message + "\r\n";
+			reminder.value = reminder.value + message;
+		};
+
+		webSocket.onclose = function(event) {
+			updateStatus("WebSocket Disconnected");
+		};
+	}
 
         window.addEventListener("load",async function () {
 			await fetch('../../back-end/store/store.do?action=getAll', {
@@ -255,7 +286,7 @@
     	        		
     	        		const fileReader = new FileReader();
     	        		let base64Str = null;
-    	        		
+    	        		fileReader.readAsDataURL(addStorePhoto);
     	        			fileReader.onload = event => {
         	                    const base64Str = btoa(event.target.result);
     	    	        		console.log(base64Str);	
@@ -488,6 +519,6 @@
         
         
     </script>
-</body>
+
 
 </html>

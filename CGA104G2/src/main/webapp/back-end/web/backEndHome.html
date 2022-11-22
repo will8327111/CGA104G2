@@ -14,7 +14,7 @@
     <!-- !!固定!! 後台樣板 css start -->
     <link rel="stylesheet" href="../../resources/back-end/assets/css/main/app.css">
     <!-- !!固定!! 後台樣板 css end -->
-
+	
     <!-- favicon 網址列小圖示 -->
     <link rel="shortcut icon" href="../../resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
 
@@ -31,6 +31,7 @@
 </head>
 
 <body>
+<div id='app'>
 
 <!--!!固定!! 這邊以下是右上方放登出+通知等等的 navbar 使用的樣板格式(目前為假資料)-->
 <div id="main" class='layout-navbar'>
@@ -189,5 +190,9 @@
 <!-- 樣板用js end -->
 
 </body>
-
+<script>
+let memberId = {};
+memberId.id = "1";
+sessionStorage.setItem("memberId", JSON.stringify(memberId));
+</script>
 </html>
