@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+	<link rel="stylesheet" type="text/css"
+	href="../../resources/datetimepicker/jquery.datetimepicker.css" />
+<script
+	src="../../resources/datetimepicker/jquery.datetimepicker.full.js">
+	</script>
+    <style>
+		HTML CSSResult Skip Results Iframe
+		*, *:before, *:after {
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		
+		body {
+			font-family: 'Nunito', sans-serif;
+			color: #384047;
+		}
+		
+		input {
+			border-radius: 50px;
+		}
+		
+		form {
+			max-width: 300px;
+			margin: 10px auto;
+			padding: 10px 20px;
+			background: #f4f7f8;
+			border-radius: 8px;
+		}
+		
+		h1 {
+			margin: 0 0 30px 0;
+			text-align: center;
+		}
+		
+		input[type="text"], input[type="password"], input[type="date"], input[type="datetime"],
+			input[type="email"], input[type="number"], input[type="search"], input[type="tel"],
+			input[type="time"], input[type="url"], textarea, select {
+			background: rgba(255, 255, 255, 0.1);
+			border: none;
+			font-size: 16px;
+			height: auto;
+			margin: 0;
+			outline: 0;
+			padding: 15px;
+			width: 100%;
+			background-color: #e8eeef;
+			color: #8a97a0;
+			box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+			margin-bottom: 30px;
+		}
+		
+		input[type="radio"], input[type="checkbox"] {
+			margin: 0 4px 8px 0;
+		}
+		
+		select {
+			padding: 6px;
+			height: 32px;
+			border-radius: 2px;
+		}
+		
+		button {
+			padding: 19px 39px 18px 39px;
+			color: #FFF;
+			background-color: #4bc970;
+			font-size: 18px;
+			text-align: center;
+			font-style: normal;
+			border-radius: 5px;
+			width: 100%;
+			border: 1px solid #3ac162;
+			border-width: 1px 1px 3px;
+			box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+			margin-bottom: 10px;
+		}
+		
+		fieldset {
+			margin-bottom: 30px;
+			border: none;
+		}
+		
+		legend {
+			font-size: 1.4em;
+			margin-bottom: 10px;
+		}
+		
+		label {
+			display: block;
+			margin-bottom: 8px;
+		}
+		
+		label.light {
+			font-weight: 300;
+			display: inline;
+		}
+		
+		#myForm label.error {
+  font-size: 14px;
+  margin-left: 10px;
+  color: red;
+}
+		
+		
+		.number {
+			background-color: #5fcf80;
+			color: #fff;
+			height: 30px;
+			width: 30px;
+			display: inline-block;
+			font-size: 0.8em;
+			margin-right: 4px;
+			line-height: 30px;
+			text-align: center;
+			text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+			border-radius: 100%;
+		}
+		
+		@media screen and (min-width: 480px) {
+			form {
+				max-width: 480px;
+			}
+		}
+		</style>
+</head>
+
+<body>
+	<FORM METHOD="post" action="../../activity/ActServlet" id="myForm"
+	name="form1" enctype="multipart/form-data">
+	<h1>新增活動</h1>
+
+	<fieldset>
+
+		<legend>
+			<span class="number">1</span>新增圖片
+		</legend>
+
+		<label for="photo">photo:</label> <input type="file" name="photo1"
+			multiple="multiple" />
+
+	</fieldset>
+	<fieldset>
+		<legend>
+			<span class="number">2</span>新增資料
+		</legend>
+
+		<label for="name">活動名稱</label> 
+		<input type="text" id="actName"name="actName">
+		<label>活動內容:</label>
+		<input type="text" id="actContent" name="actContent"> 
+		
+		<label>活動類別:</label>
+		<select size='1'  id="actTypeNo" name="actTypeNo">
+		</select>
+		
+		<label>活動最大人數:</label> 
+		<input type="TEXT" id="actMax" name="actMax"> 
+		<label>活動最小人數:</label> 
+		<input type="TEXT" id="actMin" name="actMin"> 
+		<label>活動報名開始時間</label> 
+		<input name="singStart" id="date1" type="text"> 
+		<label>活動報名結束時間</label>
+		<input name="singEnd" id="date2" type="text">
+		<label>活動開始時間</label>
+		<input name="actStart" id="date3" type="text"> 
+		<label>活動結束時間</label>
+		<input name="actEnd" id="date4" type="text"> 
+		<label >活動縣市</label>
+		<select name="actCountry">
+			<option value="">請選擇</option>
+			<option value='基隆市'>基隆市</option>
+			<option value='台北市'>台北市</option>
+			<option value='新北市'>新北市</option>
+			<option value='宜蘭縣'>宜蘭縣</option>
+			<option value='桃園市'>桃園市</option>
+			<option value='新竹市'>新竹市</option>
+			<option value='新竹縣'>新竹縣</option>
+			<option value='苗栗縣'>苗栗縣</option>
+			<option value='台中市'>台中市</option>
+			<option value='南投縣'>南投縣</option>
+			<option value='彰化縣'>彰化縣</option>
+			<option value='雲林縣'>雲林縣</option>
+			<option value='嘉義縣'>嘉義縣</option>
+			<option value='台南市'>台南市</option>
+			<option value='高雄市'>高雄市</option>
+			<option value='屏東縣'>屏東縣</option>
+			<option value='花蓮縣'>花蓮縣</option>
+			<option value='臺東縣'>臺東縣</option>
+			<option value='澎湖縣'>澎湖縣</option>
+			<option value='金門縣'>金門縣</option>
+			<option value='連江縣'>連江縣</option>
+		</select> 
+		<label>活動地址:</label> 
+		<input type="text" name="actLocation">
+
+		<label>活動費用:</label> 
+		<input type="text" name="actCost">
+
+	</fieldset>
+	<input type="hidden" name="action" value="insert">
+	<button type="submit">送出表單</button>
+</form>
+
+<script>
+	$.validator.setDefaults({
+		submitHandler: function (form) {
+			alert("成功提交！");
+			form.submit();
+		}
+	});
+
+	$().ready(function () {
+
+
+		
+		$("#myForm").validate({
+			rules: {
+				actName: {
+					required: true,
+					minlength: 2
+				},
+				actContent:{
+					required: true,
+					minlength: 5			
+				},
+			   
+				actTypeNo:{
+					checkSelect: true,
+					
+				},
+				
+				actMax:{
+					required: true,
+					isZero: true,
+				},
+				actMin:{
+					required: true,
+					min: true,					
+				},
+				singStart:{
+					required: true,
+					checkDay:true
+				},
+				
+				singEnd:{
+					required: true,
+				},
+				
+				actStart:{
+					required: true,
+				},
+				
+				actEnd:{
+					required: true,
+				},
+				
+				actCountry:{
+					checkCountry: true,
+				},
+				
+				actLocation:{
+					required: true,
+					minlength:3
+				},
+				
+				actCost:{
+					required: true,
+					checkNumber:true
+				}
+				
+				
+				
+			},
+			messages: {
+				actName: {
+					required: "活動名稱為必填",
+					minlength: "名稱至少要有兩個字"
+				},
+				actContent:{
+					required: "活動內容為必填",
+					minlength: "內容至少要有五個字"
+				},
+				actTypeNo:{
+					checkSelect: "活動類別為必選",
+				},
+				
+				actMax:{
+					required:"活動最大人數為必填",
+					isZero: "活動最大人數不能為零,最小下限為1,最大上限為999,輸入必須為數字"
+				},
+				actMin:{
+					required:"活動最小人數為必填",
+					min: "活動最小人數不能為零,最小下限為1,最大上限為999,輸入必須為數字"
+				},
+				
+				singStart:{
+					required:"報名開始日期必填",
+					checkDay:"日期不能小於今天"
+				},
+				
+				singEnd:{
+					required: "報名結束日期必填",	
+				},
+				
+				actStart:{
+					required:  "活動開始日期必填",
+				},
+				
+				actEnd:{
+					required:  "活動開始日期必填",				
+				},
+				
+				actCountry:{
+					checkCountry: "活動縣市為必選",
+				},
+				actLocation:{
+					required:  "活動地址必填",
+					minlength: "地址至少要有3個字"
+				},
+				
+				actCost:{
+					required: "活動金額必填",
+					checkNumber:"輸入格式不對,請輸入數字"
+				}
+				
+				
+			}
+		});
+
+	});
+	
+	
+	getType()
+	async function getType(){
+		html=""
+		document.getElementById("actTypeNo").innerHTML=" "
+	  let res = await fetch("../../activity/ActivityTypeServlet?action=getType", { method: 'get' });
+      	data = await res.json();	
+      	$("#actTypeNo").append(`<option value="0">請選擇</option>`)	
+		data.forEach(location => {
+			$("#actTypeNo").append(`<option  value=${location.actTypeId}>${location.actTypeName}</option>`)	
+			})		
+}
+	
+	
+	
+	
+	$.validator.addMethod("isZero", function(value, element, params) { 
+		let reg= /^\+?[1-9]{1}[0-9]{0,2}\d{0,0}$/;
+        value=parseInt(value); 
+        return this.optional(element)||(reg.test(value))
+   })
+	
+	
+	
+		$.validator.addMethod("checkSelect", function(value, element) { 
+        value=parseInt(value); 
+        return this.optional(element)||(value>0)
+   })
+	
+
+   		$.validator.addMethod("min", function(value, element,params) { 
+   		let reg= /^\+?[1-9]{1}[0-9]{0,2}\d{0,0}$/;
+        value=parseInt(value); 
+        return this.optional(element)||(reg.test(value))
+   })
+	
+   
+     	$.validator.addMethod("checkDay", function(value, element) { 
+   		let currentDay = new Date();
+   		const date2 = new Date(value);	
+		if(currentDay>date2){
+			 return false			
+		}else{
+			return true
+		}
+		 
+   })
+	
+   
+   
+   	$.validator.addMethod("checkNumber", function(value, element) { 
+        value=parseInt(value); 
+        if(isNaN(value)){
+        	return false
+        }else{
+        	return true
+        }
+       
+   })
+   
+	
+   
+   	$.validator.addMethod("checkCountry", function(value, element) { 
+   		
+   	   return (value.length>0)
+   		
+//         if(value.length==0){
+//         	return false
+//         }else{
+//         	return true
+//         }
+       
+   })
+   
+	
+</script>
+
+
+<script>
+	$.datetimepicker.setLocale('zh');
+	$(function() {
+		$('#date1').datetimepicker({
+			format : 'Y-m-d',
+			onShow : function() {
+				this.setOptions({
+					maxDate : $('#date2').val() ? $('#date2').val() : false
+				})
+			},
+			timepicker : false
+		});
+
+		$('#date2').datetimepicker({
+			format : 'Y-m-d',
+			onShow : function() {
+				this.setOptions({
+					minDate : $('#date1').val() ? $('#date1').val() : false,
+					maxDate : $('#date3').val() ? $('#date3').val() : false
+				})
+			},
+			timepicker : false
+		});
+
+		$('#date3').datetimepicker({
+			format : 'Y-m-d',
+			onShow : function() {
+				this.setOptions({
+					maxDate : $('#date4').val() ? $('#date4').val() : false,
+					minDate : $('#date2').val() ? $('#date2').val() : false
+				})
+			},
+			timepicker : false
+		});
+
+		$('#date4').datetimepicker({
+			format : 'Y-m-d',
+			onShow : function() {
+				this.setOptions({
+					minDate : $('#date3').val() ? $('#date3').val() : false
+				})
+			},
+			timepicker : false
+		});
+	});
+</script>
+
+
+</body>
+
+</html>

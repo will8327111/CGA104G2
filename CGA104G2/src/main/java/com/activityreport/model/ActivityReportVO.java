@@ -41,10 +41,8 @@ public class ActivityReportVO implements Serializable {
 	private Integer reportStatus;
 	@Column(name = "REPORT_NOTE" ,insertable = false)
 	private String  reportNote;
-
 	
 	@ManyToOne
-	@JoinColumn(name="ACTIVITY_ID" ,insertable=false ,updatable=false)
+	@JoinColumn(name="ACTIVITY_ID",insertable=false, updatable=false)
 	private ActivityVO activityVO;
-	
 }

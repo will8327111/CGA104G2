@@ -4,14 +4,25 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Base64.Encoder;
 
+import javax.persistence.PersistenceContext;
+
 import org.hibernate.Session;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Repository;
 
 import com.activity.model.ActivityVO;
 import com.activityreply.model.ActivityReplyVO;
 
+
+
+@Repository
 public class ActivityPhotoDAO implements ActivityPhotoDAO_interface{
+	
+	
+	@PersistenceContext
+	private Session session;
+	
 
 	@Override
 	public void insert(ActivityPhotoVO VO) {
@@ -28,8 +39,8 @@ public class ActivityPhotoDAO implements ActivityPhotoDAO_interface{
 
 	@Override
 	public void deleteAct(Integer actId) {
-		beginTranscation();
 		try {
+			beginTranscation();
 			final String hql = "DELETE ActivityPhotoVO where actId = :actId ";
 			getSession().createQuery(hql).setParameter("actId", actId).executeUpdate();
 		commit();
@@ -54,14 +65,16 @@ public class ActivityPhotoDAO implements ActivityPhotoDAO_interface{
 	@Override
 	public JSONArray actPhotos(Integer id) {
 		beginTranscation();
-		final String hql = "SELECT actPhoto FROM ActivityPhotoVO WHERE actId in (:id)";
+		final String hql = " FROM ActivityPhotoVO WHERE actId in (:id)";
 		Encoder encoder = Base64.getEncoder();
-		List<byte[]> list =  getSession().createQuery(hql).setParameter("id", id).list();
+		List<ActivityPhotoVO> list =  getSession().createQuery(hql).setParameter("id", id).list();
 		JSONArray array  = new JSONArray();
-		for(byte[]  photo : list) {
+		for(ActivityPhotoVO  photo : list) {
+			byte[] photoByte = photo.getActPhoto();
 			JSONObject object = new JSONObject();
-			String photo64 = encoder.encodeToString(photo);
+			String photo64 = encoder.encodeToString(photoByte);
 			object.put("photo",photo64);
+			object.put("actPhotoId",photo.getActPhotoId());
 			array.put(object);
 		}
 		commit();
@@ -70,7 +83,18 @@ public class ActivityPhotoDAO implements ActivityPhotoDAO_interface{
 
 	@Override
 	public void deleteById(Integer photoId) {
-		// TODO Auto-generated method stub
+		
+		try {
+			beginTranscation();
+			ActivityPhotoVO vo = new ActivityPhotoVO();
+			vo.setActPhotoId(photoId);
+			getSession().remove(vo);
+			commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollback();
+		}
+		
 		
 	}
 

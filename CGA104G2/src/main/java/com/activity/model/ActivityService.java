@@ -24,13 +24,11 @@ public class ActivityService implements ActivityServiceCommon {
 
 	private ActivityDAO_interface dao;
 	private ActivityPhotoDAO_interface daoPhoto;
-	private ActivityReportDAO_interface daoReport;
 	private ActivitySignupDAO_interface daoSingup;
 	private ActivityReplyDAO_interface daoReply;
 
 	public ActivityService() {
 		daoSingup = new ActivitySignupDAO();
-		daoReport = new ActivityReportDAO();
 		daoReply = new ActivityReplyDAO();
 		daoPhoto = new ActivityPhotoDAO();
 		dao = new ActivityDAO();
@@ -120,7 +118,6 @@ public class ActivityService implements ActivityServiceCommon {
 
 	public void delete(Integer actId) {
 		daoPhoto.deleteAct(actId);
-		daoReport.deleteAct(actId);
 		daoSingup.deleteAct(actId);
 		daoReply.deleteAct(actId);
 		dao.delete(actId);
@@ -176,6 +173,14 @@ public class ActivityService implements ActivityServiceCommon {
 
 	}
 
+	public void updateStatus(Integer actId) {
+		dao.updateStatus(actId);
+	}	
+
+	
+	public JSONObject name(Integer memberId) {
+		return  dao.name(memberId);
 		
+	}
 	
 }

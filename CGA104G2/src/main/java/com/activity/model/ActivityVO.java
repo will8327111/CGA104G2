@@ -81,29 +81,6 @@ public class ActivityVO implements Serializable{
 	@JoinColumn(name = "ACTIVITY_ID",referencedColumnName = "ACTIVITY_ID")
 	private List<ActivityReplyVO> repies;
 	
-//	@OneToOne
-//	@JoinColumn(name = "ACTIVITY_TYPE_ID",insertable=false ,updatable=false)
-//	private ActivityTypeVO activityTypeVO;
-	
-//	public static void main(String[] args) {
-//		Session session = HibernateUtil.getSessionFactory().openSession();
-//		ActivityVO activityVO = session.get(ActivityVO.class, 91);
-//		System.out.println(activityVO.activityTypeVO.getActTypeName());
-//		
-//	}
-//	
-	
-	
-//	
-//	public static void main(String[] args) {
-//		Session session = HibernateUtil.getSessionFactory().openSession();
-//		session.beginTransaction();	
-//		final String hql = " update ActivityVO SET actCurrentCount = :number where actId = :id  ";
-//		session.createQuery(hql).setParameter("number", 0).setParameter("id", 91).executeUpdate();
-//			System.out.println("有執行");
-//		session.getTransaction().commit();	
-//			session.close();
-//		}
-//	
+
 
 }

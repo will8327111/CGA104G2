@@ -8,7 +8,7 @@ HTML CSSResult Skip Results Iframe
   font-family: 'Montserrat', sans-serif;
 }
 body{
-  background: #fec107;
+  background: rgb(225, 238, 234);
   padding: 0 10px;
 }
 .wrapper{
@@ -26,12 +26,10 @@ img {
 }
 
 .amount {
-  width: 10px;
+  width: 22px;
   height: 35px;
-  text-align: center;
-  border: 0;
-  border-top: 1px solid #aaa;
-  border-bottom: 1px solid #aaa;
+  text-align: center;	
+
 }
 
 
@@ -54,7 +52,7 @@ input.qtyminus {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 25px;
-  color: #fec107;
+  color: #99b19c;
   text-transform: uppercase;
   text-align: center;
 }
@@ -78,6 +76,7 @@ input.qtyminus {
 
 .wrapper .form .inputfield .input,
 .wrapper .form .inputfield .textarea{
+	font-family: Lato,sans-serif,'huninn',serif;
   width: 100%;
   outline: none;
   border: 1px solid #d5dbd9;
@@ -88,7 +87,7 @@ input.qtyminus {
 }
 
 .wrapper .form .inputfield .textarea{
-  width: 100%;
+font-family: Lato,sans-serif,'huninn',serif;
   height: 125px;
   resize: none;
 }
@@ -127,7 +126,7 @@ input.qtyminus {
 .wrapper .form .inputfield .input:focus,
 .wrapper .form .inputfield .textarea:focus,
 .wrapper .form .inputfield .custom_select select:focus{
-  border: 1px solid #fec107;
+  border: 1px solid #99b19c;
 }
 
 .wrapper .form .inputfield p{
@@ -150,7 +149,7 @@ input.qtyminus {
 .wrapper .form .inputfield .check .checkmark{
   width: 15px;
   height: 15px;
-  border: 1px solid #fec107;
+  border: 1px solid #99b19c;
   display: block;
   position: relative;
 }
@@ -167,7 +166,7 @@ input.qtyminus {
   display: none;
 }
 .wrapper .form .inputfield .check input[type="checkbox"]:checked ~ .checkmark{
-  background: #fec107;
+  background: #99b19c;
 }
 
 .wrapper .form .inputfield .check input[type="checkbox"]:checked ~ .checkmark:before{
@@ -179,7 +178,7 @@ input.qtyminus {
    padding: 8px 10px;
   font-size: 15px; 
   border: 0px;
-  background:  #fec107;
+  background:  #99b19c;
   color: #fff;
   cursor: pointer;
   border-radius: 3px;
@@ -187,7 +186,7 @@ input.qtyminus {
 }
 
 .wrapper .form .inputfield .btn:hover{
-  background: #ffd658;
+  background: #99b19c;
 }
 
 .wrapper .form .inputfield:last-child{

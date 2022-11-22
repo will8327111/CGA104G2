@@ -3,6 +3,7 @@ package com.activitysignup.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -71,8 +72,8 @@ public class ActivitySignupDAO implements ActivitySignupDAO_interface{
 
 	@Override
 	public void deleteAct(Integer actId) {
-		beginTranscation();
 		try {
+			beginTranscation();
 			ActivitySignupVO vo = new ActivitySignupVO();
 			vo.setActId(actId);
 			getSession().remove(vo);
@@ -82,6 +83,15 @@ public class ActivitySignupDAO implements ActivitySignupDAO_interface{
 	}
 	
 		
+	}
+
+	@Override
+	public List<Integer> getInfo(Integer memId) {
+		beginTranscation();
+		final String hql = "SELECT actId FROM ActivitySignupVO WHERE  memberId= :id";
+		List<Integer> list =  getSession().createQuery(hql).setParameter("id", memId).list();
+		commit();
+		return list;
 	}
 		
 }
