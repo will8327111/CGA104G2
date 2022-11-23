@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="../../resources/css/mylist.css">
+</head>
+<body>
+
+<ul id="list" class="tilesWrap">
+   </ul>
+
+
+<script>
+let memId = sessionStorage.getItem("id")
+
+getList()
+async function getList(){
+	let res  = await fetch(`../../activity/ActivitySignup?action=search&memId=${memId}`, { method: 'get' })
+    let result = await res.json();
+   let count = 1;
+   result.forEach(list => {
+         $("#list").append(`<li>
+            <h2>${count}</h2>
+            <img src="data:image/jpeg;base64,${list.photo}">
+            <h3>${list.actName}</h3>
+            <p>
+               <br>開始時間:${list.actStart}</br>
+               <br>結束時間:${list.actEnd}</br>
+               <br>活動內容:${list.actContent}</br>
+            </p>   
+            <input type="button" onclick="view(${list.actId})"   value="活動詳情">
+        </li>`)
+        count++
+   });
+   
+}
+
+
+
+async function view	(actId){
+	 location ="../../activity/ActServlet?action=view&actId="+actId 
+
+}
+
+
+
+</script>
+
+
+
+</body>
+</html>

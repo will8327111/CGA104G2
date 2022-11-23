@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.JsonAdapter;
 import com.mail.model.MailService;
 import com.mail.model.MailVO;
+import com.reminder.model.ReminderVO;
 import com.store.model.StoreService;
 
 @WebServlet("/back-end/mail/mail.do")
@@ -83,55 +84,10 @@ public class MailServlet extends HttpServlet {
 				return;
 			}
 
-			/******************************************************************/
-//			MailService mailSvc = new MailService();
-//			MailVO mailVO = mailSvc.getOneMail(memberId);
-//			if (mailVO == null) {
-//				errorMsgs.add("請輸入住戶編號");
-//			}
-			// Send the use back to the form, if there were errors
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/mail/select_page.jsp");
-//				failureView.forward(req, res);
-//				return;
-//			}
-			
-			
-			
-			/******************************************************************/			
-//			req.setAttribute("mailVO", mailVO); 
-//			String url = "/back-end/mail/addMail.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url); 
-//			successView.forward(req, res);
 		}
 		
 		
 		/******************************************************************/
-		if ("get_Member_Name".equals(action)) { 
-
-//			List<String> errorMsgs = new LinkedList<String>();
-//			req.setAttribute("errorMsgs", errorMsgs);
-//			String memberName = req.getParameter("memberName");
-//			if (memberName == null || (memberName.trim()).length() == 0) {
-//				errorMsgs.add("請輸入住戶姓名");
-//			}
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/mail/addMail.jsp");
-//				failureView.forward(req, res);
-//				return; 
-//			}
-//
-//			MailService mailSvc = new MailService();
-//			MailVO mailVO = mailSvc.getOneId(memberName);
-//			if (mailVO == null) {
-//				errorMsgs.add("查無此住戶請重新輸入");
-//			}
-//			/******************************************************************/			
-//			req.setAttribute("mailVO", mailVO); 
-//			String url = "/back-end/mail/addMail.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url); 
-//			successView.forward(req, res);
-		}
 		
 		// ====================================================
 		if ("insert".equals(action)) {
@@ -142,15 +98,16 @@ public class MailServlet extends HttpServlet {
 			}
 			
 			JSONObject obj =new JSONObject(json); 
-			JSONObject updateMail = obj.getJSONObject("value");
-			System.out.println(updateMail);
+			JSONObject inertMail = obj.getJSONObject("value");
 			
-			Integer memberId = Integer.valueOf((String) updateMail.get("memberId"));
-			String mailType = String.valueOf((String) updateMail.get("mailType"));
-			Date mailDelTime = Date.valueOf((String) updateMail.get("mailDelTime"));
+			Integer memberId = Integer.valueOf((String) inertMail.get("memberId"));
+			String mailType = String.valueOf((String) inertMail.get("mailType"));
+			Date mailDelTime = Date.valueOf((String) inertMail.get("mailDelTime"));
+			String reminderInfo = String.valueOf((String) inertMail.get("reminderInfo"));
 			
-			
-			System.out.println(memberId);
+			ReminderVO remVO = new ReminderVO();
+			remVO.setMemberId(memberId);
+			remVO.setReminderInfo(reminderInfo);
 			
 			MailVO mailVO = new MailVO();
 			mailVO.setMemberId(memberId);
@@ -211,16 +168,11 @@ public class MailServlet extends HttpServlet {
 			MailService mailSvc = new MailService();
 			mailSvc.updateMail(mailVO);
 		}
+		
 		if ("delete".equals(action)) {
-			/******************************************************************/
 			Integer mailId = Integer.valueOf(req.getParameter("mailId"));
-			
-			System.out.println(mailId);
-			/******************************************************************/
 			MailService mailSvc = new MailService();
 			mailSvc.deleteMail(mailId);
-
-			/*************************************/
 		}
 		
 		if("select_mailType".equals(action)) {
@@ -232,19 +184,33 @@ public class MailServlet extends HttpServlet {
 			String mailType = req.getParameter("mailType");
 			Integer mailId = Integer.valueOf(req.getParameter("mailId").trim());
 			MailService mailSvc = new MailService();
-//			if(mailId == 0) {
-//				out.write(mailSvc.singleSearch(mailType).toString());
-//			}
-			System.out.println(mailType);
-			System.out.println(mailId);
 			out.write(mailSvc.search(mailType,mailId).toString());
 		}
-//		if("get".equals(action)) {
-//			Integer id = Integer.valueOf(req.getParameter("memberId"));
-//			MailService mailSvc = new MailService();
-//			res.getOutputStream().write(mailSvc.getPhoto(id));
-//			
-//		}
 	}
 
 }
+//if ("get_Member_Name".equals(action)) { 
+//	
+//			List<String> errorMsgs = new LinkedList<String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+//			String memberName = req.getParameter("memberName");
+//			if (memberName == null || (memberName.trim()).length() == 0) {
+//				errorMsgs.add("請輸入住戶姓名");
+//			}
+//			if (!errorMsgs.isEmpty()) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/mail/addMail.jsp");
+//				failureView.forward(req, res);
+//				return; 
+//			}
+//
+//			MailService mailSvc = new MailService();
+//			MailVO mailVO = mailSvc.getOneId(memberName);
+//			if (mailVO == null) {
+//				errorMsgs.add("查無此住戶請重新輸入");
+//			}
+//			/******************************************************************/			
+//			req.setAttribute("mailVO", mailVO); 
+//			String url = "/back-end/mail/addMail.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url); 
+//			successView.forward(req, res);
+//}

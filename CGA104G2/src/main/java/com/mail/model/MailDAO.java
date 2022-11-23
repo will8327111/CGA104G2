@@ -113,7 +113,6 @@ public class MailDAO implements MailDAO_interface {
 		
 		if(mailType.trim().length()!=0 &&!(mailType == null)) {
 			sql.append(" "+"MAIL_TYPE"+" "+"="+" "+'"'+mailType+'"'+" "+"ORDER BY"+" "+"MAIL_ID"+" "+"DESC");
-			
 		}
 		
 		

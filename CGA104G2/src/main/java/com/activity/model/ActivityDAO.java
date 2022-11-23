@@ -1,13 +1,34 @@
 package com.activity.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 import java.util.List;
 
+
+import javax.sql.DataSource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.persistence.PersistenceContext;
+
+import org.hibernate.Session;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public class ActivityDAO implements ActivityDAO_interface {
+	
+	
+	
+	@PersistenceContext
+	private Session session;
+	
 
 	// 有用
 	@Override
@@ -119,6 +140,8 @@ public class ActivityDAO implements ActivityDAO_interface {
 	
 	
 	
+	
+	
 
 	@Override
 	public JSONObject getOneJS(Integer actId) {
@@ -126,6 +149,7 @@ public class ActivityDAO implements ActivityDAO_interface {
 		final String sql = "select * from ACTIVITY where ACTIVITY_ID = :actId ";
 		ActivityVO vo = getSession().createNativeQuery(sql, ActivityVO.class).setParameter("actId", actId)
 				.uniqueResult();	
+		Encoder encoder = Base64.getEncoder();
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("actId",vo.getActId());
 		jsonObject.put("actName", vo.getActName());
@@ -140,6 +164,10 @@ public class ActivityDAO implements ActivityDAO_interface {
 		jsonObject.put("actType",vo.getActType());
 		jsonObject.put("actLocation",vo.getActLocation());
 		jsonObject.put("actCost",vo.getActCost());
+		if (vo.getPhotos().size() != 0) {
+			String photo64 = encoder.encodeToString(vo.getPhotos().get(0).getActPhoto());
+			jsonObject.put("photo", photo64);
+		}		
 		commit();
 		return jsonObject;
 	}
@@ -196,23 +224,12 @@ public class ActivityDAO implements ActivityDAO_interface {
 
 	}
 
-	@Override
-	public JSONArray getAllJson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<JSONArray> getMemberJson(Integer memberId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	// 有用
 	@Override
 	public JSONArray getPage(Integer number) {
 		beginTranscation();
-		final StringBuilder sql = new StringBuilder().append("SELECT * FROM ACTIVITY ");
+		final StringBuilder sql = new StringBuilder().append("SELECT * FROM ACTIVITY  WHERE ACTIVITY_STATUS = 0  ");
 		String first = Integer.toString(number * 3);
 		sql.append(" " + "LIMIT" + " " + first + "," + "3");
 		List<ActivityVO> list = getSession().createNativeQuery(sql.toString(), ActivityVO.class).list();
@@ -254,16 +271,116 @@ public class ActivityDAO implements ActivityDAO_interface {
 
 	@Override
 	public void removeNumber(Integer currentNumber, Integer number, Integer actId) {
-		beginTranscation();
 		try {
+			beginTranscation();
 			Integer updateNumber = currentNumber - number;
-			final String hql = " update ActivityVO SET actCurrentCount = :number where actId = :id  ";
+			final String hql = " UPDATE ActivityVO SET actCurrentCount = :number where actId = :id  ";
 			getSession().createQuery(hql).setParameter("number", updateNumber).setParameter("id", actId)
 					.executeUpdate();
 			commit();
 		} catch (Exception e) {
 			rollback();
 		}
+	}
+
+	@Override
+	public JSONObject name(Integer memberId) {
+		DataSource ds = null;
+		try{
+		Context ctx = new InitialContext();
+		ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB3");
+		}catch(NamingException e) {
+			e.printStackTrace();
+		}
+		
+		String NAME = " select MEMBER_NAME from MEMBER where MEMBER_ID=?";
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	   JSONObject object = new JSONObject();
+
+		try {
+			
+			con=ds.getConnection();
+			pstmt=con.prepareStatement(NAME);
+			pstmt.setInt(1, memberId);
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				object.put("name",rs.getString("MEMBER_NAME"));
+			}
+						
+			
+		} catch (SQLException se) {
+			se.printStackTrace(System.err);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+				se.printStackTrace(System.err);
+				}		
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+						
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}								
+		}
+
+		
+		return object;
+		
+				
+	}
+
+	@Override
+	public void updateStatus(Integer actId) {
+		try {
+			beginTranscation();
+			final String hql = " UPDATE ActivityVO SET actStatus = 3 where actId = :id  ";
+			getSession().createQuery(hql).setParameter("id", actId)
+					.executeUpdate();
+			commit();
+		} catch (Exception e) {
+			rollback();
+		}
+		
+	}
+
+	@Override
+	public List<ActivityVO> get() {
+		beginTranscation();
+		final String hql = "FROM ActivityVO";
+		List<ActivityVO> list = getSession().createQuery(hql,ActivityVO.class).list();
+		commit();
+		return list;
+	}
+
+	@Override
+	public void expired(Integer actId) {
+		try {
+			beginTranscation();
+			final String hql = " UPDATE ActivityVO SET actStatus = 1 where actId = :id  ";
+			getSession().createQuery(hql).setParameter("id", actId)
+					.executeUpdate();
+			commit();
+		} catch (Exception e) {
+			rollback();
+		}
+		
 	}
 
 }

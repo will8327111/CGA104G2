@@ -6,11 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
-
-import com.backstageAuthorization.model.BackstageAuthorizationVO;
 
 public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 
@@ -41,7 +37,10 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 
 	private static final String GET_ONE_AUTHORIZATION = "SELECT BA.BM_ID, BM_NAME, BC.BM_CAPABILITIES_ID, BM_CAPABILITIES_NAME, BM_CAPABILITIES_CONTENT FROM BACKSTAGE_ACCOUNT BA join BACKSTAGE_AUTHORIZATION BAA on BA.BM_ID = BAA.BM_ID join BACKSTAGE_CAPABILITIES BC on BAA.BM_CAPABILITIES_ID = BC.BM_CAPABILITIES_ID where BA.BM_ID = ?";
 
-	@Override
+	private static final String GET_BY_EMAIL = "select * from BACKSTAGE_ACCOUNT where BM_EMAIL = ?";
+
+	private static final String GET_BY_ACCOUNT = "select * from BACKSTAGE_ACCOUNT where BM_ACCOUNT = ?";
+
 	public void insert(BackstageAccountVO backstageAccountVO) {
 
 		Connection con = null;
@@ -162,6 +161,126 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 			pstmt = con.prepareStatement(RESEND_INFO);
 			pstmt.setString(1, bmAccount);
 			pstmt.setString(2, bmEmail);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				backstageAccountVO = new BackstageAccountVO();
+				backstageAccountVO.setBmId(rs.getInt("bm_id"));
+				backstageAccountVO.setBmName(rs.getString("bm_name"));
+				backstageAccountVO.setBmAccount(rs.getString("bm_account"));
+				backstageAccountVO.setBmPassword(rs.getString("bm_password"));
+				backstageAccountVO.setBmEmail(rs.getString("bm_email"));
+				backstageAccountVO.setBmStatus(rs.getInt("bm_status"));
+
+			}
+			;
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return backstageAccountVO;
+	};
+
+	public BackstageAccountVO findByEmail(String bmEmail) {
+
+		BackstageAccountVO backstageAccountVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, account, password);
+			pstmt = con.prepareStatement(GET_BY_EMAIL);
+			pstmt.setString(1, bmEmail);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				backstageAccountVO = new BackstageAccountVO();
+				backstageAccountVO.setBmId(rs.getInt("bm_id"));
+				backstageAccountVO.setBmName(rs.getString("bm_name"));
+				backstageAccountVO.setBmAccount(rs.getString("bm_account"));
+				backstageAccountVO.setBmPassword(rs.getString("bm_password"));
+				backstageAccountVO.setBmEmail(rs.getString("bm_email"));
+				backstageAccountVO.setBmStatus(rs.getInt("bm_status"));
+
+			}
+			;
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return backstageAccountVO;
+	};
+
+	public BackstageAccountVO findByAccount(String bmAccount) {
+
+		BackstageAccountVO backstageAccountVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, account, password);
+			pstmt = con.prepareStatement(GET_BY_ACCOUNT);
+			pstmt.setString(1, bmAccount);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -359,7 +478,7 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 	}
 
 	public List<BackstageAccountVO> findOneAuthorization(Integer bmId) {
-		
+
 		List<BackstageAccountVO> list = new ArrayList<BackstageAccountVO>();
 		BackstageAccountVO backstageAccountVO = new BackstageAccountVO();
 
@@ -372,7 +491,7 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, account, password);
 			pstmt = con.prepareStatement(GET_ONE_AUTHORIZATION);
-			
+
 			pstmt.setInt(1, bmId);
 			rs = pstmt.executeQuery();
 
@@ -481,7 +600,6 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 		return list;
 	}
 
-
 	public static void main(String[] args) {
 
 		BackstageAccountJDBCDAO backstageAccountJDBCDAO = new BackstageAccountJDBCDAO();
@@ -496,14 +614,14 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 //			System.out.print(backstageAccountVO1.getBmStatus() + ",");
 
 		// 新增
-//			BackstageAccountVO backstageAccountVO2 = new BackstageAccountVO();
-//			backstageAccountVO2.setBmId(4);
-//			backstageAccountVO2.setBmName("韓國瑜");
-//			backstageAccountVO2.setBmAccount("danielHan");
-//			backstageAccountVO2.setBmPassword("faDaChai");
-//			backstageAccountVO2.setBmEmail("danielHan@gmail.com");
-//			backstageAccountVO2.setBmStatus(1);
-//			backstageAccountJDBCDAO.insert(backstageAccountVO2);
+			BackstageAccountVO backstageAccountVO2 = new BackstageAccountVO();
+			backstageAccountVO2.setBmId(39);
+			backstageAccountVO2.setBmName("韓國瑜");
+			backstageAccountVO2.setBmAccount("danielHan");
+			backstageAccountVO2.setBmPassword("faDaChai");
+			backstageAccountVO2.setBmEmail("danielHan@gmail.com");
+			backstageAccountVO2.setBmStatus(1);
+			backstageAccountJDBCDAO.insert(backstageAccountVO2);
 
 		// 刪除
 //			backstageAccountJDBCDAO.delete(4);	
@@ -527,7 +645,6 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 //			System.out.print(backstageAccountVO4.getBmEmail() + ",");
 //			System.out.print(backstageAccountVO4.getBmStatus());
 
-		
 		// 查詢個人權限功能
 //		List<BackstageAccountVO> list = backstageAccountJDBCDAO.findOneAuthorization(1);
 //		for (BackstageAccountVO a : list) {
@@ -538,22 +655,40 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 //			System.out.print(a.getBmCapabilitiesContent() + ",");
 //			System.out.println();
 //		}
-		
+
 		// 查詢全部
-		List<BackstageAccountVO> list = backstageAccountJDBCDAO.getAll();
-		for (BackstageAccountVO aBackstage : list) {
-			System.out.print(aBackstage.getBmId() + ",");
-			System.out.print(aBackstage.getBmName() + ",");
-			System.out.print(aBackstage.getBmAccount() + ",");
-			System.out.print(aBackstage.getBmPassword() + ",");
-			System.out.print(aBackstage.getBmEmail() + ",");
-			System.out.print(aBackstage.getBmStatus() + ",");
-			System.out.println();
-		}
+//		List<BackstageAccountVO> list = backstageAccountJDBCDAO.getAll();
+//		for (BackstageAccountVO aBackstage : list) {
+//			System.out.print(aBackstage.getBmId() + ",");
+//			System.out.print(aBackstage.getBmName() + ",");
+//			System.out.print(aBackstage.getBmAccount() + ",");
+//			System.out.print(aBackstage.getBmPassword() + ",");
+//			System.out.print(aBackstage.getBmEmail() + ",");
+//			System.out.print(aBackstage.getBmStatus() + ",");
+//			System.out.println();
+//		}
 
 		// 忘記密碼(輸入驗證碼得到舊密碼)
-//		BackstageAccountVO backstageAccountVO1 = backstageAccountJDBCDAO.findByAcAndEmail
-//				("allenChiu", "allen@gmail.com");
+//		BackstageAccountVO backstageAccountVO1 = backstageAccountJDBCDAO.findByAcAndEmail("allenChiu",
+//				"aaghqzpm@gmail.com");
+//		System.out.print(backstageAccountVO1.getBmId() + ",");
+//		System.out.print(backstageAccountVO1.getBmName() + ",");
+//		System.out.print(backstageAccountVO1.getBmAccount() + ",");
+//		System.out.print(backstageAccountVO1.getBmPassword() + ",");
+//		System.out.print(backstageAccountVO1.getBmEmail() + ",");
+//		System.out.print(backstageAccountVO1.getBmStatus() + ",");
+
+		// 依EMAIL查詢
+//		BackstageAccountVO backstageAccountVO1 = backstageAccountJDBCDAO.findByEmail("aaghqzpm@gmail.com");
+//		System.out.print(backstageAccountVO1.getBmId() + ",");
+//		System.out.print(backstageAccountVO1.getBmName() + ",");
+//		System.out.print(backstageAccountVO1.getBmAccount() + ",");
+//		System.out.print(backstageAccountVO1.getBmPassword() + ",");
+//		System.out.print(backstageAccountVO1.getBmEmail() + ",");
+//		System.out.print(backstageAccountVO1.getBmStatus() + ",");
+		
+		// 依ACCOUNT查詢
+//		BackstageAccountVO backstageAccountVO1 = backstageAccountJDBCDAO.findByAccount("allenchiu");
 //		System.out.print(backstageAccountVO1.getBmId() + ",");
 //		System.out.print(backstageAccountVO1.getBmName() + ",");
 //		System.out.print(backstageAccountVO1.getBmAccount() + ",");

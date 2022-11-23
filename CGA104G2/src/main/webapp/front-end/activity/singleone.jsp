@@ -24,15 +24,24 @@ Integer status = (Integer) request.getAttribute("status");
 <link rel="stylesheet" href="../resources/css/formstyle.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!-- 文字 -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
 
 
 
+<style>
 
+        body {
+            font-family: Lato,sans-serif,'huninn',serif;
+        }
+        
+</style>
 
 </head>
 <body>
 
-	<div><a>返回首頁</a></div>
+<h3><a style="padding:570px" href="../front-end/activity/homepage2.html">返回首頁</a></h3>
+
 	<div class="wrapper">
 		<div class="title">活動詳情</div>
 		<div class="flexslider">
@@ -46,7 +55,7 @@ Integer status = (Integer) request.getAttribute("status");
 					style="background-color: transparent; border: 0">
 			</div>
 			<div class="inputfield">
-				<label>活動內容</label> <input type="text" class="input"
+				<label>活動內容</label> <input type="text" class="input" 
 					value="<%=activityVO.getActContent()%>" readonly
 					style="background-color: transparent; border: 0">
 			</div>
@@ -67,7 +76,7 @@ Integer status = (Integer) request.getAttribute("status");
 			</div>
 			<div class="inputfield">
 				<label>活動費用</label> <input type="text" class="input"
-					value="<%=activityVO.getActCost()%>" readonly
+					value="<%=activityVO.getActCost()%>元" readonly
 					style="background-color: transparent; border: 0">
 			</div>
 
@@ -114,9 +123,7 @@ Integer status = (Integer) request.getAttribute("status");
 					style="width: 100px; margin-left: 41px;">
 			</div>
 
-			<h3 style=" margin-left: 260px">留言板</h3>
-			<div class="inputfield" id="reply">
-			</div>
+			<h3 id="reply" style=" margin-left: 260px">留言板</h3>
 		<form >
 			<div class="inputfield">
 				<label>我要留言</label>
@@ -216,9 +223,9 @@ async function showReply(){
 	let res = await fetch(`<%=request.getContextPath()%>/activity/ActivityReplyServlet?action=search&actId=<%=activityVO.getActId()%>`,{ method: 'get' })
 	let data = await res.json();
 	data.forEach(reply=>{
-	$("#reply").append(`<label>住戶姓名:\${reply.memId}</label> <input type="text" class="input"
+	$("#reply").after(`<div class="inputfield"><label>住戶姓名:\${reply.memId}</label><input type="text" class="input"
 			value="\${reply.content}" readonly
-			style="background-color: transparent; border: 0">`)	
+			style="background-color: transparent; border: 0"></div>`)
 	})
 	
 }

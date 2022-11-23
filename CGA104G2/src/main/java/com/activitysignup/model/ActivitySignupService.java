@@ -1,6 +1,7 @@
 package com.activitysignup.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.activity.common.ActivityServiceCommon;
 
@@ -35,6 +36,10 @@ public class ActivitySignupService implements ActivityServiceCommon {
 	
 	public void deleteAct(Integer actId) {
 		dao.deleteAct(actId);
+	}
+	
+	public List<Integer> search(Integer memId){
+		return dao.getInfo(memId);
 	}
 	
 }

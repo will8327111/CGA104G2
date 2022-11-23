@@ -2,7 +2,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <html>
 <head>
 <meta charset="UTF-8">
@@ -15,8 +14,9 @@
 </style>
 
 </head>
-<body>
-	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
+<body bgcolor="lightYellow">
+	<form method="get"
+		action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div id="border">
 			<div>
 				帳號: <input type="text" name="bmAccount"><span> </span>
@@ -32,12 +32,12 @@
 			</div>
 	</form>
 
-	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageGetPassword/passwordForgotten.jsp">
+	<form method="get">
 		<div>
-			<span><input type="submit" value="忘記密碼"> </span>
+			<a
+				href="http://localhost:8081/CGA104G2/back-end/backstageGetPassword/passwordForgotten.jsp">忘記密碼?</a>
 		</div>
 	</form>
 	<div style="color: red">${errorMsgs}</div>
-
 </body>
 </html>

@@ -41,6 +41,10 @@ public class BackstageCapabilitiesService {
 		return dao.findByPrimaryKey(bmCapabilitiesId);
 	};
 
+	public BackstageCapabilitiesVO findByCapName(String bmCapabilitiesName) {
+		return dao.findByCapName(bmCapabilitiesName);
+	};
+	
 	public List<BackstageCapabilitiesVO> getAll(){
 		return dao.getAll();
 	};

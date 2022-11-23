@@ -37,7 +37,7 @@
 //			pstmt.setInt(1, mailVO.getMemberId());
 //			pstmt.setString(2, mailVO.getMailType());
 //			pstmt.setDate(3, mailVO.getMailDelTime());
-////			pstmt.setBytes(4, mailVO.getPhoto());
+//			pstmt.setBytes(4, mailVO.getPhoto());
 //			pstmt.executeUpdate();
 //			
 //			

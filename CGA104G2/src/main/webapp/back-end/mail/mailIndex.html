@@ -7,6 +7,7 @@
 <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
 <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="../../resources/back-end/assets/css/main/app.css">
 
 <!--     ============================select================================ -->
 
@@ -93,13 +94,8 @@
         table#table-2 td {
             padding: 10px;
             content: 0px;
-            /* 	white-space: nowrap; */
         }
 
-        table#table-2 input {
-            width: 150px;
-            word-break: keep-all;
-        }
 
         h4 {
             color: blue;
@@ -135,25 +131,18 @@
             height: 151px;
             /* height:  151px; */
         }
-/* form .invalid-feedback { */
-/* 	color: #dc3545; */
-/* 	font-size: 14px; */
-/* 	line-height: 21px; */
-/* 	margin-top: 4px; */
-/* 	text-align: left; */
-/* } */
 </style>
 </head>
 <body>
 	<div class="page">
 
-		<div class="header">
+		<div class="header" class='layout-navbar'>
 			<div id="title">
 				<h1>郵件管理系統</h1>
 			</div>
 		</div>
 
-		<div class="MainContainer">
+		<div class="MainContainer" >
 			<div class="sidebar">
 				<ul>
 					<li class="li">郵件管理
@@ -166,12 +155,12 @@
 			</div>
 		</div>
 <!-- 			==========================================新增郵件========================================= -->
-		<div id="main" class="main">
+		<div id="main" class="main" >
 
 			<div class="row center-sm" >
 				<div class="col-sm-12">
 					<p>
-						<button id="addMail">新增郵件</button>
+						<button id="addMail" class="btn btn-primary">新增郵件</button>
 					</p>
 				</div>
 			</div>
@@ -188,7 +177,7 @@
 			
 <!-- 			==========================================顯示所有郵件========================================= -->
 			<div id="showAllMail" class="showAllMail">
-				<table id="getAllMail">
+				<table id="getAllMail" class='table table_sm'>
 					<tr>
 						<th>郵件編號</th>
 						<th>住戶編號</th>
@@ -206,7 +195,7 @@
 			</div>
 		</div>
 	</div>
-</head>
+
 <body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script src="../../resources/datetimepicker/jquery.js"></script>
@@ -218,20 +207,21 @@
 <!-- 	<script type="text/javascript"></script> -->
 
 	<script>
+//  =====================================webstocket=============================================	
+		
 	
-	
-//  =====================================新增郵件=============================================	
+	//  =====================================新增郵件=============================================	
 		window.addEventListener("load", function () {
 	        document.getElementById("addMail").onclick = function(){
 	        	Swal.fire({
     	            title: "新增郵件",
-    	            html:"<div id='showAddMail' class='showAddMail'>"
+    	            html:"<div id='showAddMail' class='showAddMail' onload='connect();' onunload='disconnect();''>"
 //     					+"<table class='content'><tr><td>查詢住戶編號:</td><td>"
 //     					+"<input type='text' name='memberName' placeholder='請輸入住戶姓名'>"
 //     					+"<input type='submit' value='搜尋'></td></tr></table></div>"
     				    +"<table class='content'>"
     				    +"<tr><td>住戶編號:</td>"
-    				    +"<td><input type='text' id='addMemberId' name='addMemberId'></td></tr>"
+    				    +"<td><input type='text' id='addMemberId' name='addMemberId' ></td></tr>"
     				    +"<tr><td>郵件項目:</td>"
     				    +"<td><label for='pack'>"
     			        +"<input type='radio' id='pack' name='addMailType' value='包裹' checked>包裹</label>"
@@ -247,18 +237,59 @@
     	        	cancelButtonColor:'#d33',
     	        	showLoaderOnConfirm: true,
     	        	
-    	        	preConfirm: function(){
+    	        	didOpen: () => {
+//     	        		var MyPoint = "/TogetherWS/james";
+//     	        		var host = window.location.host;
+//     	        		var path = window.location.pathname;
+//     	        		var webCtx = path.substring(0, path.indexOf('/', 1));
+//     	        		var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+    	        	
+//     	        	// 	var statusOutput = document.getElementById("statusOutput");
+//     	        		var webSocket;
+//     	        		connect();
+    	        		D
+//     	        		function connect(){
+//     	        			// create a websocket
+//     	        			webSocket = new WebSocket(endPointURL);
+    	        			
+//     	        			webSocket.onopen = function(event) {
+//     	        				console.log('已連線');
+//     	        			};
+//     	        		}
+    	        	},
+    	        	preConfirm: function(e){
+    	        		
     	        		let addMemberId = document.getElementById('addMemberId').value,
-    	        			addMailType = document.getElementById('addMailType').value,
+    	        			addMailType = $("[name='addMailType']:checked").val() ,
     	        			addMailDelTime = document.getElementById('addMailDelTime').value;
     	        		
-    	        		if(true){
+    	        		if(e){
+    	        			var MyPoint = "/TogetherWS/james";
+        	        		var host = window.location.host;
+        	        		var path = window.location.pathname;
+        	        		var webCtx = path.substring(0, path.indexOf('/', 1));
+        	        		var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+        	        	// 	var statusOutput = document.getElementById("statusOutput");
+        	        		var webSocket;
+							webSocket = new WebSocket(endPointURL);
+							
+    	        				console.log('已連線');
+    	        			webSocket.onopen = function(event) {
+    	        				var json = {
+   	  								"message" : "您有提醒"
+   	  							};
+   	  							console.log(json);
+   	  							webSocket.send(JSON.stringify(json));
+    	        			};
+    	        			
+  							
+	        			}
+    	        		
     	        			return{
 	        	    				memberId: addMemberId,
 	        	    				mailType: addMailType,
  	        	    				mailDelTime: addMailDelTime
         	    			}
-    	        		}
     	        	}
     	       
     	        }).then(async function(result){
@@ -272,7 +303,7 @@
     	    					body: JSON.stringify(result)
     	    					
     	    				})
-	    	        			await refresh();
+// 	    	        			await refresh();
     	        		}
     	        	}catch(e){
     	        		alert(e);
@@ -317,7 +348,7 @@
 					+"<td><button id='update'>修改</button></div></td>"
 		        	+"<td><input type='button' id='delete' value='刪除'></td>";
 	            	$("#allMail").after(str); 
-	            //=====================================修改=============================================  		
+//     =====================================修改=============================================  		
 	            	
 	            document.getElementById('update').addEventListener('click', function(){
 	            		
@@ -325,9 +356,9 @@
         	            title: "修改郵件",
         	            html:"<table id='table-2'>"
         	           	+ "<tr><td>郵件編號:</td>"
-        	            +"<td><input type='TEXT' id='updateMailId' size='45' value='"+ mail[i].mailId +"' disabled='true'></td></tr>"
+        	            +"<td><input type='TEXT' id='updateMailId' size='10' value='"+ mail[i].mailId +"' disabled='true'></td></tr>"
         	            +"<tr><td>住戶編號:</td>"
-        	            +"<td><input type='TEXT' id='updateMemberId' size='45' value='"+ mail[i].memberId +"'></td></tr>"
+        	            +"<td><input type='TEXT' id='updateMemberId' size='10' value='"+ mail[i].memberId +"'></td></tr>"
         	            +"<tr><td>郵件項目:</td>"
     				    +"<td><label for='pack'>"
     			        +"<input type='radio' id='pack' name='updateMailType' value='包裹'>包裹</label>"

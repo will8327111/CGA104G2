@@ -30,8 +30,10 @@ import org.json.JSONObject;
 import com.activity.model.ActivityService;
 import com.activity.model.ActivityVO;
 import com.activityphoto.model.ActivityPhotoService;
+import com.activityreport.model.ActivityReportService;
 import com.activitysignup.model.ActivitySignupService;
 import com.activitysignup.model.ActivitySignupVO;
+import com.activity.common.SpringUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -267,6 +269,8 @@ public class ActivityServlet extends HttpServlet {
 		if ("delete".equals(action)) {
 
 			Integer actId = Integer.valueOf(req.getParameter("deleteId"));
+			ActivityReportService report = SpringUtil.getBean(getServletContext(), ActivityReportService.class);
+			 report.deleteAct(actId);
 			ActivityService service = new ActivityService();
 			service.delete(actId);
 		}
@@ -299,7 +303,7 @@ public class ActivityServlet extends HttpServlet {
 		if ("ID".equals(action)) {
 			Integer id = Integer.valueOf(req.getParameter("ID"));
 			session.setAttribute("id", id);
-			String url = req.getContextPath() + "/front-end/activity/homepage.html";
+			String url = req.getContextPath() + "/front-end/activity/front-index.html";
 			res.sendRedirect(url);
 
 		}
@@ -335,7 +339,7 @@ public class ActivityServlet extends HttpServlet {
 			List<Integer> list = actSvc.getAll();
 			JSONObject object = new JSONObject();
 			Integer number = 0;
-			if (list.size() / 3 != 0) {
+			if (list.size() % 3 != 0) {
 				number = (list.size() / 3) + 1;
 			} else {
 				number = (list.size() / 3);
@@ -371,6 +375,16 @@ public class ActivityServlet extends HttpServlet {
 			actSvc.updateJS(vo, photo);
 		}
 		
+		
+		if("getName".equals(action)) {
+		
+			
+			Integer memId = Integer.valueOf(req.getParameter("memId"));
+			
+			ActivityService actSvc = new ActivityService();
+			out.write(actSvc.name(memId).toString());
+			
+		}
 		
 	}
 

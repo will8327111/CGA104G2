@@ -24,13 +24,11 @@ public class ActivityService implements ActivityServiceCommon {
 
 	private ActivityDAO_interface dao;
 	private ActivityPhotoDAO_interface daoPhoto;
-	private ActivityReportDAO_interface daoReport;
 	private ActivitySignupDAO_interface daoSingup;
 	private ActivityReplyDAO_interface daoReply;
 
 	public ActivityService() {
 		daoSingup = new ActivitySignupDAO();
-		daoReport = new ActivityReportDAO();
 		daoReply = new ActivityReplyDAO();
 		daoPhoto = new ActivityPhotoDAO();
 		dao = new ActivityDAO();
@@ -120,7 +118,6 @@ public class ActivityService implements ActivityServiceCommon {
 
 	public void delete(Integer actId) {
 		daoPhoto.deleteAct(actId);
-		daoReport.deleteAct(actId);
 		daoSingup.deleteAct(actId);
 		daoReply.deleteAct(actId);
 		dao.delete(actId);
@@ -156,10 +153,7 @@ public class ActivityService implements ActivityServiceCommon {
 		dao.removeNumber(currentNumber, number, actId);
 	}
 
-	public List<JSONArray> getOneJson(Integer memberId) {
-		return dao.getMemberJson(memberId);
 
-	}
 
 	public void updateJS(ActivityVO activityVO, List<byte[]> actPhoto) {
 		
@@ -176,6 +170,27 @@ public class ActivityService implements ActivityServiceCommon {
 
 	}
 
+	public void updateStatus(Integer actId) {
+		dao.updateStatus(actId);
+	}	
+
+	
+	public JSONObject name(Integer memberId) {
+		return  dao.name(memberId);
 		
+	}
+	
+	
+	public List<ActivityVO> get() {
+		return  dao.get();
+		
+	}
+	
+	
+	public void expired(Integer actId) {
+			dao.expired(actId);
+	}
+	
+	
 	
 }

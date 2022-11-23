@@ -1,5 +1,6 @@
 	package com.activityreport.model;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +22,27 @@ public class ActivityReportService {
 	}
 	@Transactional
 	public void deleteAct(Integer actId) {
-		dao.delete(actId);
+		dao.deleteAct(actId);
 	}
 
+	@Transactional
+	public JSONArray getAll() {
+		return dao.getAll();
+	}
+	
+	@Transactional
+	public void updateNote(ActivityReportVO activityReportVO) {
+		dao.updateNote(activityReportVO);
+	}
+	
+	@Transactional
+	public void updateStatus(ActivityReportVO activityReportVO) {
+		dao.updatStatus(activityReportVO);
+	}
+	
+	@Transactional
+	public JSONArray getHistory() {
+		return dao.getHistory();
+	}
 	
 }

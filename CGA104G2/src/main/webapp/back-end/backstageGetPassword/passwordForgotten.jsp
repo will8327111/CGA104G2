@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>忘記密碼驗證</title>
 </head>
-<body>
+<body bgcolor="lightYellow">
 	<table border="1" cellpadding="5"
 		style="border: 2px #black solid; text-align: center;">
 		<tr>
@@ -18,9 +18,7 @@
 		<tr>
 			<th>
 				<FORM METHOD="get"
-					ACTION="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do"
-					style="margin-bottom: 0px">
-					
+					ACTION="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 					<div>
 						原帳號: <input type="text" name="bmAccount">
 					</div>
@@ -34,11 +32,13 @@
 			<th>
 				<div>
 					<input type="hidden" name="action" value="passwordForgotten">
-					<input type="submit" name="confirmation" value="寄送驗證碼" style="float: left">
+					<input type="submit" name="confirmation" value="寄送驗證碼"
+						style="float: left">
 				</div>
 				</FORM>
-				
-				<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.jsp"
+
+				<FORM METHOD="get"
+					ACTION="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.jsp"
 					style="margin-bottom: 0px;">
 					<input type="submit" value="取消">
 				</FORM>

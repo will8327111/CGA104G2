@@ -24,6 +24,9 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @ComponentScan("com.activityreport.model")
+@ComponentScan("com.activityphoto.model")
+@ComponentScan("com.activityreply.model")
+@ComponentScan("com.activity.model")
 @EnableTransactionManagement
 public class AppConfig {
 	@Bean
@@ -44,6 +47,9 @@ public class AppConfig {
 	public SessionFactory sessionFactory() throws IllegalArgumentException, NamingException {
 		return new LocalSessionFactoryBuilder(dataSource())
 			.scanPackages("com.activityreport.model")
+			.scanPackages("com.activity.model")
+			.scanPackages("com.activityphoto.model")
+			.scanPackages("com.activityreply.model")
 			.addProperties(getHibernateProperties())
 			.buildSessionFactory();
 	}
