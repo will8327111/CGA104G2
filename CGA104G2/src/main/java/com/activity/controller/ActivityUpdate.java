@@ -23,7 +23,9 @@ import com.activity.model.ActivityVO;
 		loadOnStartup = 1)
 public class ActivityUpdate extends HttpServlet {
 
-  Timer t1 = new Timer();
+  Timer t1 = new Timer();	
+	Calendar cal = Calendar.getInstance();
+	
 	
 	@Override
 	public void init() throws ServletException {
@@ -48,9 +50,7 @@ public class ActivityUpdate extends HttpServlet {
 					
 		}
 	};
-	
-	Calendar cal = Calendar.getInstance();
-	
+
 	
 	
 	
