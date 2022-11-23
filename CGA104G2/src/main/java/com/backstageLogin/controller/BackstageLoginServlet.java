@@ -24,6 +24,7 @@ public class BackstageLoginServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		System.out.println("我有執行");
 		try {
 			req.setCharacterEncoding("UTF-8");
 			String action = req.getParameter("action");
@@ -32,8 +33,12 @@ public class BackstageLoginServlet extends HttpServlet {
 			String bmEmail = req.getParameter("bmEmail");
 			Timer timer;
 			HttpSession session = req.getSession();
+			
 //			========================================錯誤訊息=====================================================
 			if ("textForLogin".equals(action)) {
+				
+				System.out.println("我有執行");
+				
 				List<String> errorMsgs = new LinkedList<String>();
 				req.setAttribute("errorMsgs", errorMsgs);
 
@@ -81,17 +86,24 @@ public class BackstageLoginServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
-
+				
 //	 			=======================================登入後以session存取所有管理員的資訊=================================================
 				session.setAttribute("backstageAccountVO", backstageAccountVO); // 設定VO物件
-				String id = session.getId();
-				session.setAttribute("id", id);
-				System.out.println(id);
+//				String id = session.getId();
+				session.setAttribute("bmId", backstageAccountVO.getBmId());
+//				System.out.println(id);
 //				=========================================資料驗證跳轉(Send the Success view) ================
-				String url = "/back-end/backstageAccount/backstageIndex.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-
+				String url1 = "/back-end/web/backEndHomeMgr.html";
+				String url2 = "/back-end/web/backEndHomeEmp.html";
+				
+//	 			======================================過濾員工權限=================================================
+				if(backstageAccountVO.getBmId() == 1){
+					RequestDispatcher successView = req.getRequestDispatcher(url1);
+					successView.forward(req, res);
+				}else{
+					RequestDispatcher successView = req.getRequestDispatcher(url2);
+					successView.forward(req, res);
+				}
 			}
 
 //			========================================忘記密碼寄送錯誤訊息====================================================

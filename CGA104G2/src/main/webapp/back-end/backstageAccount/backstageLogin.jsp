@@ -15,8 +15,7 @@
 
 </head>
 <body bgcolor="lightYellow">
-	<form method="get"
-		action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
+	<form method="post" action="../../back-end/backstageAccount/backstageLogin.do"  >
 		<div id="border">
 			<div>
 				帳號: <input type="text" name="bmAccount"><span> </span>
@@ -32,12 +31,12 @@
 			</div>
 	</form>
 
-	<form method="get">
+
 		<div>
 			<a
 				href="http://localhost:8081/CGA104G2/back-end/backstageGetPassword/passwordForgotten.jsp">忘記密碼?</a>
 		</div>
-	</form>
+
 	<div style="color: red">${errorMsgs}</div>
 </body>
 </html>
