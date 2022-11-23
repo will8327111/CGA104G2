@@ -12,10 +12,6 @@ body{
 	word-wrap: break-word;
 }
 
-@font-face {
-    font-family: "huninn";
-    src: url(/resources/front-end/assets/font/jf-openhuninn-1.1.ttf);
-}
 
 
 @media screen and (max-width:768px) {
@@ -66,18 +62,17 @@ h3 span,
 #splash-logo{
     font-size: 1rem;
     letter-spacing: 0.4em;
-    /*text-transform: uppercase;*/
     color: #1959d1;
 }
 
 /* g-nav */
 
-#g-nav.panelactive li:last-child a{
-    margin: 30px 0 0 0;
-    padding: 10px 20px;
-    border: 2px solid #333;
-    white-space: nowrap;
-}
+/*#g-nav.panelactive li:last-child a{*/
+/*    margin: 30px 0 0 0;*/
+/*    padding: 10px 20px;*/
+/*    border: 2px solid #333;*/
+/*    white-space: nowrap;*/
+/*}*/
 
 /*pc-nav*/
 
@@ -92,10 +87,42 @@ h3 span,
     }
 }
 
+/*login-div*/
+#login-div{
+    display: flex;
+    justify-content: flex-end;
+    transform: translateX(-30px);
+}
+
+@media screen and (max-width:990px) {
+    #login-div{
+        display: flex;
+        justify-content: flex-end;
+        transform: translateX(-100px);
+        );
+    }
+}
+
+/*out-div*/
+#out-div{
+    display: flex;
+    justify-content: flex-end;
+    transform: translateX(-80px);
+}
+
+@media screen and (max-width:990px) {
+    #out-div{
+        display: flex;
+        justify-content: flex-end;
+        transform: translateX(300px);
+    );
+    }
+}
+
+
 /* heading */
 
 h1{
-    /*text-transform: uppercase;*/
     font-size: 4rem;
     position: absolute;
     top: 20%;
@@ -117,7 +144,6 @@ h1 a{
 }
 
 h2{
-    /*text-transform: uppercase;*/
     font-size: 3rem;
 }
 
@@ -135,7 +161,6 @@ h2{
     bottom:20%;
     left:3%;
     font-size:2.3rem;
-    /*text-transform: uppercase;*/
     font-weight: bold;
     line-height: 1.5;
     color:#ffffff;
@@ -163,8 +188,34 @@ h2{
 #main-area{
     width:90%;
     margin:0 auto;
-    padding: 50px 0; 
+    padding: 20px 0;
 }
+
+/* sub-area */
+#sub-area{
+    width:24%;
+    position: relative;
+    z-index: 1;
+}
+
+/*1020px以下*/
+
+@media screen and (max-width:1020px){
+    #wrapper{
+        padding: 0;
+    }
+    #main-area,
+    #sub-area{
+        width:100%;
+        padding: 0 30px;
+    }
+
+    #sub-area{
+        margin:0 0 80px 0;
+    }
+
+}
+
 
 /* topics */
 
@@ -297,15 +348,15 @@ h2{
 
 @media screen and (max-width:768px) {
 #service .service-area{
-    margin:0 0 200px 0;   
+    margin:0 0 200px 0;
 }
 }
 
 @media screen and (max-width:590px) {
  #service .service-area{
-    margin:0 0 50px 0;   
+    margin:0 0 50px 0;
 }
-   
+
 }
 
 #service .service-area::after{
@@ -344,7 +395,7 @@ h2{
 #service .service-area .content{
     width:47%;
     top:100px;
-    }  
+    }
 }
 
 @media screen and (max-width:590px) {
@@ -362,24 +413,23 @@ h2{
 }
 
 #service .service-area .content-area{
-    padding:40px;   
+    padding:40px;
 }
 
 #service .service-area .content-area h3{
      text-align: center;
-    font-size: 1rem;
+    font-size: 2rem;
     margin: 0 0 30px 0;
 }
 
 #service .service-area .content-area h3 span{
     font-weight: bold;
-    /*text-transform: uppercase;*/
     display: block;
     font-size: 1.2rem;
 }
 
 #service .service-area .content-area p{
-     margin:0 0 30px 0;   
+     margin:0 0 30px 0;
 }
 
 #service .btn{
@@ -457,13 +507,13 @@ h2{
 
 
 #faq h2 span.bgLRextend::before{
-    background:rgb(51, 51, 51);
+    background: rgb(101, 108, 130);
 }
 
 .faq-bg{
     position: relative;
     height: 55vh;
-    background:url("../img/pict_05.jpg") no-repeat center;
+    background:url("../img/inhouse.jpg") no-repeat center;
     background-size:cover;
     margin: 0 0 200px 25%;
 }
@@ -605,6 +655,50 @@ h2{
 	
 }
 
+
+/* sub-area */
+
+.sub-btn-list{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 30px 0;
+}
+
+.sub-btn-list li{
+    width:48%;
+    text-align: center;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+}
+
+.sub-btn-list li img{
+    width:30px;
+}
+
+.sub-btn-list li a{
+    color:#fff;
+    display: block;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.inner-cap{
+    padding: 10px;
+}
+
+.tab-area .area li a{
+    display: block;
+    border-bottom:1px solid #ccc;
+    padding: 10px 10px 10px 20px;
+    transition: all .3s;
+}
+
+.tab-area .area li a:hover{
+    background:#efefef;
+}
+
+
+
 /* footer */
 
 #footer{
@@ -613,7 +707,6 @@ h2{
     text-align: center;
     background: #fff;
     position: relative;
-    /*text-transform: uppercase;*/
 }
 
 #footer .footer-logo{
