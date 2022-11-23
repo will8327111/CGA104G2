@@ -18,6 +18,18 @@
 </Style>
 </head>
 <body>
+
+	<table>
+		<tr>
+			<td>
+				<h1>顯示時段</h1>
+				<h4>
+					<a href="front-end/ame/showAme.jsp">回瀏覽頁</a>
+				</h4>
+			</td>
+		</tr>
+	</table>
+
 	<table>
 		<c:forEach items="${statime}" var="tmp" varStatus="loop">
 			<c:if test="${tmp == 0}">
