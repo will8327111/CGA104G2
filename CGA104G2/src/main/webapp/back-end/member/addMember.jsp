@@ -19,7 +19,7 @@
 <%--                                                                    alt="返回">回首頁</a></h4>--%>
 
     <c:if test="${not empty errorMsgs}">
-    <span style="color:red">請修正以下錯誤:</span>
+    <span style="color:red">請重新輸入，並修正以下錯誤，謝謝。:</span>
     <ul>
         <c:forEach var="message" items="${errorMsgs}">
             <li style="color:red">${message}</li>
@@ -27,7 +27,7 @@
     </ul>
     </c:if>
 
-    <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do" name="form1" enctype="multipart/form-data">
+    <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do" name="form1" enctype="multipart/form-data" >
         <div class="page-content">
             <section class="section">
 
@@ -45,21 +45,24 @@
                             <div class="col-md-auto">
                                 <table>
                                     <tr>
-                                        <td><span style="color: red; "><b>*</b></span>帳號－</td>
-                                        <td><input type="TEXT" name="memberac" size="40" class="form-control"
-                                                   value="<%= (memberVO==null)? "as325e222" : memberVO.getMemberAc()%>"/>
+                                        <td><span style="color: red; "><b>*</b></span>帳號：</td>
+                                        <td><input type="TEXT" name="memberac" size="40" class="form-control" required
+                                                   value="<%= (memberVO==null)? "" : memberVO.getMemberAc()%>"/>
                                             <%-- value="${memberId.memberAc}"/></td><td>${errorMsgs.memberAc}</td>--%>
+
                                     </tr>
                                     <tr>
-                                        <td><span style="color: red; "><b>*</b></span>密碼－</td>
-                                        <td><input type="TEXT" name="memberpw" size="40" class="form-control"
-                                                   value="<%= (memberVO==null)? "Karubero3355" : memberVO.getMemberPw()%>"/>
+                                        <td><span style="color: red; "><b>*</b></span>密碼：</td>
+                                        <td><input type="TEXT" name="memberpw" size="40" class="form-control" required
+                                                   value="<%= (memberVO==null)? "" : memberVO.getMemberPw()%>"/>
+
                                         </td>
                                     </tr>
                                     <tr>
                                         <td><span style="color: red; "><b>*</b></span>住戶姓名:</td>
-                                        <td><input type="TEXT" name="membername" size="40"  class="form-control"
+                                        <td><input type="TEXT" name="membername" size="40"  class="form-control" required
                                                    value="<%= (memberVO==null)? "可魯" : memberVO.getMemberName()%>"/>
+
                                         </td>
                                     </tr>
                                     <tr>
@@ -90,9 +93,10 @@
                                     <tr>
                                         <td><span style="color: red; "><b>*</b></span>住戶棟號:</td>
                                         <td><div class="form-floating">
-                                            <input type="TEXT" name="memberbuilding" size="40" class="form-control"
+                                            <input type="TEXT" name="memberbuilding" size="40" class="form-control" required
                                                    value="<%= (memberVO==null)? "" : memberVO.getMemberBuilding()%>" />
-                                            <label for="floatingInput">棟別1位數+樓層2位數+戶號2位數=共5碼</label>
+                                            <label for="floatingInput">棟別A-C:1位數+樓層01-10:2位數+戶號01-04:2位數=共5碼</label>
+
                                         </div>
                                         </td>
                                     </tr>
@@ -101,9 +105,10 @@
                                         <td><span style="color: red; "><b>*</b></span>住戶email:</td>
                                         <td>
                                             <div class="form-floating">
-                                                <input type="email" name="memberemail" size="40" class="form-control" id="floatingInput"
+                                                <input type="email" name="memberemail" size="40" class="form-control" id="floatingInput" required
                                                        value="<%= (memberVO==null)? "Karubero321@gmail.com" : memberVO.getMemberEmail()%>"/>
                                                 <label for="floatingInput">example@gmail.com</label>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -112,8 +117,9 @@
                                         <td>
                                             <span style="color: red; "><b>*</b></span>住戶手機:</td>
                                         <td>
-                                            <input type="TEXT" name="membermobile" size="40" class="form-control"
+                                            <input type="TEXT" name="membermobile" size="40" class="form-control" required
                                                    value="<%= (memberVO==null)? "0921005456" : memberVO.getMemberMobile()%>"/>
+
                                         </td>
                                     </tr>
 
@@ -126,19 +132,21 @@
 
                                     <tr>
                                         <td><span style="color: red; "><b>*</b></span>郵遞區號:</td>
-                                        <td><input type="TEXT" name="memberpost" size="40" class="form-control"
+                                        <td><input type="TEXT" name="memberpost" size="40" class="form-control"　required
                                                    value="<%= (memberVO==null)? "323" : memberVO.getMemberPost()%>"/>
+
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td><span style="color: red; "><b>*</b></span>住戶住址:</td>
-                                        <td><input type="TEXT" name="memberaddress" size="40" class="form-control"
+                                        <td><input type="TEXT" name="memberaddress" size="40" class="form-control" required
                                                    value="<%= (memberVO==null)? "桃園市中壢區" : memberVO.getMemberAddress()%>"/>
+
                                         </td>
                                     </tr>
 
-                                    <tr>
+                                    <tr style="display: none">
                                         <td><span style="color: red; "><b>*</b></span>住戶點數:</td>
                                         <td><input type="TEXT" name="memberpoints" size="40" class="form-control"
                                                    value="<%= (memberVO==null)? "1000" : memberVO.getMemberPoints()%>"/>
@@ -153,13 +161,13 @@
 
                                     <tr>
                                         <td><span style="color: red; "><b>*</b></span>加入時間:</td>
-                                        <td><input type="text" name="regdate" size="40" id="f_date1" class="form-control"></td>
+                                        <td><input type="text" name="regdate" size="40" id="f_date1" class="form-control" readonly></td>
                                         <%--                                            value="<%= (memberVO==null)? "2022-01-01" : memberVO.getRegDate()%>"/>--%>
                                     </tr>
 
                                     <td><span style="color: red; "><b>*</b></span>住戶身份別:</td>
                                     <td>
-                                        <select size="1" name="memberidstate" class="form-select" id="memberidstate">
+                                        <select size="1" name="memberidstate" class="form-select" id="memberidstate" readonly>
                                             <%--                                                        <option value="<%= (memberVO== null)?"":memberVO.getMemberIdState()%>">--%>
                                             <%--                                                                       <%=(memberVO== null)?"請選擇身分別":memberVO.getMemberIdState()%></option>--%>
                                             <option value="0" >0</option>
@@ -168,10 +176,11 @@
                                         </select>
                                         <span>【身份別】0:沒有住人 | 1:一般住戶<span style="color: red; "><b>*</b></span>預設 | 2:租客</span>
                                     </td>
+
                                     <tr>
                                         <td><span style="color: red; "><b>*</b></span>帳號狀態:</td>
                                         <td>
-                                            <select size="1" name="acstate" class="form-select" id="acstate">
+                                            <select size="1" name="acstate" class="form-select" id="acstate" >
                                                 <%--                                                <option value="<%= (memberVO== null)?"":memberVO.getAcState()%>">--%>
                                                 <%--                                                               <%=(memberVO== null)?"請選擇帳號狀態":memberVO.getAcState()%></option>--%>
                                                 <option value="0" selected>0</option>
@@ -184,8 +193,15 @@
                                             <%--                                                       value="<%= (memberVO==null)? "1" : memberVO.getAcState()%>"/>--%>
                                         </td>
                                     </tr>
-
                                 </table>
+                                <div style="height: 50px"></div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="myCheck"  name="remember" required>
+                                    <label class="form-check-label" for="myCheck">我已確認以上資料正確無誤</label>
+                                    <div class="valid-feedback">已勾選</div>
+                                    <div class="invalid-feedback">請勾選上面的欄位，才能再進行送出新增，謝謝。</div>
+                                </div>
+
                                 <div id="msg" class="error"></div>
                                 <input type="hidden" name="action" value="insert">
                                 <input type="submit" class="btn btn-outline-primary" id="btn1"  value="送出新增">

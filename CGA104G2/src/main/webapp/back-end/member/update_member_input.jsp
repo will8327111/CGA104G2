@@ -48,10 +48,10 @@
                     <div class="row">
                         <div class="col-md-auto">
                             <table>
-                                <tr>
-                                    <td><span style="color: red; "><b>*</b></span>住戶編號:</td>
-                                    <td><%=memberVO.getMemberId()%></td>
-                                </tr>
+<%--                                <tr>--%>
+<%--                                    <td><span style="color: red; "><b>*</b></span>住戶編號:</td>--%>
+<%--                                    <td><%=memberVO.getMemberId()%></td>--%>
+<%--                                </tr>--%>
 
                                 <tr>
                                     <td><span style="color: red; "><b>*</b></span>住戶帳號:</td>
@@ -98,7 +98,7 @@
                                     <td><span style="color: red; "><b>*</b></span>住戶棟號:</td>
                                     <td>
                                         <div class="form-floating">
-                                        <input type="TEXT" name="memberbuilding" size="40" class="form-control"
+                                        <input readonly type="TEXT" name="memberbuilding" size="40" class="form-control"
                                                value="<%=memberVO.getMemberBuilding()%>"/>
                                     <label for="floatingInput">棟別1位數+樓層2位數+戶號2位數=共5碼</label>
                                         </div>
@@ -140,7 +140,7 @@
 
                                 <tr>
                                     <td><span style="color: red; "><b>*</b></span>住戶點數:</td>
-                                    <td><input type="TEXT" name="memberpoints" size="40" class="form-control"
+                                    <td><input readonly type="TEXT" name="memberpoints" size="40" class="form-control"
                                                value="<%=memberVO.getMemberPoints()%>"/></td>
                                 </tr>
                                 	<tr>
@@ -149,13 +149,13 @@
                                 	</tr>
                                <tr>
                                     <td><span style="color: red; "><b>*</b></span>加入時間:</td>
-                                    <td><input name="regdate" id="f_date1" type="text" size="40" class="form-control"></td>
+                                    <td><input  style="display: none" readonly name="regdate" id="f_date1" type="text" size="40" class="form-control"></td>
                                 </tr>
 
                                 <tr>
                                     <td><span style="color: red; "><b>*</b></span>住戶身份別:</td>
                                     <td>
-                                        <select size="1" name="memberidstate" class="form-select">
+                                        <select style="display: none" readonly size="1" name="memberidstate" class="form-select">
 <%--                                            <option value="<%= (memberVO== null)?"":memberVO.getMemberIdState()%>"><%=(memberVO== null)?"請選擇身分別":memberVO.getMemberIdState()%></option>--%>
                                             <option value="0" <c:if test="${memberVO.memberIdState==('0')}"> selected="selected"</c:if>>0:沒有住人</option>
                                             <option value="1" <c:if test="${memberVO.memberIdState==('1')}"> selected="selected"</c:if>>1:一般住戶</option>

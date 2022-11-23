@@ -7,6 +7,7 @@
 
     <%--STYLE--%>
     <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/search.css" rel="stylesheet">
 </head>
 <body>
 
@@ -37,13 +38,20 @@
                         <div class="row-cols-md-3">
                             <li><a href="${pageContext.request.contextPath}/back-end/member/listAllMember.jsp">List All</a> 全部住戶 <br><br></li>
                             <li>
-                                <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do">
+                                <div id="search-wrap">
+                                <FORM role="search" METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do">
                                     <b>請輸入住戶編號 (如數字：1):</b>
-                                    <input type="text" name="memberid">
+                                    <input type="text" name="memberid" id="search-text">
                                     <input type="hidden" name="action" value="getOne_For_Display">
                                     <input type="submit" class="btn btn-outline-primary" value="送出">
                                 </FORM>
+                                </div>
                             </li>
+
+<%--                            <div id="search-wrap">--%>
+<%--                                <form role="search" method="get" action="">--%>
+<%--                                    <input type="text" value="" name="" id="search-text">--%>
+<%--                                </form>--%>
 
                             <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService"/>
 
@@ -61,7 +69,7 @@
                             </li>
 
                             <li>
-                                <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do">
+                                <FORM METHOD="get" ACTION="${pageContext.request.contextPath}/member/member.do">
                                     <b>選擇住戶姓名:</b>
                                     <select size="1" name="memberid" class="form-select">
                                         <c:forEach var="memberVO" items="${memberSvc.all}">
