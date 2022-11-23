@@ -21,6 +21,10 @@ public interface BackstageAccountDAO_interface {
 
 	public BackstageAccountVO findByAcAndEmail(String bmAccount, String bmEmail);
 	
+	public BackstageAccountVO findByEmail(String bmEmail);
+	
+	public BackstageAccountVO findByAccount(String bmAccount);
+	
 	public List<BackstageAccountVO> getAll();
 
 }

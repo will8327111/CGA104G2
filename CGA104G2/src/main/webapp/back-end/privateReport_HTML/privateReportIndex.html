@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>私人檢舉頁面</title>
+<style>
+#header {
+	border: 2px solid black;
+	border-collapse: collapse;
+}
+
+table, tr, th, td {
+	border: 2px solid black;
+}
+</style>
+	<script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+	<div id="header">
+		<h1 id="test">您好，這是是住戶檢舉頁面！</h1>
+	</div>
+
+	<span> <input id=getAllReport type="button" value="瀏覽全部檢舉">
+	</span>
+
+	<span> <input id="ReportDone" type="button" value="瀏覽已完成檢舉">
+	</span>
+
+	<span> <input id="ReportNotDone" type="button" value="瀏覽未完成檢舉">
+	</span>
+
+	<span> 查詢表單編號: <input id="privateReportId" type="text">
+		<input id="SubmitOneReport" type="button" value="送出">
+	</span>
+	<span>
+	<input type="button" value="返回">
+	</span>
+		<div id='select'>
+	<table id="reportTable" style='border: 1px solid black'>
+		<caption>
+			<h2>住戶檢舉列表</h2>
+		</caption>
+		<tr>
+			<th>檢舉編號</th>
+			<th>住戶編號</th>
+			<th>檢舉日期/時間</th>
+			<th>檢舉表單內容</th>
+			<th>檢舉內容附圖</th>
+			<th>檢舉狀態</th>
+			<th>回覆內容</th>
+			<th>回覆內容附圖</th>
+			<th>回覆日期/時間</th>
+			<th>修改</th>
+			<th>回覆</th>
+		</tr>
+		<tr>
+			<th>檢舉編號</th>
+			<th>住戶編號</th>
+			<th>檢舉日期/時間</th>
+			<th>檢舉表單內容</th>
+			<th>檢舉內容附圖</th>
+			<th>檢舉狀態</th>
+			<th>回覆內容</th>
+			<th>回覆內容附圖</th>
+			<th>回覆日期/時間</th>
+			<th>
+				<input type="button" value="修改">
+			</th>
+			<th>
+				<input type="button" value="回覆">
+			</th>
+		</tr>
+	</table>
+</div>
+<!--  ----------------------------------------------------------------------------------------------------------------------- -->
+	<script> // 顯示單一檢舉資訊
+		function showOneReport(reportList) {
+			
+			let showReportList = JSON.parse(reportList);
+			let str = "<table style='border:1px solid black'>"
+				+ "<caption><h2>住戶檢舉列表</h2></caption>"
+				+ "<tr><th>檢舉編號</th>"
+				+ "<th>住戶編號</th>"
+				+ "<th>檢舉日期/時間</th>"
+				+ "<th>檢舉表單內容</th>" 
+				+ "<th>檢舉內容附圖</th>"
+				+ "<th>檢舉狀態</th>" 
+				+ "<th>回覆內容</th>" 
+				+ "<th>回覆內容附圖</th>" 
+				+ "<th>回覆日期/時間</th></tr>" 
+				+ "<tr id='sb'></tr>"
+				+ "</table>"
+			$("#select").append(str);
+			
+			for(let i = 0; i < showReportList.length; i++){
+				
+			let str1 = "<th>" + showReportList[i].privateReportId + "</th>"
+					+ "<th>" + showReportList[i].memberId + "</th>"
+					+ "<th>" + showReportList[i].privateReportTime + "</th>"
+					+ "<th>" + showReportList[i].privateReportContent + "</th>"
+					+ "<th>" + showReportList[i].privateReportPic + "</th>"
+					+ "<th>" + showReportList[i].privateReportStatus + "</th>"
+					+ "<th>" + showReportList[i].replyOfReport + "</th>"
+					+ "<th>" + showReportList[i].replyPic + "</th>"
+					+ "<th>" + showReportList[i].replyOfReportTime + "</th>"
+			$("#sb").after(str1);
+			};
+		};
+
+		$("#SubmitOneReport").click(async function() {
+			reset();
+			let privateReportId = $("#privateReportId").val();
+			//===實作(填入程式碼)
+			let xhr = new XMLHttpRequest();
+			//建立好Get連接與送出請求 
+			let url = "../../back-end/privateReport/privateReportServlet?action=getOneReport&privateReportId=" + privateReportId ;
+			xhr.open("Get", url, true);
+			//設定好回呼函數   
+			xhr.onload = function() {
+				if (xhr.status == 200) {
+					showOneReport(xhr.responseText);
+				} 
+// 					alert(xhr.status);
+// 				}// status
+			};
+			xhr.send(null);
+		})
+		
+		function reset(){
+			document.getElementById("select").innerHTML="";
+		};
+	</script>
+	
+	<script> //按鈕顯示所有人檢舉資訊
+	function showAllReport(reportList) {
+		
+		let showReportList = JSON.parse(reportList);
+		let str = "<table style='border:1px solid black'>"
+			+ "<caption><h2>住戶檢舉列表</h2></caption>"	
+			+ "<tr><th>檢舉編號</th>"
+			+ "<th>住戶編號</th>"
+			+ "<th>檢舉日期/時間</th>"
+			+ "<th>檢舉表單內容</th>" 
+			+ "<th>檢舉內容附圖</th>"
+			+ "<th>檢舉狀態</th>" 
+			+ "<th>回覆內容</th>" 
+			+ "<th>回覆內容附圖</th>" 
+			+ "<th>回覆日期/時間</th></tr>" 
+			+ "<tr id='sb'></tr>"
+			+ "</table>"
+		$("#select").append(str);
+		
+		for(let i = 0; i < showReportList.length; i++){
+			
+		let str1 = "<tr><th>" + showReportList[i].privateReportId + "</th>"
+				+ "<th>" + showReportList[i].memberId + "</th>"
+				+ "<th>" + showReportList[i].privateReportTime + "</th>"
+				+ "<th>" + showReportList[i].privateReportContent + "</th>"
+				+ "<th>" + showReportList[i].privateReportPic + "</th>"
+				+ "<th>" + showReportList[i].privateReportStatus + "</th>"
+				+ "<th>" + showReportList[i].replyOfReport + "</th>"
+				+ "<th>" + showReportList[i].replyPic + "</th>"
+				+ "<th>" + showReportList[i].replyOfReportTime + "</th></tr>"
+		$("#sb").after(str1);
+		};
+	};
+
+	$("#getAllReport").click(async function() {
+		reset();
+		//===實作(填入程式碼)
+		let xhr = new XMLHttpRequest();
+		//建立好Get連接與送出請求 
+		let url = "../../back-end/privateReport/privateReportServlet?action=getAllReport";
+		xhr.open("Get", url, true);
+		//設定好回呼函數   
+		xhr.onload = function() {
+			if (xhr.status == 200) {
+				showAllReport(xhr.responseText);
+			} 
+		};
+		xhr.send();
+	})
+	
+	function reset(){
+		document.getElementById("select").innerHTML="";
+	};
+	
+	</script>
+
+
+</body>
+</html>

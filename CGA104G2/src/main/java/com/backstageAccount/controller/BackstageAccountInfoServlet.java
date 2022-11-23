@@ -1,4 +1,4 @@
-package com.backstage.controller;
+package com.backstageAccount.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -76,7 +76,7 @@ public class BackstageAccountInfoServlet extends HttpServlet {
 			String bmName = req.getParameter("bmName");
 			String bmNameReg = "^[(\u4e00-\u9fa5)]{2,5}$";
 			String bmAcAndPwReg = "^[(a-zA-Z0-9_)]{6,12}$";
-			String bmEmailReg;
+			String bmEmailReg = "^[a-zA-Z0-9_!#$%&'\\*+/=?{|}~^.-]+@[a-zA-Z0-9.-]+$";
 			if (bmName == null || bmName.trim().length() == 0) {
 				errorMsgs.put("bmName", "管理員姓名: 請勿空白");
 			} else if (!bmName.trim().matches(bmNameReg)) {
@@ -86,24 +86,39 @@ public class BackstageAccountInfoServlet extends HttpServlet {
 			String bmAccount = req.getParameter("bmAccount").trim();
 			if (bmAccount == null || bmAccount.trim().length() == 0) {
 				errorMsgs.put("bmAccount", "帳號: 請勿空白");
-			}else if (!bmAccount.trim().matches(bmAcAndPwReg)) {
+			} else if (!bmAccount.trim().matches(bmAcAndPwReg)) {
 				errorMsgs.put("bmAccount", "管理員帳號: 只能是英文字母或數字, 且長度必需在6到12之間");
 			}
 
 			String bmPassword = req.getParameter("bmPassword").trim();
 			if (bmPassword == null || bmPassword.trim().length() == 0) {
 				errorMsgs.put("bmPassword", "密碼: 請勿空白");
-			}else if (!bmPassword.trim().matches(bmAcAndPwReg)) {
+			} else if (!bmPassword.trim().matches(bmAcAndPwReg)) {
 				errorMsgs.put("bmPassword", "管理員密碼: 只能是英文字母或數字, 且長度必需在6到12之間");
 			}
 
 			String bmEmail = req.getParameter("bmEmail").trim();
 			if (bmEmail == null || bmEmail.trim().length() == 0) {
 				errorMsgs.put("bmEmail", "電子郵件: 請勿空白");
+			}else if (!bmEmail.trim().matches(bmEmailReg)) {
+				errorMsgs.put("bmEmail", "電子郵件: 請符合電子郵件格式!");
 			}
 
 			Integer bmStatus = Integer.parseInt(req.getParameter("bmStatus").trim());
 
+			BackstageAccountService backstageAccountSvc2 = new BackstageAccountService();
+			BackstageAccountService backstageAccountSvc3 = new BackstageAccountService();
+			BackstageAccountVO backstageAccountVO2 = backstageAccountSvc2.findByAccount(bmAccount);
+			BackstageAccountVO backstageAccountVO3 = backstageAccountSvc3.findByEmail(bmEmail);
+			
+			if (backstageAccountVO2 != null) {
+				errorMsgs.put("bmAccount", "帳號: 請勿與原帳號相同或是已有重複帳號!");
+			}
+			
+			if (backstageAccountVO3 != null) {
+				errorMsgs.put("bmEmail", "電子郵件: 請勿與原電子郵件相同或是已有重複資料!");
+			}
+			
 			BackstageAccountVO backstageAccountVO = new BackstageAccountVO();
 			backstageAccountVO.setBmId(bmId);
 			backstageAccountVO.setBmName(bmName);
@@ -132,7 +147,7 @@ public class BackstageAccountInfoServlet extends HttpServlet {
 		}
 
 		if ("insert".equals(action)) {
-
+			
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
@@ -140,7 +155,7 @@ public class BackstageAccountInfoServlet extends HttpServlet {
 			String bmName = req.getParameter("bmName");
 			String bmNameReg = "^[(\u4e00-\u9fa5)]{2,5}$";
 			String bmAcAndPwReg = "^[(a-zA-Z0-9_)]{6,12}$";
-			String bmEmailReg;
+			String bmEmailReg = "^[a-zA-Z0-9_!#$%&'\\*+/=?{|}~^.-]+@[a-zA-Z0-9.-]+$";
 			if (bmName == null || bmName.trim().length() == 0) {
 				errorMsgs.put("bmName", "管理員姓名: 請勿空白");
 			} else if (!bmName.trim().matches(bmNameReg)) {
@@ -157,16 +172,37 @@ public class BackstageAccountInfoServlet extends HttpServlet {
 			String bmPassword = req.getParameter("bmPassword").trim();
 			if (bmPassword == null || bmPassword.trim().length() == 0) {
 				errorMsgs.put("bmPassword", "密碼: 請勿空白");
-			}else if (!bmPassword.trim().matches(bmAcAndPwReg)) {
+			} else if (!bmPassword.trim().matches(bmAcAndPwReg)) {
 				errorMsgs.put("bmPassword", "管理員密碼: 只能是英文字母或數字, 且長度必需在6到12之間");
 			}
 
 			String bmEmail = req.getParameter("bmEmail").trim();
 			if (bmEmail == null || bmEmail.trim().length() == 0) {
 				errorMsgs.put("bmEmail", "電子郵件: 請勿空白");
+			}else if (!bmEmail.trim().matches(bmEmailReg)) {
+				errorMsgs.put("bmEmail", "電子郵件: 請符合電子郵件格式!");
 			}
 
 			Integer bmStatus = Integer.parseInt(req.getParameter("bmStatus").trim());
+			/**********************************************************************************/
+			BackstageAccountService backstageAccountSvc2 = new BackstageAccountService();
+			BackstageAccountService backstageAccountSvc3 = new BackstageAccountService();
+			BackstageAccountVO backstageAccountVO2 = backstageAccountSvc2.findByAccount(bmAccount);
+			BackstageAccountVO backstageAccountVO3 = backstageAccountSvc3.findByEmail(bmEmail);
+			
+			if (backstageAccountVO2 != null) {
+				errorMsgs.put("bmAccount", "帳號: 此帳號已被他人使用!請重新輸入!");
+			}
+			
+			if (backstageAccountVO3 != null) {
+				errorMsgs.put("bmEmail", "電子郵件: 已信箱已被他人使用!請重新輸入!");
+			}
+
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageAccount/addInfo.jsp");
+				failureView.forward(req, res);
+				return; // 程式中斷
+			}
 
 			BackstageAccountVO backstageAccountVO = new BackstageAccountVO();
 			backstageAccountVO.setBmName(bmName);
@@ -175,19 +211,11 @@ public class BackstageAccountInfoServlet extends HttpServlet {
 			backstageAccountVO.setBmEmail(bmEmail);
 			backstageAccountVO.setBmStatus(bmStatus);
 
-			if (!errorMsgs.isEmpty()) {
-//				req.setAttribute("backstageAccountVO", backstageAccountVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageAccount/addInfo.jsp");
-				failureView.forward(req, res);
-				return; // 程式中斷
-			}
-
 			/*************************** 2.開始新增資料 *****************************************/
 			BackstageAccountService backstageAccountSvc = new BackstageAccountService();
 			backstageAccountVO = backstageAccountSvc.insert(bmName, bmAccount, bmPassword, bmEmail, bmStatus);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) *************/
-//			req.setAttribute("backstageAccountVO", backstageAccountVO); // 資料庫insert成功後,正確的的empVO物件,存入req
 			String url = "/back-end/backstageAccount/listAllInfo.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);

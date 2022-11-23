@@ -14,7 +14,7 @@ pageContext.setAttribute("list", list);
 <meta charset="UTF-8">
 <title>權限功能列表</title>
 </head>
-<body>
+<body bgcolor="lightYellow">
 	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
 		<input type="hidden" name="action" value="BackstageLogOut">

@@ -24,6 +24,16 @@ public class BackstageAccountService {
 		return dao.findByAcAndEmail(bmAccount, bmEmail);
 	};
 
+	public BackstageAccountVO findByEmail(String bmEmail) {
+
+		return dao.findByEmail(bmEmail);
+	};
+	
+	public BackstageAccountVO findByAccount(String bmAccount) {
+
+		return dao.findByAccount(bmAccount);
+	};
+	
 	public BackstageAccountVO findByPrimaryKey(Integer bmId) {
 
 		return dao.findByPrimaryKey(bmId);

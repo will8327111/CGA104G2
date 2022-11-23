@@ -5,7 +5,7 @@
 
 <%
 BackstageAccountService backstageAccountSvc = new BackstageAccountService();
-List<BackstageAccountVO> list = backstageAccountSvc.getAll();  // 設定Account的getAll集合
+List<BackstageAccountVO> list = backstageAccountSvc.getAll(); // 設定Account的getAll集合
 pageContext.setAttribute("list", list);
 %>
 <html>
@@ -13,16 +13,18 @@ pageContext.setAttribute("list", list);
 <meta charset="UTF-8">
 <title>管理員基本資料</title>
 </head>
-<body>
+<body bgcolor="lightYellow">
 
-	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
+	<form method="get"
+		action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
-		<input type="hidden" name="action" value="BackstageLogOut">
-			<input type="submit" value="登出" style="float: right">
+			<input type="hidden" name="action" value="BackstageLogOut"> <input
+				type="submit" value="登出" style="float: right">
 		</div>
 	</form>
 
-	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageInfo.jsp">
+	<form method="get"
+		action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageInfo.jsp">
 		<div>
 			<input type="submit" value="返回上一頁">
 		</div>
@@ -31,7 +33,8 @@ pageContext.setAttribute("list", list);
 	<table id="backstageInfo" border="2">
 		<tr>
 			<h4>
-				<a href="<%=request.getContextPath()%>/back-end/backstageAccount/backstageIndex.jsp">回首頁</a>
+				<a
+					href="<%=request.getContextPath()%>/back-end/backstageAccount/backstageIndex.jsp">回首頁</a>
 			</h4>
 			<caption>
 				<h2>所有管理員基本資料</h2>
@@ -39,8 +42,8 @@ pageContext.setAttribute("list", list);
 					<FORM METHOD="get"
 						ACTION="<%=request.getContextPath()%>/back-end/backstageAccount/addInfo.jsp"
 						style="margin-bottom: 0px;">
-						<input type="submit" value="新增管理員" style="float: right"> <input type="hidden"
-							name="action" value="insert">
+						<input type="submit" value="新增管理員" style="float: right"> <input
+							type="hidden" name="action" value="insert">
 					</FORM>
 				</div>
 			</caption>
@@ -62,28 +65,34 @@ pageContext.setAttribute("list", list);
 				<th>${backstageAccountVO.bmAccount}</th>
 				<th>${backstageAccountVO.bmPassword}</th>
 				<th>${backstageAccountVO.bmEmail}</th>
-				<th>${backstageAccountVO.bmStatus}</th>
+				<c:choose>
+					<c:when test="${backstageAccountVO.bmStatus==0}">
+						<th>停權</th>
+					</c:when>
+					<c:otherwise>
+						<th>啟用中</th>
+					</c:otherwise>
+				</c:choose>
 				<td>
 					<FORM METHOD="get"
 						ACTION="<%=request.getContextPath()%>/back-end/backstageAccount/BackstageAccountInfo.do"
 						style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="bmId" value="${backstageAccountVO.bmId}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
+						<input id="modify" type="submit" value="修改"> <input
+							type="hidden" name="bmId" value="${backstageAccountVO.bmId}">
+						<input type="hidden" name="action" value="getOne_For_Update">
 					</FORM>
 				</td>
 				<td>
 					<FORM METHOD="get"
 						ACTION="<%=request.getContextPath()%>/back-end/backstageAccount/BackstageAccountInfo.do"
 						style="margin-bottom: 0px;">
-						<input type="submit" value="刪除"> <input type="hidden"
-							name="bmId" value="${backstageAccountVO.bmId}"> <input
-							type="hidden" name="action" value="delete">
+						<input id="delete" type="submit" value="刪除"> <input
+							type="hidden" name="bmId" value="${backstageAccountVO.bmId}">
+						<input type="hidden" name="action" value="delete">
 					</FORM>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
-
 </body>
 </html>

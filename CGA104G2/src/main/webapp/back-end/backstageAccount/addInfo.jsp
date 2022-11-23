@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>新增管理員資料</title>
 </head>
-<body>
+<body bgcolor="lightYellow">
 	<form method="get"
 		action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
@@ -73,6 +73,6 @@
 		<br> <input type="hidden" name="action" value="insert"> <input
 			type="hidden" name="bmId"> <input type="submit" value="送出新增">
 	</FORM>
-
+	<b>${sendMsgs}</b>
 </body>
 </html>

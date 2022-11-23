@@ -11,7 +11,7 @@ BackstageAccountVO backstageAccountVO = (BackstageAccountVO) session.getAttribut
 <meta charset="UTF-8">
 <title>修改管理員資料</title>
 </head>
-<body>
+<body bgcolor="lightYellow">
 
 	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>

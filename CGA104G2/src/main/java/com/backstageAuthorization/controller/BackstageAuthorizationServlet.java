@@ -1,4 +1,4 @@
-package com.backstage.controller;
+package com.backstageAuthorization.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;

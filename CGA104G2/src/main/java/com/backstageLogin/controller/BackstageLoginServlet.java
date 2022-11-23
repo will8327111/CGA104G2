@@ -1,13 +1,9 @@
-package com.backstage.controller;
+package com.backstageLogin.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,14 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import com.backstageMailService.model.*;
 
 import com.backstageAccount.model.BackstageAccountService;
 import com.backstageAccount.model.BackstageAccountVO;
-import com.backstageAuthorization.model.BackstageAuthorizationService;
-import com.backstageAuthorization.model.BackstageAuthorizationVO;
-import com.backstageCapabilities.model.BackstageCapabilitiesService;
-import com.backstageCapabilities.model.BackstageCapabilitiesVO;
-import com.mysql.cj.Session;
 
 @WebServlet("/back-end/backstageAccount/backstageLogin.do")
 public class BackstageLoginServlet extends HttpServlet {
@@ -38,7 +30,6 @@ public class BackstageLoginServlet extends HttpServlet {
 			String bmAccount = req.getParameter("bmAccount");
 			String bmPassword = req.getParameter("bmPassword");
 			String bmEmail = req.getParameter("bmEmail");
-			String confirmCode = req.getParameter("confirmCode");
 			Timer timer;
 			HttpSession session = req.getSession();
 //			========================================錯誤訊息=====================================================
@@ -93,7 +84,9 @@ public class BackstageLoginServlet extends HttpServlet {
 
 //	 			=======================================登入後以session存取所有管理員的資訊=================================================
 				session.setAttribute("backstageAccountVO", backstageAccountVO); // 設定VO物件
-
+				String id = session.getId();
+				session.setAttribute("id", id);
+				System.out.println(id);
 //				=========================================資料驗證跳轉(Send the Success view) ================
 				String url = "/back-end/backstageAccount/backstageIndex.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -149,47 +142,56 @@ public class BackstageLoginServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
+//				=========================================驗證碼產生==============================================
+				GenAuthCode randomCode = new GenAuthCode();
+				String code = randomCode.getRandomPassword();
+//				=========================================寄含有驗證碼的信===================================================
+				MailService mailService = new MailService();
+				String to = bmEmail;
+				String subject = "忘記密碼驗證信";
+				String ch_name = "使用者，";
+				String alert = "請在120秒內將驗證碼輸入!" + "\n" + "逾時驗證碼將會失效且頁面將會重新跳轉至忘記密碼頁面!";
+				String messageText = "Hello! " + ch_name + " 您的密碼為: " + code + "\n" + alert;
+				mailService.sendMail(to, subject, messageText);
+				System.out.println(code);
+				req.setAttribute("code", code);
 //			=========================================資料驗證跳轉(Send the Success view) ================
 				session.setAttribute("backstageAccountVO", backstageAccountVO);
 				String url = "/back-end/backstageGetPassword/confirmationResend.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-			}
-
+			
+		}
 //			=======================================================================
 			if ("sendConfirmation".equals(action)) {
 				List<String> sendMsgs = new LinkedList<String>();
 				req.setAttribute("sendMsgs", sendMsgs);
-
-				if (confirmCode == null || (confirmCode.trim().length() == 0)) {
+				String confirmCode = req.getParameter("confirmCode");
+				if ((confirmCode == null || (confirmCode.trim()).length() == 0)) {
 					sendMsgs.add("請輸入驗證碼!");
 				}
+				
+				String code = req.getParameter("code");
+//				
+				if (!(code.equals(confirmCode))) {
+					sendMsgs.add("輸入的驗證碼錯誤!");	
+				}else {
+					System.out.println("驗證成功");
+				}
+				
 				if (!sendMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/back-end/backstageGetPassword/confirmationResend.jsp");
 					failureView.forward(req, res);
 					return;
 				}
-
-//			=============================================================================================
-//				BackstageAccountService backstageAccountSvc = new BackstageAccountService();
-//				BackstageAccountVO backstageAccountVO = backstageAccountSvc.findByAcAndEmail(bmAccount, bmEmail);
-//				if (backstageAccountVO == null) {
-//					sendMsgs.add("查無此帳號和電子郵件!");
-//				}
-//				if (!sendMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/backstageGetPassword/passwordForgotten.jsp");
-//					failureView.forward(req, res);
-//					return;
-//				}
 //			=========================================資料驗證跳轉(Send the Success view) ================
-//				session.setAttribute("backstageAccountVO", backstageAccountVO);
-				String url = "/back-end/backstageGetPassword/confirmationResend.jsp";
+				String url = "/back-end/backstageGetPassword/confirmedSuccess.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}
 
-//			=========================================登出 ================
+//			=========================================登出 =================================================
 			if ("BackstageLogOut".equals(action)) {
 				session.invalidate();
 				String url = "/back-end/backstageAccount/backstageLogin.jsp";
@@ -197,28 +199,6 @@ public class BackstageLoginServlet extends HttpServlet {
 				successView.forward(req, res);
 			}
 
-//			===============================================驗證碼排程器==============================================
-//			if ("TimeTest".equals(action)) {
-//				timer = new Timer();
-//				TimerTask task = new TimerTask() {
-//					public void run() {
-//						int i = 0;
-//						i++;
-//						if (i == 120) {
-//							timer.cancel();
-//							String url = "/back-end/passwordForgotten.jsp";
-//							RequestDispatcher successView = req.getRequestDispatcher(url);
-//							try {
-//								successView.forward(req, res);
-//							} catch (Exception e) {
-//								e.printStackTrace();
-//							}
-//						}
-//					}
-//				};
-//				Calendar cal = new GregorianCalendar();
-//				timer.scheduleAtFixedRate(task, cal.getTime(), 1000);
-//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

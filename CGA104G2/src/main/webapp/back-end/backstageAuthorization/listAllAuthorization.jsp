@@ -21,7 +21,7 @@ pageContext.setAttribute("list3", list3);// 給複合查詢使用的list
 <meta charset="UTF-8">
 <title>所有管理員權限功能</title>
 </head>
-<body>
+<body bgcolor="lightYellow">
 
 	<form method="get"
 		action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">

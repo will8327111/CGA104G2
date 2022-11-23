@@ -1,4 +1,4 @@
-package com.backstage.controller;
+package com.backstageCapabilities.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.backstageAccount.model.BackstageAccountService;
+import com.backstageAccount.model.BackstageAccountVO;
 import com.backstageCapabilities.model.BackstageCapabilitiesService;
 import com.backstageCapabilities.model.BackstageCapabilitiesVO;
 
@@ -51,7 +53,6 @@ public class BackstageCapabilitiesServlet extends HttpServlet {
 
 			/*************************** 1.接收請求參數 ****************************************/
 			Integer bmCapabilitiesId = Integer.parseInt(req.getParameter("bmCapabilitiesId"));
-
 			/*************************** 2.開始查詢資料 ****************************************/
 			BackstageCapabilitiesService backstageCapabilitiesSvc = new BackstageCapabilitiesService();
 			BackstageCapabilitiesVO backstageCapabilitiesVO = backstageCapabilitiesSvc
@@ -91,6 +92,12 @@ public class BackstageCapabilitiesServlet extends HttpServlet {
 				errorMsgs.put("bmCapabilitiesContent", "權限功能內容: 只能是中、英文字母、數字和_ , 且長度必需在5到300之間");
 			}
 
+			BackstageCapabilitiesService backstageCapabilitieistSvc2 = new BackstageCapabilitiesService();
+			BackstageCapabilitiesVO backstageCapabilitiesVO2 = backstageCapabilitieistSvc2.findByCapName(bmCapabilitiesName);
+			if (backstageCapabilitiesVO2 != null) {
+				errorMsgs.put("bmCapabilitiesName", "權限功能名稱: 請勿與原名稱相同或是已有重複名稱!");
+			}
+			
 			BackstageCapabilitiesVO backstageCapabilitiesVO = new BackstageCapabilitiesVO();
 			backstageCapabilitiesVO.setBmCapabilitiesName(bmCapabilitiesName);
 			backstageCapabilitiesVO.setBmCapabilitiesContent(bmCapabilitiesContent);
@@ -137,6 +144,13 @@ public class BackstageCapabilitiesServlet extends HttpServlet {
 			} else if (!bmCapabilitiesContent.trim().matches(bmCapabilitiesContentReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.put("bmCapabilitiesContent", "權限功能名稱: 只能是中、英文字母、數字和_ , 且長度必需在5到300之間");
 			}
+			
+			
+			BackstageCapabilitiesService backstageCapabilitieistSvc2 = new BackstageCapabilitiesService();
+			BackstageCapabilitiesVO backstageCapabilitiesVO2 = backstageCapabilitieistSvc2.findByCapName(bmCapabilitiesName);
+			if (backstageCapabilitiesVO2 != null) {
+				errorMsgs.put("bmCapabilitiesName", "權限功能名稱: 請勿與原名稱相同或是已有重複名稱!");
+			}
 
 			BackstageCapabilitiesVO backstageCapabilitiesVO = new BackstageCapabilitiesVO();
 			backstageCapabilitiesVO.setBmCapabilitiesName(bmCapabilitiesName);
@@ -149,7 +163,7 @@ public class BackstageCapabilitiesServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
-
+		
 			/*************************** 2.開始新增資料 *****************************************/
 			BackstageCapabilitiesService backstageCapabilitiesSvc = new BackstageCapabilitiesService();
 			backstageCapabilitiesVO = backstageCapabilitiesSvc.insert(bmCapabilitiesName, bmCapabilitiesContent);

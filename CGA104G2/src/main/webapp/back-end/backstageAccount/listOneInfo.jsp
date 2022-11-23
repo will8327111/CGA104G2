@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>我的基本資料</title>
 </head>
-<body>
+<body bgcolor="lightYellow">
 	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
 		<input type="hidden" name="action" value="BackstageLogOut">
@@ -45,7 +45,14 @@
 			<th>${backstageAccountVO.bmAccount}</th>
 			<th>${backstageAccountVO.bmPassword}</th>
 			<th>${backstageAccountVO.bmEmail}</th>
-			<th>${backstageAccountVO.bmStatus}</th>
+				<c:choose>
+					<c:when test="${backstageAccountVO.bmStatus==0}">
+						<th>停權</th>
+					</c:when>
+					<c:otherwise>
+						<th>啟用中</th>
+					</c:otherwise>
+				</c:choose>
 		</tr>
 	</table>
 
