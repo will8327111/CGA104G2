@@ -71,8 +71,7 @@ body.appear .splashbg{
 	}
 }
 
-/*畫面轉變css設定*/
-
+/*首頁進入畫面轉變css設定*/
 #wrapper{
 	opacity: 0;
 }
@@ -106,7 +105,7 @@ body.appear #wrapper{
 	bottom:120%;
 	width:100%;
     height: 100vh;
-	background:#d8cb7f;
+	background: #d9cf95;
     /*動作*/
 	transition: all 0.6s;
 }
@@ -138,7 +137,6 @@ body.appear #wrapper{
 }
 
 /*list layout設定*/
-
 #g-nav li{
 	list-style: none;
     text-align: center; 
@@ -147,9 +145,8 @@ body.appear #wrapper{
 #g-nav li a{
 	color: rgb(55, 119, 103);
 	text-decoration: none;
-	padding:10px;
+	padding:5px;
 	display: block;
-	/*text-transform: uppercase;*/
 	letter-spacing: 0.1em;
 	font-weight: bold;
 	font-size: 1rem;
@@ -190,7 +187,6 @@ body.appear #wrapper{
 .openbtn span:nth-of-type(2) {
 	top:22px;
 	left:18px;
-	/*text-transform: uppercase;*/
 	color: #333;
     font-size: 0.9rem;
 }
@@ -208,7 +204,6 @@ body.appear #wrapper{
 
 
 /*設置active class,點選後線會回轉漸變成x、原本Menu跟表示的項目會變透明而消失*/
-
 .openbtn.active span:nth-of-type(1),
 .openbtn.active span:nth-of-type(3) {
     opacity:1;
@@ -231,7 +226,6 @@ body.appear #wrapper{
 }
 
 
-
 /*===========================================================*/
 /*上方menu跳轉位置效果
 /*===========================================================*/
@@ -240,11 +234,11 @@ body.appear #wrapper{
 
 #header{
 	position: fixed;/*header固定*/
-	height: 75px;/*Header高設定*/
+	height: 80px;/*Header高設定*/
 	width:100%;
-    z-index: 9;
+    z-index: 8;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
     background: rgb(225, 238, 234);
 	opacity: 90%;
@@ -252,16 +246,20 @@ body.appear #wrapper{
 
 @media screen and (max-width:990px) {
 #header{
+	position: fixed;/*header固定*/
     height: 70px;
-	width:20%;
-	position: sticky;
+	width:100%;
+	display: flex;
+	justify-content: flex-end;
+
+	/*position: sticky;*/
     }  
 }
 
 #pc-nav ul{
 	list-style: none;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
     /*text-transform: uppercase;*/
     margin: 0  0 0;
 }
@@ -270,9 +268,9 @@ body.appear #wrapper{
 	display: block;
 	text-decoration: none;
 	color: rgb(64, 50, 43);
-	padding:0 20px;
+	padding:0 15px;
 	transition:all 0.3s;
-	font-size: 1.2rem;
+	font-size: 1rem;
 }
 
 #pc-nav li.current a,
@@ -292,7 +290,6 @@ body.appear #wrapper{
 /*底線伸展改變背景色*/
 /*===========================================================*/
 
-
 .btnlinestretches3{
     /*線基準設定relative*/
 	position:relative;
@@ -306,7 +303,7 @@ body.appear #wrapper{
 
 /*text設定*/
 .btnlinestretches3 span{
-    /*為了要讓text先出現故設定位置高點的z軸*/
+    /*為了要讓text先出現故設定z-index*/
 	position:relative;
 	z-index: 2;
 }
@@ -340,7 +337,7 @@ body.appear #wrapper{
 /*達到page指定的高度時會從右方出現*/
 /*===========================================================*/
 
-/*link形狀*/
+/*top link圖示形狀*/
 #page-top a{
 	display: flex;
 	justify-content:center;
@@ -361,7 +358,7 @@ body.appear #wrapper{
 	background: #777;
 }
 
-/*固定link在右下位置*/
+/*固定link在最右下位置*/
 #page-top {
 	position: fixed;
 	right: 0;
@@ -373,7 +370,6 @@ body.appear #wrapper{
 }
 
 /*　左方動作　*/
-
 #page-top.LeftMove{
 	animation: LeftAnime 0.5s forwards;
 }
@@ -390,7 +386,6 @@ body.appear #wrapper{
 }
 
 /*　右方動作　*/
-
 #page-top.RightMove{
 	animation: RightAnime 0.5s forwards;
 }
@@ -441,7 +436,7 @@ body.appear #wrapper{
 }
 }
 
-/*icon＋ & ×*/
+/*icon + / × */
 .title::before,
 .title::after{
     position: absolute;
@@ -591,7 +586,6 @@ body.appear #wrapper{
 }
 
 /* 從下方飄出 */
-
 .fadeUp{
 animation-name: fadeUpAnime;
 animation-duration:0.5s;
@@ -633,7 +627,7 @@ opacity:0;
   }
 }
 
-/* 手機畫面用。flipLeftTrigger的親要素如果沒設定會不太能動*/
+/* 手機畫面用。親要素如果沒設定會不太能動*/
 #vision,
 .service-area{
     transform:  translate3d(0, 0, 0);
@@ -685,21 +679,18 @@ opacity:0;
 }
 
 
-
-/*==================================================
+/*===================================
 複數圖輪播
 ===================================*/
 
-
 .slider2 img {
-	width:100%;/*スライダー内の画像を横幅100%に*/
+	width:100%;
 	height:auto;
 }
 
 .slider2 .slick-slide {
-	margin:10px 10px;/*スライド左右の余白調整*/
+	margin:10px 10px;
 }
-
 
 .slider-item01 {
 	background:url(../img/lunch.jpg);
@@ -714,12 +705,199 @@ opacity:0;
 }
 
 .slider-item {
-	width: 100%;/*各スライダー全体の横幅を画面の高さいっぱい（100%）にする*/
-	height:90vh;/*各スライダー全体の縦幅を（80vh）にする*/
-	background-repeat: no-repeat;/*背景画像をリピートしない*/
-	background-position: center;/*背景画像の位置を中央に*/
+	width: 100%;
+	height:90vh;
+	opacity: 90%;
+	background-repeat: no-repeat;
+	background-position: center;
 	background-size: cover;
-	/*背景画像が.slider-item全体を覆い表示*/
 }
 
 
+/*==================================================
+/* 按鈕點擊內側線縮小
+/*===================================*/
+
+.pushcircle{
+	position: relative;
+	outline: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*內側線*/
+.pushcircle:after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 90%;
+	height: 90%;
+	border-radius: 10px;
+	transform: translate(-50%, -50%) scale(1.1);
+	transition: .3s ease;
+}
+
+.sub-btn-list li:first-child a{
+	background: #7db6cb;
+}
+.sub-btn-list li:last-child a{
+	background: #396596;
+}
+.sub-btn-list li:first-child a.pushcircle:after {
+	border: 1px solid #7db6cb;
+}
+.sub-btn-list li:last-child a.pushcircle:after {
+	border: 1px solid #396596;
+}
+
+/*hover線往內側縮小*/
+.sub-btn-list li:first-child a.pushcircle:hover:after,
+.sub-btn-list li:last-child a.pushcircle:hover:after {
+	transform: translate(-50%, -50%) scale(1);
+	border-color:rgba(255,255,255,0.8);
+}
+
+/*==================================================
+/*scroll追隨位置*/
+/*===================================*/
+
+/*固定*/
+
+.sub-fix-block{
+	position: -webkit-sticky;
+	position: sticky;
+	top:20px;
+}
+
+/*1020px以下*/
+
+@media screen and (max-width:1020px){
+	.sub-fix-block{
+		position:relative;
+		top:0;
+	}
+}
+
+/*======================================
+/*Tab Menu*/
+/*===================================*/
+
+/*tab形狀*/
+.tab-area{
+	background:#fff;
+	border-radius: 10px;
+	padding:20px;
+}
+
+.tab{
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0 0 20px 0;
+}
+
+.tab li{
+	width:33.333%;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.tab li a{
+	display: block;
+	border-bottom:transparent 2px solid;
+	padding:10px 0;
+}
+
+.tab li.active a{
+	border-color: #3684d2;
+}
+
+.area {
+	display: none;
+	opacity: 0;
+	background: #fff;
+}
+
+.area.is-active {
+	display: block;
+	animation-name: displayAnime;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes displayAnime{
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+
+/*tippy*/
+p.caption {
+	text-align: center;
+	margin:100px 0;
+	font-size: 1.2rem;
+}
+
+.inner-show-cap p{
+	font-size:1rem;
+}
+
+#login{
+	display:block;
+	outline: none;
+	/*background: #7db6cb;*/
+	/*color: #1e4466;*/
+	border-radius: 10px;
+	padding: 10px 10px;
+	margin: 0 auto;
+}
+
+#login:hover{
+	/*background: #056AA9;*/
+}
+
+
+#login span{
+	background: linear-gradient(transparent 60%, #ffff66 60%);
+	cursor: pointer;
+}
+
+#login a{
+	color: #7db6cb;
+}
+
+#login a:hover{
+	color: #7db6cb;
+	text-decoration: none;
+}
+
+#login{
+	display:block;
+	outline: none;
+	/*background: #7db6cb;*/
+	/*color: #1e4466;*/
+	border-radius: 10px;
+	padding: 10px 10px;
+	margin: 0 auto;
+}
+
+
+/*out*/
+#out span{
+	background: linear-gradient(transparent 60%, #ffff66 60%);
+	cursor: pointer;
+}
+
+#out a{
+	color: #7db6cb;
+}
+
+#out a:hover{
+	color: #7db6cb;
+	text-decoration: none;
+}

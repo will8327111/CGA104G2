@@ -22,11 +22,26 @@ Integer status = (Integer) request.getAttribute("status");
 <script
 	src="https://cdn.bootcss.com/flexslider/2.6.3/jquery.flexslider-min.js"></script>
 <link rel="stylesheet" href="../resources/css/formstyle.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- 文字 -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
+
+
+
+<style>
+
+        body {
+            font-family: Lato,sans-serif,'huninn',serif;
+        }
+        
+</style>
 
 </head>
 <body>
 
-	<div><a>返回首頁</a></div>
+<h3><a style="padding:570px" href="../front-end/activity/homepage2.html">返回首頁</a></h3>
+
 	<div class="wrapper">
 		<div class="title">活動詳情</div>
 		<div class="flexslider">
@@ -40,7 +55,7 @@ Integer status = (Integer) request.getAttribute("status");
 					style="background-color: transparent; border: 0">
 			</div>
 			<div class="inputfield">
-				<label>活動內容</label> <input type="text" class="input"
+				<label>活動內容</label> <input type="text" class="input" 
 					value="<%=activityVO.getActContent()%>" readonly
 					style="background-color: transparent; border: 0">
 			</div>
@@ -61,7 +76,7 @@ Integer status = (Integer) request.getAttribute("status");
 			</div>
 			<div class="inputfield">
 				<label>活動費用</label> <input type="text" class="input"
-					value="<%=activityVO.getActCost()%>" readonly
+					value="<%=activityVO.getActCost()%>元" readonly
 					style="background-color: transparent; border: 0">
 			</div>
 
@@ -104,13 +119,11 @@ Integer status = (Integer) request.getAttribute("status");
 </div>
 
 			<div class="inputfield">
-				<label>檢舉活動</label> <input type="submit" value="檢舉活動" class="btn"
+				<label>檢舉活動</label> <input type="submit" value="檢舉活動" class="btn" onclick="report()"
 					style="width: 100px; margin-left: 41px;">
 			</div>
 
-			<h3 style=" margin-left: 260px">留言板</h3>
-			<div class="inputfield" id="reply">
-			</div>
+			<h3 id="reply" style=" margin-left: 260px">留言板</h3>
 		<form >
 			<div class="inputfield">
 				<label>我要留言</label>
@@ -152,11 +165,29 @@ async function join(){
 	let res = await fetch(`<%=request.getContextPath()%>/activity/ActivitySignup?action=insert&number=\${number}&actId=<%=activityVO.getActId()%>`, { method: 'get' })
 	let data = await res.json();	
  	if(data.number==1){
- 		alert("參加成功")	
+ 		Swal.fire({
+ 			  icon: 'success',
+ 			  title: '參加成功',
+ 			  showConfirmButton: false,
+ 				timer: 1500 
+ 		}).then(function(){
+ 			location.reload();
+ 		}
+ 				)
+ 		 		
  	}else{
- 		alert("參加失敗")
+ 		Swal.fire({
+			  icon: 'failed',
+			  title: '參加失敗',
+			  showConfirmButton: false,
+				timer: 1500 
+		}).then(function(){
+			location.reload();
+		}
+				)
+ 		
  	}	
- 	location.reload();
+ 
 }
 
 
@@ -165,11 +196,19 @@ async function remove(){
 	let res = await fetch(`<%=request.getContextPath()%>/activity/ActivitySignup?action=remove&actId=<%=activityVO.getActId()%>&current=<%=activityVO.getActCurrentCount()%>`,{ method: 'get' })
 	let data = await res.json();
  	if(data.number==1){
- 		alert("取消成功")	
+ 		
+ 		Swal.fire({
+			  icon: 'success',
+			  title: '取消成功',
+			  showConfirmButton: false,
+				timer: 1500 
+		}).then(function(){
+			location.reload();
+		}
+				)
  	}else{
  		alert("取消失敗")
  	}	
-  	location.reload();
 }
 
 
@@ -184,12 +223,95 @@ async function showReply(){
 	let res = await fetch(`<%=request.getContextPath()%>/activity/ActivityReplyServlet?action=search&actId=<%=activityVO.getActId()%>`,{ method: 'get' })
 	let data = await res.json();
 	data.forEach(reply=>{
-	$("#reply").append(`<label>住戶姓名:\${reply.memId}</label> <input type="text" class="input"
+	$("#reply").after(`<div class="inputfield"><label>住戶姓名:\${reply.memId}</label><input type="text" class="input"
 			value="\${reply.content}" readonly
-			style="background-color: transparent; border: 0">`)	
+			style="background-color: transparent; border: 0"></div>`)
 	})
 	
 }
+
+
+function getWeb(){
+    let path = window.location.pathname;
+	let web = path.substring(0, path.indexOf('/', 1));
+    return web
+}
+
+
+
+function report(){
+	Swal.fire({
+		  title: '我要檢舉',
+		  text: "確定是否要檢舉!",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  cancelButtonText:"取消",
+		  confirmButtonText: '確定'
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    Swal.fire({
+		    	title:"檢舉內容",
+		    	html:`
+		    	<textarea  style="resize:none;width:300px;height:200px;" id="report"></textarea>`,
+		    	confirmButtonText:'送出',
+	             showCancelButton:true,
+	             cancelButtonText:'取消',
+	             cancelButtonColor:'#d33',
+	             
+	             preConfirm:function(){
+	            	 let memberId = sessionStorage.getItem("id")
+	            	 let reportContent = document.getElementById('report').value
+						let actId= <%=activityVO.getActId()%>;
+						 if(true){
+			                   return{
+			                	 actId: actId,
+			                	 memberId: memberId,
+			                	 reportContent: reportContent,
+			                   }
+			                  }
+						
+	             }
+	             
+	             
+	             }).then(function(result){
+		    	if(result.isConfirmed){
+		    		   let web = getWeb();
+		    		  fetch(web+'/activity/ActReport?action=addReport', {
+		                   method: 'post',
+		                   headers: {
+		                    'Content-Type': 'application/json'
+		                   },
+		                   body: JSON.stringify(result.value)
+		                  });
+		    		  
+		    		  Swal.fire({
+		    			  icon: 'success',
+		    			  title: '已檢舉',
+		    			  showConfirmButton: false,
+		    			  timer: 1500
+		    			})
+				    	
+		    		  
+		    		
+		    	}else{
+		    		Swal.fire('取消','取消檢舉');
+		    	}
+	            	 
+	            	 
+		    })
+		  
+		  
+		  
+		  }
+		})
+		
+	
+}
+
+
+
 
 
 

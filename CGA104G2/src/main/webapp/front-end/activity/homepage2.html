@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="utf-8">
+    <title>社區業務管理系統-陪你e生e世</title>
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--=============Google Font ===============-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
+    <!--==============css===============-->
+    <link rel="stylesheet" href="../../resources/css/homestyle.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/jquery.bxslider.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
+
+    <style>
+        @font-face {
+            font-family: 'huninn';
+            src: url('/resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
+        }
+        body {
+            font-family: Lato,sans-serif,'huninn',serif;
+        }
+        
+       
+    </style>
+</head>
+
+<body>
+    <div id="splash">
+        <div id="splash-logo">
+            <div class="bgextend bgLRextend"><span class="bgappear">Community Management</span><br>
+                <span class="bgappear">陪你e生e世 社區服務平台</span></div>
+        </div>
+        <!--/splash-->
+    </div>
+    <div class="splashbg"></div>
+    <!---画面遷移用-->
+    
+     <div id="container">
+
+    <div id="wrapper">
+        <header id="header">
+<!--            <h3><a href="#"><span class="bgextend bgLRextendTrigger">-->
+            <h1><div> <a href="front-index.html"><img src="../../resources/front-end/assets/img/logo11_trans4.png" alt="" style="width: 50%"></a></div></h1>
+<!--            </a></h3>-->
+                        <!-- <span class="bgappearTrigger">陪你e生e世</span> -->
+
+<!--                    </span></a></h1>-->
+
+            <nav id="pc-nav">
+<!--                    <li><span class="bgappearTrigger"><img src="img/logo11_trans.png" alt="" style="width: 40%"></span></li>-->
+                <ul>
+                    <li><a href="#vision"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">帳號管理</span></span></a></li>
+                    <li><a href="#service"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">活動</span></span></a></li>
+                    <li><a href="#about"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">公共設施</span></span></a></li>
+                    <li><a href="#faq"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">檢舉與維修</span></span></a></li>
+                    <li><a href="#contact"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">特約商店</span></span></a></li>
+                    <li><a href="#contact"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">社區帳單</span></span></a></li>
+                    <li><a href="#contact"><span class="bgextend bgLRextendTrigger"><span
+                                    class="bgappearTrigger">聯絡我們</span></span></a></li>
+                </ul>
+            </nav>
+        </header>
+       
+ 
+
+      
+
+            <main id="main-area">
+            	<div style="float: left; width: 18%; margin-top:97px;margin-left:-36px">
+                    <h4 >查詢活動</h4>
+                 
+                    <form id="form">
+               
+                            <h5>地區</h5><span >
+                            <select
+                                id="country" name ="country" class="form-select">
+                            </select>
+                            </span>
+                        
+                       
+                       
+                             <h5>活動種類</h5><span> <select
+                                id="type" name="type" class="form-select" >
+                                <option>請選擇</option>
+                            </select>
+                            </span>
+
+                        <input id="name"  type="text" placeholder="活動名稱" style="border-style:double">
+                         <input type="button" name="submit" value="查詢" onclick="getData()" class= "btn btn-outline-secondary" />
+                    </form>
+                    <a href="mylist.html">我舉辦的活動</a>
+                    <a href="addactivity.html">新增活動</a>
+                    <a href="myaddlist.html">新增活動</a>
+                </div>
+                
+                
+                
+            
+                <div  style="float: left; width: 70%;margin-top:47px" class="font-family: 'Noto Sans TC', sans-serif">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-wrap">
+                                <table class="table">
+                                    <thead class="thead-primary">
+                                        <tr >
+                                            <th>活動資訊</th>
+                                            <th>&nbsp;</th>
+                                            <th>目前人數</th>
+                                            <th>活動地點</th>	
+                                            <th>活動詳情</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="addPage">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div id="button" class="frame1"></div>
+        </main>
+
+        </div>
+
+        <footer id="footer" style="margin-top:171px">
+
+            <div class="openbtn"><span></span><span>Menu</span><span></span></div>
+            <div id="g-nav">
+                <div id="g-nav-list">
+                    <ul>
+                        <li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
+                        <li><a href="#vision">社區起源</a></li>
+                        <li><a href="#service">個人管理</a></li>
+                        <li><a href="#about">活動</a></li>
+                        <li><a href="#faq">公共設施</a></li>
+                        <li><a href="#contact">檢舉與維修</a></li>
+                    </ul>
+                </div>
+            </div>
+               <p class="footer-logo">CommunityManagement</p>
+            <small>&copy; CommunityManagement：社區物業管理系統-陪你e生e世</small>
+        </footer>
+        <!--/wrapper-->
+    </div>
+
+    <!--=============JS ===============-->
+    <!--jQuery-->
+    <script src="../../resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
+    <!--news tickerー-->
+    <script src="../../resources/front-end/assets/js/jquery.bxslider.min.js"></script>
+    <!--背景線延伸效果-->
+    <script src="../../resources/front-end/assets/js/scrollgress.min.js"></script>
+    <!--apang 動畫-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apng-canvas/2.1.1/apng-canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+ <script src="../../resources/front-end/assets/js/script.js"></script>
+    <script src="../../resources/front-end/assets/js/modaal.min.js"></script>
+    
+    <script>
+    
+    getButton()
+	async function getButton(){
+		restButton()
+		let res = await fetch("../../activity/ActServlet?action=getButton", { method: 'get' })
+		let data = await res.json();
+		let number = data.button
+		for(let i=0;i<number;i++){
+			$("#button").append(`<button type="submit" class="btn btn-outline-secondary" onclick="showInfo(${i})">第${i+1}頁</button>`)
+		}
+		showInfo(0)
+		getCountry();
+		getType();
+		update()
+		
+	}
+	
+	
+	async function showInfo(page){
+		rest()       
+		let res = await fetch("../../activity/ActServlet?action=getPage&page="+page, { method: 'get' })
+		let data = await res.json();
+		
+		data.forEach(act => {
+				$("#addPage").append(`<tr class="alert" role="alert"><td><img class="homepageImg" src="data:image/jpeg;base64,${act.photo}"></td>
+								<td>
+									<div class="email">
+									<span>活動名稱:${act.activityName}</span><span>報名開始時間:${act.activitySignst}</span> <span>報名結束時間:${act.activitySignet}</span><span>活動開始時間:${act.activityStart}
+										</span><span>活動結束時間:${act.activityEnd}</span><span></span>
+									</div>
+								</td>
+								<td><span>${act.activityCurrent}/${act.activityMax}</span></td>
+								<td>${act.actLocation}</td><span></span><span></span><td><a class="btn btn-outline-secondary"  href="../../activity/ActServlet?action=view&actId=${act.activityId}">活動詳情</a></td><tr>`)	
+		} )
+	}
+	
+	
+	
+	
+
+	async function getCountry() {  
+			html=""
+			document.getElementById("country").innerHTML=" "
+        let res = await fetch("../../activity/ActServlet?action=location", { method: 'get' });
+      	data = await res.json();	
+      	$("#country").append(`<option value="">請選擇</option>`)	
+		data.forEach(location => {
+			$("#country").append(`<option  value=${location.actCountry}>${location.actCountry}</option>`)	
+			})
+	}
+	
+	
+
+	async function getType(){
+			html=""
+			document.getElementById("type").innerHTML=" "
+		  let res = await fetch("../../activity/ActivityTypeServlet?action=getType", { method: 'get' });
+	      	data = await res.json();	
+	      	$("#type").append(`<option value=0>請選擇</option>`)	
+			data.forEach(location => {
+				$("#type").append(`<option  value=${location.actTypeId}>${location.actTypeName}</option>`)	
+				})		
+	}
+	
+	
+	
+	
+	
+	async function getData(){
+		rest()
+		restButton()
+		const country = $("#country").val();
+		const type= $("#type").val();
+		const name= $("#name").val();
+		let res = await fetch(`../../activity/ActServlet?action=search&country=${country}&type=${type}&name=${name}`, { method: 'post' })
+		let data = await res.json();
+		data.forEach(act => {
+			$("#addPage").append(`<tr class="alert" role="alert"><td><img  class="homepageImg" src="data:image/jpeg;base64,${act.photo}"></td>
+							<td>
+								<div class="email">
+								<span>活動名稱:${act.activityName}</span><span>報名開始時間:${act.activitySignst}</span><span>報名結束時間:${act.activitySignet}</span> <span>活動開始時間:${act.activityStart}
+									</span><span>活動結束時間:${act.activityEnd}</span><span></span>
+								</div>
+							</td>
+							<td>${act.activityCurrent}/${act.activityMax}</td>
+							<td>${act.actLocation}</td><span></span><span></span><td><a href="../../activity/ActServlet?action=view&actId=${act.activityId}">活動詳情</a></td><tr>`)	
+	} )
+	
+			$("#type").val(0) 
+			$("#country").val("")
+			$("#name").val("")
+	
+ 	$("#button").append(`<button type="submit" class="btn btn-outline-secondary" onclick="getButton(0)">返回總查詢</button>`)
+	
+	}		
+
+	
+	
+
+	
+	
+	
+	
+
+	function rest(){
+        html=""
+		document.getElementById("addPage").innerHTML=" "
+		
+	}
+	
+	
+	function restButton(){
+        html=""
+		document.getElementById("button").innerHTML=" "
+		
+	}
+    
+    
+	function web(){
+	   let path = window.location.pathname;
+    console.log(path)
+             let webCtx = path.substring(0, path.indexOf('/', 1));
+	}
+	
+    
+	
+	async  function update(){
+		let web = web()
+		let res = await fetch( web+"ActivityUpdate", { method: 'post' })	
+	}
+	
+    
+    </script>
+    
+    
+
+</body>
+
+</html>

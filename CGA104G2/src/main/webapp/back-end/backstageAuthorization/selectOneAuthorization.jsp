@@ -24,7 +24,7 @@ pageContext.setAttribute("backstageAuthorizationVO", backstageAuthorizationVO);
 <meta charset="UTF-8">
 <title>個人權限功能</title>
 </head>
-<body>
+<body bgcolor="lightYellow">
 
 	<form method="get"
 		action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">

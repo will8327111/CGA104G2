@@ -22,7 +22,7 @@ pageContext.setAttribute("list4", list4);// 設定Authorization的getAll集合
 <meta charset="UTF-8">
 <title>新增權限</title>
 </head>
-<body>
+<body bgcolor="lightYellow">
 	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
 		<input type="hidden" name="action" value="BackstageLogOut">

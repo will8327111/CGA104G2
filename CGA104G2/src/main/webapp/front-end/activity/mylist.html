@@ -5,14 +5,131 @@
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="../../resources/css/mylist.css">
+<link rel="stylesheet" href="../../resources/css/homestyle.css">
+<link rel="stylesheet" type="text/css"
+	href="../../resources/front-end/assets/css/jquery.bxslider.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../../resources/front-end/assets/css/reset.css">
+<link rel="stylesheet" type="text/css"
+	href="../../resources/front-end/assets/css/parts.css">
+<link rel="stylesheet" type="text/css"
+	href="../../resources/front-end/assets/css/layout.css">
+<link rel="stylesheet" type="text/css"
+	href="../../resources/front-end/assets/css/modaal.min.css">
+
+<style>
+@font-face {
+	font-family: 'huninn';
+	src: url('/resources/front-end/assets/font/jf-openhuninn-1.1.ttf')
+		format("truetype");
+}
+
+body {
+	font-family: Lato, sans-serif, 'huninn', serif;
+}
+
+body {
+	background: #262a2b;
+}
+</style>
+
+
 </head>
 <body>
 
-<ul id="list" class="tilesWrap">
-   </ul>
+
+	<div id="splash">
+		<div id="splash-logo">
+			<div class="bgextend bgLRextend">
+				<span class="bgappear">Community Management</span><br> <span
+					class="bgappear">陪你e生e世 社區服務平台</span>
+			</div>
+		</div>
+		<!--/splash-->
+	</div>
+	<div class="splashbg"></div>
+	<!---画面遷移用-->
 
 
-<script>
+	<div id="container">
+		<header id="header">
+			<!--            <h3><a href="#"><span class="bgextend bgLRextendTrigger">-->
+			<h1>
+				<div>
+					<a href="front-index.html"><img
+						src="../../resources/front-end/assets/img/logo11_trans4.png"
+						alt="" style="width: 50%"></a>
+				</div>
+			</h1>
+			<!--            </a></h3>-->
+			<!-- <span class="bgappearTrigger">陪你e生e世</span> -->
+
+			<!--                    </span></a></h1>-->
+
+			<nav id="pc-nav">
+				<!--                    <li><span class="bgappearTrigger"><img src="img/logo11_trans.png" alt="" style="width: 40%"></span></li>-->
+				<ul>
+					<li><a href="#vision"><span
+							class="bgextend bgLRextendTrigger"><span
+								class="bgappearTrigger">帳號管理</span></span></a></li>
+					<li><a href="#service"><span
+							class="bgextend bgLRextendTrigger"><span
+								class="bgappearTrigger">活動</span></span></a></li>
+					<li><a href="#about"><span
+							class="bgextend bgLRextendTrigger"><span
+								class="bgappearTrigger">公共設施</span></span></a></li>
+					<li><a href="#faq"><span
+							class="bgextend bgLRextendTrigger"><span
+								class="bgappearTrigger">檢舉與維修</span></span></a></li>
+					<li><a href="#contact"><span
+							class="bgextend bgLRextendTrigger"><span
+								class="bgappearTrigger">特約商店</span></span></a></li>
+					<li><a href="#contact"><span
+							class="bgextend bgLRextendTrigger"><span
+								class="bgappearTrigger">社區帳單</span></span></a></li>
+					<li><a href="#contact"><span
+							class="bgextend bgLRextendTrigger"><span
+								class="bgappearTrigger">聯絡我們</span></span></a></li>
+				</ul>
+			</nav>
+		</header>
+		<main id="main-area">
+			<ul id="list" class="tilesWrap">
+			</ul>
+		</main>
+	</div>
+
+
+
+	<script src="../../resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
+	<!--news tickerー-->
+	<script
+		src="../../resources/front-end/assets/js/jquery.bxslider.min.js"></script>
+	<!--背景線延伸效果-->
+	<script src="../../resources/front-end/assets/js/scrollgress.min.js"></script>
+	<!--apang 動畫-->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/apng-canvas/2.1.1/apng-canvas.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<script src="../../resources/front-end/assets/js/script.js"></script>
+	<script src="../../resources/front-end/assets/js/modaal.min.js"></script>
+
+
+<style>
+
+#container {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    background: #262a2b;
+}
+
+
+</style>
+
+
+	<script>
 let memId = sessionStorage.getItem("id")
 
 getList()
@@ -51,9 +168,16 @@ async function deleteAct(actId){
 
 
 function change(actId){
-	location =`../../activity/ActServlet?action=oneUpdate&actId=${actId}`;
+	const act =sessionStorage.setItem("actId",actId)
+	location="update.html"
 	
 }
+
+
+
+
+
+
 
 
 

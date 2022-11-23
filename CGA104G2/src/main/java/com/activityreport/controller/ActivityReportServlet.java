@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import com.activity.model.ActivityVO;
 import com.activityreport.model.ActivityReportService;
 import com.activityreport.model.ActivityReportVO;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 
 @WebServlet("/activity/ActReportServlet")
@@ -41,24 +43,37 @@ public class ActivityReportServlet extends HttpServlet {
 			
 		}
 		
-		if("addReport".equals(action)) {
-			Integer memid = (Integer)session.getAttribute("ID");
-			Integer actId = Integer.valueOf(req.getParameter("actId").trim());
-			String reportContent = req.getParameter("report");
+		
+	if("addReport".equals(action)) {
 			
-			ActivityReportVO activityReportVO = new ActivityReportVO();
-			
-			activityReportVO.setActId(actId);
-			activityReportVO.setMemberId(memid);
-			activityReportVO.setReportContent(reportContent);
-			
-			ActivityReportService service = new ActivityReportService();
-			service.insert(activityReportVO);
-			String  url =req.getContextPath()+ "/front-end/activity/homepage.html";
-			res.sendRedirect(url);
+		Gson gson = new Gson();
+		ActivityReportVO activityReportVO = gson.fromJson(req.getReader(), ActivityReportVO.class);
+		ActivityReportService service = new ActivityReportService();
+		service.insert(activityReportVO);
 		}
 		
-					
+		
+		
+	
+		
+//		if("addReport".equals(action)) {
+//			Integer memid = (Integer)session.getAttribute("ID");
+//			Integer actId = Integer.valueOf(req.getParameter("actId").trim());
+//			String reportContent = req.getParameter("report");
+//			
+//			ActivityReportVO activityReportVO = new ActivityReportVO();
+//			
+//			activityReportVO.setActId(actId);
+//			activityReportVO.setMemberId(memid);
+//			activityReportVO.setReportContent(reportContent);
+//			
+//			ActivityReportService service = new ActivityReportService();
+//			service.insert(activityReportVO);
+//			String  url =req.getContextPath()+ "/front-end/activity/homepage.html";
+//			res.sendRedirect(url);
+//		}
+		
+			
 	}
 
 }

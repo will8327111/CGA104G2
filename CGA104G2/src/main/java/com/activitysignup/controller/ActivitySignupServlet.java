@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.List;
+import java.util.Base64.Encoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.activity.model.ActivityService;
+import com.activity.model.ActivityVO;
 import com.activitysignup.model.ActivitySignupService;
 
 @WebServlet("/activity/ActivitySignup")
@@ -67,7 +72,23 @@ public class ActivitySignupServlet extends HttpServlet {
 			out.write(jsonObject.toString());
 
 		}
+		
+		
+		if("search".equals(action)) {
+			Integer memid = (Integer) session.getAttribute("id");
+			ActivitySignupService service = new ActivitySignupService();
+			List<Integer> list = service.search(memid);		
+			JSONArray array = new JSONArray();
+			ActivityService service2 = new ActivityService();
+			for(Integer actId : list) {
+				JSONObject object = service2.getOneJS(actId);
+			array.put(object);			
+			}		
 			
+			out.write(array.toString());
+			
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

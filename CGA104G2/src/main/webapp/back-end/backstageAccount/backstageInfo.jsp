@@ -26,7 +26,7 @@ a {
 </style>
 </head>
 
-<body>
+<body bgcolor="lightYellow">
 	<form method="get" action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do">
 		<div>
 		<input type="hidden" name="action" value="BackstageLogOut">
@@ -81,7 +81,7 @@ a {
 					type="submit" value="權限功能列表">
 			</div>
 	</form>
-
+<script type="text/javascript" src="../../resources/js/test.js"></script>
 </body>
 
 </html>

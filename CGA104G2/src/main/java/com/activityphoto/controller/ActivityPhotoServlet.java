@@ -15,6 +15,8 @@ import javax.servlet.http.Part;
 
 import com.activityphoto.model.ActivityPhotoService;
 import com.activityphoto.model.ActivityPhotoVO;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 
  
@@ -41,15 +43,6 @@ public class ActivityPhotoServlet extends HttpServlet {
 			ActivityPhotoService service = new ActivityPhotoService();
 				PrintWriter out = res.getWriter();
 				out.write(service.actPhotos(Integer.parseInt(id)).toString());				
-		}
-		
-		if("deleteById".equals(action)) {
-			String photoId = req.getParameter("deletePhoto");
-			String actId = req.getParameter("actId");
-			ActivityPhotoService service = new ActivityPhotoService();
-			service.deletePhotoId(Integer.parseInt(photoId));
-		String url =req.getContextPath()+"/activity/ActServlet?action=oneupdate&oneactid="+actId;
-			res.sendRedirect(url);
 		}
 		
 		
@@ -91,6 +84,18 @@ public class ActivityPhotoServlet extends HttpServlet {
 			}
 			
 			
+			
+			if("deleteById".equals(action)) {
+				Gson gson = new Gson();
+				JsonObject object  =gson.fromJson(req.getReader(), JsonObject.class);
+				Integer actId = gson.fromJson(object.get("id"),Integer.class);
+				ActivityPhotoService service = new ActivityPhotoService();
+				service.deletePhotoId(actId);
+			String url =req.getContextPath()+"/activity/ActServlet?action=oneupdate&oneactid="+actId;
+				res.sendRedirect(url);
+			}
+			
+	
 		}
 		
 
