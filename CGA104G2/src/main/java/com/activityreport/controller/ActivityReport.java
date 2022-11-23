@@ -10,15 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.activity.model.ActivityVO;
 import com.activityreport.model.ActivityReportService;
 import com.activityreport.model.ActivityReportVO;
+import com.activity.common.SpringUtil;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 
-@WebServlet("/activity/ActReportServlet")
-public class ActivityReportServlet extends HttpServlet {
+@WebServlet("/activity/ActReport")
+public class ActivityReport extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
@@ -45,12 +44,13 @@ public class ActivityReportServlet extends HttpServlet {
 		
 		
 	if("addReport".equals(action)) {
-			
 		Gson gson = new Gson();
 		ActivityReportVO activityReportVO = gson.fromJson(req.getReader(), ActivityReportVO.class);
-		ActivityReportService service = new ActivityReportService();
+		ActivityReportService service = SpringUtil.getBean(getServletContext(), ActivityReportService.class);
 		service.insert(activityReportVO);
-		}
+	
+	
+	}
 		
 		
 		
