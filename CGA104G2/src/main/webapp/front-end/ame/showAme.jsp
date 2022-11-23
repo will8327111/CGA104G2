@@ -32,16 +32,25 @@ th, td {
 <title>顯示</title>
 </head>
 <body>
+
 	<table >
 		<tr>
 			<td>
 				<h1>顯示</h1>
-				<h4>
-					<a href="/CGA104G2/front-end/ame/watchAme.jsp">回瀏覽頁</a>
-				</h4>
+				
+				<form METHOD="post" ACTION="${pageContext.request.contextPath}/front-end/ame/record.do" >
+					<h4>
+					<a href="<%=request.getContextPath()%>/front-end/ame/start.html">回首頁</a>
+					　　　　　　　　　　
+					<input type="hidden" name="action" value="serchRecord">
+					<input type="hidden" name="memberid" value="1"> 
+					<input type="submit" value="查看預約">
+				  </h4>
+				</form>
 			</td>
 		</tr>
 	</table>
+	
 	<table>
 		<tr>
 			<th>編號</th>
@@ -63,7 +72,7 @@ th, td {
 				<td>${ameVO.ameMax}</td>
 				<td>${ameVO.ameOpening}</td>
 				<td>
-					<form METHOD="post" ACTION="../CGA104G2/ame_sta.do" style="margin-bottom: 0px;">
+					<form METHOD="post" ACTION="<%=request.getContextPath()%>/ame_sta.do" style="margin-bottom: 0px;">
 						<input type="hidden" name="action" value="doRecord">
 						<input type="hidden" name="ameid" value="${ameVO.ameId}"> 
 						<input type="submit" value="我要預約">

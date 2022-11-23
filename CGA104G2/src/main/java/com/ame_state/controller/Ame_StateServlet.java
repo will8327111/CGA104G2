@@ -35,7 +35,7 @@ public class Ame_StateServlet extends HttpServlet {
 
 		if ("doRecord".equals(action)) {
 
-			Integer ameid = Integer.valueOf(req.getParameter("ameid"));
+		Integer ameid = Integer.valueOf(req.getParameter("ameid"));
 
 			req.setAttribute("ameid", ameid);
 			String url = "/front-end/ame/doRecord.jsp";
@@ -47,8 +47,9 @@ public class Ame_StateServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			String ame_StaDate = req.getParameter("ame_StaDate");
-			Integer ameid = Integer.valueOf(req.getParameter("ameid"));
+		String ame_StaDate = req.getParameter("ame_StaDate");
+		Integer ameid = Integer.valueOf(req.getParameter("ameid"));
+			
 			Map<String, String> map = ame_ssvc.showAme_Statime(ameid);
 			String sta = map.get(ame_StaDate);
 			String[] staArr = sta.split("");
@@ -61,7 +62,7 @@ public class Ame_StateServlet extends HttpServlet {
 				if (count == 24) {
 
 					errorMsgs.add("當日已無時段可預約");
-					
+
 					req.setAttribute("ame_StaDate", ame_StaDate);
 					req.setAttribute("ameid", ameid);
 					String url = "/front-end/ame/doRecord.jsp";
@@ -81,26 +82,34 @@ public class Ame_StateServlet extends HttpServlet {
 		}
 
 		if ("doRecord3".equals(action)) {
-			String ostatime = req.getParameter("statime");
-			String ame_StaDate = req.getParameter("ame_StaDate");
-			Integer ameid = Integer.valueOf(req.getParameter("ameid"));
-			Integer statime_ind = Integer.valueOf(req.getParameter("statime_ind"));
+		String ostatime = req.getParameter("statime");
+		String ame_StaDate = req.getParameter("ame_StaDate");
+		Integer ameid = Integer.valueOf(req.getParameter("ameid"));
+		Integer statime_ind = Integer.valueOf(req.getParameter("statime_ind"));
 
 			String[] nstatime = ostatime.replaceFirst("\\[", "").replaceFirst("\\]", "").split(", ");
-			nstatime[statime_ind] = "1";
-			String recordStatime = Arrays.stream(nstatime).collect(Collectors.joining());
+
+			String StaDate = Arrays.stream(nstatime).collect(Collectors.joining());
+			String recordStaDate = StaDate.substring(0, statime_ind) + '1' + StaDate.substring(statime_ind + 1);
 
 			java.sql.Date date = java.sql.Date.valueOf(ame_StaDate);
-			
+
 //			Time recordStatime = 
-			
+
 			Ame_StateVO ame_StateVO = ame_ssvc.selectByIdDate(ameid, date);
 			Integer ameStateId = ame_StateVO.getAmeStateId();
-			if (ame_ssvc.update(recordStatime, ameStateId)) {
-//				RecordService rs = new RecordService();
-//				int memberId = 1;
-//				rs.addRecord(memberId, ameid, ame_StaDate, null, ameStateId)
+			if (ame_ssvc.update(recordStaDate, ameStateId)) {
+				RecordService rs = new RecordService();
+				int memberId = 1;
 				
+				if (statime_ind < 10) {
+					String recordStatime = "0" + statime_ind + ":00";
+					rs.addRecord(memberId, ameid, date, recordStatime);
+				} else {
+					String recordStatime = statime_ind + ":00";
+					rs.addRecord(memberId, ameid, date, recordStatime);
+				}
+//				
 			} else {
 				System.out.println("失敗喔");
 			}

@@ -22,7 +22,7 @@ public class AmeDAO implements AmeDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Community");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -31,11 +31,11 @@ public class AmeDAO implements AmeDAO_interface {
 		private static final String INSERT_STMT = 
 			"INSERT INTO AMENITIES (AME_NAME, AME_IMG, AME_INTRODUCE, AME_POINT, AME_MAX, AME_OPENING) VALUES (?, ?, ?, ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT AME_ID, AME_NAME, AME_INTRODUCE, AME_POINT, AME_MAX, AME_OPENING FROM AMENITIES order by AME_ID";
+			"SELECT AME_ID, AME_NAME, AME_INTRODUCE, AME_POINT, AME_MAX, AME_OPENING, AME_STATES FROM AMENITIES order by AME_ID";
 		private static final String GET_SOME_STMT = 
-			"SELECT AME_ID, AME_NAME, AME_IMG, AME_INTRODUCE, AME_POINT, AME_MAX, AME_OPENING FROM AMENITIES where AME_ID = ?";
+			"SELECT AME_ID, AME_NAME, AME_IMG, AME_INTRODUCE, AME_POINT, AME_MAX, AME_OPENING, AME_STATES FROM AMENITIES where AME_ID = ?";
 		private static final String DELETE = 
-			"DELETE FROM AMENITIES where AME_ID = ?";
+			"UPDATE AMENITIES set AME_STATES = ? where AME_ID = ? ";
 		private static final String UPDATE = 
 			"UPDATE AMENITIES set AME_NAME= ?, AME_IMG= ?, AME_INTRODUCE= ?, AME_POINT= ?, AME_MAX= ?, AME_OPENING= ? where AME_ID = ?";
 	
@@ -75,7 +75,8 @@ public class AmeDAO implements AmeDAO_interface {
 				con = ds.getConnection();
 				ps = con.prepareStatement(DELETE);
 				
-				ps.setInt(1, ameid);
+				ps.setInt(1, 1);
+				ps.setInt(2, ameid);
 				
 				ps.executeUpdate();
 				
@@ -148,6 +149,7 @@ public class AmeDAO implements AmeDAO_interface {
 					ameVO.setAmePoint(rs.getInt("AME_POINT"));
 					ameVO.setAmeMax(rs.getInt("AME_MAX"));
 					ameVO.setAmeOpening(rs.getString("AME_OPENING"));
+					ameVO.setAmestates(rs.getInt("AME_STATES"));
 				}
 				
 			} catch (SQLException se) {
@@ -198,7 +200,10 @@ public class AmeDAO implements AmeDAO_interface {
 				    	ameVO.setAmePoint(rs.getInt("AME_POINT"));
 				    	ameVO.setAmeMax(rs.getInt("AME_MAX"));
 				    	ameVO.setAmeOpening(rs.getString("AME_OPENING"));
-				    
+				    	ameVO.setAmestates(rs.getInt("AME_STATES"));
+				    	if(ameVO.getAmestates() == 1) {
+				    		continue;
+				    	}
 				    	list.add(ameVO);
 				    }
 				} catch(Exception e) {

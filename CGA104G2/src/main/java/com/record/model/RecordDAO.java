@@ -19,17 +19,17 @@ public class RecordDAO implements RecordDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Community");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 	    private static final String INSERT_STMT = 
-			"INSERT INTO RECORD (MEMBER_ID, AME_ID, RECORD_DATE, RECORD_STATIME, RECORD_COUNT) VALUES (?, ?, ?, ?, ?)";
+			"INSERT INTO RECORD (MEMBER_ID, AME_ID, RECORD_DATE, RECORD_STATIME) VALUES (?, ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
 			"SELECT RECORD_ID, MEMBER_ID, AME_ID, RECORD_DATE, RECORD_STATIME, RECORD_COUNT, RECORD_STATUS FROM RECORD order by RECORD_ID";
 		private static final String GET_SOME_STMT = 
-			"SELECT RECORD_ID, RECORD_DATE, RECORD_STATIME, RECORD_COUNT, RECORD_STATUS FROM RECORD where AME_ID = ? order by RECORD_DATE";
+			"SELECT MEMBER_ID, AME_ID, RECORD_DATE, RECORD_STATIME, RECORD_COUNT FROM RECORD where MEMBER_ID = ? order by RECORD_DATE";
 		private static final String UPDATE = 
 			"UPDATE RECORD set RECORD_STATUS=? where RECORD_DATE =? ";
 		
@@ -45,8 +45,7 @@ public class RecordDAO implements RecordDAO_interface {
 				ps.setInt(1, recordVO.getMemberId());
 				ps.setInt(2, recordVO.getAmeId());
 				ps.setDate(3, recordVO.getRecordDate());
-				ps.setTime(4, recordVO.getRecordStatime());
-				ps.setInt(5, recordVO.getRecordCount());
+				ps.setString(4, recordVO.getRecordStatime());
 				
 				ps.executeUpdate();
 			} catch (SQLException se) {
@@ -107,31 +106,33 @@ public class RecordDAO implements RecordDAO_interface {
 		}
 
 		@Override
-		public RecordVO findByPrimaryKey(Integer MEMBER_ID) {
-			
+		public List<RecordVO> findByPrimaryKey(Integer member_Id) {
+			List<RecordVO> list = new ArrayList<RecordVO>();
 			RecordVO recordVO = null;
 			
 			try (Connection con = ds.getConnection();
 				 PreparedStatement ps = con.prepareStatement(GET_SOME_STMT)){
 				
-				ResultSet rs = ps.executeQuery();
+				ps.setInt(1,member_Id);
 				
-				ps.setInt(1,MEMBER_ID);
+				ResultSet rs = ps.executeQuery();
 				
 				while (rs.next()) {
 					recordVO = new RecordVO();
-					recordVO.setRecordId(rs.getInt("RECORD_ID"));
+					recordVO.setMemberId(rs.getInt("MEMBER_ID"));
+					recordVO.setAmeId(rs.getInt("AME_ID"));
 					recordVO.setRecordDate(rs.getDate("RECORD_DATE"));
-					recordVO.setRecordStatime(rs.getTime("RECORD_STATIME"));
+					recordVO.setRecordStatime(rs.getString("RECORD_STATIME"));
 					recordVO.setRecordCount(rs.getInt("RECORD_COUNT"));
-					recordVO.setRecordStatus(rs.getInt("RECORD_STATUS"));
+					
+					list.add(recordVO);
 				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-			return recordVO;
+			return list;
 		}
 		
 		public List<RecordVO> getAll(){
@@ -149,7 +150,7 @@ public class RecordDAO implements RecordDAO_interface {
 					recordVO.setMemberId(rs.getInt("MEMBER_ID"));
 					recordVO.setAmeId(rs.getInt("AME_ID"));
 					recordVO.setRecordDate(rs.getDate("RECORD_DATE"));
-					recordVO.setRecordStatime(rs.getTime("RECORD_STATIME"));
+					recordVO.setRecordStatime(rs.getString("RECORD_STATIME"));
 					recordVO.setRecordCount(rs.getInt("RECORD_COUNT"));
 					recordVO.setRecordStatus(rs.getInt("RECORD_STATUS"));
 					

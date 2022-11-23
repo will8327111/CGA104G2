@@ -8,7 +8,7 @@ public class RecordVO {
 	private Integer memberId;
 	private Integer ameId;
 	private Date recordDate;
-	private Time recordStatime;
+	private String recordStatime;
 	private Integer recordCount;
 	private Integer recordStatus;
 	
@@ -36,10 +36,10 @@ public class RecordVO {
 	public void setRecordDate(Date recordDate) {
 		this.recordDate = recordDate;
 	}
-	public Time getRecordStatime() {
+	public String getRecordStatime() {
 		return recordStatime;
 	}
-	public void setRecordStatime(Time recordStatime) {
+	public void setRecordStatime(String recordStatime) {
 		this.recordStatime = recordStatime;
 	}
 	public Integer getRecordCount() {
