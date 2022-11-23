@@ -40,7 +40,7 @@ Integer status = (Integer) request.getAttribute("status");
 </head>
 <body>
 
-<h3><a style="padding:570px" href="../front-end/activity/front-index.html">返回首頁</a></h3>
+<h3><a style="padding:570px" href="../front-end/activity/homepage2.html">返回首頁</a></h3>
 
 	<div class="wrapper">
 		<div class="title">活動詳情</div>
