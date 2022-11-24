@@ -1,6 +1,31 @@
 package com.memberbill.model;
 
+import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Properties;
+import java.util.Random;
+
+import javax.servlet.http.HttpSession;
+
+import com.billgroup.model.BillGroupVO;
+import com.card.model.CardVO;
+import com.google.protobuf.Service;
+
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutALL;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 //實做類別
 public class MemberBillService {
@@ -34,23 +59,71 @@ public class MemberBillService {
 		return dao.getUnpaid(memberId);
 	}
 
-	public void updatePay(Integer memberPay) {
+	public void updatePay(String memberPay) {
 		dao.updatePay(memberPay);
 
 	}
 
-	public List<MemberBillVO> getBillDate(Integer memberId) {
+	public  List<MemberBillVO> getBillDate(Integer memberId) {//11.23
 		return dao.getBillDate(memberId);
 	}
 	
-//	public MemberBillVO getMemberBill(String billDate,String memberPay,byte[] memberPhoto) {
-//		return dao.getMemberBill(billDate,memberPay,memberPhoto);
-//		
-//	}
 	
-	public MemberBillVO updateMemberPay(Integer memberBillId) {
+	public MemberBillVO updateMemberPay(Integer memberBillId) {//11.14
 		return dao.updateMemberPay(memberBillId);
 	
 	}
 	
+	public List<MemberBillVO> getAllCost(Integer memberId){//11.16
+		return dao.getAllCost(memberId);
+		
+	}
+
+	public String buyToken(Integer sum, String url, Integer memId) {
+	 	MemberBillService memSvc = new MemberBillService();
+	 	BillGroupVO billGroupVO =new BillGroupVO();
+    	List<MemberBillVO> memberBillVO = memSvc.getAllCost(memId);
+    	String itemName = String.valueOf("本期繳費總金額:");
+
+    	String merchantTradeNo=String.valueOf(memId);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String payDate = sdf.format(new Date(System.currentTimeMillis()));
+        String indexUrl=url+"/front-end/memberbill/card.jsp";
+        String getDataUrl=url+"/member/pay";
+        String getDataUrl1=url+"/front-end/memberbill/card.jsp";
+        String customField1=(""+memId+","+sum);
+        
+        AllInOne allInOne = new AllInOne("");
+        AioCheckOutALL aioCheckOutALL = new AioCheckOutALL();
+        aioCheckOutALL.setMerchantTradeNo(memId+"elife"+"nedyhmsdr");
+        aioCheckOutALL.setMerchantTradeDate(payDate);
+        aioCheckOutALL.setTotalAmount(sum.toString());
+        aioCheckOutALL.setTradeDesc("test");
+        aioCheckOutALL.setReturnURL(indexUrl);
+        aioCheckOutALL.setOrderResultURL(getDataUrl);
+        aioCheckOutALL.setClientBackURL(getDataUrl);
+        aioCheckOutALL.setNeedExtraPaidInfo("N");
+        aioCheckOutALL.setItemName(itemName);      
+        aioCheckOutALL.setCustomField1(customField1);
+             
+        return allInOne.aioCheckOut(aioCheckOutALL,null);
+	}
+
+	public void insert(Integer memId, Integer sum) {
+		// TODO Auto-generated method stub
+		
+	}
+	public List<MemberBillVO> getAllMemberGroupData(){
+		return dao.getAllMemberGroupData();
+		
+	}
+	public void insertMemberBill(MemberBillVO memberBillVO){
+		dao.insertMemberBill(memberBillVO);
+		
+	}
+
+	public void sendMail(String to, String subject, String messageText) {
+		dao.sendMail(to,subject,messageText);
+		
+	}
 }

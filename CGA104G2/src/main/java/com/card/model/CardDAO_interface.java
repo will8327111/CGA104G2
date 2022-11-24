@@ -1,5 +1,11 @@
 package com.card.model;
 
-public class CardDAO_interface {
+import java.util.List;
+
+public interface CardDAO_interface {
+
+	public List<CardVO> getAllCard(String billDate);
+
+	public void insert(CardVO cardVO);
 
 }

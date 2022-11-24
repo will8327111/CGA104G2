@@ -2,13 +2,12 @@
 
 <Context>
 
-	<Resource auth="Container"
+<Resource auth="Container"
 		driverClassName="com.mysql.cj.jdbc.Driver" maxIdle="10" maxTotal="20"
 		maxWaitMillis="-1" name="jdbc/TestDB3" password="password"
 		type="javax.sql.DataSource"
 		url="jdbc:mysql://localhost:3306/Community_Management?serverTimezone=Asia/Taipei"
 		username="root" />
-
 
 
 
