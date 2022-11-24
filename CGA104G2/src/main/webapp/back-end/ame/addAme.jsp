@@ -308,10 +308,11 @@ label.error {
 
 
 <!-- 樣板用js start -->
-<script src="${pageContext.request.contextPath}/resources/back-end/assets/js/bootstrap.js"></script>
-<script src="${pageContext.request.contextPath}/resources/back-end/assets/js/app.js"></script>
-
-<!-- 樣板用js end -->
+	<script
+		src=${pageContext.request.contextPath}/resources/back-end/assets/js/bootstrap.js></script>
+	<script
+		src=${pageContext.request.contextPath}/resources/back-end/assets/js/app.js></script>
+	<!-- 樣板用js end -->
 
 <script>
 	jQuery.validator.addMethod("checkInput", function(value, element) {

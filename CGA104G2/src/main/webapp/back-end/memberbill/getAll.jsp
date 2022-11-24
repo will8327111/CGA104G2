@@ -23,8 +23,7 @@ List<MemberBillVO> list = (List) request.getAttribute("list");
 <meta name="robots" content="noindex,nofollow">
 
 <!-- !!固定!! 後台樣板 css -->
-<link rel="stylesheet"
-	href=${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css>
+<link rel="stylesheet" href=${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css>
 
 <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
 <link rel="shortcut icon"
@@ -39,6 +38,9 @@ List<MemberBillVO> list = (List) request.getAttribute("list");
 	rel="stylesheet"
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
+<!-- favicon 網址列小圖示 -->
+    <link rel="shortcut icon" href=${pageContext.request.contextPath}resources/back-end/assets/images/main/favicons/favicon2.ico type="image/x-icon">
+
 <!-- JavaScript Bundle with Popper -->
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
@@ -49,7 +51,9 @@ List<MemberBillVO> list = (List) request.getAttribute("list");
 <head>
 <meta>
 <!--    自己的css end-->
-
+	<!-- !!固定!! 旁邊導覽列sidebar menu start -->
+    	<script src=${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js></script>
+    <!-- !!固定!! 旁邊導覽列sidebar menu end -->
 <!--    網址列標題-->
 <title>陪你e生e世 社區服務平台：後台Home</title>
 
@@ -60,170 +64,7 @@ List<MemberBillVO> list = (List) request.getAttribute("list");
 
 	<!-- !!固定!! 旁邊導覽列sidebar menu end -->
 	
-<div id='app'>
-    <div id='sidebar' class='active' >
-        <div class='sidebar-wrapper active'>
-            <div class='sidebar-header position-relative'>
-                <div class='d-flex justify-content-between align-items-center '>
 
-                    <div class='sidebar-toggler  x'>
-                        <a href='#' class='sidebar-hide d-xl-none d-block'><i class='bi bi-x bi-middle'></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class='logo'>
-                <a href=${pageContext.request.contextPath}/back-end/web/index-test.html><img src= ${pageContext.request.contextPath}/resources/back-end/assets/images/main/logospm21.png alt='Logo' srcset=''
-                                         width='80%'></a>
-            </div>
-            <div class='sidebar-menu'>
-                <ul class='menu'>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-person-badge-fill'></i>
-                            <span>住戶資訊</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='#'>個人資訊</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='#'>訪客</a>
-
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-clipboard-check'></i>
-                            <span>公佈欄</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='.html'>訪客</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>郵件</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>Divider</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-calculator'></i>
-                            <span>社區帳單</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名3</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-calendar-check-fill'></i>
-                            <span>公共設施</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名3</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名4</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名5</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-spotify'></i>
-                            <span>活動</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名3</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名4</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名5</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-tools'></i>
-                            <span>檢舉與維修服務</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名3</a>
-                            </li>
-                             </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-pin-map-fill'></i>
-                            <span>特約商店</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名3</a>
-                            </li>
-                             </ul>
-                    </li>
-
-                    <li class='sidebar-item  '>
-                        <a href='.html' class='sidebar-link'>
-                            <i class='bi bi-file-earmark-medical-fill'></i>
-                            <span>沒有子選單</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-        </div>
 	<!-- !!Home頁面? 固定!!  右上方放小鈴鐺+登出+通知等等的 navbar 使用的樣板格式(目前為假資料) -->
 	<div id="main" class='layout-navbar'>
 		<header class='mb-3'>
@@ -358,7 +199,7 @@ List<MemberBillVO> list = (List) request.getAttribute("list");
 						</div>
 					</div>
 				</div>
-
+				
 				<!-- 內頁排版section(會直接套用RWD效果) START -->
 				<section class="section">
 					<div class="card">
@@ -465,6 +306,8 @@ List<MemberBillVO> list = (List) request.getAttribute("list");
 		src=${pageContext.request.contextPath}/resources/back-end/assets/js/bootstrap.js></script>
 	<script
 		src=${pageContext.request.contextPath}/resources/back-end/assets/js/app.js></script>
+	<!-- !!固定!! 後台樣板 css -->
+   	<link rel="stylesheet" href=${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css>
 	<!-- 樣板用js end -->
 </body>
 
