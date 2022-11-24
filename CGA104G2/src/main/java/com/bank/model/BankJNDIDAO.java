@@ -35,10 +35,10 @@ public class BankJNDIDAO implements BankDAO_interface {
 		ResultSet rs = null;// 集合查詢返回的對象
 
 		try {
-			con = DriverManager.getConnection("jdbc:mysql:///db01", "root", "password");
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_BANK);
 			rs = pstmt.executeQuery();
-
+			
 			while (rs.next()) {
 				bankVO = new BankVO();
 				bankVO.setBankId(rs.getString("BANK_ID"));

@@ -5,23 +5,36 @@
 <%@ page import="com.memberbill.model.*"%>
 <%@ page import="com.memberbill.controller.*"%>
 <%
-List<MemberBillVO> listBillVos = (List) request.getAttribute("listBillVos");
+MemberBillService service = new MemberBillService();
+Integer memId = (Integer) request.getSession().getAttribute("memberId");
+List<MemberBillVO> list = service.getAllCost(memId);
+pageContext.setAttribute("list",list);
 %>
 
-<%=(listBillVos == null) ? "true" : "false"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <style>
+h1{
+color: #7d7d7d;
+}
 div { 
  	padding: 10px; 
  	text-align: center; 
+ 	font-weight: bold;
+ 	font-family: "Montserrat","Open Sans","Helvetica Neue", Helvetica, Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun, sans-serif;
  } 
 .total-price-row {
     display: flex;
     justify-content: space-between;
     margin: 5px 0;
+    width: 50%;
 }
 .total-price-row .total-line_name {
     max-width: 70%;
@@ -42,9 +55,10 @@ hr {
 *, :after, :before {
     box-sizing: border-box;
 }
-div,span {
+div,span{
     display: block;
     width: 100%;
+    font-size: 16px;
 }
 .summary-section #total-price,h1 {
     font-size: 1.8rem;
@@ -55,7 +69,8 @@ div,span {
 .total-price-row {
     display: flex;
     justify-content: space-between;
-    margin: 5px 0;
+    margin: 5px auto;
+    width: 80%;
 
 }
 @media (min-width: 993px)
@@ -156,15 +171,6 @@ body, input, textarea, button, select {
 button {
     appearance: auto;
     writing-mode: horizontal-tb !important;
-    font-style: ;
-    font-variant-ligatures: ;
-    font-variant-caps: ;
-    font-variant-numeric: ;
-    font-variant-east-asian: ;
-    font-weight: ;
-    font-stretch: ;
-    font-size: ;
-    font-family: ;
     text-rendering: auto;
     color: buttontext;
     letter-spacing: normal;
@@ -186,60 +192,78 @@ button {
     border-color: buttonborder;
     border-image: initial;
 }
+.modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: calc(0.3rem - 1px);
+    border-bottom-left-radius: calc(0.3rem - 1px);
 </style>
 </head>
 <body>
 <div class="cart-container bg-light">
-<h1 class="store-name">帳單明細</h1>
+<!-- <h1 class="store-name">帳單明細</h1> -->
 
-	<form action="<%=request.getContextPath()%>/member/bill.do"
-		METHOD="post">
-
-		<table class="table caption-top">
-			<thead>
-			
-			<c:forEach var="memberBillVO" items="${listBillVos}">
-				<div id="collapseSummary" class="summary-section">
+	<form action="<%=request.getContextPath()%>/member/ecpay" METHOD="post">
+			<table class="table caption-top">
+				<thead>
+					<c:forEach var="memberBillVO" items="${list}">
+						<div id="collapseSummary" class="summary-section">
 				
-				<div class="total-price-row" >
-					<div class="total-line_name">帳單月份</div>
-					<div class="total-line_price">${memberBillVO.billDate}</div>
-				</div>
-				<div class="total-price-row">
-					<div>明細</div>
-					<div>${memberBillVO.costName}</div>
-				</div>
-				<div class="total-price-row">
-					<div>金額</div>
-					<div>NT$ ${memberBillVO.billAmount}</div>
-				</div>
-				<hr>
-				<div class="total-price-row">
-					<div>合計:</div>
-					<span id="total-price" class="total-line_price">NT$ ${memberBillVO.billAmount}</span>
-				</div>
-				 </div>
-			</c:forEach>
-			
-			</thead>
-		</table>
-		<div>
-			<button id="opener" type="button" class="btn w-100 mb-3 d-flex align-items-center voucher-toggle" data-toggle="modal" data-target="#voucherModal">
-          <div class="d-flex flex-column align-items-start">
-            <small class="font-weight-bold">前往繳費</small>
-          </div>
-        </button>
-		</div>
-
-		<div>
-		<input type="hidden" name="action" value="transfer"> 
-		<input type="submit" value="匯款">
-		
-
-		<input type="hidden" name="action" value="pay"> 
-		<input type="submit" value="刷卡">
-		</div>
+						<input type="hidden" value="${memberBillVO.memberBillId}"> 
+				
+						<div class="total-price-row" >
+							<div class="total-line_name">帳單月份</div>
+							<div class="total-line_price">${memberBillVO.billDate}</div>
+						</div>
+				
+						<div class="total-price-row">
+							<div>明細</div>
+							<div>管理費用</div>
+							<div>車位清潔費用</div>
+						</div>
+				
+						<div class="total-price-row">
+							<div>金額</div>
+							<div>NT$ ${memberBillVO.managementFees}</div>
+							<div>NT$ ${memberBillVO.parkingSpaceCleaningFee}</div>
+						</div>
+						<hr>
+						<div class="total-price-row">
+							<div>合計:</div>
+						<span><input  name="sum" type='hidden' value="<c:out value="${memberBillVO.managementFees+ memberBillVO.parkingSpaceCleaningFee}"/>" style="broder:0" id="total-price" class="total-line_price">NT$ <c:out value="${memberBillVO.managementFees+ memberBillVO.parkingSpaceCleaningFee}" /></span>
+						</div>
+				 		</div>
+							</c:forEach>
+					</thead>
+			</table>
+			<div id="result">
+    				${result}
+ 			 </div>
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">前往繳費</button>
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 					<div class="modal-dialog">
+    				<div class="modal-content">
+      				<div class="modal-header">
+        		<h5 class="modal-title" id="exampleModalLabel">請選擇繳費方式</h5>
+        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     			</div>
+      			<div class="modal-body">
+      	 			<button type="submit" class="btn btn-primary" name="action" value="transfer">匯款</button>
+					<button type="submit" class="btn btn-primary" name="action" value="buyToken">刷卡</button>
+				<div class="modal-footer" name="select_Transfer_Pay">
+        			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        			<button type="button" class="btn btn-primary">確認送出</button>
+      			</div>
+      		</div>
+ 		</div>
+  </div>
+</div>
 	</form>
-	</div>
-</body>
-</html>
+		</div>
+			</body>
+				</html>

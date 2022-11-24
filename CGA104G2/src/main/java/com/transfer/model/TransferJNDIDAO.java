@@ -1,7 +1,6 @@
 package com.transfer.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,53 +23,34 @@ public class TransferJNDIDAO implements TransferDAO_interface {
 		}
 	}
 
-	private static final String INSERT_TRANSFER = "INSERT INTO TRANSFER(Bill_Group,BANK_ID,BANK_NUMBER,member_Id) values(?, ?, ?,?)";// 住戶新增匯款資料進去資料
+	private static final String INSERT_TRANSFER = "INSERT INTO TRANSFER(MEMBER_BILL_ID, BILL_DATE, BANK_ID, BANK_NUMBER, MEMBER_ID, MEMBER_PHOTO, MEMBER_PAY_METHOD) values(?, ?, ?, ?, ? ,?, ?)";// 住戶新增匯款資料進去資料
 
 	public void insert(TransferVO transferVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			con = DriverManager.getConnection("jdbc:mysql:///db01", "root", "password");
-			pstmt = con.prepareStatement(INSERT_TRANSFER);
-
-			pstmt.setString(1, transferVO.getBillGroup());
-			pstmt.setString(2, transferVO.getBankId());
-			pstmt.setInt(3, transferVO.getBankNumber());
-			pstmt.setInt(4, transferVO.getMemberId());
+		try (
+			Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(INSERT_TRANSFER);
+		) {
+			pstmt.setInt(1, transferVO.getMemberBillId());
+			pstmt.setString(2, transferVO.getBillDate());
+			pstmt.setString(3, transferVO.getBankId());
+			pstmt.setInt(4, transferVO.getBankNumber());
+			pstmt.setInt(5, transferVO.getMemberId());
+			pstmt.setBytes(6, transferVO.getMemberPhoto());
+			pstmt.setInt(7, transferVO.getMemberPayMethod());
 			pstmt.executeUpdate();
-
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	public List<TransferVO> getAll(String billDate) {// 後台帳單Table用月份、繳費方式查詢
 		try (Connection conn = ds.getConnection();
 				PreparedStatement ps = conn.prepareStatement(
-						"SELECT m.cost_Id,m.member_pay_method,t.transfer_Id,t.member_Bill_Id,t.member_Id,t.bank_Id,t.bank_Number,t.bank_Date,m.bill_Date,m.member_Pay,m.member_Photo \r\n"
-								+ "from TRANSFER t \r\n" + "join MEMBER_BILL m \r\n"
-								+ "on m.MEMBER_BILL_ID=t.MEMBER_BILL_ID \r\n"
-								+ "where bill_date=?and member_pay_method=0")) {
+						"SELECT t.member_pay_method,t.transfer_Id,t.member_Bill_Id,t.member_Id,t.bank_Id,t.bank_Number,t.bank_Date,m.bill_Date,m.member_Pay,m.member_Photo "
+								+ "from TRANSFER t " + "join MEMBER_BILL m "
+								+ "on m.MEMBER_BILL_ID=t.MEMBER_BILL_ID "
+								+ "where t.bill_date = ? and t.member_pay_method = 0")) {
 			ps.setString(1, billDate);
 			try (ResultSet rs = ps.executeQuery()) {
 				List<TransferVO> list = new ArrayList<TransferVO>();
@@ -84,16 +64,15 @@ public class TransferJNDIDAO implements TransferDAO_interface {
 					vo.setBankDate(rs.getTimestamp("BANK_DATE"));
 					vo.setMemberId(rs.getInt("MEMBER_ID"));
 					vo.setBillDate(rs.getString("BILL_DATE"));
-					vo.setCostId(rs.getInt("COST_ID"));
 
-					var memberPayMethod = rs.getInt("MEMBER_PAY_METHOD");
-					if (rs.getInt("MEMBER_PAY_METHOD") == 0) {
-						vo.setMemberPayMethod("匯款");
-					} else if (rs.getInt("MEMBER_PAY_METHOD") == 1) {
-						vo.setMemberPayMethod("刷卡");
-					} else {
-						vo.setMemberPayMethod("尚未繳費");
-					}
+//					var memberPayMethod = rs.getInt("MEMBER_PAY_METHOD");
+//					if (rs.getInt("MEMBER_PAY_METHOD") == 0) {
+//						vo.setMemberPayMethod("匯款");
+//					} else if (rs.getInt("MEMBER_PAY_METHOD") == 1) {
+//						vo.setMemberPayMethod("刷卡");
+//					} else {
+//						vo.setMemberPayMethod("尚未繳費");
+//					}
 					vo.setMemberPhoto(rs.getBytes("MEMBER_PHOTO"));
 					list.add(vo);
 				}

@@ -17,13 +17,21 @@ public interface MemberBillDAO_interface {
 
 	public void updatePay(String memberPay);
 
-	public MemberBillVO getBillDate(String billGroup);//11.14
+	public  List<MemberBillVO> getBillDate(Integer memberId);//11.23
 
 	//public MemberBillVO getMemberBill(String billDate, String memberPay, byte[] memberPhoto);
 
-	public MemberBillVO updateMemberPay(String billGroup);//11.14
+	public MemberBillVO updateMemberPay(Integer memberBillId);//11.14
 	
-	public List<MemberBillVO> getAllCost(String billGroup);
+	public List<MemberBillVO> getAllCost(Integer memberId);//11.16
 
+	public String getbuyToken(Integer sum, String url, Integer memId);
 
+	public List<MemberBillVO> getAllMemberGroupData();
+	
+	public void insertMemberBill(MemberBillVO memberBillVO);
+
+	public void sendMail(String to, String subject, String messageText);
+	
+	public String selectBillDateByMemberBillId(Integer billId);
 }
