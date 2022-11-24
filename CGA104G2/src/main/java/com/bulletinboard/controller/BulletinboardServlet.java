@@ -122,21 +122,23 @@ public class BulletinboardServlet extends HttpServlet {
                 errorMsgs.add("請輸入欲發佈的文章內容");
             }
 
-            Date bbPostdate =  null;
-            try {
-                bbPostdate = Date.valueOf(req.getParameter("bbpostdate").trim());
-            } catch (IllegalArgumentException e) {
-                bbPostdate = new Date(System.currentTimeMillis());
-                errorMsgs.add("發佈日期沒有輸入或是格式錯誤,請重新輸入!");
-            }
+            Date bbPostdate = Date.valueOf(req.getParameter("bbpostdate").trim());
+//            Date bbPostdate =  null;
+//            try {
+//                bbPostdate = Date.valueOf(req.getParameter("bbpostdate").trim());
+//            } catch (IllegalArgumentException e) {
+//                bbPostdate = new Date(System.currentTimeMillis());
+//                errorMsgs.add("發佈日期沒有輸入或是格式錯誤,請重新輸入!");
+//            }
 
-            Date bbUpdate =  null;
-            try {
-                bbUpdate = Date.valueOf(req.getParameter("bbupdate").trim());
-            } catch (IllegalArgumentException e) {
-                bbUpdate = new Date(System.currentTimeMillis());
-                errorMsgs.add("更新日期沒有輸入或是格式錯誤,請重新輸入!");
-            }
+
+            Date bbUpdate = Date.valueOf(req.getParameter("bbupdate").trim());
+//            try {
+//                bbUpdate = Date.valueOf(req.getParameter("bbupdate").trim());
+//            } catch (IllegalArgumentException e) {
+//                bbUpdate = new Date(System.currentTimeMillis());
+//                errorMsgs.add("更新日期沒有輸入或是格式錯誤,請重新輸入!");
+//            }
 
             Integer bbArticalState = null;
             try {
@@ -181,7 +183,7 @@ public class BulletinboardServlet extends HttpServlet {
 
             /***************************3.修改完成,準備轉交(Send the Success view)*************/
             req.setAttribute("bulletinboardVO", bulletinboardVO); // 資料庫update成功後,正確的VO物件,存入req
-            String url = "/back-end/bulletinboard/listOneBb.jsp";
+            String url = "/back-end/bulletinboard/listAllBboard.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneBboard.jsp
             successView.forward(req, res);
         }

@@ -267,10 +267,10 @@ body.appear #wrapper{
 #pc-nav li a{
 	display: block;
 	text-decoration: none;
-	color: rgb(64, 50, 43);
-	padding:0 15px;
+	color: rgb(42, 62, 83);
+	padding:0 20px;
 	transition:all 0.3s;
-	font-size: 1rem;
+	font-size: 1.3rem;
 }
 
 #pc-nav li.current a,

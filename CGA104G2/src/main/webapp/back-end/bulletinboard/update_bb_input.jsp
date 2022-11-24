@@ -73,7 +73,7 @@
                                 </tr>
                                 <tr>
                                     <td>公佈欄發佈日期:</td>
-                                    <td><input type="TEXT" disabled name="bbpostdate" size="40" class="form-control"
+                                    <td><input type="TEXT" name="bbpostdate" size="40" class="form-control"
                                                value="<%=bulletinboardVO.getBbPostdate()%>"/></td>
                                 </tr>
 
