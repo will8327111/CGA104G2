@@ -26,7 +26,7 @@ import com.backstageAccount.model.BackstageAccountVO;
 						  "/back-end/backstageAccount/updateOneInfo.jsp",
 						  "/back-end/mail/*",
 						  "/back-end/store/*",
-//						  "/back-end/backstageAccount/backstageLogin.do",
+						  "/back-end/ame/*",
 						  "/back-end/web/backEndHomeMgr.html",
 						  "/back-end/web/backEndHomeEmp.html"
 						 }

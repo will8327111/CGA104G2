@@ -148,7 +148,7 @@ public class Ame_Servlet extends HttpServlet {
 
 		}
 
-		if ("control".equals(action)) {
+		if ("control".equals(action)) { 
 
 			String url = "/back-end/ame/controlAme.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
