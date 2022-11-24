@@ -190,7 +190,7 @@ label.error {
                                 <!--內容區塊-->
                                 <div class="card-body">
 
-    <form id="form" method="post" action="<%=request.getContextPath()%>/back-end/ame/ame.do" enctype="multipart/form-data">
+        <form id="form" method="post" action="<%=request.getContextPath()%>/back-end/ame/ame.do" enctype="multipart/form-data">
         <div>
             <label for="amename">公設名稱 : </label>
             <input type="text" id="amename" name="amename"></input>
@@ -207,15 +207,80 @@ label.error {
             <label for="amepoint">公設點數 : </label>
             <input type="text" id="amepoint" name="amepoint"></input>
         </div>
+
+        <div>
+            <label for="opentime">開放時間 : </label>
+            <select name="opentime" id="opentime">
+                <option value="0" selected>00:00</option>
+                <option value="1">01:00</option>
+                <option value="2">02:00</option>
+                <option value="3">03:00</option>
+                <option value="4">04:00</option>
+                <option value="5">05:00</option>
+                <option value="6">06:00</option>
+                <option value="7">07:00</option>
+                <option value="8">08:00</option>
+                <option value="9">09:00</option>
+                <option value="10">10:00</option>
+                <option value="11">11:00</option>
+                <option value="12">12:00</option>
+                <option value="13">13:00</option>
+                <option value="14">14:00</option>
+                <option value="15">15:00</option>
+                <option value="16">16:00</option>
+                <option value="17">17:00</option>
+                <option value="18">18:00</option>
+                <option value="19">19:00</option>
+                <option value="20">20:00</option>
+                <option value="21">21:00</option>
+                <option value="22">22:00</option>
+                <option value="23">23:00</option>
+            </select>
+        </div>
+
+        <div>
+
+            <label for="closetime">開放時間 : </label>
+            <select name="closetime" id="closetime">
+                <option value="0" selected></option>
+                <option value="1">01:00</option>
+                <option value="2">02:00</option>
+                <option value="3">03:00</option>
+                <option value="4">04:00</option>
+                <option value="5">05:00</option>
+                <option value="6">06:00</option>
+                <option value="7">07:00</option>
+                <option value="8">08:00</option>
+                <option value="9">09:00</option>
+                <option value="10">10:00</option>
+                <option value="11">11:00</option>
+                <option value="12">12:00</option>
+                <option value="13">13:00</option>
+                <option value="14">14:00</option>
+                <option value="15">15:00</option>
+                <option value="16">16:00</option>
+                <option value="17">17:00</option>
+                <option value="18">18:00</option>
+                <option value="19">19:00</option>
+                <option value="20">20:00</option>
+                <option value="21">21:00</option>
+                <option value="22">22:00</option>
+                <option value="23">23:00</option>
+                <option value="24">00:00</option>
+            </select>
+        </div>
+
         <div>
             <label for="ameimg">公設圖片 : </label>
             <input type="file" id="ameimg" name="ameimg"></input>
         </div>
 
         <div>
+            <input type="hidden" name="action" value="addOneAme" />
             <input type="submit" value="送出" />
         </div>
     </form>
+    
 	
        </div>
      </div>
@@ -259,7 +324,23 @@ label.error {
 	} else {
 		return true;
 	}
-}, "禁止输入特殊字符");
+	}, "禁止输入特殊字符");
+	
+    $.validator.addMethod("checkOpening", function(value, element){
+        let opentime = document.getElementById("opentime").value;
+        opentime = parseInt(opentime);
+        let closetime = document.getElementById("closetime").value;
+        closetime = parseInt(closetime);
+        return(closetime > opentime);
+    }, );
+	
+    $.validator.setDefaults({
+		submitHandler: function (form) {
+			alert("新增公共設施成功喔！！！");
+			form.submit();
+		}
+	});
+    
 	$(function () {
 		$('#form').validate({
 			onkeyup: function (element, event) {
@@ -283,7 +364,10 @@ label.error {
 					required: true,
 					number: true
 				},
-                    ameimg: {
+				closetime: {
+                    checkOpening: true
+                },
+                ameimg: {
 					required: true,
 				} },
 				messages: {
@@ -302,13 +386,13 @@ label.error {
 					required: '必填',
 					number: '人數需為數字'
 				},
+				closetime: {
+                    checkOpening: '關閉時間不能小於、等於開放時間 請選取!'
+                },
 				ameimg: {
-					required: "請選擇圖片",
+					required: "請選擇圖片"
 				},
 				},
-			submitHandler: function (form) {
-			form.submit();
-			}
 		});
 	});
 </script>
