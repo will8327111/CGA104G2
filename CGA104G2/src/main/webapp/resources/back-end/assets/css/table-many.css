@@ -1,0 +1,40 @@
+/* table03 */
+
+#table03 th, #table05 td {
+    text-align: center;
+    width: 20%;
+    min-width: 80px;
+    padding: 10px;
+    height: 60px;
+}
+
+#table03 th {
+    background-color: #a5b8cd;
+}
+
+#table03 .head {
+    background-color: #7ea0ca;
+}
+
+/* tab */
+@media only screen and (max-width: 768px) {
+    #table03 {
+        display: block;
+        overflow-x: scroll;
+        white-space: nowrap;
+    }
+    #table03 .fixed {
+        position: sticky;
+        left: 0;
+    }
+    #table05 .fixed:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -1px;
+        right: -1px;
+        height: 100%;
+        border-left: 1px solid #707070;
+        border-right: 1px solid #707070;
+    }
+}
