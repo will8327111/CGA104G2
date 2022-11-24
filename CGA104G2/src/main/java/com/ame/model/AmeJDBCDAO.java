@@ -35,7 +35,6 @@ public class AmeJDBCDAO implements AmeDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			ps = con.prepareStatement(INSERT_STMT);
 
-			ps.setInt(1, ameVO.getAmeId());
 			ps.setString(1, ameVO.getAmeName());
 			ps.setBytes(2, ameVO.getAmeImg());
 			ps.setString(2, ameVO.getAmeIntroduce());
