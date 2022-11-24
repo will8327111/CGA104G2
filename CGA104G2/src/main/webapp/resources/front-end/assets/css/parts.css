@@ -270,7 +270,7 @@ body.appear #wrapper{
 	color: rgb(42, 62, 83);
 	padding:0 20px;
 	transition:all 0.3s;
-	font-size: 1.3rem;
+	font-size: 1.5rem;
 }
 
 #pc-nav li.current a,
@@ -347,7 +347,6 @@ body.appear #wrapper{
 	height: 60px;
 	color: #fff;
 	text-align: center;
-	/*text-transform: uppercase; */
 	text-decoration: none;
 	font-size:0.6rem;
 	transition:all 0.3s;
@@ -471,7 +470,7 @@ body.appear #wrapper{
 
 /*風琴效果應用區域*/
 .box {
-    display: none;/*初始設定未顯示*/
+    display: none;
     background: #f3f3f3;
 	margin:0 3% 3% 3%;
     padding: 3%;
@@ -627,7 +626,7 @@ opacity:0;
   }
 }
 
-/* 手機畫面用。親要素如果沒設定會不太能動*/
+/* 手機畫面用*/
 #vision,
 .service-area{
     transform:  translate3d(0, 0, 0);
@@ -763,7 +762,6 @@ opacity:0;
 /*scroll追隨位置*/
 /*===================================*/
 
-/*固定*/
 
 .sub-fix-block{
 	position: -webkit-sticky;
