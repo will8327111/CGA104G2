@@ -22,7 +22,7 @@
         <td>
             <h3>所有住戶資料 - listAllMember.jsp</h3>
             <br>
-            <h4><a href="${pageContext.request.contextPath}/back-end/member/memberHome.jsp"><img src="./images/back.svg" width="30"
+            <h4><a href="${pageContext.request.contextPath}/back-end/web/backEndHomeMgr.html"><img src="./images/back.svg" width="30"
                                                                             height="30" alt="返回">回首頁</a></h4>
         </td>
     </tr>

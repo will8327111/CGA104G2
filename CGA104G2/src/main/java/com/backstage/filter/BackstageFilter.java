@@ -27,6 +27,8 @@ import com.backstageAccount.model.BackstageAccountVO;
 						  "/back-end/mail/*",
 						  "/back-end/store/*",
 						  "/back-end/ame/*",
+						  "/back-end/memberbill/*",
+						  "/back-end/member/*",
 						  "/back-end/web/backEndHomeMgr.html",
 						  "/back-end/web/backEndHomeEmp.html"
 						 }
