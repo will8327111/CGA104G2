@@ -381,7 +381,7 @@
 									</div>
 
 									<div style="width: 50px; margin-left: 10px;">
-										<input type="hidden" name="action" value="select_Transfer">
+										<input type="hidden" name="action" value="select_card">
 										<input type="submit" value="查詢" class="btn btn-primary">
 									</div>
 
@@ -390,23 +390,19 @@
 							<table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>帳單月份</th>
                                         <th>住戶編號</th>
-                                        <th>繳費方式</th>
                                         <th>繳費狀態</th>
-                                        <th>信箱</th>
                                         <th>刷卡時間</th>
+                                        <th>金額</th>
                                     </tr>
                                 </thead>
 
                                 <c:forEach var="CardVO" items="${list}" varStatus="s" >
                                 <tr>
-                                    <td>${CardVO.billDate}</td>
                                     <td>${CardVO.memberId}</td>
-                                    <td>${CardVO.memberPayMethod}</td>
-                                    <td>${CardVO.memberPay}</td>
-                                    <td>${CardVO.paymentMail}</td>
+                                    <td>已刷卡完成</td>
                                     <td>${CardVO.payDate}</td>
+                                    <td>${CardVO.billGroup}</td>
                                 </tr>
                                 
                                 <td>

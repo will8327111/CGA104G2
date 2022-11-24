@@ -1,4 +1,4 @@
-package com.memberbill.controller;
+package com.memberbill.listener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,41 +8,29 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 import com.memberbill.model.MemberBillMailService;
 import com.memberbill.model.MemberBillService;
 import com.memberbill.model.MemberBillVO;
 
-@WebServlet(name = "timer", urlPatterns = { "/MemberSchedule" }, loadOnStartup = 1)
-public class MemberSchedule extends HttpServlet {
-	Timer timer = new Timer();
-
-	@Override
-	public void init() throws ServletException {
-		timer.scheduleAtFixedRate(task, cal.getTime(),60 * 60 * 1000);
-	}
-
-	TimerTask task = new TimerTask() {
+@WebListener
+public class MemberListener implements ServletContextListener {
+	private Timer timer = new Timer();
+	
+	private TimerTask task = new TimerTask() {
 		@Override
 		public void run() {
 			MemberBillService memberBillService = new MemberBillService();
 			List<MemberBillVO> list = memberBillService.getAllMemberGroupData();
 
 			for (MemberBillVO memberBillVO : list) {
-
+				
 				Integer memberBillId = (int) ((Math.random() * 100000) + 1);
 				memberBillVO.setMemberBillId(memberBillId);
 				memberBillVO.setBillDate(getDate());// 帳單月份
-				// vo.setMemberPayLimit(); 2022-12-25 23:59:59 透過現在時間 2022-11-25
-//				System.out.println(memberBillVO.getMemberBillId());
-//				System.out.println(memberBillVO.getBillDate());
-//				System.out.println(memberBillVO.getMemberId());
-//				System.out.println(memberBillVO.getMemberName());
-//				System.out.println(memberBillVO.getMemberPayLimit());
-//				System.out.println(memberBillVO.getBillGroup());
 
 				memberBillService.insertMemberBill(memberBillVO);
 
@@ -54,12 +42,22 @@ public class MemberSchedule extends HttpServlet {
 				String messageText = ch_name + "\n" + passRandom + "\n" + alert;
 				MemberBillMailService memberBillMailService = new MemberBillMailService();
 				memberBillMailService.sendMail(to, subject, messageText);
-
 			}
 
 		}
 	};
 
+	@Override
+	public void contextInitialized(ServletContextEvent sce) {
+		timer.scheduleAtFixedRate(task, cal.getTime(),60 * 60 * 1000);
+		System.out.println("123");
+	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent sce) {
+		timer.cancel();
+	}
+	
 	Calendar cal = Calendar.getInstance();
 
 	private String getDate() {// 帳單日期
@@ -86,10 +84,5 @@ public class MemberSchedule extends HttpServlet {
 		calendar.add(Calendar.DATE, 1);
 //		System.out.println("獲取本月" + sdFormat.format(calendar.getTime()));
 		return sdFormat.format(calendar.getTime());
-	}
-
-	@Override
-	public void destroy() {
-		timer.cancel();
 	}
 }
