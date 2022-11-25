@@ -48,23 +48,38 @@
         body {
             font-family: 'huninn',serif;
         }
-        #table1{
-    		display: inline-block;
-    		border: 1px solid red;
-    	}
     	#storeImg{
-/* 			display: inline-block; */
-  			width: 15%;
+			vertical-align:top;
+			margin-left:10px;
+  			width: 25%;
  			height: auto;
 		}
-		#storeTitle {
+		#map{
+			display: inline-block;
+			margin-left:70px;
+		}
+ 		#storeName{ 
 			text-align: center;
 			background-color:#EDEDED;
 			margin-bottom: 10px;
 			display: inline-block;
 			width: 100%;
+			font-size:40px; 
+ 		} 
+		#storeLoc{
+			border: 1px dashed gray;
+			font-size:20px;
+			margin-top:10px;
+			margin-bottom:20px;
 		}
-		#map{
+		#storeInfo{
+			width: 400px;
+		}
+		#table1{
+			vertical-align: top;
+			margin-top:50px;
+			margin-left:70px;
+			font-size:20px;
 			display: inline-block;
 		}
     </style>
@@ -103,13 +118,13 @@
 
 		<div id='storeTitle'>
 
-	</div>
+		</div>
 
     <div id='showOneStore'>
     	<span id='putPhoto'></span>
     	
-    	<table id='table1'>
-    	</table>
+    	<span id='table1'>
+    	</span>
     	
         <div id='map' style='width:25%; height:50vh;'></div>
         
@@ -196,16 +211,14 @@
         let str = "";
         
         
-        str = "<h1>"+store[0]+"</h1>";
+        str = "<div id='storeName'>"+store[0]+"</div>"
+        +"<div id='storeLoc'><span>地址:"+store[2]+"</span><span id='storeInfo'>商店介紹:</span><span>商店位置:</span></div>";
         $('#storeTitle').append(str);
         
         str = "<img id='storeImg' src=data:image/jpeg;base64,"+store[3]+">";
         $('#putPhoto').append(str);
         
-        str = "<table>"
-        +"<tr><td>"+store[1]+"</td></tr>"
-        +"<tr><td>"+store[2]+"</td></tr>"
-        +"</table>"
+        str = "<div id='storeInfo'>"+store[1]+"</div>"
         +"<input type='hidden' id='storeLat' value='"+store[4]+"'>"
         +"<input type='hidden' id='storeLon' value='"+store[5]+"'>";
         $('#table1').append(str);   

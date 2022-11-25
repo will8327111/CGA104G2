@@ -24,7 +24,6 @@ public class BackstageLoginServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("我有執行");
 		try {
 			req.setCharacterEncoding("UTF-8");
 			String action = req.getParameter("action");
@@ -36,8 +35,6 @@ public class BackstageLoginServlet extends HttpServlet {
 			
 //			========================================錯誤訊息=====================================================
 			if ("textForLogin".equals(action)) {
-				
-				System.out.println("我有執行");
 				
 				List<String> errorMsgs = new LinkedList<String>();
 				req.setAttribute("errorMsgs", errorMsgs);
