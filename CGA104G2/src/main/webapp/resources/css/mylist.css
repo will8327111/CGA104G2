@@ -1,11 +1,16 @@
-img{
+
+ @font-face {
+            font-family: 'huninn';
+            src: url('../../resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
+        }
+
+
+.img1{
     width: 100px;
     height: 100px;
 }
 
-    body {
-	background: #262a2b;
-}
+
 .tilesWrap {
 	padding: 0;
 	margin: 50px auto;

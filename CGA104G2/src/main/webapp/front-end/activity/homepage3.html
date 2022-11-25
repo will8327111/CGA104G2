@@ -35,7 +35,7 @@
     <script src="../../resources/front-end/assets/js/lazyload.min.js"></script>
 
     <!--==============這邊放自己的 css===============-->
-<link rel="stylesheet" href="../../resources/css/mylist.css">
+   <link rel="stylesheet" href="../../resources/css/homestyle.css">
 
 
     <!--==============css===============-->
@@ -46,7 +46,6 @@
             src: url('../../resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
         }
         body {
-        	background: #262a2b;
             font-family: 'huninn',serif;
         }
     </style>
@@ -99,24 +98,74 @@
         </header>
 
 <!--!!固定!! 空白遮罩-->
-        <div style="width: 100%; height:100px;"></div>
+        <div style="width: 100%; height:50px;"></div>
 
 <!--!!固定!! main area-->
         <div id="container">
+            <main id="main-area">
 
 
+<!--主要內容 start(從這邊開始改)-->
+              	<div style="float: left; width: 18%; margin-top:44px;margin-left:-36px">
+                    <h4 >查詢活動</h4>
+                 
+                    <form id="form">
+               
+                            <h5>地區</h5><span >
+                            <select
+                                id="country" name ="country" class="form-select">
+                            </select>
+                            </span>
+                        
+                       
+                       
+                             <h5>活動種類</h5><span> <select
+                                id="type" name="type" class="form-select" >
+                                <option>請選擇</option>
+                            </select>
+                            </span>
 
+                        <input id="name"  type="text" placeholder="活動名稱" style="border-style:double">
+                         <input type="button" name="submit" value="查詢" onclick="getData()" class= "btn btn-outline-secondary" />
+                    </form>
+     
+ 
+                </div>
+                
+                
+                
+            
+                <div  style="float: left; width: 70%;margin-top:47px" class="font-family: 'Noto Sans TC', sans-serif">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-wrap">
+                                <table class="table">
+                                    <thead class="thead-primary">
+                                        <tr >
+                                            <th>活動資訊</th>
+                                            <th>&nbsp;</th>
+                                            <th>目前人數</th>
+                                            <th>活動地點</th>	
+                                            <th>活動詳情</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="addPage">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div id="button" class="frame1"></div>
 
-		<main id="main-area">
-			<ul id="list" class="tilesWrap">
-			</ul>
-		
-   </main>
+<!--main area end-->
+            </main>
             <!--container-->
         </div>
 
 <!--!!固定!! footer-->
-        <footer id="footer">
+        <footer id="footer" style="margin-top:100px">
 <!--右上角menu-->
             <div class="openbtn"><span></span><span>Menu</span><span></span></div>
             <div id="g-nav">
@@ -160,79 +209,147 @@
     <script src="../../resources/front-end/assets/js/script.js"></script>
     <script src="../../resources/front-end/assets/js/search_origin.js"></script>
 
-   
-
-<style>
-
-#container {
-    position: relative;
-    z-index: 1;
-    background: #fff;
-    background: #262a2b;
-    font-family: 'huninn',serif;
-}
 
 
-</style>
-
-
-	<script>
-let memId = sessionStorage.getItem("id")
-
-getList()
-async function getList(){
-	let res  = await fetch(`../../activity/ActServlet?action=list&memId=${memId}`, { method: 'get' })
-   let result = await res.json();
-   let count = 1;
-   result.forEach(list => {
-         $("#list").append(`<li>
-            <h2>${count}</h2>
-            <img class=img1 src="data:image/jpeg;base64,${list.photo}">
-            <h3>${list.activityName}</h3>
-            <p>
-               <br>開始時間:${list.activityStart}</br>
-               <br>結束時間:${list.activityEnd}</br>
-               <br>活動內容:${list.content}</br>
-            </p>  
-             <input type="button" onclick="change(${list.activityId})"   value="更改">
-             <input type="button" onclick="deleteAct(${list.activityId})"   value="刪除">      
-        </li>`)
-        count++
-   });
-   
-}
-
-
-
-async function deleteAct(actId){
-	let result = confirm("確定是否刪除")
-	if(result){
-	fetch("../../activity/ActServlet?action=delete&deleteId="+actId , { method: 'get' });
+   <script>
+    
+    getButton()
+	async function getButton(){
+		restButton()
+		let res = await fetch("../../activity/ActServlet?action=getButton", { method: 'get' })
+		let data = await res.json();
+		let number = data.button
+		for(let i=0;i<number;i++){
+			$("#button").append(`<button type="submit" class="btn btn-outline-secondary" onclick="showInfo(${i})">第${i+1}頁</button>`)
+		}
+		showInfo(0)
+		getCountry();
+		getType();
+		update()
+		
 	}
-	location.reload();
 	
-}
-
-
-function change(actId){
-	const act =sessionStorage.setItem("actId",actId)
-	location="update.html"
 	
-}
+	async function showInfo(page){
+		rest()       
+		let res = await fetch("../../activity/ActServlet?action=getPage&page="+page, { method: 'get' })
+		let data = await res.json();
+		
+		data.forEach(act => {
+				$("#addPage").append(`<tr class="alert" role="alert"><td><img class="homepageImg" src="data:image/jpeg;base64,${act.photo}"></td>
+								<td>
+									<div class="email">
+									<span>活動名稱:${act.activityName}</span><span>報名開始時間:${act.activitySignst}</span> <span>報名結束時間:${act.activitySignet}</span><span>活動開始時間:${act.activityStart}
+										</span><span>活動結束時間:${act.activityEnd}</span><span></span>
+									</div>
+								</td>
+								<td><span>${act.activityCurrent}/${act.activityMax}</span></td>
+								<td>${act.actLocation}</td><span></span><span></span><td><a class="btn btn-outline-secondary"  href="../../activity/ActServlet?action=view&actId=${act.activityId}">活動詳情</a></td><tr>`)	
+		} )
+	}
+	
+	
+	
+	
 
+	async function getCountry() {  
+			html=""
+			document.getElementById("country").innerHTML=" "
+        let res = await fetch("../../activity/ActServlet?action=location", { method: 'get' });
+      	data = await res.json();	
+      	$("#country").append(`<option value="">請選擇</option>`)	
+		data.forEach(location => {
+			$("#country").append(`<option  value=${location.actCountry}>${location.actCountry}</option>`)	
+			})
+	}
+	
+	
 
+	async function getType(){
+			html=""
+			document.getElementById("type").innerHTML=" "
+		  let res = await fetch("../../activity/ActivityTypeServlet?action=getType", { method: 'get' });
+	      	data = await res.json();	
+	      	$("#type").append(`<option value=0>請選擇</option>`)	
+			data.forEach(location => {
+				$("#type").append(`<option  value=${location.actTypeId}>${location.actTypeName}</option>`)	
+				})		
+	}
+	
+	
+	
+	
+	
+	async function getData(){
+		rest()
+		restButton()
+		const country = $("#country").val();
+		const type= $("#type").val();
+		const name= $("#name").val();
+		let res = await fetch(`../../activity/ActServlet?action=search&country=${country}&type=${type}&name=${name}`, { method: 'post' })
+		let data = await res.json();
+		data.forEach(act => {
+			$("#addPage").append(`<tr class="alert" role="alert"><td><img  class="homepageImg" src="data:image/jpeg;base64,${act.photo}"></td>
+							<td>
+								<div class="email">
+								<span>活動名稱:${act.activityName}</span><span>報名開始時間:${act.activitySignst}</span><span>報名結束時間:${act.activitySignet}</span> <span>活動開始時間:${act.activityStart}
+									</span><span>活動結束時間:${act.activityEnd}</span><span></span>
+								</div>
+							</td>
+							<td>${act.activityCurrent}/${act.activityMax}</td>
+							<td>${act.actLocation}</td><span></span><span></span><td><a href="../../activity/ActServlet?action=view&actId=${act.activityId}">活動詳情</a></td><tr>`)	
+	} )
+	
+			$("#type").val(0) 
+			$("#country").val("")
+			$("#name").val("")
+	
+ 	$("#button").append(`<button type="submit" class="btn btn-outline-secondary" onclick="getButton(0)">返回總查詢</button>`)
+	
+	}		
 
+	
+	
 
+	
+	
+	
+	
 
+	function rest(){
+        html=""
+		document.getElementById("addPage").innerHTML=" "
+		
+	}
+	
+	
+	function restButton(){
+        html=""
+		document.getElementById("button").innerHTML=" "
+		
+	}
+    
+    
+	function web(){
+	   let path = window.location.pathname;
+    console.log(path)
+             let webCtx = path.substring(0, path.indexOf('/', 1));
+	}
+	
+    
+	
+	async  function update(){
+		let web = web()
+		let res = await fetch( web+"ActivityUpdate", { method: 'post' })	
+	}
+	
+    
 
-
-
-
-
-
-</script>
-
+	
+	
+    </script>
 
 
 </body>
+
 </html>
