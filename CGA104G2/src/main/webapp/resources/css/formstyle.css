@@ -1,14 +1,17 @@
 HTML CSSResult Skip Results Iframe
 
+
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+ font-family: 'huninn',serif;
 }
 body{
   background: rgb(225, 238, 234);
   padding: 0 10px;
+  font-family: 'huninn',serif;
 }
 .wrapper{
   max-width: 500px;
@@ -47,7 +50,7 @@ input.qtyminus {
 }
 
 
-.wrapper .title{
+.wrapper .title1{
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 25px;

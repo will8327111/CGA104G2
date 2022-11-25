@@ -48,7 +48,7 @@ Integer status = (Integer) request.getAttribute("status");
     <!--==============這邊放自己的 css===============-->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/formstyle.css">
 
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <!--==============css===============-->
     <style>
  /*!!固定!! 字形*/
@@ -60,6 +60,8 @@ Integer status = (Integer) request.getAttribute("status");
         	background:  rgb(225, 238, 234);
             font-family: 'huninn',serif;
         }
+        
+        
     </style>
 </head>
 
@@ -113,7 +115,7 @@ Integer status = (Integer) request.getAttribute("status");
 
 
 <!--!!固定!! 空白遮罩-->
-        <div style="width: 100%; height:100px;"></div>
+        <div style="width: 100%; height:50px;"></div>
 
 <!--!!固定!! main area-->
 
@@ -125,7 +127,7 @@ Integer status = (Integer) request.getAttribute("status");
 
 
 	<div class="wrapper">
-		<div class="title">活動詳情</div>
+		<div class="title1">活動詳情</div>
 		<div class="flexslider">
 			<ul class="slides" id="addPhoto">
 			</ul>
@@ -274,7 +276,31 @@ Integer status = (Integer) request.getAttribute("status");
 <script
 	src="https://cdn.bootcss.com/flexslider/2.6.3/jquery.flexslider-min.js"></script>
     
+<style>
 
+.flex-direction-nav a:before {
+    font-family: flexslider-icon;
+    font-size: 31px;
+    display: inline-block;
+    content: '\f001';
+}
+
+#container {
+    position: relative;
+    z-index: 1;
+    background:  rgb(225, 238, 234);
+}
+
+
+
+input,
+select,
+textarea {
+  background-color: transparent;
+  border-style: groove;
+  color: inherit;
+}
+</style>
 
 	<script>
 
@@ -332,7 +358,7 @@ async function join(){
 
 
 async function remove(){
-	let res = await fetch(`<%=request.getContextPath()%>/activity/ActivitySignup?action=remove&actId=<%=activityVO.getActId()%>&current=<%=activityVO.getActCurrentCount()%>`,{ method: 'get' })
+	let res = await fetch(`<%=request.getContextPath()%>/activity/ActivitySignup?action=remove&actId=<%=activityVO.getActId()%>`,{ method: 'get' })
 	let data = await res.json();
  	if(data.number==1){
  		

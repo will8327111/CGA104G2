@@ -149,8 +149,8 @@ public class ActivityService implements ActivityServiceCommon {
 
 	// 有用
 
-	public void reomveNumver(Integer currentNumber, Integer number, Integer actId) {
-		dao.removeNumber(currentNumber, number, actId);
+	public void reomveNumver(Integer number, Integer actId) {
+		dao.removeNumber(number, actId);
 	}
 
 
