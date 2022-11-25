@@ -19,4 +19,8 @@ public class CardService {
 	public void insert(CardVO cardVO) {
 		dao.insert(cardVO);
 	}
+	
+	public void updateCard(Integer memberBillId) {
+		dao.updateCard(memberBillId);
+	}
 }

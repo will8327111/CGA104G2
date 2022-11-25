@@ -29,7 +29,9 @@ public class MemberBillEcpayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
 		doPost(req, res);
+		
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -39,12 +41,16 @@ public class MemberBillEcpayServlet extends HttpServlet {
 		MemberBillService memSvc = new MemberBillService();
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
-		System.out.println(action);
+		
 
 		// 刷卡按鈕點即至綠界頁面
 		if ("buyToken".equals(action)) {
+			System.out.println("近來");
+		  
+			
 			Integer memId = (Integer) req.getSession().getAttribute("memberId");
 			Integer sum = Integer.parseInt(req.getParameter("sum"));
+			Integer memberBillId = Integer.parseInt(req.getParameter("memberBillId"));
 			
 			memSvc.getAllCost(memId);
 			Writer out = res.getWriter();
@@ -52,8 +58,9 @@ public class MemberBillEcpayServlet extends HttpServlet {
 			StringBuffer st = new StringBuffer();// 可存蓄和操作字符
 			String url = st.append(req.getScheme()).append("://").append(req.getServerName()).append(":")
 					.append(req.getServerPort()).append(req.getContextPath()).toString();
-
-			String result = memSvc.buyToken(sum, url, memId);
+			
+//			Integer memberBillId = 25411;//memberBillId 先寫死
+			String result = memSvc.buyToken(sum, url, memId,memberBillId);
 			System.out.println(result);// 測試
 			
 			req.setAttribute("result", result);

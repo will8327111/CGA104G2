@@ -37,4 +37,8 @@ public class TransferService {
 	public List<String> getOneBillDate() {// 定義方法
 		return transferDao.getOneBillDate();
 	}
+	
+	public List<TransferVO> getMemberPay(String memberPay,String billDate){
+		return transferDao.getMemberPay(memberPay,billDate);
+	}
 }

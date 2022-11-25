@@ -34,4 +34,6 @@ public interface MemberBillDAO_interface {
 	public void sendMail(String to, String subject, String messageText);
 	
 	public String selectBillDateByMemberBillId(Integer billId);
+
+	
 }

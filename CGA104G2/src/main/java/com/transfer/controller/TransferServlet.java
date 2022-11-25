@@ -21,7 +21,7 @@ import com.memberbill.model.MemberBillVO;
 import com.transfer.model.TransferService;
 import com.transfer.model.TransferVO;
 
-@WebServlet("/transfer")
+@WebServlet("/member/transfer")
 @MultipartConfig
 public class TransferServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,8 +29,22 @@ public class TransferServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
-		String action = req.getParameter("action");		
+		String action = req.getParameter("action");	
+		TransferService transferService = new TransferService();
+		
+		if("select_memberPay".equals(action)) {
+			String memberPay = req.getParameter("memberPay");
+			String billDate = (String)session.getAttribute("billDate");
+			
+			List<TransferVO> list = transferService.getMemberPay(memberPay,billDate);
+			req.setAttribute("list", list);
+			String url = "/back-end/memberbill/getTransfer.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+			
+		}
 	}
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String action = req.getParameter("action");

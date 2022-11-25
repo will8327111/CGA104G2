@@ -16,10 +16,9 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 	private static final String INSERT_MEMBER_BILL_ID = "INSERT INTO MEMBER_BILL(MEMBER_ID,COST_ID,MEMBER_NAME,BILL_DATE,MEMBER_PAY,MEMBER_PAY_DATE,MEMBER_PAY_LIMIT,MEMBER_PAY_METHOD,MODIFY_USER,MODIFY_DATE)VALUES(?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ONE_MEMBER_BILL_ID = "SELECT * FROM MEMBER_BILL";
 	private static final String UPDATE = "UPDATE MEMBER_BILL SET MEMBER_PAY=? WHERE MEMBER_BILL_ID = ?";//修改狀態
-//	private static final String MEMBER_PHOTO = "SELECT MEMBER_PHOTO FROM MEMBER_BILL  WHERE MEMBER_BILL_ID = ?";
 	private static final String MEMBER_PHOTO = "SELECT MEMBER_PHOTO FROM TRANSFER WHERE MEMBER_BILL_ID = ?";
-	private static final String GET_BILL_DATE = "SELECT BILL_DATE,MEMBER_ID,MEMBER_BILL_ID FROM MEMBER_BILL WHERE MEMBER_ID=? and MEMBER_PAY=0"; // 用"編號群組"拿住戶本月未繳費的日期(重複月份不出現);0為未繳費
-	private static final String UPDATE_memberPay = "UPDATE  MEMBER_BILL SET MEMBER_PAY=2 WHERE MEMBER_BILL_ID=?";// 把這個function放進insert裡面先new放進值在一起跑更改狀態為待審核
+	private static final String GET_BILL_DATE = "SELECT BILL_DATE,MEMBER_ID,MEMBER_BILL_ID FROM MEMBER_BILL WHERE MEMBER_ID=? and MEMBER_PAY=0"; 
+	private static final String UPDATE_memberPay = "UPDATE  MEMBER_BILL SET MEMBER_PAY=2 WHERE MEMBER_BILL_ID=?";//修改狀態(給匯款用)
 	
 	
 	private DataSource ds;
@@ -92,10 +91,10 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 				MemberBillVO.setMemberId(rs.getInt("MEMBER_ID"));
 				MemberBillVO.setMemberName(rs.getString("MEMBER_NAME"));
 				MemberBillVO.setBillDate(rs.getString("BILL_DATE"));
-				if (rs.getString("MEMBER_PAY") == "0") {
+				if (rs.getInt("MEMBER_PAY") == 0) {
 
 					MemberBillVO.setMemberPay("未繳費");
-				} else if (rs.getString("MEMBER_PAY") == "1") {
+				} else if (rs.getInt("MEMBER_PAY") == 1) {
 
 					MemberBillVO.setMemberPay("已繳費");
 				} else {
@@ -106,11 +105,12 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 				MemberBillVO.setMemberPayLimit(rs.getDate("MEMBER_PAY_LIMIT"));
 //				MemberBillVO.setMemberPayMethod(rs.getInt("MEMBER_PAY_METHOD") == 0 ? "匯款" : "刷卡");
 				if(rs.getInt("MEMBER_PAY_METHOD")==0) {
-					MemberBillVO.setMemberPayMethod("匯款");
-				}else if (rs.getInt("MEMBER_PAY_METHOD")==1) {
-					MemberBillVO.setMemberPayMethod("刷卡");
-				}else{
 					MemberBillVO.setMemberPayMethod("尚未繳費");
+					System.out.println(rs.getInt("MEMBER_PAY_METHOD"));
+				}else if (rs.getInt("MEMBER_PAY_METHOD")==1) {
+					MemberBillVO.setMemberPayMethod("匯款");
+				}else{
+					MemberBillVO.setMemberPayMethod("刷卡");
 				}
 				MemberBillVO.setModifyUser(rs.getString("MODIFY_USER"));
 				MemberBillVO.setModifyDate(rs.getDate("MODIFY_DATE"));
@@ -119,7 +119,7 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 				MemberBillVO.setBillGroup(rs.getString("BILL_GROUP"));
 				list.add(MemberBillVO);
 			}
-
+			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -199,7 +199,9 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, MemberBillVO.getMemberBillId());
+			pstmt.setString(1, MemberBillVO.getMemberPay());
+			pstmt.setInt(2, MemberBillVO.getMemberBillId());
+			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
@@ -312,6 +314,7 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 					MemberBillVO.setMemberId(rs.getInt("MEMBER_ID"));
 					MemberBillVO.setMemberBillId(rs.getInt("MEMBER_BILL_ID"));
 					list.add(MemberBillVO);
+				
 				}
 				return list;
 			}
@@ -492,4 +495,6 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 		}
 		return null;
 	}
+	
+	
 }
