@@ -56,23 +56,21 @@ public class MemberBillServlet extends HttpServlet {
 				res.getOutputStream().write(memberPhoto);
 			}
 		}
+		
 		if ("getOne_For_Update".equals(action)) { // 抓近來都是String
-			Integer memberBillId = Integer.parseInt(req.getParameter("memberBillId")); // 將取過來的String轉Integer(後端設定的數字才能判斷)
-			String memberPay = req.getParameter("memberPay"); // getParameter從jsp取參數的方法// 將取過來的String轉Integer
+			Integer memberBillId = Integer.parseInt(req.getParameter("memberBillId")); 			// 將取過來的String轉Integer(後端設定的數字才能判斷)
+			String memberPay = req.getParameter("memberPay"); 									// getParameter從jsp取參數的方法// 將取過來的String轉Integer
 			memSvc.update(memberBillId, memberPay);
-			// forward to addMember.jsp//修改的內容在同個頁面顯示
-			res.sendRedirect("bill.do?action=getAll"); // 除了forward另一種跳轉的方式sendRedirect
+			
+			String billDate = (String)session.getAttribute("billDate");
+			TransferService transferService = new TransferService();
+			List<TransferVO> list = transferService.getAll(billDate);
+			req.setAttribute("list", list);
+			String url = "/back-end/memberbill/getTransfer.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
 		}
-//		if ("insert".equals(action)) {//新增照片進資料庫
-//			// 以下為接收請求參數(Request Parameter)//把請求的參數取進來
-//			List<MemberBillVO> list = memSvc.getUnpaid(userId);
-//			Part file = req.getPart("file"); // 檔案用part裝
-//			byte[] memberPhoto = file.getInputStream().readAllBytes(); // 把所有轉byte[]的檔案讀進來(取到)
-//			MemberBillVO vo = new MemberBillVO(); // 從VO取
-//			vo.setMemberPhoto(memberPhoto);
-//			memSvc.uploadPhoto(vo); // service也要
-//			req.getRequestDispatcher(req.getContextPath() +"/member/ecpay?action=insert").forward(req, res);
-//		}
+		
 
 		if ("ID".equals(action)) { // 登入
 			userId = Integer.valueOf(req.getParameter("ID"));
@@ -81,6 +79,7 @@ public class MemberBillServlet extends HttpServlet {
 			res.sendRedirect(url);
 
 		}
+		
 
 		if ("memberphoto".equals(action)) {
 			Integer memberBillID = Integer.valueOf(req.getParameter("memberBillId"));
@@ -88,11 +87,13 @@ public class MemberBillServlet extends HttpServlet {
 			res.getOutputStream().write(memberPhoto);
 		}
 
+		
 		if ("select_Transfer".equals(action)) {// 後台上方的查詢列(匯款及刷卡)
 
 			/*************************** 1接收請求參數 **********************/
 
 			String billDate = req.getParameter("billDate2");// 下拉選單的月份選擇
+			req.getSession().setAttribute("billDate", billDate);
 			/*************************** 2開始查詢資料 *****************************************/
 			String memberPayMethod = req.getParameter("memberPayMethod");
 			
@@ -115,6 +116,7 @@ public class MemberBillServlet extends HttpServlet {
 
 			} else {// 刷卡頁面
 				CardService cardService = new CardService();
+				
 				List<CardVO> cardlist = cardService.getAllCard(billDate);
 				req.setAttribute("cardlist", cardlist);
 				String url = "/back-end/memberbill/getCard.jsp";

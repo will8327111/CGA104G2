@@ -12,10 +12,10 @@ public class TransferVO implements java.io.Serializable {
 	private Timestamp bankDate;			// 住戶匯款時間
 	private Integer memberId; 			// 住戶編號
 	private String billDate; 			// 帳單月份(年,月)
-	private String memberPay; 			// 繳費狀態!
-	private byte[] memberPhoto;			// 匯款證明!
-	private Integer memberPayMethod;		// 繳費方式
-
+	private String memberPay; 			// 繳費狀態
+	private byte[] memberPhoto;			// 匯款證明
+	private Integer memberPayMethod;	// 繳費方式
+	private String memberName;			//住戶姓名
 
 	public Integer getTransferId() {
 		return transferId;
@@ -96,6 +96,12 @@ public class TransferVO implements java.io.Serializable {
 	public void setMemberPayMethod(Integer memberPayMethod) {
 		this.memberPayMethod = memberPayMethod;
 	}
-	
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 
 }

@@ -214,7 +214,7 @@ button {
 					<c:forEach var="memberBillVO" items="${list}">
 						<div id="collapseSummary" class="summary-section">
 				
-						<input type="hidden" value="${memberBillVO.memberBillId}"> 
+						<input type="hidden" name="memberBillId" value="${memberBillVO.memberBillId}"> 
 				
 						<div class="total-price-row" >
 							<div class="total-line_name">帳單月份</div>
