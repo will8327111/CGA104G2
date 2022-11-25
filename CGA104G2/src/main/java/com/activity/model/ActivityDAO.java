@@ -217,7 +217,7 @@ public class ActivityDAO implements ActivityDAO_interface {
 	@Override
 	public List<Integer> getAll() {
 		beginTranscation();
-		final String hql = "SELECT actId FROM ActivityVO order BY actId";
+		final String hql = "SELECT actId FROM ActivityVO WHERE actStatus = 0 order BY actId";
 		List<Integer> list = getSession().createQuery(hql).list();
 		commit();
 		return list;

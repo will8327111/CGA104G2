@@ -93,8 +93,8 @@ public class ActivityServlet extends HttpServlet {
 			ActivityService actSvc = new ActivityService();
 			actSvc.addAct(memid, actType, name, content, max, min, sgst, sget, actst, actet, country, location, cost,
 					photo);
-//			String url = req.getContextPath() + "/front-end/activity/list.jsp";
-//			res.sendRedirect(url);
+			String url = req.getContextPath()+"/front-end/activity/homepage2.html";
+			res.sendRedirect(url);
 		}
 
 		// 有用
@@ -385,6 +385,18 @@ public class ActivityServlet extends HttpServlet {
 			out.write(actSvc.name(memId).toString());
 			
 		}
+		
+		
+		if("getMember".equals(action)) {
+		
+			
+		
+			
+			ActivityService actSvc = new ActivityService();
+
+			
+		}
+		
 		
 	}
 
