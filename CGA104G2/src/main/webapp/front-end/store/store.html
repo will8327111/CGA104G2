@@ -178,6 +178,10 @@
 			showStore(res);
 		})
 	});
+	function b(i){
+ 		fetch('../../back-end/store/store.do?action=setOneStore&storeId='+ i, 
+ 				{method: 'get'});
+ 	}
 	function showStore(json) {
 	    let store = json;
 	
@@ -186,21 +190,15 @@
 	        str += "<span class='photoContent'>"
 	        +"<label for='click'>"
 	        +"<span class='photo' id='click'>"
-	        +"<input id='storeId' type='hidden' value='"+store[i].storeId+"'>"
-	        +"<a href='../../front-end/store/store_page.html'>"
+	        +"<input type='hidden' value='"+store[i].storeId+"'>"
+	        +"<a href='../../front-end/store/store_page.html' onclick= b("+store[i].storeId+")>"
 	        +"<img id='imgStore' src=data:image/jpeg;base64," + store[i].base64img + ">"
 	        +"<h3 name='photoText' id='click'>" + store[i].storeName  + "</h3>"
 	        +"</a></span></label></span>";
 	        $('#storeTitle').after(str);
 	        
 	        
-	        document.getElementById('click').addEventListener('click',async function(){
-	     		let storeId = document.getElementById('storeId').value;
-	     		console.log(storeId);
-	     		
-	     		await fetch('../../back-end/store/store.do?action=setOneStore&storeId='+ storeId , 
-	     				{method: 'get'});
-	     	})
+	        
 	    }
 	}
 </script>
