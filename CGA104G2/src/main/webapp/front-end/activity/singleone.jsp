@@ -54,7 +54,7 @@ Integer status = (Integer) request.getAttribute("status");
  /*!!固定!! 字形*/
         @font-face {
             font-family: 'huninn';
-            src: url('/CGA104/resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
+            src: url('<%=request.getContextPath()%>/resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
         }
         body {
         	background:  rgb(225, 238, 234);
@@ -69,7 +69,7 @@ Integer status = (Integer) request.getAttribute("status");
 <body>
 
 
- <header id="header">
+         <header id="header">
 
 <!--!!固定!! 導覽列 start-->
             <nav id="pc-nav">
@@ -81,22 +81,22 @@ Integer status = (Integer) request.getAttribute("status");
             <span style="margin-left:10px"></span>
                 <ul>
                     <div>
-                        <a href="<%=request.getContextPath()%>/front-end/activity/homepage3.html"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>回到活動首頁</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;">活動首頁</label></button></a>
+                        <a href="<%=request.getContextPath()%>/front-end/activity/homepage3.html"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>回到活動首頁</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-house"></i><label style="font-size: 1rem;">活動首頁</label></button></a>
                     </div>
                 </ul>
                 <ul>
                     <div>
-                        <a href="<%=request.getContextPath()%>/front-end/activity/mylist.html"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>我舉辦的活動</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;">我舉辦的活動</label></button></a>
+                        <a href="<%=request.getContextPath()%>/front-end/activity/mylist.html"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>我舉辦的活動</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-table-list"></i><label style="font-size: 1rem;">我舉辦的活動</label></button></a>
                     </div>
                 </ul>
                   <ul>
                     <div  >
-                        <a href="<%=request.getContextPath()%>/front-end/activity/myaddlist.html"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>我參加的活動</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 我參加的活動</label></button></a>
+                        <a href="<%=request.getContextPath()%>/front-end/activity/myaddlist.html"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>我參加的活動</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-user-plus"></i><label style="font-size: 1rem;"> 我參加的活動</label></button></a>
                     </div>
                 </ul>
                     <ul>
                     <div >
-                        <a href="<%=request.getContextPath()%>/front-end/activity/addactivity.html"><button class="cap"  id="add" data-tippy-content="<div class='inner-cap'><p>新增活動。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 新增活動</label></button></a>
+                        <a href="<%=request.getContextPath()%>/front-end/activity/addactivity.html"><button class="cap"  id="add" data-tippy-content="<div class='inner-cap'><p>新增活動。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-plus"></i><label style="font-size: 1rem;"> 新增活動</label></button></a>
                     </div>
                 </ul>
                 
@@ -112,7 +112,6 @@ Integer status = (Integer) request.getAttribute("status");
             </ul>
             <!--導覽列 end-->
         </header>
-
 
 <!--!!固定!! 空白遮罩-->
         <div style="width: 100%; height:50px;"></div>
@@ -288,7 +287,8 @@ Integer status = (Integer) request.getAttribute("status");
 #container {
     position: relative;
     z-index: 1;
-    background:  rgb(225, 238, 234);
+    background: #eae7e7;
+
 }
 
 

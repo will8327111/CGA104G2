@@ -387,15 +387,7 @@ public class ActivityServlet extends HttpServlet {
 		}
 		
 		
-		if("getMember".equals(action)) {
 		
-			
-		
-			
-			ActivityService actSvc = new ActivityService();
-
-			
-		}
 		
 		
 	}

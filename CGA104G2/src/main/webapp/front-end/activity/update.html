@@ -212,7 +212,7 @@ color: red;
 
 <body>
 
-        <header id="header">
+               <header id="header">
 
 <!--!!固定!! 導覽列 start-->
             <nav id="pc-nav">
@@ -224,22 +224,22 @@ color: red;
             <span style="margin-left:10px"></span>
                 <ul>
                     <div>
-                        <a href="homepage3.html"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>回到活動首頁</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;">活動首頁</label></button></a>
+                        <a href="homepage3.html"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>回到活動首頁</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-house"></i><label style="font-size: 1rem;">活動首頁</label></button></a>
                     </div>
                 </ul>
                 <ul>
                     <div>
-                        <a href="mylist.html"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>我舉辦的活動</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;">我舉辦的活動</label></button></a>
+                        <a href="mylist.html"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>我舉辦的活動</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-table-list"></i><label style="font-size: 1rem;">我舉辦的活動</label></button></a>
                     </div>
                 </ul>
                   <ul>
                     <div  >
-                        <a href="myaddlist.html"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>我參加的活動</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 我參加的活動</label></button></a>
+                        <a href="myaddlist.html"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>我參加的活動</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-user-plus"></i><label style="font-size: 1rem;"> 我參加的活動</label></button></a>
                     </div>
                 </ul>
                     <ul>
                     <div >
-                        <a href="addactivity.html"><button class="cap"  id="add" data-tippy-content="<div class='inner-cap'><p>新增活動。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 新增活動</label></button></a>
+                        <a href="addactivity.html"><button class="cap"  id="add" data-tippy-content="<div class='inner-cap'><p>新增活動。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-plus"></i><label style="font-size: 1rem;"> 新增活動</label></button></a>
                     </div>
                 </ul>
                 
@@ -315,23 +315,23 @@ color: red;
 
             
             <label>活動報名開始時間</label>
-            <Datepicker v-model="activity.signStart"  placeholder="請選擇時間" format="yyyy//MM/dd"  ></Datepicker>
+            <Datepicker v-model="activity.signStart"  placeholder="請選擇時間" format="yyyy/MM/dd"  ></Datepicker>
             <v-field  v-show="false" type="date" :rules="checkDay" name="活動報名開始時間"  v-model="activity.signStart"></v-field> 
             <error-message name="活動報名開始時間" class="invalid-feedback"></error-message>
             
 
             <label>活動報名結束時間</label>
-            <Datepicker v-model="activity.signEnd"   name="actSignEnd" format="yyyy//MM/dd"  ></Datepicker>
+            <Datepicker v-model="activity.signEnd"   name="actSignEnd" format="yyyy/MM/dd"  ></Datepicker>
             <v-field  v-show="false" type="date"  :rules="checkSingEnd" name="actSignEnd"  v-model="activity.signEnd"></v-field> 
             <error-message name="actSignEnd" class="invalid-feedback"></error-message>
 
             <label>活動開始時間</label>
-            <Datepicker v-model="activity.actStart"  name="actSignEnd" format="yyyy//MM/dd"></Datepicker>
+            <Datepicker v-model="activity.actStart"  name="actSignEnd" format="yyyy/MM/dd"></Datepicker>
             <v-field  v-show="false" type="date"  :rules="checkActStart" name="actStart"  v-model="activity.actStart"></v-field> 
             <error-message name="actStart" class="invalid-feedback"></error-message>
 
             <label>活動結束時間</label>
-            <Datepicker v-model="activity.actEnd"  name="actSignEnd" format="yyyy//MM/dd" ></Datepicker>
+            <Datepicker v-model="activity.actEnd"  name="actSignEnd" format="yyyy/MM/dd" ></Datepicker>
             <v-field  v-show="false" type="date"  :rules="checkEnd" name="actEnd"  v-model="activity.actEnd"></v-field> 
             <error-message name="actEnd" class="invalid-feedback"></error-message>
 
@@ -437,6 +437,9 @@ color: red;
 
 
 <script>
+
+
+
 
 
 const { defineRule, Form, Field, ErrorMessage, configure } = VeeValidate
@@ -572,7 +575,7 @@ deletePhoto(deletePhoto){
 
 
         upload(fileList){
-            console.log(fileList)
+           
         let formData = new FormData();
         if(!fileList.length){ 
         return
