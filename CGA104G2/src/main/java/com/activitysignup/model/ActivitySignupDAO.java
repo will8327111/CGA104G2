@@ -36,15 +36,14 @@ public class ActivitySignupDAO implements ActivitySignupDAO_interface{
 
 	@Override
 	public Integer delete(Integer actid, Integer memid) {
-		beginTranscation();
 		try {
-				ActivitySignupVO vo = new ActivitySignupVO();
-				vo.setActId(actid);
-				vo.setMemberId(memid);
-				getSession().remove(vo);
+			beginTranscation();
+			String sql = "DELETE from ACTIVITY_SIGNUP where MEMBER_ID = :memid";
+			getSession().createNativeQuery(sql).setParameter("memid", memid).executeUpdate();
 			commit();
 			return 1;
 		} catch (Exception e) {
+			e.printStackTrace();
 			rollback();
 			return -1;
 		}

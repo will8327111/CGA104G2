@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.Spring;
 
 import org.hibernate.event.service.spi.DuplicationStrategy.Action;
@@ -30,12 +31,15 @@ public class MemberBillPayServlet extends HttpServlet{
 		@Override
 		protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 			res.setContentType("text/html;charset=utf-8");
+			HttpSession session = req.getSession();
+			
 			
 			String MemberData=req.getParameter("CustomField1");
 			String[] spilt=MemberData.split(",");
 			Integer memId=Integer.parseInt(spilt[0]);
 			Integer sum=Integer.parseInt(spilt[1]);
-			System.out.println(""+memId+","+sum);
+			Integer memberBillId = Integer.parseInt(spilt[2]);
+			System.out.println(""+memId+","+sum+","+memberBillId);
 
 			
 			BillGroupService billGroupService=new BillGroupService();
@@ -44,12 +48,14 @@ public class MemberBillPayServlet extends HttpServlet{
 			CardVO cardVO = new CardVO();
 			cardVO.setBillGroup(billGroup);
 			cardVO.setMemberId(memId);
+			cardVO.setMemberBillId(memberBillId);
 			
 			MemberBillService memSvc = new MemberBillService();
 			memSvc.insert(memId,sum);
 			
 			CardService cardService = new CardService();
 			cardService.insert(cardVO);
+			cardService.updateCard(memberBillId);
 			
 			ServletContext sc=this.getServletContext();
 			String contextPath = sc.getContextPath();

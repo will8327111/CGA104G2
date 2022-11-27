@@ -4,12 +4,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
+Integer privateReportStatus = Integer.parseInt(request.getParameter("privateReportStatus"));
 PrivateReportService1 privateReportService1 = new PrivateReportService1();
-List<PrivateReportVO1> list = privateReportService1.getAllReport(); // 設定Account的getAll集合
+List<PrivateReportVO1> list = privateReportService1.getAllSelected(privateReportStatus); // 設定Account的getAll集合
 pageContext.setAttribute("list", list);
 %>
 <%
-request.getAttribute("errorMsgs");
+PrivateReportService1 privateReportService2 = new PrivateReportService1();
+PrivateReportVO1 privateReportVO1 = privateReportService2.findByReportStatus(privateReportStatus); // 設定Account的getAll集合
+pageContext.setAttribute("privateReportVO1", privateReportVO1);
 %>
 
 <html>
@@ -44,7 +47,7 @@ form {
 <body bgcolor="lightYellow">
 
 	<div id="header">
-		<h1 id="test">您好，這裡是住戶檢舉頁面!</h1>
+		<h1 id="test">您好，這裡是住戶檢舉頁面！${privateReportVO1.privateReportStatus}</h1>
 	</div>
 
 	<form method="get"
@@ -57,7 +60,7 @@ form {
 		</select> <input type="hidden" name="action" value="getAllSelected"> <input
 			type="submit" value="確定">
 	</form>
-	
+
 	<form method="get"
 		action="<%=request.getContextPath()%>/back-end/privateReport1/privateReportServlet.do">
 		<b> 依表單編號查詢: </b><input type="text" name="privateReportId"> <input
@@ -67,13 +70,12 @@ form {
 
 	<form method="get"
 		action="<%=request.getContextPath()%>/back-end/privateReport1/privateReportServlet.do">
-		<b> 依住戶姓名查詢: </b><input type="text" name="memberName"> 	<input
+		<b> 依住戶姓名查詢: </b><input type="text" name="memberName"> <input
 			type="hidden" name="action" value="getOneReportByName"> <input
 			type="submit" value="送出">
 	</form>
 
-	<a
-		href="<%=request.getContextPath()%>/back-end/privateReport/privateReportInfo.jsp">
+	<a href="<%=request.getContextPath()%>/back-end/privateReport/privateReportInfo.jsp">
 		<button>返回所有檢舉列表</button>
 	</a>
 

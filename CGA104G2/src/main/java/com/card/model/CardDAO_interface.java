@@ -8,4 +8,6 @@ public interface CardDAO_interface {
 
 	public void insert(CardVO cardVO);
 
+	public CardVO updateCard(Integer memberBillId);
+
 }

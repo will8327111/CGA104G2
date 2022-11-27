@@ -48,24 +48,49 @@
         body {
             font-family: 'huninn',serif;
         }
-        #table1{
-    		display: inline-block;
-    		border: 1px solid red;
-    	}
     	#storeImg{
-/* 			display: inline-block; */
-  			width: 15%;
+			vertical-align:top;
+			margin-left:10px;
+  			width: 25%;
  			height: auto;
 		}
-		#storeTitle {
+		#map{
+			display: inline-block;
+			margin-left:100px;
+		}
+ 		#storeName{ 
 			text-align: center;
 			background-color:#EDEDED;
 			margin-bottom: 10px;
 			display: inline-block;
 			width: 100%;
+			font-size:40px; 
+ 		} 
+		#storeLoc{
+			border: 1px dashed gray;
+			font-size:20px;
+			margin-top:10px;
+			margin-bottom:20px;
 		}
-		#map{
+		#storeInfo{
+			width: 400px;
+			margin-left:70px;
+		}
+		#table1{
+			vertical-align: top;
+			margin-top:50px;
+			margin-left:70px;
+			font-size:20px;
 			display: inline-block;
+		}
+		#storeLocTitle{
+			margin-left:100px;
+		}
+		#storeInfoTitle{
+			margin-left:435px;
+		}
+		#storeMapTitle{
+			margin-left:380px;
 		}
     </style>
 </head>
@@ -103,13 +128,13 @@
 
 		<div id='storeTitle'>
 
-	</div>
+		</div>
 
     <div id='showOneStore'>
     	<span id='putPhoto'></span>
     	
-    	<table id='table1'>
-    	</table>
+    	<span id='table1'>
+    	</span>
     	
         <div id='map' style='width:25%; height:50vh;'></div>
         
@@ -196,16 +221,15 @@
         let str = "";
         
         
-        str = "<h1>"+store[0]+"</h1>";
+        str = "<div id='storeName'>"+store[0]+"</div>"
+        +"<div id='storeLoc'><span id='storeLocTitle'></span><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pin-map-fill' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z'/><path fill-rule='evenodd' d='M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z'/></svg>"+store[2]
+        +"<span id='storeInfoTitle'>商店介紹:</span><span id='storeMapTitle'>商店位置:</span></div>";
         $('#storeTitle').append(str);
         
         str = "<img id='storeImg' src=data:image/jpeg;base64,"+store[3]+">";
         $('#putPhoto').append(str);
         
-        str = "<table>"
-        +"<tr><td>"+store[1]+"</td></tr>"
-        +"<tr><td>"+store[2]+"</td></tr>"
-        +"</table>"
+        str = "<div id='storeInfo'>"+store[1]+"</div>"
         +"<input type='hidden' id='storeLat' value='"+store[4]+"'>"
         +"<input type='hidden' id='storeLon' value='"+store[5]+"'>";
         $('#table1').append(str);   
@@ -233,7 +257,6 @@
         // 放置路線圖層
         directionsDisplay.setMap(map);
 
-        // 路線相關設定(!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!改)
         var request = {
             origin: { lat: parseFloat(centerLat), lng: parseFloat(centerLng) },
             destination: { lat: parseFloat(storeLat), lng:  parseFloat(storeLng)},

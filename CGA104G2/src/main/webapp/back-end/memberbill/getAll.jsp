@@ -255,7 +255,7 @@ List<MemberBillVO> list = (List) request.getAttribute("list");
 									</tr>
 								</thead>
 								<%@ include file="page1MemberBill.file" %>
-								<c:forEach var="memberBillVO" items="${list}" varStatus="s">
+								<c:forEach var="memberBillVO" items="${list}" begin="<%=pageIndex %>" end="<%=pageIndex+rowsPerPage-1 %>">
 									<tr>
 										<td>${memberBillVO.memberBillId}</td>
 										<td>${memberBillVO.memberId}</td>

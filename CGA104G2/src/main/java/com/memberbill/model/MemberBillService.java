@@ -79,7 +79,7 @@ public class MemberBillService {
 		
 	}
 
-	public String buyToken(Integer sum, String url, Integer memId) {
+	public String buyToken(Integer sum, String url, Integer memId,Integer memberBillId) {
 	 	MemberBillService memSvc = new MemberBillService();
 	 	BillGroupVO billGroupVO =new BillGroupVO();
     	List<MemberBillVO> memberBillVO = memSvc.getAllCost(memId);
@@ -91,11 +91,12 @@ public class MemberBillService {
         String indexUrl=url+"/front-end/memberbill/card.jsp";
         String getDataUrl=url+"/member/pay";
         String getDataUrl1=url+"/front-end/memberbill/card.jsp";
-        String customField1=(""+memId+","+sum);
+        String customField1=(""+memId+","+sum+","+memberBillId);
+        
         
         AllInOne allInOne = new AllInOne("");
         AioCheckOutALL aioCheckOutALL = new AioCheckOutALL();
-        aioCheckOutALL.setMerchantTradeNo(memId+"elife"+"nedyhmsdr");
+        aioCheckOutALL.setMerchantTradeNo(memId+"elife"+"nedyhmsdrdaaaa");
         aioCheckOutALL.setMerchantTradeDate(payDate);
         aioCheckOutALL.setTotalAmount(sum.toString());
         aioCheckOutALL.setTradeDesc("test");
@@ -105,12 +106,13 @@ public class MemberBillService {
         aioCheckOutALL.setNeedExtraPaidInfo("N");
         aioCheckOutALL.setItemName(itemName);      
         aioCheckOutALL.setCustomField1(customField1);
+       
              
         return allInOne.aioCheckOut(aioCheckOutALL,null);
 	}
 
 	public void insert(Integer memId, Integer sum) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 	public List<MemberBillVO> getAllMemberGroupData(){

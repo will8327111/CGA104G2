@@ -369,61 +369,46 @@
 						<body>
 						<div class="card-body">
 							<th>刷卡查詢頁面</th>
-							<table id="table-1" class="table table-borderless">
-								<div style="width: 500px; display: flex; flex-wrap: nowrap;" >
-									<div style="width: 200px">
-										<select name="" class="form-select">
-											<option disabled selected>請選擇帳單月份</option>
-<%-- 											<c:forEach var="vo2" items=""> --%>
-<!-- 												<option id="date" value=""></option> -->
-<%-- 											</c:forEach> --%>
-										</select>
-									</div>
+<!-- 							<table id="table-1" class="table table-borderless"> -->
+<!-- 								<div style="width: 500px; display: flex; flex-wrap: nowrap;" > -->
+<!-- 									<div style="width: 200px"> -->
+<!-- 										<select name="" class="form-select"> -->
+<!-- 											<option disabled selected>請選擇帳單月份</option> -->
+<%-- <%-- 											<c:forEach var="vo2" items=""> --%> 
+<!-- <!-- 												<option id="date" value=""></option> --> 
+<%-- <%-- 											</c:forEach> --%> 
+<!-- 										</select> -->
+<!-- 									</div> -->
 
-									<div style="width: 50px; margin-left: 10px;">
-										<input type="hidden" name="action" value="select_Transfer">
-										<input type="submit" value="查詢" class="btn btn-primary">
-									</div>
+<!-- 									<div style="width: 50px; margin-left: 10px;"> -->
+<!-- 										<input type="hidden" name="action" value="select_card"> -->
+<!-- 										<input type="submit" value="查詢" class="btn btn-primary"> -->
+<!-- 									</div> -->
 
-								</div>
-							</table>
+<!-- 								</div> -->
+<!-- 							</table> -->
 							<table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>帳單月份</th>
                                         <th>住戶編號</th>
-                                        <th>繳費方式</th>
+                                        <th>住戶姓名</th>
+                                        <th>帳單月份</th>
                                         <th>繳費狀態</th>
-                                        <th>信箱</th>
                                         <th>刷卡時間</th>
+                                        <th>金額</th>
                                     </tr>
                                 </thead>
 
-                                <c:forEach var="CardVO" items="${list}" varStatus="s" >
+                                <c:forEach var="CardVO" items="${cardlist}" varStatus="s" >
                                 <tr>
-                                    <td>${CardVO.billDate}</td>
                                     <td>${CardVO.memberId}</td>
-                                    <td>${CardVO.memberPayMethod}</td>
+                                    <td>${CardVO.memberName}</td>
+                                    <td>${CardVO.billDate}</td>
                                     <td>${CardVO.memberPay}</td>
-                                    <td>${CardVO.paymentMail}</td>
                                     <td>${CardVO.payDate}</td>
+                                    <td>${CardVO.billGroup}</td>
+                                    
                                 </tr>
-                                
-                                <td>
-                                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/bill.do" style="margin-bottom: 0px;">
-                                        <button type="button" id="edit${s.count}" class="btn btn-danger">編輯</button>
-                                            <input type="submit" value="修改" class="btn btn-warning"> 
-                                            <input type="hidden" name="memberBillId" value="${memberBillVO.memberBillId}"> 
-                                            <input type="hidden" name="action" value="getOne_For_Update"> 
-                                            
-                                        <span>繳費狀態:</span>
-                                        <select name="memberPay" disabled id="open${s.count}">
-                                            <option value="1" selected>已繳費</option>
-                                            <option value="0">未繳費</option>
-                                            <option value="2">待審核</option>
-                                        </select>
-                                    </FORM>
-                                </td>
                             </c:forEach>
 
 							</table>

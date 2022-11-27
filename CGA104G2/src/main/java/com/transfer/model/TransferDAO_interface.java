@@ -11,4 +11,6 @@ public interface TransferDAO_interface {
 	public List<TransferVO> getAll(String billDate);
 	
 	public List<String> getOneBillDate();
+
+	public List<TransferVO> getMemberPay(String memberPay,String billDate);
 }

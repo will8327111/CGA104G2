@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.memberLogin.model.MemberLoginService;
 import com.memberLogin.model.MemberLoginVO;
@@ -26,6 +27,7 @@ public class MemberLoginServlet extends HttpServlet {
 			String action = req.getParameter("action");
 			String member_ac = req.getParameter("member_ac");
 			String member_pw = req.getParameter("member_pw");
+			HttpSession session = req.getSession();
 //			========================================錯誤訊息=====================================================
 			if ("textForLogin".equals(action)) {
 				List<String> errorMsgs = new LinkedList<String>();
@@ -62,8 +64,8 @@ public class MemberLoginServlet extends HttpServlet {
 					return;
 				}
 //			=========================================資料驗證跳轉(Send the Success view) ================
-				req.setAttribute("memberLoginVO", memberLoginVO); 
-				String url = "/front-end/memberLogin/memberInfo.jsp";
+				session.setAttribute("memberLoginVO", memberLoginVO); 
+				String url = "/front-end/web/front-index2.html";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 			}

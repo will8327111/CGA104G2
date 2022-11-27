@@ -366,51 +366,46 @@
 						<body>
 						<div class="card-body">
 							<th>匯款查詢頁面</th>
+							<form method="post" action="transfer" name="form2"
+								enctype="multipart/form-data">
 							<table id="table-1" class="table table-borderless">
 								<div style="width: 500px; display: flex; flex-wrap: nowrap;" >
-									<div style="width: 200px">
-										<select name="" class="form-select">
-											<option disabled selected>請選擇帳單月份</option>
-<%-- 											<c:forEach var="vo2" items=""> --%>
-<!-- 												<option id="date" value=""></option> -->
-<%-- 											</c:forEach> --%>
-										</select>
-									</div>
 									<div style="width: 200px; margin-left: 10px;">
-										<select name="" class="form-select">
+										<select name="memberPay" class="form-select">
 											<option disabled selected>請選擇繳費方式</option>
 											<option value="0">待審核</option>
 											<option value="1">已繳費</option>
 										</select>
 									</div>
 									<div style="width: 50px; margin-left: 10px;">
-										<input type="hidden" name="action" value="select_Transfer">
+										<input type="hidden" name="action" value="select_memberPay">
 										<input type="submit" value="查詢" class="btn btn-primary">
 									</div>
 
 								</div>
 							</table>
+							</form>
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th>住戶編號</th>
 										<th>住戶帳單編號</th>
+										<th>住戶編號</th>
+										<th>住戶姓名</th>
 										<th>銀行代號</th>
 										<th>後五碼</th>
 										<th>匯款時間</th>
 										<th>繳費證明</th>
 										<th>帳單月份</th>
 										<th>繳費狀態</th>
-										<th>繳費方式</th>
-										<th>費用編號</th>
 									</tr>
 								</thead>
 							</table>
 							<table class="table table-bordered">
 								<c:forEach var="TransferVO" items="${list}" varStatus="s">
 									<tr>
-										<td>${TransferVO.memberId}</td>
 										<td>${TransferVO.memberBillId}</td>
+										<td>${TransferVO.memberId}</td>
+										<td>${TransferVO.memberName}</td>
 										<td>${TransferVO.bankId}</td>
 										<td>${TransferVO.bankNumber}</td>
 										<td>${TransferVO.bankDate}</td>
@@ -419,22 +414,18 @@
 											width="160px" hight="200px"></td>
 										<td>${TransferVO.billDate}</td>
 										<td>${TransferVO.memberPay}</td>
-										<td>${TransferVO.memberPayMethod}</td>
+						
 									</tr>
 
 									<td>
-										<FORM METHOD="post"
-											ACTION="<%=request.getContextPath()%>/member/bill.do"
-											style="margin-bottom: 0px;">
-											<button type="button" id="edit${s.count}"
-												class="btn btn-danger">編輯</button>
+										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/bill.do" style="margin-bottom: 0px;">
+											<button type="button" onclick="toggleSelect(${s.count})" class="btn btn-danger">編輯</button>
 											<input type="submit" value="修改" class="btn btn-warning">
-											<input type="hidden" name="memberBillId"
-												value="${memberBillVO.memberBillId}"> <input
-												type="hidden" name="action" value="getOne_For_Update">
+											<input type="hidden" name="memberBillId" value="${TransferVO.memberBillId}">
+											<input type="hidden" name="action" value="getOne_For_Update">
 
-											<span>繳費狀態:</span> <select name="memberPay" disabled
-												id="open${s.count}">
+											<span>繳費狀態:</span>
+											<select name="memberPay" disabled id="open${s.count}">
 												<option value="1" selected>已繳費</option>
 												<option value="0">未繳費</option>
 												<option value="2">待審核</option>
@@ -472,12 +463,15 @@
 	<script
 		src=${pageContext.request.contextPath}/resources/back-end/assets/js/app.js></script>
 	<!-- 樣板用js end -->
+	<!-- !!固定!! 後台樣板 css -->
+	<link rel="stylesheet"
+	href=${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css>
+	
 	<script>
-				let ed${s.count} = document.getElementById("edit${s.count}");
-				let op${s.count} = document.getElementById("open${s.count}");
-				ed${s.count}.addEventListener("click", function() {
-				op${s.count}.disabled = false
-				});
-			</script>
+		function toggleSelect(count) {
+			const select = document.querySelector(`#open\${count}`);
+			select.disabled = !select.disabled;
+		}
+	</script>
 </body>
 </html>
