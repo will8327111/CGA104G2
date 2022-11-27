@@ -5,18 +5,15 @@
 
 <%
 PrivateReportService1 privateReportService1 = new PrivateReportService1();
-List<PrivateReportVO1> list = privateReportService1.getAllReport(); // 設定Account的getAll集合
+List<PrivateReportVO1> list = privateReportService1.findByMemberAc("EreYea1"); // 設定Account的getAll集合
 pageContext.setAttribute("list", list);
-%>
-<%
-request.getAttribute("errorMsgs");
 %>
 
 <html>
 <head>
 
 <meta charset="UTF-8">
-<title>私人檢舉頁面</title>
+<title>我的檢舉頁面</title>
 
 <style>
 #header {
@@ -54,28 +51,30 @@ form {
 				${(privateReportVO1.privateReportStatus == 1) ? 'selected' : '' }>瀏覽已完成檢舉</option>
 			<option value="0"
 				${(privateReportVO1.privateReportStatus == 0) ? 'selected' : '' }>瀏覽未完成檢舉</option>
-		</select> <input type="hidden" name="action" value="getAllSelected"> <input
+		</select> <input type="hidden" name="action" value="getAllSelected2"> <input
+			type="hidden" name="memberAc" value="EreYea1"> <input
 			type="submit" value="確定">
-	</form>
-	
-	<form method="get"
-		action="<%=request.getContextPath()%>/back-end/privateReport1/privateReportServlet.do">
-		<b> 依表單編號查詢: </b><input type="text" name="privateReportId"> <input
-			type="hidden" name="action" value="getOneReportById"> <input
-			type="submit" value="送出">
 	</form>
 
 	<form method="get"
 		action="<%=request.getContextPath()%>/back-end/privateReport1/privateReportServlet.do">
-		<b> 依住戶姓名查詢: </b><input type="text" name="memberName"> 	<input
-			type="hidden" name="action" value="getOneReportByName"> <input
+		<b> 依表單編號查詢: </b><input type="text" name="privateReportId"> <input
+			type="hidden" name="memberAc" value="EreYea1"> <input
+			type="hidden" name="action" value="getOneReportById2"> <input
 			type="submit" value="送出">
 	</form>
 
 	<a
-		href="<%=request.getContextPath()%>/back-end/privateReport/privateReportInfo.jsp">
+		href="<%=request.getContextPath()%>/front-end/privateReport/showReport.jsp">
 		<button>返回所有檢舉列表</button>
 	</a>
+
+	<form method="get"
+		action="<%=request.getContextPath()%>/back-end/privateReport1/privateReportServlet.do">
+		<input type="hidden" name="action" value="toReport"><input
+			type="hidden" name="memberAc" value="EreYea1"> <input
+			type="submit" value="我要檢舉" style="width: 100px; height: 50px;">
+	</form>
 
 	<div id="errorMsgs">
 		<font color="red"><b>${errorMsgs}</b>
@@ -84,7 +83,7 @@ form {
 	<div id='select'>
 		<table id="reportTable" style='border: 1px solid black'>
 			<caption>
-				<h2>住戶所有檢舉列表</h2>
+				<h2>我的所有檢舉列表</h2>
 			</caption>
 			<tr>
 				<th>檢舉編號</th>
@@ -96,7 +95,6 @@ form {
 				<th>回覆內容</th>
 				<th>回覆內容附圖</th>
 				<th>回覆日期/時間</th>
-				<th>管理員回覆</th>
 			</tr>
 			<c:forEach var="privateReportVO1" items="${list}">
 				<tr>
@@ -142,7 +140,7 @@ form {
 						</c:when>
 						<c:otherwise>
 							<th><img
-								src="<%=request.getContextPath()%>/back-end/privateReport1/privateReportPicServlet.do?action=showPic&privateReportId=${privateReportVO1.privateReportId}"
+								src="<%=request.getContextPath()%>/back-end/privateReport1/privateReportPicServlet.do?action=showMemberPic&privateReportId=${privateReportVO1.privateReportId}"
 								width="300px" /></th>
 						</c:otherwise>
 					</c:choose>
@@ -154,25 +152,6 @@ form {
 						</c:when>
 						<c:otherwise>
 							<th>${privateReportVO1.replyOfReportTime}</th>
-						</c:otherwise>
-					</c:choose>
-
-					<c:choose>
-						<c:when test="${not empty privateReportVO1.replyOfReport}">
-							<th><input type="submit" value="管理員回覆" disabled="disabled"></th>
-						</c:when>
-						<c:otherwise>
-							<th>
-								<form method="get"
-									action="<%=request.getContextPath()%>/back-end/privateReport1/privateReportServlet.do">
-									<input type="hidden" name="privateReportId"
-										value="${privateReportVO1.privateReportId}"> <input
-										type="hidden" name="memberId"
-										value="${privateReportVO1.memberId}"> <input
-										type="submit" value="管理員回覆"> <input type="hidden"
-										name="action" value="getOne_For_Update">
-								</form>
-							</th>
 						</c:otherwise>
 					</c:choose>
 				</tr>

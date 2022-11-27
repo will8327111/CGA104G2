@@ -1,7 +1,8 @@
 package com.privateReport1.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.List;
 
 
 public class PrivateReportVO1 implements Serializable{
@@ -9,14 +10,15 @@ public class PrivateReportVO1 implements Serializable{
 	
 	private Integer privateReportId;
 	private Integer memberId;
+	private String memberAc;
 	private String memberName;
-	private Date privateReportTime;
+	private Timestamp privateReportTime;
 	private String privateReportContent;
 	private byte[] privateReportPic;  
 	private Integer privateReportStatus;
 	private String ReplyOfReport;
 	private byte[] ReplyPic; 
-	private Date ReplyOfReportTime;
+	private Timestamp ReplyOfReportTime;
 	
 	public Integer getPrivateReportId() {
 		return privateReportId;
@@ -30,16 +32,28 @@ public class PrivateReportVO1 implements Serializable{
 	public void setMemberId(Integer memberId) {
 		this.memberId = memberId;
 	}
+	public String getMemberAc() {
+		return memberAc;
+	}
+	public void setMemberAc(String memberAc) {
+		this.memberAc = memberAc;
+	}
+	public String getMemberPw() {
+		return memberPw;
+	}
+	public void setMemberPw(String memberPw) {
+		this.memberPw = memberPw;
+	}
 	public String getMemberName() {
 		return memberName;
 	}
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
-	public Date getPrivateReportTime() {
+	public Timestamp getPrivateReportTime() {
 		return privateReportTime;
 	}
-	public void setPrivateReportTime(Date privateReportTime) {
+	public void setPrivateReportTime(Timestamp privateReportTime) {
 		this.privateReportTime = privateReportTime;
 	}
 	public String getPrivateReportContent() {
@@ -72,17 +86,15 @@ public class PrivateReportVO1 implements Serializable{
 	public void setReplyPic(byte[] replyPic) {
 		ReplyPic = replyPic;
 	}
-	public Date getReplyOfReportTime() {
+	public Timestamp getReplyOfReportTime() {
 		return ReplyOfReportTime;
 	}
-	public void setReplyOfReportTime(Date replyOfReportTime) {
+	public void setReplyOfReportTime(Timestamp replyOfReportTime) {
 		ReplyOfReportTime = replyOfReportTime;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
 	
 	
 }

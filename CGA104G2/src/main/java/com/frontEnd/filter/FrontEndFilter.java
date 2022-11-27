@@ -1,4 +1,4 @@
-package com.backstage.filter;
+package com.frontEnd.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 						  "/back-end/backstageAccount/updateOneInfo.jsp"
 						 })
 
-public class BackstageFilter implements Filter {
+public class FrontEndFilter implements Filter {
 
 	private FilterConfig config;
 
@@ -42,10 +42,10 @@ public class BackstageFilter implements Filter {
 		// 【取得 session】
 		HttpSession session = req.getSession();
 		// 【從 session 判斷此user是否登入過】
-		Object backstageAccountVO = session.getAttribute("backstageAccountVO");
-		if (backstageAccountVO == null) {
+		Object memberVO = session.getAttribute("memberVO");
+		if (memberVO == null) {
 			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath() + "/back-end/backstageAccount/backstageLogin.jsp");
+			res.sendRedirect(req.getContextPath() + "/front-end/memberLogin/memberLogin.jsp");
 			return;
 		} else {
 			chain.doFilter(request, response);

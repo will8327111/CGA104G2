@@ -4,29 +4,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-PrivateReportService1 privateReportService1 = new PrivateReportService1();
-List<PrivateReportVO1> list = privateReportService1.getAllReport(); // 設定Account的getAll集合
-pageContext.setAttribute("list", list);
-%>
-<%
-request.getAttribute("errorMsgs");
+session.getAttribute("privateReportVO1");
 %>
 
 <html>
 <head>
-
-<meta charset="UTF-8">
-<title>私人檢舉頁面</title>
-
 <style>
 #header {
 	border: 2px solid black;
 	border-collapse: collapse;
-}
-
-#errorMsgs {
-	text-align: center;
-	font-size: 50px;
 }
 
 table, tr, th, td {
@@ -39,12 +25,14 @@ form {
 	padding: 10px;
 }
 </style>
+<meta charset="UTF-8">
+<title>私人檢舉頁面</title>
 </head>
 
 <body bgcolor="lightYellow">
 
 	<div id="header">
-		<h1 id="test">您好，這裡是住戶檢舉頁面!</h1>
+		<h1 id="test">您好，這裡是住戶檢舉頁面！</h1>
 	</div>
 
 	<form method="get"
@@ -57,29 +45,25 @@ form {
 		</select> <input type="hidden" name="action" value="getAllSelected"> <input
 			type="submit" value="確定">
 	</form>
-	
+
 	<form method="get"
 		action="<%=request.getContextPath()%>/back-end/privateReport1/privateReportServlet.do">
-		<b> 依表單編號查詢: </b><input type="text" name="privateReportId"> <input
-			type="hidden" name="action" value="getOneReportById"> <input
-			type="submit" value="送出">
+		<b> 依表單編號查詢: </b><input type="text"
+			name="privateReportId"> <input type="hidden" name="action"
+			value="getOneReportById"> <input type="submit" value="送出">
 	</form>
 
 	<form method="get"
 		action="<%=request.getContextPath()%>/back-end/privateReport1/privateReportServlet.do">
-		<b> 依住戶姓名查詢: </b><input type="text" name="memberName"> 	<input
-			type="hidden" name="action" value="getOneReportByName"> <input
-			type="submit" value="送出">
+		<b> 依住戶姓名查詢: </b><input type="text" name="memberName">
+			<input type="hidden" name="action" value="getOneReportByName">
+			<input type="submit" value="送出">
 	</form>
 
 	<a
 		href="<%=request.getContextPath()%>/back-end/privateReport/privateReportInfo.jsp">
 		<button>返回所有檢舉列表</button>
 	</a>
-
-	<div id="errorMsgs">
-		<font color="red"><b>${errorMsgs}</b>
-	</div>
 
 	<div id='select'>
 		<table id="reportTable" style='border: 1px solid black'>
@@ -98,7 +82,7 @@ form {
 				<th>回覆日期/時間</th>
 				<th>管理員回覆</th>
 			</tr>
-			<c:forEach var="privateReportVO1" items="${list}">
+			<c:forEach var="privateReportVO1" items="${listByName}">
 				<tr>
 					<th>${privateReportVO1.privateReportId}</th>
 					<th>${privateReportVO1.memberName}</th>
@@ -167,8 +151,6 @@ form {
 									action="<%=request.getContextPath()%>/back-end/privateReport1/privateReportServlet.do">
 									<input type="hidden" name="privateReportId"
 										value="${privateReportVO1.privateReportId}"> <input
-										type="hidden" name="memberId"
-										value="${privateReportVO1.memberId}"> <input
 										type="submit" value="管理員回覆"> <input type="hidden"
 										name="action" value="getOne_For_Update">
 								</form>
