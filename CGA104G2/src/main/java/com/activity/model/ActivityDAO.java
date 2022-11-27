@@ -55,7 +55,7 @@ public class ActivityDAO implements ActivityDAO_interface {
 		 try {
 			 ActivityVO vo= getSession().load(ActivityVO.class,activityVO.getActId());
 			 vo.setActType(activityVO.getActType());
-			 vo.setActName(activityVO.getActLocation());
+			 vo.setActName(activityVO.getActName());
 			 vo.setActContent(activityVO.getActContent());
 			 vo.setActMaxCount(activityVO.getActMaxCount());
 			 vo.setActMinCount(activityVO.getActMinCount());
