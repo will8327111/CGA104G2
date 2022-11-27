@@ -28,11 +28,12 @@
 	margin: 10px;
 	font-family: 'helvetica', san-serif;
 	min-height: 25vh;
-	background: #262a2b;
+	background: #e4e5e6;
 	border: 1px solid #252727;
 	text-align: left;
 }
 .tilesWrap li h2 {
+	color: #365129;
 	font-size: 114px;
 	margin: 0;
 	position: absolute;
@@ -43,20 +44,22 @@
 }
 .tilesWrap li h3 {
 	font-size: 20px;
-	color: #b7b7b7;
+	color: #020202;
 	margin-bottom: 5px;
 }
 .tilesWrap li p {
 	font-size: 16px;
 	line-height: 18px;
-	color: #b7b7b7;
+	color: #020202;
 	margin-top: 5px;
+	font-family: 'huninn';
 }
 .tilesWrap li input  {
+	font-family: 'huninn';
 	background: transparent;
-	border: 1px solid #b7b7b7;
+	border: 1px solid #585454;
 	padding: 10px 20px;
-	color: #b7b7b7;
+	color: #585454;
 	border-radius: 3px;
 	position: relative;
 	transition: all 0.3s ease-in-out;
