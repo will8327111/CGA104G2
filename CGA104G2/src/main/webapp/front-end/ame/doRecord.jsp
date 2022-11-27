@@ -85,9 +85,9 @@
 	<table>
 		<tr>
 			<td>
-				<h1>顯示</h1>
+				<h1>顯示日曆</h1>
 				<h4>
-					<a href="/CGA104G2/front-end/ame/watchAme.jsp">回瀏覽頁</a>
+					<a href="front-end/ame/showAme.jsp">回瀏覽頁</a>
 				</h4>
 			</td>
 		</tr>
@@ -184,7 +184,7 @@
 						<input type="hidden" name="ame_StaDate" value="\${value}"> 
 						<input class="btn btn-outline-warning" type="submit" value="查看時段"> </li></form>`; //创建日期节点
 					
-				} else {
+				} else if(i < my_day + 30 && my_year == my_date.getFullYear() && my_month == my_date.getMonth() ){
 					myclass = " class='darkgrey'"; //当该日期在今天之后时，以深灰字体显示
 					str += `<form METHOD="post" ACTION="../CGA104G2/ame_sta.do" style="margin-bottom: 0px;"> 
 						<li \${myclass} > \${i}  
@@ -193,6 +193,19 @@
 						<input type="hidden" name="ame_StaDate" value="\${value}">  
 						<input class="btn btn-outline-warning" type="submit" value="查看時段"> </li></form>`; //创建日期节点
 										
+				} else if(i < my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth() +1 ){
+					myclass = " class='darkgrey'"; //当该日期在今天之后时，以深灰字体显示
+					str += `<form METHOD="post" ACTION="../CGA104G2/ame_sta.do" style="margin-bottom: 0px;"> 
+						<li \${myclass} > \${i}  
+						<input type="hidden" name="action" value="doRecord2"> 
+						<input type="hidden" name="ameid" value="${ameid}">  
+						<input type="hidden" name="ame_StaDate" value="\${value}">  
+						<input class="btn btn-outline-warning" type="submit" value="查看時段"> </li></form>`; //创建日期节点
+
+				
+				}else {
+					myclass = " class='lightgrey'"; //当该日期在今天之前时，以浅灰色字体显示
+					str += `<li \${myclass} > \${i}</li>`; //创建日期节点
 				}
 			}
 			holder.innerHTML = str; //设置日期显示

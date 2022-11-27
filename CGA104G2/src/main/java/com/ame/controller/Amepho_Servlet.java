@@ -1,13 +1,21 @@
 package com.ame.controller;
 
-import java.io.*;
-import java.sql.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
-import javax.servlet.*;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 @WebServlet("/Amepho_Servlet")
@@ -23,8 +31,7 @@ public class Amepho_Servlet extends HttpServlet {
 		try {
 			Statement stmt = con.createStatement();
 			String AME_ID = req.getParameter("AME_ID").trim();
-			ResultSet rs = stmt.executeQuery(
-					"SELECT AME_IMG FROM AMENITIES WHERE AME_ID =" + AME_ID);
+			ResultSet rs = stmt.executeQuery("SELECT AME_IMG FROM AMENITIES WHERE AME_ID =" + AME_ID);
 
 			if (rs.next()) {
 				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("AME_IMG"));
@@ -36,10 +43,10 @@ public class Amepho_Servlet extends HttpServlet {
 				in.close();
 			} else {
 //			res.sendError(HttpServletResponse.SC_NOT_FOUND);
-			InputStream in = getServletContext().getResourceAsStream("/NoData/none2.jpg");
-			byte[] b = in.readAllBytes();
-			out.write(b);
-			in.close();
+				InputStream in = getServletContext().getResourceAsStream("/NoData/none2.jpg");
+				byte[] b = in.readAllBytes();
+				out.write(b);
+				in.close();
 			}
 			rs.close();
 			stmt.close();
@@ -56,7 +63,7 @@ public class Amepho_Servlet extends HttpServlet {
 	public void init() throws ServletException {
 		try {
 			Context ctx = new javax.naming.InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Community");
+			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
 			con = ds.getConnection();
 		} catch (NamingException e) {
 			e.printStackTrace();

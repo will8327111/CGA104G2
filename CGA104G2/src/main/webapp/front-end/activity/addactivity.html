@@ -5,6 +5,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta charset="utf-8">
+    <title>社區業務管理系統-陪你e生e世</title>
+    <meta name="robots" content="noindex,nofollow">
+<!--    禁止本地端快取-->
+<!--    <Meta http-equiv="Pragma" Content="No-cache">-->
+<!--    隱藏圖片下載-->
+    <meta http-equiv="imagetoolbar" content="false">
+    <meta name="keywords" content="">
+    <!-- 定義為RWD web -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- 最佳兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!--=============Google Font ===============-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
+    <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
+    <link rel="shortcut icon" href="../../resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
+
+    <!--==============css===============-->
+    <!--font awesome kit-->
+    <script src="https://kit.fontawesome.com/7e021e96db.js" crossorigin="anonymous"></script>
+    <!--!!固定!! 前台樣式-->
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/jquery.bxslider.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
+    <!--modaal-->
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
+
+    <!--=============js=============-->
+    <!--延遲載入-->
+    <script src="../../resources/front-end/assets/js/lazyload.min.js"></script>
+    
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
@@ -13,7 +47,20 @@
 <script
 	src="../../resources/datetimepicker/jquery.datetimepicker.full.js">
 	</script>
+	
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		
+		
+		   <!--==============這邊放自己的 css===============-->
+		
+		
     <style>
+     @font-face {
+            font-family: 'huninn';
+            src: url('../../resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
+        }
+    
+    
 		HTML CSSResult Skip Results Iframe
 		*, *:before, *:after {
 			-moz-box-sizing: border-box;
@@ -22,7 +69,7 @@
 		}
 		
 		body {
-			font-family: 'Nunito', sans-serif;
+		  font-family: 'huninn',serif;
 			color: #384047;
 		}
 		
@@ -66,23 +113,24 @@
 		
 		select {
 			padding: 6px;
-			height: 32px;
+			height: 38px;
 			border-radius: 2px;
 		}
 		
-		button {
-			padding: 19px 39px 18px 39px;
-			color: #FFF;
-			background-color: #4bc970;
-			font-size: 18px;
-			text-align: center;
-			font-style: normal;
-			border-radius: 5px;
-			width: 100%;
-			border: 1px solid #3ac162;
-			border-width: 1px 1px 3px;
-			box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
-			margin-bottom: 10px;
+		.button1 {
+			 padding: 6px 39px 18px 39px;
+        color: #FFF;
+        background-color: #4bc970;
+        font-size: 18px;
+        text-align: center;
+        font-style: normal;
+        border-radius: 5px;
+        width: 35%;
+        height:45px;
+        border: 1px solid #3ac162;
+        border-width: 1px 1px 3px;
+        box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+        margin-bottom: 10px;
 		}
 		
 		fieldset {
@@ -135,9 +183,66 @@
 </head>
 
 <body>
+	               <header id="header">
+
+<!--!!固定!! 導覽列 start-->
+            <nav id="pc-nav">
+                <!--!!固定!! logo-->
+                <div>
+                    <h1 style="width:166px" ><a href="../../front-end/web/front-index2.html"><img src="../../resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台" style="width: 100%; display: flex;justify-content: flex-start; flex-direction: inherit;"></a></h1>
+                </div>
+            </nav>
+            <span style="margin-left:10px"></span>
+                <ul>
+                    <div>
+                        <a href="homepage3.html"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>回到活動首頁</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-house"></i><label style="font-size: 1rem;">活動首頁</label></button></a>
+                    </div>
+                </ul>
+                <ul>
+                    <div>
+                        <a href="mylist.html"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>我舉辦的活動</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-table-list"></i><label style="font-size: 1rem;">我舉辦的活動</label></button></a>
+                    </div>
+                </ul>
+                  <ul>
+                    <div  >
+                        <a href="myaddlist.html"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>我參加的活動</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-user-plus"></i><label style="font-size: 1rem;"> 我參加的活動</label></button></a>
+                    </div>
+                </ul>
+                    <ul>
+                    <div >
+                        <a href="addactivity.html"><button class="cap"  id="add" data-tippy-content="<div class='inner-cap'><p>新增活動。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-plus"></i><label style="font-size: 1rem;"> 新增活動</label></button></a>
+                    </div>
+                </ul>
+                
+                    <ul>
+                    <div id="login-div" >
+                        <a href="#"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>住戶登入/登出。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 登出</label></button></a>
+                    </div>
+                </ul>
+            <ul>
+                <div id="out-div" >
+                    <a href="#"><button class="cap"  id="out" data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-bell"></i><label style="font-size: 1rem;"> 通知</label></button></a>
+                </div>
+            </ul>
+            <!--導覽列 end-->
+        </header>
+
+
+<!--!!固定!! 空白遮罩-->
+        <div style="width: 100%; height:100px;"></div>
+
+<!--!!固定!! main area-->
+        <div id="container">
+
+
+
+<main id="main-area">
+
+
+
 	<FORM METHOD="post" action="../../activity/ActServlet" id="myForm"
 	name="form1" enctype="multipart/form-data">
-	<h1>新增活動</h1>
+	
 
 	<fieldset>
 
@@ -145,7 +250,7 @@
 			<span class="number">1</span>新增圖片
 		</legend>
 
-		<label for="photo">photo:</label> <input type="file" name="photo1"
+		<label for="photo"></label><input type="file" name="photo1"
 			multiple="multiple" />
 
 	</fieldset>
@@ -164,7 +269,7 @@
 		</select>
 		
 		<label>活動最大人數:</label> 
-		<input type="TEXT" id="actMax" name="actMax"> 
+		<input type="TEXT" id="actMax" name="actMax" > 
 		<label>活動最小人數:</label> 
 		<input type="TEXT" id="actMin" name="actMin"> 
 		<label>活動報名開始時間</label> 
@@ -208,14 +313,85 @@
 
 	</fieldset>
 	<input type="hidden" name="action" value="insert">
-	<button type="submit">送出表單</button>
+	<button class="button1" type="submit">送出表單</button>
 </form>
+
+
+</main>
+</div>
+
+<!--!!固定!! footer-->
+        <footer id="footer">
+<!--右上角menu-->
+            <div class="openbtn"><span></span><span>Menu</span><span></span></div>
+            <div id="g-nav">
+                <div id="g-nav-list">
+                    <ul>
+                        <li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
+                        <li><a href="#">住戶帳號</a></li>
+                        <li><a href="#">社區帳單</a></li>
+                        <li><a href="#">郵件</a></li>
+                        <li><a href="#">公共設施</a></li>
+                        <li><a href="#">活動</a></li>
+                        <li><a href="#">檢舉與維修</a></li>
+                        <li><a href="#">特約商店</a></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="footer-logo">Community Management</p>
+            <small>2022 &copy; 陪你e生e世　社區服務平台</small>
+<!--            返回最上方小圖示-->
+            <p id="page-top"><a href="#">Top</a></p>
+        </footer>
+        <!--/wrapper-->
+    </div>
+ <!--=============JS ===============-->
+    <!--jQuery-->
+    <script src="../../resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
+    <!--news tickerー-->
+    <script src="../../resources/front-end/assets/js/jquery.bxslider.min.js"></script>
+    <!--背景線延伸效果-->
+    <script src="../../resources/front-end/assets/js/scrollgress.min.js"></script>
+    <!--apang 動畫-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apng-canvas/2.1.1/apng-canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <!--Tippy-->
+    <script src="https://unpkg.com/popper.js@1"></script>
+    <script src="https://unpkg.com/tippy.js@5"></script>
+
+    <!--other-->
+    <script src="../../resources/front-end/assets/js/modaal.min.js"></script>
+    <script src="../../resources/front-end/assets/js/script.js"></script>
+    <script src="../../resources/front-end/assets/js/search_origin.js"></script>
+
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+	<link rel="stylesheet" type="text/css"
+	href="../../resources/datetimepicker/jquery.datetimepicker.css" />
+<script
+	src="../../resources/datetimepicker/jquery.datetimepicker.full.js">
+	</script>
+	
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
 
 <script>
 	$.validator.setDefaults({
 		submitHandler: function (form) {
-			alert("成功提交！");
+			
 			form.submit();
+			Swal.fire({
+	 			  icon: 'success',
+	 			  title: '新增成功',
+	 			  showConfirmButton: false,
+	 				timer: 1500 
+	 		})
+	 				
 		}
 	});
 
@@ -242,10 +418,13 @@
 				actMax:{
 					required: true,
 					isZero: true,
+					compareMin:true
+				
 				},
 				actMin:{
 					required: true,
-					min: true,					
+					min: true,			
+					compare:true
 				},
 				singStart:{
 					required: true,
@@ -296,11 +475,14 @@
 				
 				actMax:{
 					required:"活動最大人數為必填",
-					isZero: "活動最大人數不能為零,最小下限為1,最大上限為999,輸入必須為數字"
+					isZero: "活動最大人數不能為零,最小下限為1,最大上限為999,輸入必須為數字",
+					compareMin:"人數不能小於最小人數"
+					
 				},
 				actMin:{
 					required:"活動最小人數為必填",
-					min: "活動最小人數不能為零,最小下限為1,最大上限為999,輸入必須為數字"
+					min: "活動最小人數不能為零,最小下限為1,最大上限為999,輸入必須為數字",
+					compare:"人數不能大於最大人數"
 				},
 				
 				singStart:{
@@ -378,11 +560,13 @@
    
      	$.validator.addMethod("checkDay", function(value, element) { 
    		let currentDay = new Date();
-   		const date2 = new Date(value);	
-		if(currentDay>date2){
-			 return false			
+   		currentDay = currentDay.toLocaleDateString('sv')
+   		let date2 = new Date(value);	
+   		date2=date2.toLocaleDateString('sv')
+		if(date2>=currentDay){
+			 return true		
 		}else{
-			return true
+			return false
 		}
 		 
    })
@@ -399,17 +583,43 @@
        
    })
    
+   
+     	$.validator.addMethod("compare", function(value, element) { 
+        let max = document.getElementById("actMax").value	
+	      max=parseInt(max);
+        value=parseInt(value);
+        
+        if(value>max){
+        	return false
+        }else{
+        	return true
+        }
+
+   })
+   
+   
+   
+     	$.validator.addMethod("compareMin", function(value, element) { 
+        let min = document.getElementById("actMin").value	
+       	 min=parseInt(min);
+        value=parseInt(value);
+        
+        if(value<min){
+        	return false
+        }else{
+        	return true
+        }
+
+   })
+   
+   
 	
    
    	$.validator.addMethod("checkCountry", function(value, element) { 
    		
    	   return (value.length>0)
    		
-//         if(value.length==0){
-//         	return false
-//         }else{
-//         	return true
-//         }
+
        
    })
    

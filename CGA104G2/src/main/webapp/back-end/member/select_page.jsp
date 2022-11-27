@@ -6,19 +6,18 @@
     <title>住戶個人資訊</title>
 
     <%--STYLE--%>
-    <link href="${pageContext.request.contextPath}/resources/assets/css/main/app.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/form-element-select.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/summernote.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/search.css" rel="stylesheet">
 </head>
 <body>
 
 <div>
     <tr>
-        <td><h3 class="page-title-headings">住戶個人資訊查詢</h3></td>
+        <td><h3 class="page-title-headings">住戶個人資訊查詢 select_page</h3></td>
     </tr>
 </div>
 <br>
-<h4><a href="${pageContext.request.contextPath}/back-end/member/member_index.jsp"><img src="./images/back.svg" width="30" height="30"
+<h4><a href="${pageContext.request.contextPath}/back-end/member/memberHome.jsp"><img src="./images/back.svg" width="30" height="30"
                                                                 alt="返回">回首頁</a></h4>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -37,15 +36,22 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="row-cols-md-3">
-                            <li><a href="/CGA104G2/back-end/member/listAllMember.jsp">List All</a> 全部住戶 <br><br></li>
+                            <li><a href="${pageContext.request.contextPath}/back-end/member/listAllMember.jsp">List All</a> 全部住戶 <br><br></li>
                             <li>
-                                <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do">
+                                <div id="search-wrap">
+                                <FORM role="search" METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do">
                                     <b>請輸入住戶編號 (如數字：1):</b>
-                                    <input type="text" name="memberid">
+                                    <input type="text" name="memberid" id="search-text">
                                     <input type="hidden" name="action" value="getOne_For_Display">
                                     <input type="submit" class="btn btn-outline-primary" value="送出">
                                 </FORM>
+                                </div>
                             </li>
+
+<%--                            <div id="search-wrap">--%>
+<%--                                <form role="search" method="get" action="">--%>
+<%--                                    <input type="text" value="" name="" id="search-text">--%>
+<%--                                </form>--%>
 
                             <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService"/>
 
@@ -63,7 +69,7 @@
                             </li>
 
                             <li>
-                                <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do">
+                                <FORM METHOD="get" ACTION="${pageContext.request.contextPath}/member/member.do">
                                     <b>選擇住戶姓名:</b>
                                     <select size="1" name="memberid" class="form-select">
                                         <c:forEach var="memberVO" items="${memberSvc.all}">

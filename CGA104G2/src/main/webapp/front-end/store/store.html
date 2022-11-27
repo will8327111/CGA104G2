@@ -1,18 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="../../resources/back-end/assets/css/main/app.css">
-<style>
-		#storeTitle {
-			text-align: center;
+    <meta charset="utf-8">
+    <title>社區業務管理系統-陪你e生e世</title>
+    <meta name="robots" content="noindex,nofollow">
+<!--    禁止本地端快取-->
+<!--    <Meta http-equiv="Pragma" Content="No-cache">-->
+<!--    隱藏圖片下載-->
+    <meta http-equiv="imagetoolbar" content="false">
+    <meta name="keywords" content="">
+    <!-- 定義為RWD web -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- 最佳兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!--=============Google Font ===============-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
+    <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
+    <link rel="shortcut icon" href="../../resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
+
+    <!--==============css===============-->
+    <!--font awesome kit-->
+    <script src="https://kit.fontawesome.com/7e021e96db.js" crossorigin="anonymous"></script>
+    <!--!!固定!! 前台樣式-->
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/jquery.bxslider.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
+    <!--modaal-->
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
+
+    <!--=============js=============-->
+    <!--延遲載入-->
+    <script src="../../resources/front-end/assets/js/lazyload.min.js"></script>
+
+    <!--==============這邊放自己的 css===============-->
+
+
+
+    <!--==============css===============-->
+    <style>
+ /*!!固定!! 字形*/
+        @font-face {
+            font-family: 'huninn';
+            src: url('../../resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
+        }
+        body {
+            font-family: 'huninn',serif;
+        }
+        #storeTitle {
+/* 			text-align: center; */
 			border-bottom: 3px solid #DDAA00;
 			margin-bottom: 5px;
 			display: inline-block;
 			width: 100%;
-		
 		}
 		#photoContent{
 			border:1px solid red;
@@ -23,7 +64,7 @@
 			width: 270px;
 			margin: 55px;
 		}
-		img{
+		#imgStore{
 			display: inline-block;
   			width: 100%;
  			height: 225px;
@@ -32,138 +73,103 @@
 			display: inline-block;
 			margin-left:200px;
 		}
-	
-        .header {
-            border-bottom: 1px solid #ccc;
-            margin-bottom: 5px;
-        }
-
-        #title {
-            /* border: 1px solid black; */
-            display: inline-block;
-            width: 100%;
-            color: red;
-            text-align: center;
-        }
-
-        .MainContainer {
-            min-width: 960px;
-            max-width: 1600px;
-        }
-
-        .sidebar {
-            width: 20%;
-            float: left;
-            margin-right: -180px;
-            border-right: 1px solid #ccc;
-            min-height: 500px;
-            padding: 5px;
-            
-        }
-        .li li{
-        	list-style: none;
-        }
-		
-        .main {
-            float: left;
-            margin-left: 200px;
-            padding: 5px;
-        }
-
-        .content {
-            padding: 0 10px;
-        }
-
-        #main {
-            display: inline-block;
-            width: 75%;
-            height: 490px;
-            margin-left: 200px;
-
-        }
-	  table#table-1 {
-		background-color: #CCCCFF;
-	    border: 2px solid black;
-	    text-align: center;
-	  }
-	  table#table-1 h4 {
-	    color: red;
-	    display: block;
-	    margin-bottom: 1px;
-	  }
-	  h4 {
-	    color: blue;
-	    display: inline;
-		  }
-	  #getStoreAll {
-	  	border: 1px solid #CCCCFF;
-		width: 800px;
-		background-color: white;
-		margin-top: 5px;
-		margin-bottom: 5px;
-	  }
-	  #getStoreAll th  {
-	    border: 1px solid #CCCCFF;
-	    padding: 5px;
-	    text-align: center;
-	  }
-	  #getStoreAll td {
-	   	border: 1px solid #CCCCFF;
-	    padding: 5px;
-	    text-align: center;
-	  }
-
-	</style>
+    </style>
 </head>
+
+
 <body>
-    <div class="page">
+        <header id="header">
 
-        <div class="header">
-            <div id="title">
-                <h1>特約商店系統</h1>
-            </div>
-        </div>
-
-        <div class="MainContainer">
-            <div class="sidebar">
+<!--!!固定!! 導覽列 start-->
+            <nav id="pc-nav">
+                <!--!!固定!! logo-->
+                <div>
+                    <h1><a href="../../front-end/web/front-index2.html"><img src="../../resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台" style="width: 50%; display: flex;justify-content: flex-start; flex-direction: inherit;"></a></h1>
+                </div>
+            </nav>
                 <ul>
-                    <li class="li">特約商店管理
-                        <ol>
-                            <li>
-                            	<input type="button" id="addStore" value="新增商店">
-                            </li>
-                            
-                            <li>
-                            	<input type="hidden" name="action" value="getAll">
-                            	<input type="submit" id="listAllMail" value="所有特約商店">
-                            </li>
-                        </ol>
-                    </li>
+                    <div id="login-div" >
+                        <a href="#"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>住戶登入/登出。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 登出</label></button></a>
+                    </div>
                 </ul>
-            </div>
+            <ul>
+                <div id="out-div" >
+                    <a href="#"><button class="cap"  id="out" data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-bell"></i><label style="font-size: 1rem;"> 通知</label></button></a>
+                </div>
+            </ul>
+            <!--導覽列 end-->
+        </header>
 
-            <div id="main" class="main">
+<!--!!固定!! 空白遮罩-->
+        <div style="width: 100%; height:100px;"></div>
+
+<!--!!固定!! main area-->
+        <div id="container">
+            <main id="main-area">
+		<div>
+            </div>
+            <div>
 	            <div>
 					<div id='storeTitle'>
 						<h2>特約商店</h2>
 					</div>
 				</div>	
-				
             </div>
-
         </div>
+
+<!--main area end-->
+            </main>
+            <!--container-->
+        </div>
+
+<!--!!固定!! footer-->
+        <footer id="footer">
+<!--右上角menu-->
+            <div class="openbtn"><span></span><span>Menu</span><span></span></div>
+            <div id="g-nav">
+                <div id="g-nav-list">
+                    <ul>
+                        <li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
+                        <li><a href="#">住戶帳號</a></li>
+                        <li><a href="#">社區帳單</a></li>
+                        <li><a href="#">郵件</a></li>
+                        <li><a href="#">公共設施</a></li>
+                        <li><a href="#">活動</a></li>
+                        <li><a href="#">檢舉與維修</a></li>
+                        <li><a href="#">特約商店</a></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="footer-logo">Community Management</p>
+            <small>2022 &copy; 陪你e生e世　社區服務平台</small>
+<!--            返回最上方小圖示-->
+            <p id="page-top"><a href="#">Top</a></p>
+        </footer>
+        <!--/wrapper-->
     </div>
 
-		
+    <!--=============JS ===============-->
+    <!--jQuery-->
+    <script src="../../resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
+    <!--news tickerー-->
+    <script src="../../resources/front-end/assets/js/jquery.bxslider.min.js"></script>
+    <!--背景線延伸效果-->
+    <script src="../../resources/front-end/assets/js/scrollgress.min.js"></script>
+    <!--apang 動畫-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apng-canvas/2.1.1/apng-canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <!--Tippy-->
+    <script src="https://unpkg.com/popper.js@1"></script>
+    <script src="https://unpkg.com/tippy.js@5"></script>
 
+    <!--other-->
+    <script src="../../resources/front-end/assets/js/modaal.min.js"></script>
+    <script src="../../resources/front-end/assets/js/script.js"></script>
+    <script src="../../resources/front-end/assets/js/search_origin.js"></script>
 
 </body>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<script src="../../resources/datetimepicker/jquery.js"></script>
-	<script src="../../resources/datetimepicker/jquery.datetimepicker.full.js"></script>
-	<script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
-<script >
-	window.addEventListener("load",async function () {
+<script>
+	window.addEventListener("load",async function() {
 		await fetch('../../back-end/store/store.do?action=getAll', {
 			method: 'get'
 		})
@@ -172,31 +178,28 @@
 			showStore(res);
 		})
 	});
+	function b(i){
+ 		fetch('../../back-end/store/store.do?action=setOneStore&storeId='+ i, 
+ 				{method: 'get'});
+ 	}
 	function showStore(json) {
-        let store = json;
-
-        for (let i = 0; i < store.length; i++) {
-            let str = "";
-            str += "<span class='photoContent'>"
-            +"<label for='click'>"
-            +"<span class='photo' id='click'>"
-            +"<input id='storeId' type='hidden' value='"+store[i].storeId+"'>"
-            +"<a href='../../front-end/store/store_page.html'>"
-            +"<img id='img' src=data:image/jpeg;base64," + store[i].base64img + ">"
-            +"<h3 name='photoText' id='click'>" + store[i].storeName  + "</h3>"
-            +"</a></span></label></span>";
-            $('#storeTitle').after(str);
-            
-            
-            document.getElementById('click').addEventListener('click',async function(){
-//          	$('#click').click(async function(){
-         		let storeId = document.getElementById('storeId').value;
-         		console.log(storeId);
-         		
-         		await fetch('../../back-end/store/store.do?action=setOneStore&storeId='+ storeId , 
-         				{method: 'get'});
-         	})
-        }
-    }
+	    let store = json;
+	
+	    for (let i = 0; i < store.length; i++) {
+	        let str = "";
+	        str += "<span class='photoContent'>"
+	        +"<label for='click'>"
+	        +"<span class='photo' id='click'>"
+	        +"<input type='hidden' value='"+store[i].storeId+"'>"
+	        +"<a href='../../front-end/store/store_page.html' onclick= b("+store[i].storeId+")>"
+	        +"<img id='imgStore' src=data:image/jpeg;base64," + store[i].base64img + ">"
+	        +"<h3 name='photoText' id='click'>" + store[i].storeName  + "</h3>"
+	        +"</a></span></label></span>";
+	        $('#storeTitle').after(str);
+	        
+	        
+	        
+	    }
+	}
 </script>
 </html>

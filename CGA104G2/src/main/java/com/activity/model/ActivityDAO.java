@@ -55,7 +55,7 @@ public class ActivityDAO implements ActivityDAO_interface {
 		 try {
 			 ActivityVO vo= getSession().load(ActivityVO.class,activityVO.getActId());
 			 vo.setActType(activityVO.getActType());
-			 vo.setActName(activityVO.getActLocation());
+			 vo.setActName(activityVO.getActName());
 			 vo.setActContent(activityVO.getActContent());
 			 vo.setActMaxCount(activityVO.getActMaxCount());
 			 vo.setActMinCount(activityVO.getActMinCount());
@@ -217,7 +217,7 @@ public class ActivityDAO implements ActivityDAO_interface {
 	@Override
 	public List<Integer> getAll() {
 		beginTranscation();
-		final String hql = "SELECT actId FROM ActivityVO order BY actId";
+		final String hql = "SELECT actId FROM ActivityVO WHERE actStatus = 0 order BY actId";
 		List<Integer> list = getSession().createQuery(hql).list();
 		commit();
 		return list;
@@ -259,10 +259,18 @@ public class ActivityDAO implements ActivityDAO_interface {
 	// 有用
 	@Override
 	public void updateNumber(Integer actId, Integer number) {
-		beginTranscation();
 		try {
+			beginTranscation();
+			final String sql = "SELECT ACTIVITY_CURRENT_COUNT FROM ACTIVITY WHERE  ACTIVITY_ID = :id";
+			Integer count = (Integer) getSession().createNativeQuery(sql).setParameter("id", actId).uniqueResult();
+			if(count == 0) {
 			final String hql = " update ActivityVO SET actCurrentCount = :number where actId = :id  ";
 			getSession().createQuery(hql).setParameter("number", number).setParameter("id", actId).executeUpdate();
+			}else{
+				Integer sum = count+number;	
+				final String hql = " update ActivityVO SET actCurrentCount = :number where actId = :id  ";
+				getSession().createQuery(hql).setParameter("number", sum).setParameter("id", actId).executeUpdate();
+			}
 			commit();
 		} catch (Exception e) {
 			rollback();
@@ -270,10 +278,13 @@ public class ActivityDAO implements ActivityDAO_interface {
 	}
 
 	@Override
-	public void removeNumber(Integer currentNumber, Integer number, Integer actId) {
+	public void removeNumber(Integer number, Integer actId) {
 		try {
 			beginTranscation();
-			Integer updateNumber = currentNumber - number;
+			final String sql = "SELECT ACTIVITY_CURRENT_COUNT FROM ACTIVITY WHERE  ACTIVITY_ID = :id";
+			Integer count = (Integer) getSession().createNativeQuery(sql).setParameter("id", actId).uniqueResult();
+			
+			Integer updateNumber = count - number;
 			final String hql = " UPDATE ActivityVO SET actCurrentCount = :number where actId = :id  ";
 			getSession().createQuery(hql).setParameter("number", updateNumber).setParameter("id", actId)
 					.executeUpdate();

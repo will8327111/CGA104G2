@@ -293,10 +293,8 @@
     	        				var json = {
    	  								"message" : "您的有新的郵件"
    	  							};
-//    	  							console.log(json);
    	  							webSocket.send(JSON.stringify(json));
     	        			};
-	        			
     	        			return{
 	        	    				memberId: addMemberId,
 	        	    				mailType: addMailType,
@@ -386,9 +384,9 @@
         	            +"<td><input type='TEXT' id='updateMemberId' size='10' value='"+ mail[i].memberId +"'></td></tr>"
         	            +"<tr><td>郵件項目:</td>"
     				    +"<td><label for='pack'>"
-    			        +"<input type='radio' id='pack' name='updateMailType' value='包裹'>包裹</label>"
+    			        +"<input type='radio' id='pack' name='updateMailType' value='包裹'"+((mail[i].mailType === '包裹')? 'checked':'')+">包裹</label>"
     			        +"<label for='registered'>"
-    			        +"<input type='radio' id='registered' name='updateMailType' value='掛號'>掛號"
+    			        +"<input type='radio' id='registered' name='updateMailType' value='掛號'"+((mail[i].mailType === '掛號')? 'checked':'')+">掛號"
     			        +"</label></td></tr>"
         	            +"<tr><td>郵件到達日期:</td>"
         	            +"<td><input type='TEXT' id='updateMailDelTime' value='"+ mail[i].mailDelTime +"'></td></tr>"
@@ -396,14 +394,14 @@
         	            +"<td><input type='TEXT' id='updateMailPickupTime' value='"+ ((mail[i].mailPickupTime === undefined)? " ": mail[i].mailPickupTime) +"'></td></tr>"
         	            +"<tr><td>郵件狀態:</td>"
         	            +"<td><label for='unaccalimed'>"
-        	            +"<input type='radio' id='unaccalimed' name='updateMailState' value='0' checked>未領取"
+        	            +"<input type='radio' id='unaccalimed' name='updateMailState' value='0'"+((mail[i].mailState === 0)? 'checked':'')+">未領取"
         	            +"</label><label for='received'>"
-        	            +"<input type='radio' id='received' name='updateMailState' value='1'>已領取"
+        	            +"<input type='radio' id='received' name='updateMailState' value='1'"+((mail[i].mailState === 1)? 'checked':'')+">已領取"
         	            +"</label><label for='returning'>"
-        	            +"<input type='radio' id='returning' name='updateMailState' value='2'>退貨中"
+        	            +"<input type='radio' id='returning' name='updateMailState' value='2'"+((mail[i].mailState === 2)? 'checked':'')+">退貨中"
         	            +"</label>"
         	            +"<label for='returnComplete'>"
-        	            +"<input type='radio' id='returnComplete' name='updateMailState' value='3'>退貨完成"
+        	            +"<input type='radio' id='returnComplete' name='updateMailState' value='3'"+((mail[i].mailState === 3)? 'checked':'')+">退貨完成"
         	            +"</label>"
         	            +" </td>",
         	            confirmButtonColor:'#3085d6',
@@ -516,7 +514,6 @@
 		
 		document.getElementById("searchMail").onclick = async function searchMail(){
 			rest();
-			console.log("123");
 			let select_mailType = $("#select_mailType").val();
 			let search_mailID = $("#search_mailID").val();
 			if(search_mailID === ""){

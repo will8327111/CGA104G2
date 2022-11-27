@@ -144,6 +144,8 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 				}
 			}
 		}
+		
+//		System.out.println("我式vo"+backstageAccountVO.getBmEmail());
 		return backstageAccountVO;
 	};
 

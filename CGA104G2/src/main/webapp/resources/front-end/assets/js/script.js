@@ -14,59 +14,59 @@ function PositionCheck() {
 	});
 }
 
-//ナビゲーションに現在地のクラスをつけるための設定
-function ScrollAnime() {//スクロールした際のナビゲーションの関数にまとめる
+//nav位置加上捲動效果class
+function ScrollAnime() {
 	let scroll = Math.round($(window).scrollTop());
-	let NavElem = $("#pc-nav li");//ナビゲーションのliの何番目かを定義するための準備
-	$("#pc-nav li").removeClass('current');//全てのナビゲーションの現在地クラスを除去
-	if (scroll >= elemTop[0] && scroll < elemTop[1]) {//.scroll-point 1つめ以上.scroll-point 2つめ未満
-		$(NavElem[0]).addClass('current');//1つめのliに現在地クラスを付与
+	let NavElem = $("#pc-nav li");
+	$("#pc-nav li").removeClass('current');
+	if (scroll >= elemTop[0] && scroll < elemTop[1]) {//.scroll-point 一個以上不到兩個
+		$(NavElem[0]).addClass('current');//第一個li加上class
 	}
-	else if (scroll >= elemTop[1] && scroll < elemTop[2]) {//.scroll-point 2つめ以上.scroll-point 3つめ未満
-		$(NavElem[1]).addClass('current');//2つめのliに現在地クラスを付与
+	else if (scroll >= elemTop[1] && scroll < elemTop[2]) {
+		$(NavElem[1]).addClass('current');
 	}
-	else if (scroll >= elemTop[2] && scroll < elemTop[3]) {//.scroll-point 3つめ以上.scroll-point 4つめ未満
-		$(NavElem[2]).addClass('current');//3つめのliに現在地クラスを付与
+	else if (scroll >= elemTop[2] && scroll < elemTop[3]) {
+		$(NavElem[2]).addClass('current');
 	}
-	else if (scroll >= elemTop[3] && scroll < elemTop[4]) {//.scroll-point 4つめ以上.scroll-point 5つめ未満
-		$(NavElem[3]).addClass('current');//4つめのliに現在地クラスを付与
+	else if (scroll >= elemTop[3] && scroll < elemTop[4]) {
+		$(NavElem[3]).addClass('current');
 	}
-	else if (scroll >= elemTop[4]) {// .scroll-point 5つめ（area-5）以上
-		$(NavElem[4]).addClass('current');//5つめのliに現在地クラスを付与
+	else if (scroll >= elemTop[4]) {
+		$(NavElem[4]).addClass('current');
 	}
 }
 
-//ナビゲーションをクリックした際のスムーススクロール
+//點擊nav出現緩滑動效果
 $('#pc-nav a,#g-nav a').click(function () {
-	let elmHash = $(this).attr('href'); //hrefの内容を取得
-	let headerH = $("#header").outerHeight(true);//追従するheader分の高さ（70px）を引く
-	let pos = Math.round($(elmHash).offset().top - headerH);	//headerの高さを引き小数点を四捨五入
-	$('body,html').animate({ scrollTop: pos }, 500);//取得した位置にスクロール※数値が大きいほどゆっくりスクロール
-	return false;//リンクの無効化
+	let elmHash = $(this).attr('href');
+	let headerH = $("#header").outerHeight(true);
+	let pos = Math.round($(elmHash).offset().top - headerH);
+	$('body,html').animate({ scrollTop: pos }, 500);
+	return false;
 });
 
 /*===========================================================*/
-/*機能編  5-1-12 クリックしたらナビが下から上に出現*/
+/*點擊由上往下出現
 /*===========================================================*/
 
-$(".openbtn").click(function () {//ボタンがクリックされたら
-	$(this).toggleClass('active');//ボタン自身に activeクラスを付与し
-	$("#g-nav").toggleClass('panelactive');//ナビゲーションにpanelactiveクラスを付与
+$(".openbtn").click(function () {
+	$(this).toggleClass('active');
+	$("#g-nav").toggleClass('panelactive');
 });
 
-$("#g-nav a").click(function () {//ナビゲーションのリンクがクリックされたら
-	$(".openbtn").removeClass('active');//ボタンの activeクラスを除去し
-	$("#g-nav").removeClass('panelactive');//ナビゲーションのpanelactiveクラスも除去
+$("#g-nav a").click(function () {
+	$(".openbtn").removeClass('active');
+	$("#g-nav").removeClass('panelactive');
 });
 
 
 /*===========================================================*/
-/*機能編  9-1-5 スクロールをするとエリアの高さに合わせて線が伸びる*/
+/*隨著高度滑動延伸bar長度
 /*===========================================================*/
 
-$('body').scrollgress({//バーの高さの基準となるエリア指定
-	height: '5px',//バーの高さ
-	color: '#399d6e',//バーの色
+$('body').scrollgress({//指定bar位置
+	height: '5px',
+	color: '#399d6e',
 });
 
 /*===========================================================*/
@@ -94,15 +94,21 @@ $('#page-top').click(function () {
 	}, 500);//轉變速度
 	return false;//連結無效化
 });
-
+//home-top設定
+$('#home-top').click(function () {
+	$('body,html').animate({
+		scrollTop: 0
+	}, 500);
+	return false;
+});
 
 
 /*===========================================================*/
-/*點選任意一個位置即會顯示隱藏的物件,再按一次則剛剛點選的消失換其他打開*/
+/*點選任意一個位置即會顯示隱藏的物件,再按一次則剛剛點選的消失換其他打開
 /*===========================================================*/
 
 $('.title').on('click', function () {
-	$('.box').slideUp(500);
+	$('.box').slideUp(400);
 
 	let findElm = $(this).next(".box");
 
@@ -111,13 +117,13 @@ $('.title').on('click', function () {
 	} else {
 		$('.close').removeClass('close');
 		$(this).addClass('close');
-		$(findElm).slideDown(500);
+		$(findElm).slideDown(400);
 	}
 });
 
 
 /*===========================================================*/
-/*news ticker
+/*news ticker 圖片輪播
 /*===========================================================*/
 
 let slider;
@@ -136,26 +142,25 @@ function sliderSet() {
 		sliderFlag = true;
 	} else if (windowWidth < breakpoint && sliderFlag) {
 		slider.destroySlider();
-		sliderFlag = false;
+		console.log('destroying');
 	}
 }
 
 
-//漸變動畫
+//字體漸變動畫
 function fadeAnime() {
-	// 左滑入
 	$('.bgLRextendTrigger').each(function () {
 		let elemPos = $(this).offset().top - 50;//上50px的位置
 		let scroll = $(window).scrollTop();
 		let windowHeight = $(window).height();
 		if (scroll >= elemPos - windowHeight) {
-			$(this).addClass('bgLRextend');// 進到畫面中加上class名 bgLRextend
+			$(this).addClass('bgLRextend');
 		} else {
-			$(this).removeClass('bgLRextend');// 離開画面移除bgLRextend
+			$(this).removeClass('bgLRextend');
 		}
 	});
 	$('.bgappearTrigger').each(function () {
-		let elemPos = $(this).offset().top - 50;
+		let elemPos = $(this).offset().top ;
 		let scroll = $(window).scrollTop();
 		let windowHeight = $(window).height();
 		if (scroll >= elemPos - windowHeight) {
@@ -187,7 +192,6 @@ function fadeAnime() {
 			$(this).removeClass('flipLeft');
 		}
 	});
-
 }
 
 //畫面size變動
@@ -221,7 +225,7 @@ $(window).on('load', function () {
 			let Title = $(element).children('.title');	//取得open class子要素的title
 			$(Title).addClass('close');
 			let Box = $(element).children('.box');
-			$(Box).slideDown(500);
+			$(Box).slideDown(400);
 		});
 
 	});
@@ -237,27 +241,27 @@ $(window).on('load', function () {
 /*===========================================================*/
 
 $('.slider2').slick({
-	arrows: false,//左右の矢印はなし
-	autoplay: true,//自動的に動き出すか。初期値はfalse。
-	autoplaySpeed: 0,//自動的に動き出す待ち時間。初期値は3000ですが今回の見せ方では0
-	speed: 6900,//スライドのスピード。初期値は300。
-	infinite: true,//スライドをループさせるかどうか。初期値はtrue。
-	pauseOnHover: false,//オンマウスでスライドを一時停止させるかどうか。初期値はtrue。
-	pauseOnFocus: false,//フォーカスした際にスライドを一時停止させるかどうか。初期値はtrue。
-	cssEase: 'linear',//動き方。初期値はeaseですが、スムースな動きで見せたいのでlinear
-	slidesToShow: 4,//スライドを画面に4枚見せる
-	slidesToScroll: 1,//1回のスライドで動かす要素数
+	arrows:true,
+	autoplay: true,
+	autoplaySpeed: 3000,
+	speed: 6900,
+	infinite: true,//loop
+	pauseOnHover: false,//onMouse停止
+	pauseOnFocus: false,//focus停止
+	cssEase: 'ease',
+	slidesToShow: 4,
+	slidesToScroll: 1,
 	responsive: [
 		{
-			breakpoint: 769,//モニターの横幅が769px以下の見せ方
+			breakpoint: 769,//769px以下
 			settings: {
-				slidesToShow: 2,//スライドを画面に2枚見せる
+				slidesToShow: 2,
 			}
 		},
 		{
-			breakpoint: 426,//モニターの横幅が426px以下の見せ方
+			breakpoint: 426,//426px以下
 			settings: {
-				slidesToShow: 1.5,//スライドを画面に1.5枚見せる
+				slidesToShow: 1,
 			}
 		}
 	]
@@ -327,5 +331,60 @@ $(".iframe-open").modaal({
 	},
 	after_close: function () {
 		$('html').css('overflow-y', 'scroll');
+		window.location.replace(location.href);
 	}
+});
+
+//按鈕出現提示浮動
+tippy('.cap', {
+		placement: 'top',//出現位置
+		animation: 'shift-away-subtle',
+		theme: 'light-border',
+		duration: 200,
+	}
+)
+
+
+/*===========================================================*/
+/*獨立tab menu*/
+/*===========================================================*/
+
+function GethashID (hashIDName){
+	if(hashIDName){
+		$('.tab li').find('a').each(function() { //取得tab裡的所有a tag
+			let idName = $(this).attr('href');
+			if(idName == hashIDName){
+				let parentElm = $(this).parent();
+				$('.tab li').removeClass("active");
+				$(parentElm).addClass("active");
+				$(".area").removeClass("is-active");
+				$(hashIDName).addClass("is-active");
+			}
+		});
+	}
+}
+
+//tab click
+$('.tab a').on('click', function() {
+	let idName = $(this).attr('href'); //取得tab裡的連結
+	GethashID (idName);
+	return false;
+});
+
+$(window).on('load', function () {
+	$('.tab li:first-of-type').addClass("active");
+	$('.area:first-of-type').addClass("is-active");
+	let hashName = location.hash;
+	GethashID (hashName);
+});
+
+$('.tab a').on('click', function() {
+	let idName = $(this).attr('href');
+	GethashID (idName);
+	return false;
+});
+
+$(window).on('load', function () {
+	let hashName = location.hash;
+	GethashID(hashName);
 });

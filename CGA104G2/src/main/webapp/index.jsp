@@ -34,9 +34,7 @@
         }
     </style>
 
-    <link href="${pageContext.request.contextPath}/resources/assets/css/main/app.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/form-element-select.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/summernote.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css" rel="stylesheet">
     <title>index</title>
 </head>
 
@@ -45,7 +43,7 @@
 <h4><a href="member/select_page.jsp"></a></h4>
 <div class="m_title">
     <h2>${ "測試專區" }</h2>
-    更新日：11/13
+    更新日：11/15
 </div>
 <br>
 
@@ -62,8 +60,6 @@
 
     ！===施工測試中===！
 
-    <script src="${pageContext.request.contextPath}/resources/assets/js/pages/form-element-select.js" rel="stylesheet"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/pages/form-editor.js" rel="stylesheet"></script>
 </div>
 </body>
 </html>

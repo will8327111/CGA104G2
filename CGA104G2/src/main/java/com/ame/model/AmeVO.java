@@ -8,7 +8,28 @@ public class AmeVO implements java.io.Serializable{
 	private Integer  amePoint;
 	private Integer  ameMax;
 	private String   ameOpening;
+	private Integer  amestates;
+	private Integer  ameOpentime;
+	private Integer  ameClosetime;
 	
+	public Integer getAmeOpentime() {
+		return ameOpentime;
+	}
+	public void setAmeOpentime(Integer ameOpentime) {
+		this.ameOpentime = ameOpentime;
+	}
+	public Integer getAmeClosetime() {
+		return ameClosetime;
+	}
+	public void setAmeClosetime(Integer ameClosetime) {
+		this.ameClosetime = ameClosetime;
+	}
+	public Integer getAmestates() {
+		return amestates;
+	}
+	public void setAmestates(Integer amestates) {
+		this.amestates = amestates;
+	}
 	public Integer getAmeId() {
 		return ameId;
 	}

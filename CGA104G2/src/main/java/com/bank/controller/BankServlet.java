@@ -17,11 +17,11 @@ public class BankServlet extends HttpServlet{
 protected void doGet(HttpServletRequest req,HttpServletResponse res)throws ServletException, IOException{
 	BankService bank=new BankService();
 	String action2=req.getParameter("action2");
-	if("select".equals(action2)) {
-		List<BankVO>list=bank.getAll();
-		req.setAttribute("list", list);//指定這個值
-		req.getRequestDispatcher("/front-end/memberbill/transfer.jsp").forward(req, res);//請求轉發
-	}
+//	if("select".equals(action2)) {
+//		List<BankVO>list=bank.getAll();
+//		req.setAttribute("list", list);//指定這個值
+//		req.getRequestDispatcher("/front-end/memberbill/transfer.jsp").forward(req, res);//請求轉發
+//	}
 	
 } 
 }

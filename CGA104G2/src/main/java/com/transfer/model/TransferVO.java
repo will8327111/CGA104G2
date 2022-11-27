@@ -14,8 +14,8 @@ public class TransferVO implements java.io.Serializable {
 	private String billDate; 			// 帳單月份(年,月)
 	private String memberPay; 			// 繳費狀態
 	private byte[] memberPhoto;			// 匯款證明
-	private String memberPayMethod;		// 繳費方式
-	private Integer costId;				// 費用編號
+	private Integer memberPayMethod;	// 繳費方式
+	private String memberName;			//住戶姓名
 
 	public Integer getTransferId() {
 		return transferId;
@@ -88,18 +88,20 @@ public class TransferVO implements java.io.Serializable {
 	public void setMemberPhoto(byte[] memberPhoto) {
 		this.memberPhoto = memberPhoto;
 	}
-	public Integer getCostId() {
-		return costId;
-	}
-
-	public void setCostId(Integer costId) {
-		this.costId = costId;
-	}
-	public String getMemberPayMethod() {
+	
+	public Integer getMemberPayMethod() {
 		return memberPayMethod;
 	}
 
-	public void setMemberPayMethod(String memberPayMethod) {
+	public void setMemberPayMethod(Integer memberPayMethod) {
 		this.memberPayMethod = memberPayMethod;
 	}
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
 }
