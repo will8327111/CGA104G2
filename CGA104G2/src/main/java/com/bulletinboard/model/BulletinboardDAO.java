@@ -38,7 +38,7 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
     private static final String GET_ALL_BB_ON =
             "SELECT bb.BB_CLASS,bb.BB_TITLE,bb.BB_CONTENT,bb.BB_POSTDATE,bb.BB_UPDATE,bbp.BB_PIC\n" +
                     "from bulletin_board bb\n" +
-                    "         join bulletin_board_pictures bbp\n" +
+                    "        left join bulletin_board_pictures bbp\n" +
                     "              on bb.BB_SUB_ID = bbp.BB_SUB_ID\n" +
 //                    "where bb.BB_CLASS='社區規約'\n" +
 //                    "  and BB_ARTICAL_STATE=1;";

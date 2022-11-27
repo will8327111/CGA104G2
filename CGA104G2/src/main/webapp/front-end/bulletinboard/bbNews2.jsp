@@ -21,9 +21,9 @@
     <meta charset="utf-8">
     <title>社區業務管理系統-陪你e生e世</title>
     <meta name="robots" content="noindex,nofollow">
-<!--    禁止本地端快取-->
-<!--    <Meta http-equiv="Pragma" Content="No-cache">-->
-<!--    隱藏圖片下載-->
+    <!--    禁止本地端快取-->
+    <!--    <Meta http-equiv="Pragma" Content="No-cache">-->
+    <!--    隱藏圖片下載-->
     <meta http-equiv="imagetoolbar" content="false">
     <meta name="keywords" content="">
     <!-- 定義為RWD web -->
@@ -39,32 +39,39 @@
     <!--font awesome kit-->
     <script src="https://kit.fontawesome.com/7e021e96db.js" crossorigin="anonymous"></script>
     <!--!!固定!! 前台樣式-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front-end/assets/css/jquery.bxslider.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front-end/assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front-end/assets/css/layout.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front-end/assets/css/parts.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/jquery.bxslider.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
     <!--modaal-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front-end/assets/css/modaal.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
 
     <!--=============js=============-->
     <!--延遲載入-->
-    <script src="${pageContext.request.contextPath}/resources/front-end/assets/js/lazyload.min.js"></script>
+<%--    <script src="${pageContext.request.contextPath}/resources/front-end/assets/js/lazyload.min.js"></script>--%>
 
     <!--==============這邊放自己的 css===============-->
     <style>
-    #vision .img{
-    width:50%;
-    min-height: 620px;
-    background:url("${pageContext.request.contextPath}/resources/front-end/assets/img/bb_board.jpg") no-repeat left;
-        border-radius: 5px;
-        background-size: cover;
+        #vision .img{
+            width:50%;
+            min-height: 620px;
+            background:url("${pageContext.request.contextPath}/resources/front-end/assets/img/bb_board.jpg") no-repeat left;
+            border-radius: 5px;
+            background-size: cover;
 
-    }
+        }
+        @media screen and (max-width:768px) {
+            #vision .img {
+                width: 100%;
+                min-height: 290px;
+                margin: 0 0 50px 0;
+            }
+        }
     </style>
 
     <!--==============css===============-->
     <style>
- /*!!固定!! 字形*/
+        /*!!固定!! 字形*/
         @font-face {
             font-family: 'huninn';
             src: url('${pageContext.request.contextPath}/resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
@@ -100,7 +107,7 @@
         </header>
 
 <!--!!固定!! 空白遮罩-->
-        <div style="width: 100%; height:100px;"></div>
+        <div id="cover" style="display:block; visibility: hidden; width: 100%; height:100px; z-index: -1;"></div>
 
 <!--!!固定!! main area-->
         <div id="container">
@@ -146,7 +153,7 @@
                                 <div class="box">
                                     <p>${bulletinboardVO.bbContent}</p>
                                     <p>更新日：${bulletinboardVO.bbUpdate}</p>
-<%--                                    <p><img src="${pageContext.request.contextPath}/bulletinboardpic/controller/BulletinBoardPicServlet?bbpic=${bulletinboardVO.bbPic}" width="50%" class="rounded"></p>--%>
+                                    <p><img src="${pageContext.request.contextPath}/bulletinboardpic/controller/BulletinBoardPicServlet?bbpic=${bulletinboardVO.bbPic}" width="50%" class="rounded"></p>
                                 </div>
                             </section>
                         </li>
@@ -180,7 +187,7 @@
                 </div>
             </div>
             <p class="footer-logo">Community Management</p>
-            <small>2022 &copy; 陪你e生e世　社區服務平台</small>
+            <small> &copy; 2022 陪你e生e世　社區服務平台</small>
 <!--            返回最上方小圖示-->
             <p id="page-top"><a href="#">Top</a></p>
         </footer>

@@ -234,13 +234,14 @@ body.appear #wrapper{
 
 #header{
 	position: fixed;/*header固定*/
-	height: 80px;/*Header高設定*/
+	height: 80px;
 	width:100%;
     z-index: 8;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
     background: rgb(225, 238, 234);
+	border-radius: 5px;
 	opacity: 90%;
 }
 
@@ -303,8 +304,8 @@ body.appear #wrapper{
 
 /*text設定*/
 .btnlinestretches3 span{
-    /*為了要讓text先出現故設定z-index*/
 	position:relative;
+    /*為了要讓text先出現故設定z-index*/
 	z-index: 2;
 }
 
@@ -324,7 +325,6 @@ body.appear #wrapper{
 	background:rgb(89, 189, 150);
 	width:100%;
 	height:3px;
-    /*動畫效果*/
 	transition:all 0.3s ease-in-out;
 }
 
@@ -515,7 +515,6 @@ body.appear #wrapper{
 		padding-bottom:10px;
     }
 }
-
 
 
 /*左右切入*/
