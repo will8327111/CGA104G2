@@ -185,7 +185,7 @@ async function getList(){
    result.forEach(list => {
          $("#list").append(`<li>
             <h2>${count}</h2>
-            <img src="data:image/jpeg;base64,${list.photo}">
+            <img  class=img1  src="data:image/jpeg;base64,${list.photo}">
             <h3>${list.actName}</h3>
             <p>
                <br>開始時間:${list.actStart}</br>

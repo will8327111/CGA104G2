@@ -74,9 +74,9 @@ public class ActivitySignupServlet extends HttpServlet {
 		
 		
 		if("search".equals(action)) {
-			Integer memid = (Integer) session.getAttribute("id");
+			Integer memId = Integer.valueOf(req.getParameter("memId"));
 			ActivitySignupService service = new ActivitySignupService();
-			List<Integer> list = service.search(memid);		
+			List<Integer> list = service.search(memId);		
 			JSONArray array = new JSONArray();
 			ActivityService service2 = new ActivityService();
 			for(Integer actId : list) {

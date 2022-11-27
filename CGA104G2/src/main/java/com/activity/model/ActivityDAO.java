@@ -294,68 +294,7 @@ public class ActivityDAO implements ActivityDAO_interface {
 		}
 	}
 
-	@Override
-	public JSONObject name(Integer memberId) {
-		DataSource ds = null;
-		try{
-		Context ctx = new InitialContext();
-		ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB3");
-		}catch(NamingException e) {
-			e.printStackTrace();
-		}
-		
-		String NAME = " select MEMBER_NAME from MEMBER where MEMBER_ID=?";
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-	   JSONObject object = new JSONObject();
-
-		try {
-			
-			con=ds.getConnection();
-			pstmt=con.prepareStatement(NAME);
-			pstmt.setInt(1, memberId);
-			rs= pstmt.executeQuery();
-			
-			while(rs.next()) {
-				object.put("name",rs.getString("MEMBER_NAME"));
-			}
-						
-			
-		} catch (SQLException se) {
-			se.printStackTrace(System.err);
-		}finally {
-			if(rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-				se.printStackTrace(System.err);
-				}		
-			}
-			
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-						
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}								
-		}
-
-		
-		return object;
-		
-				
-	}
+	
 
 	@Override
 	public void updateStatus(Integer actId) {

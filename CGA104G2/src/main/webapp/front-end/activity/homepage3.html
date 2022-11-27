@@ -225,7 +225,7 @@
 		showInfo(0)
 		getCountry();
 		getType();
-		update()
+		getMember()
 		
 	}
 	
@@ -324,14 +324,20 @@
     
     
 	function web(){
-	   let path = window.location.pathname;
-  
-             let webCtx = path.substring(0, path.indexOf('/', 1));
+	   let path = window.location.pathname; 
+       let webCtx = path.substring(0, path.indexOf('/', 1));
 	}
 	
     
 	
-	
+	async function getMember(){
+		let res = await fetch("../../activity/ActServlet?action=getMember", { method: 'get' })
+		let data = await res.json();
+		let name = data.memName
+		let id = data.memId
+		sessionStorage.setItem('id',id);
+		sessionStorage.setItem("name",name)
+	}
     
 
 	
