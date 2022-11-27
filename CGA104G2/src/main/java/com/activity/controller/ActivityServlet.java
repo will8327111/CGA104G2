@@ -39,6 +39,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.memberLogin.model.MemberLoginVO;
 
 @WebServlet("/activity/ActServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 10 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -93,8 +94,8 @@ public class ActivityServlet extends HttpServlet {
 			ActivityService actSvc = new ActivityService();
 			actSvc.addAct(memid, actType, name, content, max, min, sgst, sget, actst, actet, country, location, cost,
 					photo);
-//			String url = req.getContextPath() + "/front-end/activity/list.jsp";
-//			res.sendRedirect(url);
+			String url = req.getContextPath()+"/front-end/activity/homepage3.html";
+			res.sendRedirect(url);
 		}
 
 		// 有用
@@ -118,32 +119,6 @@ public class ActivityServlet extends HttpServlet {
 			getOne.forward(req, res);
 		}
 		
-		//有用(jsp)
-//		if ("oneUpdate".equals(action)) {
-//			
-//			Integer actId = Integer.valueOf(req.getParameter("actId"));
-//			ActivityService actSvc = new ActivityService();
-//			ActivityVO activityVO = actSvc.getOne(actId);
-//			req.setAttribute("activity", activityVO);
-//			
-//			String parameter = "?actName="+activityVO.getActName()+
-//								"&actType="+activityVO.getActType()+
-//								"&actContent="+activityVO.getActContent()+
-//								"&actMaxNumber="+activityVO.getActMaxCount()+
-//								"&actMinNumber="+activityVO.getActMinCount()+
-//								"&actSignupStart="+activityVO.getSignStart()+
-//								"&actSingupEnd="+activityVO.getSignEnd()+
-//								"&actStart="+activityVO.getActStart()+
-//								"&actEnd="+activityVO.getActEnd()+
-//								"&actCountry="+activityVO.getActCountry()+
-//								"&actLocation="+activityVO.getActLocation()+
-//								"&actCost="+activityVO.getActCost()+
-//								"&actId="+activityVO.getActId();
-//			
-//			String url = "/front-end/activity/update.jsp"+parameter;
-//			RequestDispatcher update = req.getRequestDispatcher(url);
-//			update.forward(req, res);
-//		}
 
 		// 有用(jsp)
 //		if ("update".equals(action)) {
@@ -267,12 +242,14 @@ public class ActivityServlet extends HttpServlet {
 //		}
 
 		if ("delete".equals(action)) {
-
+			System.out.println("我有執行");
 			Integer actId = Integer.valueOf(req.getParameter("deleteId"));
 			ActivityReportService report = SpringUtil.getBean(getServletContext(), ActivityReportService.class);
 			 report.deleteAct(actId);
+			 System.out.println("我有執行2");
 			ActivityService service = new ActivityService();
 			service.delete(actId);
+			System.out.println("我有執行3");
 		}
 
 		// 有用
@@ -300,13 +277,6 @@ public class ActivityServlet extends HttpServlet {
 
 		}
 
-		if ("ID".equals(action)) {
-			Integer id = Integer.valueOf(req.getParameter("ID"));
-			session.setAttribute("id", id);
-			String url = req.getContextPath() + "/front-end/activity/front-index.html";
-			res.sendRedirect(url);
-
-		}
 
 		if ("adddata".equals(action)) {
 			Integer id = Integer.valueOf(req.getParameter("actid"));
@@ -376,15 +346,18 @@ public class ActivityServlet extends HttpServlet {
 		}
 		
 		
-		if("getName".equals(action)) {
-		
-			
-			Integer memId = Integer.valueOf(req.getParameter("memId"));
-			
-			ActivityService actSvc = new ActivityService();
-			out.write(actSvc.name(memId).toString());
-			
+		if("getMember".equals(action)) {
+			MemberLoginVO memeber = (MemberLoginVO)session.getAttribute("memberLoginVO");
+			session.setAttribute("id",memeber.getMemberId());
+			JSONObject json = new JSONObject();
+			json.put("memId", memeber.getMemberId());
+			json.put("memName",memeber.getMemberName());
+			out.write(json.toString());
 		}
+		
+		
+		
+		
 		
 	}
 

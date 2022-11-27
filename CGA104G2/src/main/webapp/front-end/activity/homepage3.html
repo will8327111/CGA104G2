@@ -5,80 +5,108 @@
     <meta charset="utf-8">
     <title>社區業務管理系統-陪你e生e世</title>
     <meta name="robots" content="noindex,nofollow">
+<!--    禁止本地端快取-->
+<!--    <Meta http-equiv="Pragma" Content="No-cache">-->
+<!--    隱藏圖片下載-->
+    <meta http-equiv="imagetoolbar" content="false">
     <meta name="keywords" content="">
+    <!-- 定義為RWD web -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- 最佳兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <!--=============Google Font ===============-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
+    <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
+    <link rel="shortcut icon" href="../../resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
+
     <!--==============css===============-->
-    <link rel="stylesheet" href="../../resources/css/homestyle.css">
+    <!--font awesome kit-->
+    <script src="https://kit.fontawesome.com/7e021e96db.js" crossorigin="anonymous"></script>
+    <!--!!固定!! 前台樣式-->
     <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/jquery.bxslider.min.css">
     <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
     <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
+    <!--modaal-->
     <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
 
+    <!--=============js=============-->
+    <!--延遲載入-->
+    <script src="../../resources/front-end/assets/js/lazyload.min.js"></script>
+
+    <!--==============這邊放自己的 css===============-->
+   <link rel="stylesheet" href="../../resources/css/homestyle.css">
+
+
+    <!--==============css===============-->
     <style>
+ /*!!固定!! 字形*/
         @font-face {
             font-family: 'huninn';
-            src: url('/resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
+            src: url('../../resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
         }
         body {
-            font-family: Lato,sans-serif,'huninn',serif;
+            font-family: 'huninn',serif;
         }
-        
-       
     </style>
 </head>
 
+
 <body>
-    <div id="splash">
-        <div id="splash-logo">
-            <div class="bgextend bgLRextend"><span class="bgappear">Community Management</span><br>
-                <span class="bgappear">陪你e生e世 社區服務平台</span></div>
-        </div>
-        <!--/splash-->
-    </div>
-    <div class="splashbg"></div>
-    <!---画面遷移用-->
-    
-     <div id="container">
-
-    <div id="wrapper">
         <header id="header">
-<!--            <h3><a href="#"><span class="bgextend bgLRextendTrigger">-->
-            <h1><div> <a href="front-index.html"><img src="../../resources/front-end/assets/img/logo11_trans4.png" alt="" style="width: 50%"></a></div></h1>
-<!--            </a></h3>-->
-                        <!-- <span class="bgappearTrigger">陪你e生e世</span> -->
 
-<!--                    </span></a></h1>-->
-
+<!--!!固定!! 導覽列 start-->
             <nav id="pc-nav">
-<!--                    <li><span class="bgappearTrigger"><img src="img/logo11_trans.png" alt="" style="width: 40%"></span></li>-->
-                <ul>
-                    <li><a href="#vision"><span class="bgextend bgLRextendTrigger"><span
-                                    class="bgappearTrigger">帳號管理</span></span></a></li>
-                    <li><a href="#service"><span class="bgextend bgLRextendTrigger"><span
-                                    class="bgappearTrigger">活動</span></span></a></li>
-                    <li><a href="#about"><span class="bgextend bgLRextendTrigger"><span
-                                    class="bgappearTrigger">公共設施</span></span></a></li>
-                    <li><a href="#faq"><span class="bgextend bgLRextendTrigger"><span
-                                    class="bgappearTrigger">檢舉與維修</span></span></a></li>
-                    <li><a href="#contact"><span class="bgextend bgLRextendTrigger"><span
-                                    class="bgappearTrigger">特約商店</span></span></a></li>
-                    <li><a href="#contact"><span class="bgextend bgLRextendTrigger"><span
-                                    class="bgappearTrigger">社區帳單</span></span></a></li>
-                    <li><a href="#contact"><span class="bgextend bgLRextendTrigger"><span
-                                    class="bgappearTrigger">聯絡我們</span></span></a></li>
-                </ul>
+                <!--!!固定!! logo-->
+                <div>
+                    <h1 style="width:166px" ><a href="../../front-end/web/front-index2.html"><img src="../../resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台" style="width: 100%; display: flex;justify-content: flex-start; flex-direction: inherit;"></a></h1>
+                </div>
             </nav>
+            <span style="margin-left:10px"></span>
+                <ul>
+                    <div>
+                        <a href="homepage3.html"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>回到活動首頁</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-house"></i><label style="font-size: 1rem;">活動首頁</label></button></a>
+                    </div>
+                </ul>
+                <ul>
+                    <div>
+                        <a href="mylist.html"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>我舉辦的活動</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-table-list"></i><label style="font-size: 1rem;">我舉辦的活動</label></button></a>
+                    </div>
+                </ul>
+                  <ul>
+                    <div  >
+                        <a href="myaddlist.html"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>我參加的活動</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-user-plus"></i><label style="font-size: 1rem;"> 我參加的活動</label></button></a>
+                    </div>
+                </ul>
+                    <ul>
+                    <div >
+                        <a href="addactivity.html"><button class="cap"  id="add" data-tippy-content="<div class='inner-cap'><p>新增活動。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-plus"></i><label style="font-size: 1rem;"> 新增活動</label></button></a>
+                    </div>
+                </ul>
+                
+                    <ul>
+                    <div id="login-div" >
+                        <a href="#"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>住戶登入/登出。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 登出</label></button></a>
+                    </div>
+                </ul>
+            <ul>
+                <div id="out-div" >
+                    <a href="#"><button class="cap"  id="out" data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-bell"></i><label style="font-size: 1rem;"> 通知</label></button></a>
+                </div>
+            </ul>
+            <!--導覽列 end-->
         </header>
-       
- 
 
-      
+<!--!!固定!! 空白遮罩-->
+        <div style="width: 100%; height:50px;"></div>
 
+<!--!!固定!! main area-->
+        <div id="container">
             <main id="main-area">
-            	<div style="float: left; width: 18%; margin-top:97px;margin-left:-36px">
+
+
+<!--主要內容 start(從這邊開始改)-->
+              	<div style="float: left; width: 18%; margin-top:44px;margin-left:-36px">
                     <h4 >查詢活動</h4>
                  
                     <form id="form">
@@ -100,9 +128,8 @@
                         <input id="name"  type="text" placeholder="活動名稱" style="border-style:double">
                          <input type="button" name="submit" value="查詢" onclick="getData()" class= "btn btn-outline-secondary" />
                     </form>
-                    <a href="mylist.html">我舉辦的活動</a>
-                    <a href="addactivity.html">新增活動</a>
-                    <a href="myaddlist.html">新增活動</a>
+     
+ 
                 </div>
                 
                 
@@ -131,27 +158,34 @@
                 </div>
                
                 <div id="button" class="frame1"></div>
-        </main>
 
+<!--main area end-->
+            </main>
+            <!--container-->
         </div>
 
-        <footer id="footer" style="margin-top:171px">
-
+<!--!!固定!! footer-->
+        <footer id="footer" style="margin-top:100px">
+<!--右上角menu-->
             <div class="openbtn"><span></span><span>Menu</span><span></span></div>
             <div id="g-nav">
                 <div id="g-nav-list">
                     <ul>
                         <li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
-                        <li><a href="#vision">社區起源</a></li>
-                        <li><a href="#service">個人管理</a></li>
-                        <li><a href="#about">活動</a></li>
-                        <li><a href="#faq">公共設施</a></li>
-                        <li><a href="#contact">檢舉與維修</a></li>
+                        <li><a href="#">住戶帳號</a></li>
+                        <li><a href="#">社區帳單</a></li>
+                        <li><a href="#">郵件</a></li>
+                        <li><a href="#">公共設施</a></li>
+                        <li><a href="#">活動</a></li>
+                        <li><a href="#">檢舉與維修</a></li>
+                        <li><a href="#">特約商店</a></li>
                     </ul>
                 </div>
             </div>
-               <p class="footer-logo">CommunityManagement</p>
-            <small>&copy; CommunityManagement：社區物業管理系統-陪你e生e世</small>
+            <p class="footer-logo">Community Management</p>
+            <small>2022 &copy; 陪你e生e世　社區服務平台</small>
+<!--            返回最上方小圖示-->
+            <p id="page-top"><a href="#">Top</a></p>
         </footer>
         <!--/wrapper-->
     </div>
@@ -166,10 +200,18 @@
     <!--apang 動畫-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apng-canvas/2.1.1/apng-canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
- <script src="../../resources/front-end/assets/js/script.js"></script>
+    <!--Tippy-->
+    <script src="https://unpkg.com/popper.js@1"></script>
+    <script src="https://unpkg.com/tippy.js@5"></script>
+
+    <!--other-->
     <script src="../../resources/front-end/assets/js/modaal.min.js"></script>
-    
-    <script>
+    <script src="../../resources/front-end/assets/js/script.js"></script>
+    <script src="../../resources/front-end/assets/js/search_origin.js"></script>
+
+
+
+   <script>
     
     getButton()
 	async function getButton(){
@@ -183,7 +225,7 @@
 		showInfo(0)
 		getCountry();
 		getType();
-		update()
+		getMember()
 		
 	}
 	
@@ -266,13 +308,6 @@
 	
 	}		
 
-	
-	
-
-	
-	
-	
-	
 
 	function rest(){
         html=""
@@ -289,22 +324,26 @@
     
     
 	function web(){
-	   let path = window.location.pathname;
-    console.log(path)
-             let webCtx = path.substring(0, path.indexOf('/', 1));
+	   let path = window.location.pathname; 
+       let webCtx = path.substring(0, path.indexOf('/', 1));
 	}
 	
     
 	
-	async  function update(){
-		let web = web()
-		let res = await fetch( web+"ActivityUpdate", { method: 'post' })	
+	async function getMember(){
+		let res = await fetch("../../activity/ActServlet?action=getMember", { method: 'get' })
+		let data = await res.json();
+		let name = data.memName
+		let id = data.memId
+		sessionStorage.setItem('id',id);
+		sessionStorage.setItem("name",name)
 	}
-	
     
+
+	
+	
     </script>
-    
-    
+
 
 </body>
 

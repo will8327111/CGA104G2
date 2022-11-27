@@ -58,11 +58,10 @@ public class ActivitySignupServlet extends HttpServlet {
 		if("remove".equals(action)) {
 			Integer memid = (Integer) session.getAttribute("id");
 			Integer actId = Integer.valueOf(req.getParameter("actId"));
-			Integer current = Integer.valueOf(req.getParameter("current"));
 			ActivitySignupService service = new ActivitySignupService();
 			ActivityService service2 = new ActivityService();
 			Integer number =service.getData(actId, memid).getSignupNumber();
-			service2.reomveNumver(current, number, actId);
+			service2.reomveNumver(number, actId);
 			Integer result = service.delete(actId, memid);
 			JSONObject jsonObject = new JSONObject();
 			if(result>0) {				
@@ -75,9 +74,9 @@ public class ActivitySignupServlet extends HttpServlet {
 		
 		
 		if("search".equals(action)) {
-			Integer memid = (Integer) session.getAttribute("id");
+			Integer memId = Integer.valueOf(req.getParameter("memId"));
 			ActivitySignupService service = new ActivitySignupService();
-			List<Integer> list = service.search(memid);		
+			List<Integer> list = service.search(memId);		
 			JSONArray array = new JSONArray();
 			ActivityService service2 = new ActivityService();
 			for(Integer actId : list) {

@@ -1,12 +1,12 @@
-<%@page import="com.privateReport.model.*"%>
+<%@page import="com.privateReport1.model.*"%>
 <%@page import="java.util.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-request.getAttribute("privateReportVO1");
+session.getAttribute("privateReportVO1");
+session.getAttribute("memberId");
 %>
-
 
 <!DOCTYPE html>
 <html>
@@ -29,7 +29,7 @@ table, tr, th, td {
 	<div id="header">
 		<h1 id="test">管理員回覆單一檢舉</h1>
 	</div>
-	
+
 	<div id='select'>
 		<table id="reportTable" style='border: 1px solid black'>
 			<caption>
@@ -42,37 +42,40 @@ table, tr, th, td {
 				<th>檢舉表單內容</th>
 				<th>檢舉內容附圖</th>
 			</tr>
-				<tr>
-					<th>${privateReportVO1.privateReportId}</th>
-					<th>${privateReportVO1.memberName}</th>
-					<th>${privateReportVO1.privateReportTime}</th>
-					<th>${privateReportVO1.privateReportContent}</th>
-					<c:choose>
-						<c:when test="${privateReportVO1.privateReportPic == null}">
-							<th>無附圖</th>
-						</c:when>
-						<c:otherwise>
-							<th>${privateReportVO1.privateReportPic}</th>
-						</c:otherwise>
-					</c:choose>
+			<tr>
+				<th>${privateReportVO1.privateReportId}</th>
+				<th>${privateReportVO1.memberName}</th>
+				<th>${privateReportVO1.privateReportTime}</th>
+				<th>${privateReportVO1.privateReportContent}</th>
+				<c:choose>
+					<c:when test="${privateReportVO1.privateReportPic == null}">
+						<th>無附圖</th>
+					</c:when>
+					<c:otherwise>
+						<th>${privateReportVO1.privateReportPic}</th>
+					</c:otherwise>
+				</c:choose>
 		</table>
 	</div>
 
+	<div>
+		<form method="post"
+			action="<%=request.getContextPath()%>/back-end/privateReport1/privateReportServlet.do"
+			enctype="multipart/form-data">
+			請填寫回覆內容:<br>
+			<textarea name="replyOfReport" rows="5" cols="45" required></textarea>
+		<p>
+			回覆附圖:<br> <input type="file" accept="image/*" name="replyPic" value="點我上傳圖片">
+		<p>
+		<input type="hidden" name="privateReportId" value="${privateReportVO1.privateReportId}">
+		<input type="hidden" name="memberId" value="${privateReportVO1.memberId}">
+			<input type="hidden" name="privateReportStatus" value="1"> <input
+				type="hidden" name="action" value="update"> <input
+				type="submit" value="確定"> <input type="reset" value="清除">
+			<input type="button" value="回上一頁" onClick="history.back()">
+		</form>
+	</div>
 <div>
-	<form method="get" action="">
-		請填寫回覆內容:<br>
-		<input type="hidden" name="ReplyOfReport">
-		<textarea name="comment" rows="5" cols="45"></textarea>
-		<p>
-			回覆附圖:<br>
-			<input type="hidden" name="ReplyPic">
-			<textarea name="comment" rows="5" cols="45"></textarea>
-			<span><input type="button" value="點我上傳圖片"></span>
-		<p>
-			<input type="button" value="確定"> <input type="reset"
-				value="清除"> <input type="button" value="回上一頁"
-				onClick="history.back()">
-	</form>
 </div>
 
 </body>
