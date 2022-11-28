@@ -19,7 +19,8 @@ import javax.servlet.http.HttpSession;
 						  "/back-end/backstageAccount/backstageInfo.jsp",
 						  "/back-end/ba	ckstageAccount/listAllInfo.jsp",
 						  "/back-end/backstageAccount/listOneInfo.jsp",
-						  "/back-end/backstageAccount/updateOneInfo.jsp"
+						  "/back-end/backstageAccount/updateOneInfo.jsp",
+						  "/back-end/memberBill/*"						  
 						 })
 
 public class BackstageFilter implements Filter {
