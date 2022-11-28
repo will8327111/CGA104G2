@@ -8,9 +8,8 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>住戶個人資訊</title>
-    <link href="${pageContext.request.contextPath}/resources/assets/css/main/app.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/form-element-select.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/summernote.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css" rel="stylesheet">
+
 </head>
 <body>
 <ul>
@@ -57,11 +56,19 @@
                                 <td>${memberVO.memberAddress}</td>
                                 <td>${memberVO.memberPoints}</td>
                                 <td><img src="${pageContext.request.contextPath}/member/PicuploadServlet?memberid=${memberVO.memberId}" width="150px" class="rounded"></td>
-                                <td>${memberVO.regDate}</td>
-                                <td>${memberVO.memberIdState}</td>
-                                <td>${memberVO.acState}</td>
+<%--                                <td>${memberVO.regDate}</td>--%>
+<%--                                <td>${memberVO.memberIdState}</td>--%>
+<%--                                <td>${memberVO.acState}</td>--%>
                             </tr>
                         </table>
+                        <td>
+                            <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do"
+                                  style="margin-bottom: 0px;">
+                                <input type="submit" class="btn btn-outline-primary" value="修改資料">
+                                <input type="hidden" name="memberid" value="${memberVO.memberId}">
+                                <input type="hidden" name="action" value="getOne_For_Update">
+                            </FORM>
+                        </td>
                     </div>
                 </div>
             </div>

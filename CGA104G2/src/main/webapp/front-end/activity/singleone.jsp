@@ -5,7 +5,6 @@
 
 <%
 ActivityVO activityVO = (ActivityVO) request.getAttribute("activity");
-Integer memid = (Integer) session.getAttribute("id");
 Integer status = (Integer) request.getAttribute("status");
 %>
 

@@ -39,6 +39,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.memberLogin.model.MemberLoginVO;
 
 @WebServlet("/activity/ActServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 10 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -276,13 +277,6 @@ public class ActivityServlet extends HttpServlet {
 
 		}
 
-		if ("ID".equals(action)) {
-			Integer id = Integer.valueOf(req.getParameter("ID"));
-			session.setAttribute("id", id);
-			String url = req.getContextPath() + "/front-end/activity/front-index.html";
-			res.sendRedirect(url);
-
-		}
 
 		if ("adddata".equals(action)) {
 			Integer id = Integer.valueOf(req.getParameter("actid"));
@@ -352,14 +346,13 @@ public class ActivityServlet extends HttpServlet {
 		}
 		
 		
-		if("getName".equals(action)) {
-		
-			
-			Integer memId = Integer.valueOf(req.getParameter("memId"));
-			
-			ActivityService actSvc = new ActivityService();
-			out.write(actSvc.name(memId).toString());
-			
+		if("getMember".equals(action)) {
+			MemberLoginVO memeber = (MemberLoginVO)session.getAttribute("memberLoginVO");
+			session.setAttribute("id",memeber.getMemberId());
+			JSONObject json = new JSONObject();
+			json.put("memId", memeber.getMemberId());
+			json.put("memName",memeber.getMemberName());
+			out.write(json.toString());
 		}
 		
 		

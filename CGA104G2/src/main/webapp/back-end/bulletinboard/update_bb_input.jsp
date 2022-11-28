@@ -66,14 +66,19 @@
                                     <td><span style="color: red; "><b>*</b></span>公佈欄內文:</td>
                                     <td><input type="text"  style="width:100%;height:100px ;" name="bbcontent" class="form-control"
                                            value="<%=bulletinboardVO.getBbContent()%>"/>
-<%--                                    <textarea  rows="5" cols="30" name="bbcontent" id="bbcontent" class="form-control"></textarea>--%>
 
                                     </td>
+                                    <td>
+<%--                                        <div class="mb-3 mt-3">--%>
+<%--                                            <label for="bbcontent">Comments:</label>--%>
+<%--                                            <textarea class="form-control" rows="5" id="bbcontent" name="bbcontent"--%>
+<%--                                                      value="<%=bulletinboardVO.getBbContent()%>"/></textarea>--%>
+<%--                                        </div>--%>
 
                                 </tr>
                                 <tr>
                                     <td>公佈欄發佈日期:</td>
-                                    <td><input type="TEXT" disabled name="bbpostdate" size="40" class="form-control"
+                                    <td><input type="TEXT" name="bbpostdate" size="40" class="form-control"
                                                value="<%=bulletinboardVO.getBbPostdate()%>"/></td>
                                 </tr>
 
@@ -82,16 +87,19 @@
                                     <td><input type="TEXT" name="bbupdate" size="40" class="form-control"
                                                value="<%=bulletinboardVO.getBbUpdate()%>"/></td>
                                 </tr>
-
+                                <tr>
+                                    <td>公佈欄圖:<td><img src="<%=request.getContextPath()%>/bulletinboardpic/BulletinBoardPicServlet?bbpicid=${bulletinboardpicVO.bbPicId}" width="200px">
+                                    <input name="bbpic" class="form-control"  type="file" value="<%=bulletinboardVO.getBbPic()%>"></td></td>
+                                </tr>
 
                                 <tr>
                                     <td>公佈欄管理員:</td>
                                     <td>
                                         <select size="1" name="bmid" class="form-select">
 
-                                        <option value="1" <c:if test="${bulletinboardVO.bmId==('1')}"> selected="selected"</c:if>>1:小丸子</option>
-                                        <option value="2" <c:if test="${bulletinboardVO.bmId==('2')}"> selected="selected"</c:if>>2:小智</option>
-                                            <option value="3" <c:if test="${bulletinboardVO.bmId==('3')}"> selected="selected"</c:if>>3:庫拉皮卡</option>
+                                        <option value="1" <c:if test="${bulletinboardVO.bmId==('1')}"> selected="selected"</c:if>>1:邱艾倫</option>
+                                        <option value="2" <c:if test="${bulletinboardVO.bmId==('2')}"> selected="selected"</c:if>>2:威爾高</option>
+                                            <option value="3" <c:if test="${bulletinboardVO.bmId==('3')}"> selected="selected"</c:if>>3:吸精瓶</option>
 
                                     </select>
                                     </td>

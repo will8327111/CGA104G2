@@ -175,10 +175,6 @@ public class ActivityService implements ActivityServiceCommon {
 	}	
 
 	
-	public JSONObject name(Integer memberId) {
-		return  dao.name(memberId);
-		
-	}
 	
 	
 	public List<ActivityVO> get() {

@@ -122,21 +122,22 @@ public class BulletinboardServlet extends HttpServlet {
                 errorMsgs.add("請輸入欲發佈的文章內容");
             }
 
-            Date bbPostdate =  null;
-            try {
-                bbPostdate = Date.valueOf(req.getParameter("bbpostdate").trim());
-            } catch (IllegalArgumentException e) {
-                bbPostdate = new Date(System.currentTimeMillis());
-                errorMsgs.add("發佈日期沒有輸入或是格式錯誤,請重新輸入!");
-            }
+            Date bbPostdate = Date.valueOf(req.getParameter("bbpostdate").trim());
+//            Date bbPostdate =  null;
+//            try {
+//                bbPostdate = Date.valueOf(req.getParameter("bbpostdate").trim());
+//            } catch (IllegalArgumentException e) {
+//                bbPostdate = new Date(System.currentTimeMillis());
+//                errorMsgs.add("發佈日期沒有輸入或是格式錯誤,請重新輸入!");
+//            }
 
-            Date bbUpdate =  null;
-            try {
-                bbUpdate = Date.valueOf(req.getParameter("bbupdate").trim());
-            } catch (IllegalArgumentException e) {
-                bbUpdate = new Date(System.currentTimeMillis());
-                errorMsgs.add("更新日期沒有輸入或是格式錯誤,請重新輸入!");
-            }
+            Date bbUpdate = Date.valueOf(req.getParameter("bbupdate").trim());
+//            try {
+//                bbUpdate = Date.valueOf(req.getParameter("bbupdate").trim());
+//            } catch (IllegalArgumentException e) {
+//                bbUpdate = new Date(System.currentTimeMillis());
+//                errorMsgs.add("更新日期沒有輸入或是格式錯誤,請重新輸入!");
+//            }
 
             Integer bbArticalState = null;
             try {
@@ -147,8 +148,8 @@ public class BulletinboardServlet extends HttpServlet {
             }
             Integer bmId = Integer.valueOf(req.getParameter("bmid").trim());
 
-//            Part part=req.getPart("bbpic");
-//            byte[] bbPic = part.getInputStream().readAllBytes();
+            Part part=req.getPart("bbpic");
+            byte[] bbPic = part.getInputStream().readAllBytes();
 //            if(memberpic.length==0){
 //                MemberService memberSvc2 = new MemberService();
 //                memberpic=memberSvc2.getOneMember(memberId).getMemberPic();
@@ -164,7 +165,7 @@ public class BulletinboardServlet extends HttpServlet {
             bulletinboardVO.setBbArticalState(bbArticalState);
 
             bulletinboardVO.setBmId(bmId);
-//            bulletinboardVO.setBbPic(bbPic);
+            bulletinboardVO.setBbPic(bbPic);
 
             if (!errorMsgs.isEmpty()) {
                 req.setAttribute("bulletinboardVO", bulletinboardVO);
@@ -181,7 +182,7 @@ public class BulletinboardServlet extends HttpServlet {
 
             /***************************3.修改完成,準備轉交(Send the Success view)*************/
             req.setAttribute("bulletinboardVO", bulletinboardVO); // 資料庫update成功後,正確的VO物件,存入req
-            String url = "/back-end/bulletinboard/listOneBb.jsp";
+            String url = "/back-end/bulletinboard/listAllBboard.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneBboard.jsp
             successView.forward(req, res);
         }
@@ -301,7 +302,7 @@ public class BulletinboardServlet extends HttpServlet {
 
                 /*==========1.接收請求參數==========*/
                 String bbClass = new String(req.getParameter("bbclass"));
-            Integer bbSubId = Integer.valueOf(req.getParameter("bbsubid"));
+//                Integer bbSubId = Integer.valueOf(req.getParameter("bbsubid"));
 
                 /*==========2.查詢資料==========*/
 
@@ -309,12 +310,10 @@ public class BulletinboardServlet extends HttpServlet {
                 bulletinboardSvc.findClass(bbClass);
 
                 /***************************3.查詢完成,準備轉交(Send the Success view)*************/
-                String url = "/front-end/bulletinboard/News.jsp";
+                String url = "/front-end/bulletinboard/bbNews2.jsp";
                 RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交
                 successView.forward(req, res);
             }
-
-
 
         }
 }

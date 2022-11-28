@@ -27,7 +27,7 @@ public interface ActivityDAO_interface extends ActivityCommon{
 	public JSONArray  getPage(Integer number);
 	public void updateNumber(Integer number,Integer actId);
 	public void removeNumber(Integer number, Integer actId);
-	public JSONObject name(Integer memberId);
+
 	public void updateStatus (Integer actId);
 	public void expired (Integer actId);
 }

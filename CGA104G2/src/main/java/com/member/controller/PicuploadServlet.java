@@ -37,7 +37,7 @@ public class PicuploadServlet extends HttpServlet {
 				in.close();
 			} else {
 				//res.sendError(HttpServletResponse.SC_NOT_FOUND);
-				InputStream in=getServletContext().getResourceAsStream("/NoData/none2.jpg");
+				InputStream in=getServletContext().getResourceAsStream("img/none.png");
 			byte[] b=in.readAllBytes();
 			out.write(b);
 			in.close();
@@ -46,7 +46,7 @@ public class PicuploadServlet extends HttpServlet {
 			stmt.close();
 		} catch (Exception e) {
 			//System.out.println(e);
-			InputStream in=getServletContext().getResourceAsStream("/NoData/null.jpg");
+			InputStream in=getServletContext().getResourceAsStream("img/none.png");
 			byte[] b= new byte[in.available()];
 		in.read(b);
 		out.write(b);

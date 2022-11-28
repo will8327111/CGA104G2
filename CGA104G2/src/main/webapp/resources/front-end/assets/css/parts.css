@@ -234,13 +234,14 @@ body.appear #wrapper{
 
 #header{
 	position: fixed;/*header固定*/
-	height: 80px;/*Header高設定*/
+	height: 80px;
 	width:100%;
     z-index: 8;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
     background: rgb(225, 238, 234);
+	border-radius: 5px;
 	opacity: 90%;
 }
 
@@ -267,10 +268,10 @@ body.appear #wrapper{
 #pc-nav li a{
 	display: block;
 	text-decoration: none;
-	color: rgb(64, 50, 43);
-	padding:0 15px;
+	color: rgb(42, 62, 83);
+	padding:0 20px;
 	transition:all 0.3s;
-	font-size: 1rem;
+	font-size: 1.5rem;
 }
 
 #pc-nav li.current a,
@@ -303,8 +304,8 @@ body.appear #wrapper{
 
 /*text設定*/
 .btnlinestretches3 span{
-    /*為了要讓text先出現故設定z-index*/
 	position:relative;
+    /*為了要讓text先出現故設定z-index*/
 	z-index: 2;
 }
 
@@ -324,7 +325,6 @@ body.appear #wrapper{
 	background:rgb(89, 189, 150);
 	width:100%;
 	height:3px;
-    /*動畫效果*/
 	transition:all 0.3s ease-in-out;
 }
 
@@ -347,7 +347,6 @@ body.appear #wrapper{
 	height: 60px;
 	color: #fff;
 	text-align: center;
-	/*text-transform: uppercase; */
 	text-decoration: none;
 	font-size:0.6rem;
 	transition:all 0.3s;
@@ -471,7 +470,7 @@ body.appear #wrapper{
 
 /*風琴效果應用區域*/
 .box {
-    display: none;/*初始設定未顯示*/
+    display: none;
     background: #f3f3f3;
 	margin:0 3% 3% 3%;
     padding: 3%;
@@ -516,7 +515,6 @@ body.appear #wrapper{
 		padding-bottom:10px;
     }
 }
-
 
 
 /*左右切入*/
@@ -627,7 +625,7 @@ opacity:0;
   }
 }
 
-/* 手機畫面用。親要素如果沒設定會不太能動*/
+/* 手機畫面用*/
 #vision,
 .service-area{
     transform:  translate3d(0, 0, 0);
@@ -763,7 +761,6 @@ opacity:0;
 /*scroll追隨位置*/
 /*===================================*/
 
-/*固定*/
 
 .sub-fix-block{
 	position: -webkit-sticky;

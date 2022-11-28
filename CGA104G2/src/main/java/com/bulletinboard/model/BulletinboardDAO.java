@@ -34,6 +34,15 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
     //查詢全部
     private static final String GET_ALL_BB =
             "SELECT * from bulletin_board order by BB_SUB_ID";
+
+    private static final String GET_ALL_BB_ON =
+            "SELECT bb.BB_CLASS,bb.BB_TITLE,bb.BB_CONTENT,bb.BB_POSTDATE,bb.BB_UPDATE,bbp.BB_PIC\n" +
+                    "from bulletin_board bb\n" +
+                    "        left join bulletin_board_pictures bbp\n" +
+                    "              on bb.BB_SUB_ID = bbp.BB_SUB_ID\n" +
+//                    "where bb.BB_CLASS='社區規約'\n" +
+//                    "  and BB_ARTICAL_STATE=1;";
+    "where BB_ARTICAL_STATE=1;";
     //查詢單一類別
     private static final String GET_ONE_BB =
             "SELECT * from bulletin_board bb1 left join bulletin_board_pictures bbp on bb1.BB_SUB_ID = bbp.BB_SUB_ID where bbp.BB_SUB_ID = ? order by bb1.BB_SUB_ID DESC ;";
@@ -315,6 +324,68 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
         }
         return list;
     }
+
+//上架的全部
+    @Override
+    public List<BulletinboardVO> getAllOn() {
+        List<BulletinboardVO> list = new ArrayList<BulletinboardVO>();
+        BulletinboardVO bulletinboardVO = null;
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_ALL_BB_ON);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                //  Domain objects
+                bulletinboardVO = new BulletinboardVO();
+//                bulletinboardVO.setBbSubId(rs.getInt("BB_SUB_ID"));
+                bulletinboardVO.setBbClass(rs.getString("BB_CLASS"));
+                bulletinboardVO.setBbTitle(rs.getString("BB_TITLE"));
+                bulletinboardVO.setBbContent(rs.getString("BB_CONTENT"));
+                bulletinboardVO.setBbPostdate(rs.getDate("BB_POSTDATE"));
+                bulletinboardVO.setBbUpdate(rs.getDate("BB_UPDATE"));
+//                bulletinboardVO.setBbArticalState(rs.getInt("BB_ARTICAL_STATE"));
+//                bulletinboardVO.setBmId(rs.getInt("BM_ID"));
+
+                list.add(bulletinboardVO);
+            }
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("資料庫發生錯誤! "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
+    }
+
 
     //照類別查詢
 
