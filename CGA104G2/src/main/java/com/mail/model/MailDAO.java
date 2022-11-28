@@ -48,6 +48,42 @@ public class MailDAO implements MailDAO_interface {
 		commit();
 		return array;
 	}
+	@Override
+	public JSONArray getFrontAll(Integer memberId) {
+		beginTransaction();
+		JSONArray array = new JSONArray(); 
+		final String hql = "FROM MailVO where MEMBER_ID = "+ memberId +" ORDER BY mailId DESC";
+		List<MailVO> list = getSession().createQuery(hql, MailVO.class).list();
+		
+		for(MailVO vo : list) {
+			JSONObject obj = new JSONObject();
+			obj.put("mailId", vo.getMailId());
+			obj.put("memberId", vo.getMemberId());
+			obj.put("mailType", vo.getMailType());
+			obj.put("mailDelTime", vo.getMailDelTime());
+			obj.put("mailPickupTime", vo.getMailPickupTime());
+			obj.put("mailState", vo.getMailState());
+			//改動態
+			if(vo.getMailState() == 0) {
+				obj.put("mailState", vo.getMailState());
+				obj.put("mailStateName", "未領取");
+			}else if(vo.getMailState() == 1) {
+				obj.put("mailState", vo.getMailState());
+				obj.put("mailStateName", "已領取");
+			}else if(vo.getMailState() == 2) {
+				obj.put("mailState", vo.getMailState());
+				obj.put("mailStateName", "退貨中");
+			}else{
+				obj.put("mailState", vo.getMailState());
+				obj.put("mailStateName", "退貨完成");
+			}
+			
+			array.put(obj);
+		}
+		
+		commit();
+		return array;
+	}
 
 	@Override
 	public void insert(MailVO mailVO) {
@@ -103,6 +139,50 @@ public class MailDAO implements MailDAO_interface {
 			return array;
 	}
 	@Override
+	public JSONArray frontSearch(String mailType,Integer mailId,Integer memberId) {
+		beginTransaction();
+		final StringBuilder sql = new StringBuilder().append("SELECT * FROM Mail where ");
+		
+		if(!(mailId == 0)) {
+			sql.append(" "+"MAIL_ID"+" "+"="+" "+mailId+" "+"and");
+		}
+		
+		if(mailType.trim().length()!=0 &&!(mailType == null)) {
+			sql.append(" "+"MAIL_TYPE"+" "+"="+" "+'"'+mailType+'"'+" "+"and");
+		}
+		sql.append(" "+"MEMBER_ID"+" "+"="+" "+memberId+" "+"ORDER BY"+" "+"MAIL_ID"+" "+"DESC");
+		
+		JSONArray array = new JSONArray();
+		List<MailVO> list = getSession().createNativeQuery(sql.toString(),MailVO.class).list();
+		for(MailVO vo : list) {
+			JSONObject obj =new JSONObject();
+			obj.put("mailId",vo.getMailId());
+			obj.put("memberId",vo.getMemberId());
+			obj.put("mailType",vo.getMailType());
+			obj.put("mailDelTime",vo.getMailDelTime());
+			obj.put("mailPickupTime",vo.getMailPickupTime());
+			
+			//改動態
+			if(vo.getMailState() == 0) {
+				obj.put("mailState", vo.getMailState());
+				obj.put("mailStateName", "未領取");
+			}else if(vo.getMailState() == 1) {
+				obj.put("mailState", vo.getMailState());
+				obj.put("mailStateName", "已領取");
+			}else if(vo.getMailState() == 2) {
+				obj.put("mailState", vo.getMailState());
+				obj.put("mailStateName", "退貨中");
+			}else{
+				obj.put("mailState", vo.getMailState());
+				obj.put("mailStateName", "退貨完成");
+			}
+			
+			array.put(obj);
+		}			
+		commit();
+		return array;
+	}
+	@Override
 	public JSONArray search(String mailType,Integer mailId) {
 		beginTransaction();
 		final StringBuilder sql = new StringBuilder().append("SELECT * FROM Mail where ");
@@ -145,7 +225,7 @@ public class MailDAO implements MailDAO_interface {
 		}			
 		commit();
 		return array;
-
+		
 	}
 //	@Override
 //	public JSONArray singleSearch(String mailType) {

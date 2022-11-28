@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.boot.xsd.ConfigXsdSupport;
 import org.hibernate.type.LocaleType;
@@ -27,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.JsonAdapter;
 import com.mail.model.MailService;
 import com.mail.model.MailVO;
+import com.memberLogin.model.MemberLoginVO;
 import com.reminder.model.ReminderVO;
 import com.store.model.StoreService;
 
@@ -45,12 +47,21 @@ public class MailServlet extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		PrintWriter out = res.getWriter();
+		HttpSession session = req.getSession();
 		
 		if ("getAll".equals(action)) { 
 			MailService mailSvc = new MailService();
 		    out.write(mailSvc.getAll().toString());	
 
 		}
+		if ("getFrontAll".equals(action)) { 
+			MailService mailSvc = new MailService();
+			MemberLoginVO  memberLoginVO = (MemberLoginVO)session.getAttribute("memberLoginVO");
+			Integer memberId = memberLoginVO.getMemberId();
+			out.write(mailSvc.getFrontAll(memberId).toString());	
+			
+		}
+		
 		
 		if ("getOne_For_Display".equals(action)) { 
 
@@ -186,31 +197,14 @@ public class MailServlet extends HttpServlet {
 			MailService mailSvc = new MailService();
 			out.write(mailSvc.search(mailType,mailId).toString());
 		}
+		if("frontSearch".equals(action)) {
+			MemberLoginVO  memberLoginVO = (MemberLoginVO)session.getAttribute("memberLoginVO");
+			Integer memberId = memberLoginVO.getMemberId();
+			String mailType = req.getParameter("mailType");
+			Integer mailId = Integer.valueOf(req.getParameter("mailId").trim());
+			MailService mailSvc = new MailService();
+			out.write(mailSvc.frontSearch(mailType,mailId,memberId).toString());
+		}
 	}
 
 }
-//if ("get_Member_Name".equals(action)) { 
-//	
-//			List<String> errorMsgs = new LinkedList<String>();
-//			req.setAttribute("errorMsgs", errorMsgs);
-//			String memberName = req.getParameter("memberName");
-//			if (memberName == null || (memberName.trim()).length() == 0) {
-//				errorMsgs.add("請輸入住戶姓名");
-//			}
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/mail/addMail.jsp");
-//				failureView.forward(req, res);
-//				return; 
-//			}
-//
-//			MailService mailSvc = new MailService();
-//			MailVO mailVO = mailSvc.getOneId(memberName);
-//			if (mailVO == null) {
-//				errorMsgs.add("查無此住戶請重新輸入");
-//			}
-//			/******************************************************************/			
-//			req.setAttribute("mailVO", mailVO); 
-//			String url = "/back-end/mail/addMail.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url); 
-//			successView.forward(req, res);
-//}

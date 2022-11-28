@@ -49,7 +49,7 @@
 </head>
 
 
-<body>
+<body onload="connect();">
     <div id="splash">
         <div id="splash-logo">
             <div class="bgextend bgLRextend"><span class="bgappear">Community Management</span><br>
@@ -214,7 +214,7 @@
                 </ul>
             <ul>
                 <div id="out-div" >
-                    <a href="#"><button class="fadeUpTrigger cap"  id="out" data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-bell"></i><label style="font-size: 1rem;"> 通知</label></button></a>
+                    <a href="#"><button class="fadeUpTrigger cap"  id="out" data-tippy-content="<div class='inner-cap'><p >住戶訊息通知。</p><p id='reminder'>檢視您的個人訊息。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-bell"></i><label style="font-size: 1rem;"> 通知</label></button></a>
                 </div>
             </ul>
             <!--導覽列 end-->
@@ -646,5 +646,90 @@
     <script src="../../resources/front-end/assets/js/search_origin.js"></script>
 
 </body>
+<script>
+var MyPoint = "/TogetherWS/will";
+var host = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf('/', 1));
+var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+var webSocket;
 
+
+function connect() {
+	// create a websocket
+	webSocket = new WebSocket(endPointURL);
+	let allReminder = JSON.parse(sessionStorage.getItem("Reminder"));
+	let memberId = JSON.parse(sessionStorage.getItem("memberId"));
+	
+	webSocket.onopen = async function(event) {
+		
+		console.log("已連線");
+		await fetch("../../reminder/ReminderServlet?action=getAll", {
+			method: 'get'
+		})
+		.then(res => res.json())	
+		.then(res =>{
+			showReminder(res);
+			console.log(res);
+		})
+		
+		if(!(allReminder === null)){
+			let str = "<li id='mail' class='dropdown-item notification-item'>"
+	            +"<a class='d-flex align-items-center' href='../../back-end/mail/mailIndexBootStrap.html'>"
+	            +"<div class='notification-icon bg-success'>"
+	            +"<i class='bi bi-file-earmark-check'></i>"
+	            +"</div>"
+	            +"<div class='notification-text ms-4'>"
+	            +"<p class='notification-title font-bold'>" + allReminder.mailMessage + "</p>"	
+	            +"</div></a></li>";
+				
+			$("#out-div").after(str);
+		}
+		
+
+		
+		
+		function showReminder(res){
+			 for (let i = 0; i < res.length; i++) {
+				 let str = "<li id='mail' class='dropdown-item notification-item'>"
+			            +"<a class='d-flex align-items-center' href='../../back-end/mail/mailIndexBootStrap.html'>"
+			            +"<div class='notification-icon bg-success'>"
+			            +"<i class='bi bi-file-earmark-check'></i>"
+			            +"</div>"
+			            +"<div class='notification-text ms-4'>"
+			            +"<p class='notification-title font-bold'>" + res[i].reminderInfo + "</p>"	
+			            +"</div></a></li>";
+			            
+				 $("#out-div").after(str);
+			 }
+		}
+	};
+
+	webSocket.onmessage = function(event) {
+		let allReminder = JSON.parse(sessionStorage.getItem("Reminder"));
+		console.log("訊息");
+		var reminder = document.getElementById("reminder");
+		console.log(allReminder);
+		
+		if(allReminder === null){
+			console.log(allReminder);
+			var jsonObj = JSON.parse(event.data);
+			var message = jsonObj.message;
+			let Reminder = {};
+			Reminder.mailMessage = JSON.stringify(message);
+			
+			sessionStorage.setItem("Reminder", JSON.stringify(Reminder));
+			let str = "<li  id='mail' class='dropdown-item notification-item'>"
+	            +"<a class='d-flex align-items-center' href='../../back-end/mail/mailIndexBootStrap.html'>"
+	            +"<div class='notification-icon bg-success'>"
+	            +"<i class='bi bi-file-earmark-check'></i>"
+	            +"</div>"
+	            +"<div class='notification-text ms-4'>"
+	            +"<p class='notification-title font-bold'>" + Reminder.mailMessage +"</p>"	
+	            +"</div></a></li>";
+			$("#out-div").after(str);
+		}
+	}
+}
+</script>
 </html>
