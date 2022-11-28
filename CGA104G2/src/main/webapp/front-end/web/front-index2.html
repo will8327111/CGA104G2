@@ -26,6 +26,21 @@
     <!--modaal-->
     <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
 
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css"
+            rel="stylesheet"
+    />
     <!--=============js=============-->
     <!--延遲載入-->
     <script src="../../resources/front-end/assets/js/lazyload.min.js"></script>
@@ -81,14 +96,37 @@
                             class="bgappearTrigger"><i class="fa-solid fa-shop"></i></span></span></a></li>
                 </ul>
             </nav>
+<!--登入icon-->
             <ul>
                 <div id="login-div" style="width:100%; display: flex; flex-direction: row; justify-content:space-between; z-index: 99;">
                     <a href="#"><button class="fadeUpTrigger cap"  id="login" data-tippy-content="<div class='inner-cap'><p>帳號登入/註冊。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1.3rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1.3rem;"> </label></button></a>
                 </div>
             </ul>
+<!--小鈴鐺icon-->
             <ul>
                 <div id="out-div" >
-                    <a href="#"><button class="fadeUpTrigger cap"  id="out" data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>"><i style="font-size: 1.3rem;" class="fa-solid fa-bell"></i><label style="font-size: 1.3rem;"></label></button></a>
+                    <a href="#" class="me-3 dropdown-toggle hidden-arrow" id="navebarDropdownMenuLink" role="button" data-mdb-toggle="dropdown"
+                     aria-expanded="false">
+                        <!--小鈴鐺按鈕-->
+                        <button class="fadeUpTrigger cap"  id="out" data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>">
+                            <i style="font-size: 1.3rem;" class="fa-solid fa-bell"></i>
+                            <label style="font-size: 1.3rem;"></label>
+                            <!--計數-->
+                            <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                            <!--鈴鐺裡的訊息-->
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" href="#">Some news</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">Another news</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </li>
+                            </ul>
+                        </button>
+                    </a>
                 </div>
             </ul>
             <!--導覽列 end-->
@@ -325,6 +363,11 @@
     <!--other-->
     <script src="../../resources/front-end/assets/js/modaal.min.js"></script>
     <script src="../../resources/front-end/assets/js/script.js"></script>
+    <!-- MDB -->
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"
+    ></script>
 
 </body>
 
