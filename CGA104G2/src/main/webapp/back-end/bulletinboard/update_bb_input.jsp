@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>公佈欄資料修改 - update_bulletinboard_input.jsp</title>
+    <title>公佈欄資料修改</title>
     <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css" rel="stylesheet">
 </head>
 
@@ -16,7 +16,7 @@
 <ul class="form-group">
 <tr>
     <td>
-        <h3>公佈欄資料修改 - update_bulletinboard_input.jsp</h3>
+        <h3>公佈欄資料修改</h3>
         <br>
 <%--        <h4><a href="${pageContext.request.contextPath}/index.jsp"><img src="./images/back.svg" width="30" height="30"--%>
 <%--                                                                        alt="返回">回首頁</a></h4>--%>
@@ -38,7 +38,7 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Update Bulletinboard</h4>
+<%--                    <h4 class="card-title">Update Bulletinboard</h4>--%>
                     <h4 class="card-subtitle">標示<span style="color: red; "><b>紅色*</b></span>為必填項目</h4>
                 </div>
                 <div class="card-body">
@@ -87,10 +87,10 @@
                                     <td><input type="TEXT" name="bbupdate" size="40" class="form-control"
                                                value="<%=bulletinboardVO.getBbUpdate()%>"/></td>
                                 </tr>
-                                <tr>
-                                    <td>公佈欄圖:<td><img src="<%=request.getContextPath()%>/bulletinboardpic/BulletinBoardPicServlet?bbpicid=${bulletinboardpicVO.bbPicId}" width="200px">
-                                    <input name="bbpic" class="form-control"  type="file" value="<%=bulletinboardVO.getBbPic()%>"></td></td>
-                                </tr>
+<%--                                <tr>--%>
+<%--                                    <td>公佈欄圖:<td><img src="<%=request.getContextPath()%>/bulletinboardpic/BulletinBoardPicServlet?bbpicid=${bulletinboardpicVO.bbPicId}" width="200px">--%>
+<%--                                    <input name="bbpic" class="form-control"  type="file" value="<%=bulletinboardVO.getBbPic()%>"></td></td>--%>
+<%--                                </tr>--%>
 
                                 <tr>
                                     <td>公佈欄管理員:</td>

@@ -129,36 +129,26 @@
                 </section>
 <!-- 社區服務section start -->
 
-<!--其他可直接拿去使用的樣版-->
-
-
-
-
-
-<!--下面物件出現動畫-->
-<%--                <div class="fadeUpTrigger">--%>
-<%--                    <div class="faq-bg"></div>--%>
-<%--                </div>--%>
-
                 <section id="faq" class="scroll-point">
                     <h2><span class="bgextend bgLRextendTrigger"><span class="bgappearTrigger">公佈欄</span></span></h2>
-
+                    <%@ include file="bbPage.file" %>
                     <c:forEach items="${list}" var="bulletinboardVO" begin="1" end="5">
                     <ul class="accordion-area">
                         <li class="fadeUpTrigger">
                             <section class="open">
                                 <h3 class="title">
-                                    <time datetime>${bulletinboardVO.bbPostdate}</time>  ${bulletinboardVO.bbTitle}
+                                    <time datetime>${bulletinboardVO.bbPostdate}</time> 【${bulletinboardVO.bbClass}】　${bulletinboardVO.bbTitle}
                                 </h3>
                                 <div class="box">
                                     <p>${bulletinboardVO.bbContent}</p>
                                     <p>更新日：${bulletinboardVO.bbUpdate}</p>
-                                    <p><img src="${pageContext.request.contextPath}/bulletinboardpic/controller/BulletinBoardPicServlet?bbpic=${bulletinboardVO.bbPic}" width="50%" class="rounded"></p>
+<%--                                    <p><img src="${pageContext.request.contextPath}/bulletinboardpic/controller/BulletinBoardPicServlet?bbpic=${bulletinboardVO.bbPic}" width="50%" class="rounded"></p>--%>
                                 </div>
                             </section>
                         </li>
                     </ul>
                     </c:forEach>
+                    <%@ include file="bbPage2.file" %>
                 </section>
 
 
@@ -175,14 +165,14 @@
                 <div id="g-nav-list">
                     <ul>
                         <li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
-                        <li><a href="#">住戶帳號</a></li>
+                        <li><a href="#">住戶資訊</a></li>
                         <li><a href="../../front-end/bulletinboard/bbNews2.jsp">公佈欄</a></li>
                         <li><a href="#">社區帳單</a></li>
-                        <li><a href="#">郵件</a></li>
+                        <li><a href="../../front-end/mail/mail.html">郵件</a></li>
                         <li><a href="#">公共設施</a></li>
-                        <li><a href="#">活動</a></li>
+                        <li><a href="../../front-end/activity/homepage3.html">活動</a></li>
                         <li><a href="#">檢舉與維修</a></li>
-                        <li><a href="#">特約商店</a></li>
+                        <li><a href="../../front-end/store/store.html">特約商店</a></li>
                     </ul>
                 </div>
             </div>

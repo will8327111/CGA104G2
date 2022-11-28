@@ -26,7 +26,7 @@
 <table id="table-1">
     <tr>
         <td>
-            <h3>所有公佈欄 - listAllBboard.jsp</h3>
+            <h3>所有公佈欄</h3>
             <br>
         </td>
     </tr>
