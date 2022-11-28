@@ -99,7 +99,6 @@ h3 span,
         display: flex;
         justify-content: flex-end;
         transform: translateX(-100px);
-        );
     }
 }
 
@@ -114,8 +113,7 @@ h3 span,
     #out-div{
         display: flex;
         justify-content: flex-end;
-        transform: translateX(300px);
-    );
+        transform: translateX(-300px);
     }
 }
 
@@ -297,7 +295,7 @@ h2{
 
 #vision .vision-lead{
     position: relative;
-    color:#eb6100;
+    color: #3773b3;
     font-size:1.3rem;
     font-weight: bold;
     margin: 0 0 90px 0;
@@ -315,7 +313,7 @@ h2{
     position: absolute;
     bottom:-30px;
     right:0;
-    background:#eb6100;
+    background: #45a87e;
     width:12em;
     height: 3px;
 }

@@ -240,7 +240,7 @@
 //     =====================================顯示AllMail=============================================
 		window.addEventListener("load", async function (){
 	            
-	       	await fetch('../../back-end/mail/mail.do?action=getAll', {
+	       	await fetch('../../back-end/mail/mail.do?action=getFrontAll', {
 				method: 'get'
 			})
 			.then(res => res.json())	
@@ -274,14 +274,13 @@
 		
 		document.getElementById("searchMail").onclick = async function searchMail(){
 			rest();
-			console.log("123");
 			let select_mailType = $("#select_mailType").val();
 			let search_mailID = $("#search_mailID").val();
 			if(search_mailID === ""){
 				search_mailID = 0;
 			}
 			
-			let res = await fetch(`../../back-end/mail/mail.do?action=search&mailType=${select_mailType}&mailId=${search_mailID}`, { method: 'get' });
+			let res = await fetch(`../../back-end/mail/mail.do?action=frontSearch&mailType=${select_mailType}&mailId=${search_mailID}`, { method: 'get' });
 			let data = await res.json();
 			 
 			$("#showAllMail").append(

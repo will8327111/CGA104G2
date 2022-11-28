@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.JSONArray;
 
 import com.mail.common.MailCommon;
+import com.memberLogin.model.MemberLoginVO;
 
 public interface MailDAO_interface extends MailCommon {
 	 public void insert(MailVO mailVO);
@@ -17,6 +18,8 @@ public interface MailDAO_interface extends MailCommon {
      public JSONArray findMailType();
      public JSONArray search(String mailType, Integer mailId);
 //     public JSONArray singleSearch(String mailType);
+	public JSONArray getFrontAll(Integer memberId);
+	public JSONArray frontSearch(String mailType, Integer mailId, Integer memberId);
 	
 }
 

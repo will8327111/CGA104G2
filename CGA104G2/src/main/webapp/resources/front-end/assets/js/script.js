@@ -340,7 +340,7 @@ tippy('.cap', {
 		placement: 'top',//出現位置
 		animation: 'shift-away-subtle',
 		theme: 'light-border',
-		duration: 200,
+		duration: 100,
 	}
 )
 

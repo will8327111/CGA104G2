@@ -11,11 +11,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
 import com.mail.model.MailService;
 import com.mail.model.MailVO;
+import com.memberLogin.model.MemberLoginVO;
 import com.reminder.model.ReminderService;
 import com.reminder.model.ReminderVO;
 
@@ -33,11 +35,12 @@ public class ReminderServlet extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		PrintWriter out = res.getWriter();
+		HttpSession session = req.getSession();
 		
 		
 		if ("getAll".equals(action)) {
-			Integer memberId = Integer.valueOf(req.getParameter("memberId"));
-			System.out.println(memberId);
+			MemberLoginVO memberLoginVO = (MemberLoginVO)session.getAttribute("memberLoginVO");
+			Integer memberId = memberLoginVO.getMemberId();
 			ReminderService remService = new ReminderService();
 		    out.write(remService.getAll(memberId).toString());
 		}

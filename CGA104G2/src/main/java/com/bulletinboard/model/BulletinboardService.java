@@ -66,7 +66,9 @@ public class BulletinboardService {
     public List<BulletinboardVO> getAll() {
         return dao.getAll();
     }
-
+    public List<BulletinboardVO> getAllOn() {
+        return dao.getAllOn();
+    }
 
     public List<BulletinboardVO> findClass(String bbClass) {
         return dao.findClass(bbClass);

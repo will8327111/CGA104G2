@@ -31,37 +31,9 @@
 
 <body>
 <!-- !!固定!! 旁邊導覽列sidebar menu start (不是js動態產生的,放body)-->
-<%--<script src="${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js"></script>--%>
+<script src="${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js"></script>
 <div id='app'>
-    <div id='sidebar' class='active' >
-        <div class='sidebar-wrapper active'>
-            <div class='sidebar-header position-relative'>
-                <div class='d-flex justify-content-between align-items-center '>
-
-                    <div class='sidebar-toggler  x'>
-                        <a href='#' class='sidebar-hide d-xl-none d-block'><i class='bi bi-x bi-middle'></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class='logo'>
-                <a href='${pageContext.request.contextPath}/back-end/web/index-test.html'><img src='${pageContext.request.contextPath}/resources/back-end/assets/images/main/logospm21.png' alt='Logo' srcset=''
-                                                                  width='80%'></a>
-            </div>
-            <div class='sidebar-menu'>
-                <ul class='menu'>
-
-
-                    <li class='sidebar-item'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-clipboard-check'></i>
-                            <span>公佈欄</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </div>
+    
 
     <!-- !!固定!! 右上方 navbar end -->
 

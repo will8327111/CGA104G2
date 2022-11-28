@@ -9,8 +9,6 @@ import java.util.*;
 
 import com.member.model.*;
 
-import static java.lang.Integer.parseInt;
-import static java.lang.System.out;
 
 @WebServlet("/member/member.do")
 @MultipartConfig(fileSizeThreshold=1024*1024*10,  // 10 MB
@@ -59,7 +57,6 @@ public class MemberServlet extends HttpServlet {
             }
 
             /*==========2.查詢資料==========*/
-
             MemberService memberSvc = new MemberService();
             MemberVO memberVO = memberSvc.getOneMember(memberId);
             if (memberVO == null) {
@@ -107,7 +104,6 @@ public class MemberServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-//            Integer memberId = new Integer(req.getParameter("memberid").trim());
             Integer memberId = Integer.valueOf(req.getParameter("memberid").trim());
 
             String memberAc = req.getParameter("memberac");
@@ -191,10 +187,8 @@ public class MemberServlet extends HttpServlet {
                 errorMsgs.add("日期沒有輸入或是格式錯誤,請重新輸入!");
             }
 
-//            Integer memberIdState = new Integer(req.getParameter("memberidstate"));
             Integer memberIdState = Integer.valueOf(req.getParameter("memberidstate"));
 
-//            Integer acState = new Integer(req.getParameter("acstate"));
             Integer acState = Integer.valueOf(req.getParameter("acstate"));
 
             Part part=req.getPart("memberpic");
@@ -281,7 +275,6 @@ public class MemberServlet extends HttpServlet {
                 errorMsgs.add("請選擇性別");
             }
 
-
             String memberBuilding = req.getParameter("memberbuilding").trim();
             if (memberBuilding == null || memberBuilding.trim().length() == 0) {
                 errorMsgs.add("棟別欄位請勿空白");
@@ -315,7 +308,6 @@ public class MemberServlet extends HttpServlet {
 
             Integer memberPoints = null;
             try {
-//                memberPoints = new Integer(req.getParameter("memberpoints").trim());
                 memberPoints = Integer.valueOf(req.getParameter("memberpoints").trim());
             } catch (NumberFormatException e) {
                 memberPoints = 0;
@@ -333,7 +325,6 @@ public class MemberServlet extends HttpServlet {
 //            Integer memberIdState = Integer.valueOf(req.getParameter("memberidstate"));
             Integer memberIdState =null;
             try {
-//                    memberIdState = new Integer(req.getParameter("memberidstate"));
                 memberIdState = Integer.valueOf(req.getParameter("memberidstate"));
             } catch (NumberFormatException e) {
                 memberIdState = 1;

@@ -14,12 +14,12 @@ public class ReminderDAO implements Reminder_interface{
 	public JSONArray getAll(Integer memberId) {
 		beginTransaction();
 		JSONArray array = new JSONArray(); 
-		final String hql = "FROM ReminderVO WHERE memberId =" + memberId +" "+"and"+" "+"reminderStatus"+" "+"="+" "+ 0;
-		List<ReminderVO> list = getSession().createQuery(hql, ReminderVO.class).list();
+		final String hql = "SELECT DISTINCT reminderInfo FROM ReminderVO WHERE memberId =" + memberId +" "+"and"+" "+"reminderStatus"+" "+"="+" "+ 0;
+		List<String> list = getSession().createQuery(hql).list();
 		
-		for(ReminderVO vo : list) {
+		for(String reminderInfo : list) {
 			JSONObject obj = new JSONObject();
-			obj.put("reminderInfo", vo.getReminderInfo());
+			obj.put("reminderInfo", reminderInfo);
 			array.put(obj);
 		}
 		

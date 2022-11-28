@@ -32,6 +32,9 @@ public class MailService {
 	public JSONArray getAll() {
 		return dao.getAll();
 	}
+	public JSONArray getFrontAll(Integer memberId) {
+		return dao.getFrontAll(memberId);
+	}
 	public JSONArray findMailType() {
 		return dao.findMailType();
 	}
@@ -41,6 +44,9 @@ public class MailService {
 //	public JSONArray singleSearch(String mailType) {
 //		return dao.singleSearch(mailType);
 //	}
+	public JSONArray frontSearch(String mailType, Integer mailId ,Integer memberId) {
+		return dao.frontSearch(mailType, mailId,memberId);
+	}
 	
 //	public byte[] getPhoto(Integer member_Id) {
 //		return dao.getPhoto(member_Id);

@@ -20,6 +20,9 @@ public interface BulletinboardDAO_interface {
     //查詢全部
     List<BulletinboardVO> getAll();
 
+    //上架的全部
+    List<BulletinboardVO> getAllOn();
+
     //查詢類別
         List<BulletinboardVO> findClass(String bbClass);
 
