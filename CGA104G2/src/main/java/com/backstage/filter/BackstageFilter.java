@@ -17,9 +17,10 @@ import javax.servlet.http.HttpSession;
 						  "/back-end/backstageAccount/addInfo.jsp",
 						  "/back-end/backstageAccount/backstageIndex.jsp",
 						  "/back-end/backstageAccount/backstageInfo.jsp",
-						  "/back-end/ba	ckstageAccount/listAllInfo.jsp",
+						  "/back-end/backstageAccount/listAllInfo.jsp",
 						  "/back-end/backstageAccount/listOneInfo.jsp",
-						  "/back-end/backstageAccount/updateOneInfo.jsp"
+						  "/back-end/backstageAccount/updateOneInfo.jsp",
+						  "/back-end/memberbill/*",
 						 })
 
 public class BackstageFilter implements Filter {

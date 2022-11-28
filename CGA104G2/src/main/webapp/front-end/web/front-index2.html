@@ -56,6 +56,9 @@
         body {
             font-family: 'huninn',serif;
         }
+        #mailRem{
+        	margin-left:2px;
+        }
     </style>
 </head>
 
@@ -108,13 +111,13 @@
                     <a href="#" class="me-3 dropdown-toggle hidden-arrow" id="navebarDropdownMenuLink" role="button" data-mdb-toggle="dropdown"
                      aria-expanded="false">
                         <!--小鈴鐺按鈕-->
-                        <button class="fadeUpTrigger cap"  id="out" data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>">
+                        <button class="fadeUpTrigger cap"  id="out">
                             <i style="font-size: 1.3rem;" class="fa-solid fa-bell"></i>
                             <label style="font-size: 1.3rem;"></label>
                             <!--計數-->
                             <span class="badge rounded-pill badge-notification bg-danger">1</span>
                             <!--鈴鐺裡的訊息-->
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <ul id='reminder' class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li>
                                     <a class="dropdown-item" href="#">Some news</a>
                                 </li>
@@ -398,16 +401,12 @@ function connect() {
 		})
 		
 		if(!(allReminder === null)){
-			let str = "<li id='mail' class='dropdown-item notification-item'>"
-	            +"<a class='d-flex align-items-center' href='../../back-end/mail/mailIndexBootStrap.html'>"
-	            +"<div class='notification-icon bg-success'>"
-	            +"<i class='bi bi-file-earmark-check'></i>"
-	            +"</div>"
+			let str = "<a class='d-flex align-items-center' href='../../front-end/mail/mail.html'>"
 	            +"<div class='notification-text ms-4'>"
 	            +"<p class='notification-title font-bold'>" + allReminder.mailMessage + "</p>"	
 	            +"</div></a></li>";
 				
-			$("#out-div").after(str);
+			$("#reminder").append(str);
 		}
 		
 
@@ -415,16 +414,12 @@ function connect() {
 		
 		function showReminder(res){
 			 for (let i = 0; i < res.length; i++) {
-				 let str = "<li id='mail' class='dropdown-item notification-item'>"
-			            +"<a class='d-flex align-items-center' href='../../back-end/mail/mailIndexBootStrap.html'>"
-			            +"<div class='notification-icon bg-success'>"
-			            +"<i class='bi bi-file-earmark-check'></i>"
-			            +"</div>"
+				 let str = "<a class='d-flex align-items-center' href='../../front-end/mail/mail.html'>"
 			            +"<div class='notification-text ms-4'>"
 			            +"<p class='notification-title font-bold'>" + res[i].reminderInfo + "</p>"	
 			            +"</div></a></li>";
 			            
-				 $("#out-div").after(str);
+				 $("#reminder").append(str);
 			 }
 		}
 	};
@@ -441,17 +436,14 @@ function connect() {
 			var message = jsonObj.message;
 			let Reminder = {};
 			Reminder.mailMessage = JSON.stringify(message);
-			
+			let a = Reminder.mailMessage.replace('"'," ");
+			let b = Reminder.mailMessage.replace('"'," ");
 			sessionStorage.setItem("Reminder", JSON.stringify(Reminder));
-			let str = "<li  id='mail' class='dropdown-item notification-item'>"
-	            +"<a class='d-flex align-items-center' href='../../back-end/mail/mailIndexBootStrap.html'>"
-	            +"<div class='notification-icon bg-success'>"
-	            +"<i class='bi bi-file-earmark-check'></i>"
-	            +"</div>"
-	            +"<div class='notification-text ms-4'>"
-	            +"<p class='notification-title font-bold'>" + Reminder.mailMessage +"</p>"	
+			let str ="<a class='d-flex align-items-center' href='../../front-end/mail/mail.html'>"
+	            +"<div id='mailRem' class='notification-text ms-4'>"
+	            +"<p class='notification-title font-bold'>" + b +"</p>"	
 	            +"</div></a></li>";
-			$("#out-div").after(str);
+			$("#reminder").append(str);
 		}
 	}
 }

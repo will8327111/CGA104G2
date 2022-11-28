@@ -291,7 +291,7 @@
 							
     	        			webSocket.onopen = function(event) {
     	        				var json = {
-   	  								"message" : "您的有新的郵件"
+   	  								message: "您的有新的郵件"
    	  							};
    	  							webSocket.send(JSON.stringify(json));
     	        			};
