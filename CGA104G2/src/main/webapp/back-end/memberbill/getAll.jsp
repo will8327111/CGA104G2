@@ -5,8 +5,15 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.memberbill.model.*"%>
 <%@ page import="com.memberbill.controller.*"%>
+
+
 <%
-List<MemberBillVO> list = (List) request.getAttribute("list");
+MemberBillService memSvc  = new  MemberBillService();
+List<MemberBillVO> list = memSvc.getAll();
+pageContext.setAttribute("list", list); 
+
+//List<MemberBillVO> list2 = (List) request.getAttribute("list");
+//pageContext.setAttribute("list", list); 
 %>
 <!DOCTYPE html>
 <!--繁體中文-->
@@ -52,7 +59,7 @@ List<MemberBillVO> list = (List) request.getAttribute("list");
 <meta>
 <!--    自己的css end-->
 	<!-- !!固定!! 旁邊導覽列sidebar menu start -->
-    	<script src=${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js></script>
+    	<script src=${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar2.js></script>
     <!-- !!固定!! 旁邊導覽列sidebar menu end -->
 <!--    網址列標題-->
 <title>陪你e生e世 社區服務平台：後台Home</title>
@@ -209,7 +216,7 @@ List<MemberBillVO> list = (List) request.getAttribute("list");
 						</div>
 						<!--內容區塊-->
 						<div class="card-body">
-							<form method="post" action="bill.do" name="form2"
+							<form method="post" action="<%=request.getContextPath() %>/member/bill.do" name="form2"
 								enctype="multipart/form-data">
 								<th>所有帳單資料</th>
 								<table id="table-1" class="table table-borderless">

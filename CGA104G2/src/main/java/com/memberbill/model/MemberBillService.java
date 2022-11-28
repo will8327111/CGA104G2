@@ -93,10 +93,11 @@ public class MemberBillService {
         String getDataUrl1=url+"/front-end/memberbill/card.jsp";
         String customField1=(""+memId+","+sum+","+memberBillId);
         
-        
+//        int r = 0;
+//        r= (int)(Math.random()*10);
         AllInOne allInOne = new AllInOne("");
         AioCheckOutALL aioCheckOutALL = new AioCheckOutALL();
-        aioCheckOutALL.setMerchantTradeNo(memId+"elife"+"nedyhmsdrdaaaa");
+        aioCheckOutALL.setMerchantTradeNo(memId+"elife"+"nedyhmsdrbxxa");
         aioCheckOutALL.setMerchantTradeDate(payDate);
         aioCheckOutALL.setTotalAmount(sum.toString());
         aioCheckOutALL.setTradeDesc("test");
