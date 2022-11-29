@@ -21,9 +21,7 @@
     <meta charset="utf-8">
     <title>社區業務管理系統-陪你e生e世</title>
     <meta name="robots" content="noindex,nofollow">
-    <!--    禁止本地端快取-->
-    <!--    <Meta http-equiv="Pragma" Content="No-cache">-->
-    <!--    隱藏圖片下載-->
+      <!--    隱藏圖片下載-->
     <meta http-equiv="imagetoolbar" content="false">
     <meta name="keywords" content="">
     <!-- 定義為RWD web -->
@@ -43,8 +41,6 @@
     <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
     <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
-    <!--modaal-->
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
 
     <!--=============js=============-->
     <!--延遲載入-->
@@ -54,7 +50,7 @@
     <style>
         #vision .img{
             width:50%;
-            min-height: 620px;
+            min-height: 500px;
             background:url("${pageContext.request.contextPath}/resources/front-end/assets/img/bb_board.jpg") no-repeat left;
             border-radius: 5px;
             background-size: cover;
@@ -130,7 +126,7 @@
 <!-- 社區服務section start -->
 
                 <section id="faq" class="scroll-point">
-                    <h2><span class="bgextend bgLRextendTrigger"><span class="bgappearTrigger">公佈欄</span></span></h2>
+<%--                    <h2><span class="bgextend bgLRextendTrigger"><span class="bgappearTrigger">公佈欄</span></span></h2>--%>
                     <%@ include file="bbPage.file" %>
                     <c:forEach items="${list}" var="bulletinboardVO" begin="<%=pageIndex%>"
                                end="<%=pageIndex+rowsPerPage-1%>">
@@ -143,7 +139,7 @@
                                 <div class="box">
                                     <p>${bulletinboardVO.bbContent}</p>
                                     <p>更新日：${bulletinboardVO.bbUpdate}</p>
-<%--                                    <p><img src="${pageContext.request.contextPath}/bulletinboardpic/controller/BulletinBoardPicServlet?bbpic=${bulletinboardVO.bbPic}" width="50%" class="rounded"></p>--%>
+<%--                                    <p><img src="${pageContext.request.contextPath}/bulletinboardpic/UploadBbPic?bbsubid=${bulletinboardVO.bbSubId}" width="30%" class="rounded"></p>--%>
                                 </div>
                             </section>
                         </li>
@@ -166,7 +162,7 @@
                 <div id="g-nav-list">
                     <ul>
                         <li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
-                        <li><a href="#">住戶資訊</a></li>
+                        <li><a href="../../front-end/member/memberProfile.jsp">住戶資訊</a></li>
                         <li><a href="../../front-end/bulletinboard/bbNews2.jsp">公佈欄</a></li>
                         <li><a href="#">社區帳單</a></li>
                         <li><a href="../../front-end/mail/mail.html">郵件</a></li>

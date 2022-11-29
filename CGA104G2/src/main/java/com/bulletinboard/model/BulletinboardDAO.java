@@ -26,7 +26,7 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
     //新增BB
     private static final String INSERT_BB =
             "insert into bulletin_board (BB_CLASS, BB_TITLE, BB_CONTENT, BB_POSTDATE, BB_UPDATE, BB_ARTICAL_STATE, BM_ID) values(?,?,?,?,?,?,?)";
-//    INSERT INTO bulletin_board (BB_CLASS,BB_TITLE,BB_CONTENT,BB_POSTDATE,BB_UPDATE,BB_ARTICAL_STATE,BM_ID) VALUES('社區規約','這是測試1','這是測試內文',20221111,20221111,0,1);
+
     //新增圖片
     private static final String INSERT_BB_PIC =
             "insert into bulletin_board_pictures (BB_SUB_ID, BB_PIC) values(?,?)";
@@ -52,7 +52,7 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
     //差詢類別
     private static final String GET_BB_Class =
             "SELECT  BB_TITLE,BB_CONTENT,BB_POSTDATE from bulletin_board where BB_CLASS like ?";
-//    SELECT BB_TITLE,BB_CONTENT,BB_POSTDATE,BB_UPDATE from bulletin_board where BB_CLASS like '社區規約'
+
     //刪除
     private static final String DELETE =
             "DELETE from bulletin_board where BB_SUB_ID =?";
@@ -61,7 +61,6 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
     //修改
     private static final String UPDATE =
             "UPDATE bulletin_board set BB_CLASS=?, BB_TITLE=?,BB_CONTENT=? ,BB_POSTDATE=?,BB_UPDATE=? ,BB_ARTICAL_STATE=? ,BM_ID=? where BB_SUB_ID = ?";
-//    UPDATE bulletin_board set BB_CLASS='社區規約', BB_TITLE='這是測試2',BB_CONTENT='這是測試2' ,BB_POSTDATE=20221011,BB_UPDATE=20221012 ,BB_ARTICAL_STATE=0 ,BM_ID=1 where BB_SUB_ID = 6;
     private static final String UPDATE_PIC =
             "UPDATE bulletin_board_pictures set BB_PIC = ? where BB_SUB_ID = ?";
 
