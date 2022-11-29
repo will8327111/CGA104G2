@@ -13,9 +13,8 @@ public class ReminderService {
 		dao.insert(remVO);
 		return remVO;
 	}
-	public ReminderVO updateReminder(ReminderVO remVO) {
-		dao.update(remVO);
-		return remVO;
+	public void updateReminder(Integer remStatus,Integer memberId) {
+		dao.update(remStatus,memberId);
 	}
 	public JSONArray getAll(Integer memberId) {
 		return dao.getAll(memberId);

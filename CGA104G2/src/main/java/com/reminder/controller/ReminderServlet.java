@@ -69,6 +69,13 @@ public class ReminderServlet extends HttpServlet {
 			remSvc.addReminder(remVO);
 
 		}
+		if ("update".equals(action)) {
+			Integer remStatus = 1;
+			MemberLoginVO memberLoginVO = (MemberLoginVO)session.getAttribute("memberLoginVO");
+			Integer memberId = memberLoginVO.getMemberId();
+			ReminderService remService = new ReminderService();
+			remService.updateReminder(remStatus,memberId);
+		}
 	}
 
 }

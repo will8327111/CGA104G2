@@ -513,9 +513,15 @@
 		
 		
 		document.getElementById("searchMail").onclick = async function searchMail(){
-			rest();
 			let select_mailType = $("#select_mailType").val();
 			let search_mailID = $("#search_mailID").val();
+			
+			if(select_mailType === "請選擇" && search_mailID === ""){
+				$("#search_mailID").attr("value","請勿空白")
+				$("#search_mailID").attr("style","color:red")
+			}else{
+				$("#errMessage").remove();
+			rest();
 			if(search_mailID === ""){
 				search_mailID = 0;
 			}
@@ -683,6 +689,7 @@
            	});  
 		})
 		}
+	}
 		 
 		
 		function refresh(){

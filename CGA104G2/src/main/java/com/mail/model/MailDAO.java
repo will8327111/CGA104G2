@@ -50,37 +50,39 @@ public class MailDAO implements MailDAO_interface {
 	}
 	@Override
 	public JSONArray getFrontAll(Integer memberId) {
-		beginTransaction();
 		JSONArray array = new JSONArray(); 
-		final String hql = "FROM MailVO where MEMBER_ID = "+ memberId +" ORDER BY mailId DESC";
-		List<MailVO> list = getSession().createQuery(hql, MailVO.class).list();
-		
-		for(MailVO vo : list) {
-			JSONObject obj = new JSONObject();
-			obj.put("mailId", vo.getMailId());
-			obj.put("memberId", vo.getMemberId());
-			obj.put("mailType", vo.getMailType());
-			obj.put("mailDelTime", vo.getMailDelTime());
-			obj.put("mailPickupTime", vo.getMailPickupTime());
-			obj.put("mailState", vo.getMailState());
-			//改動態
-			if(vo.getMailState() == 0) {
-				obj.put("mailState", vo.getMailState());
-				obj.put("mailStateName", "未領取");
-			}else if(vo.getMailState() == 1) {
-				obj.put("mailState", vo.getMailState());
-				obj.put("mailStateName", "已領取");
-			}else if(vo.getMailState() == 2) {
-				obj.put("mailState", vo.getMailState());
-				obj.put("mailStateName", "退貨中");
-			}else{
-				obj.put("mailState", vo.getMailState());
-				obj.put("mailStateName", "退貨完成");
-			}
+		try {
+			beginTransaction();
+			final String hql = "FROM MailVO where MEMBER_ID = "+ memberId +" ORDER BY mailId DESC";
+			List<MailVO> list = getSession().createQuery(hql, MailVO.class).list();
 			
-			array.put(obj);
+			for(MailVO vo : list) {
+				JSONObject obj = new JSONObject();
+				obj.put("mailId", vo.getMailId());
+				obj.put("memberId", vo.getMemberId());
+				obj.put("mailType", vo.getMailType());
+				obj.put("mailDelTime", vo.getMailDelTime());
+				obj.put("mailPickupTime", vo.getMailPickupTime());
+				obj.put("mailState", vo.getMailState());
+				//改動態
+				if(vo.getMailState() == 0) {
+					obj.put("mailState", vo.getMailState());
+					obj.put("mailStateName", "未領取");
+				}else if(vo.getMailState() == 1) {
+					obj.put("mailState", vo.getMailState());
+					obj.put("mailStateName", "已領取");
+				}else if(vo.getMailState() == 2) {
+					obj.put("mailState", vo.getMailState());
+					obj.put("mailStateName", "退貨中");
+				}else{
+					obj.put("mailState", vo.getMailState());
+					obj.put("mailStateName", "退貨完成");
+				}
+				array.put(obj);
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
 		commit();
 		return array;
 	}
