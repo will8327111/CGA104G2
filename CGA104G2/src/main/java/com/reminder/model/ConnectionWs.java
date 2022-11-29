@@ -28,7 +28,7 @@ public class ConnectionWs {
 	@OnMessage
 	public void onMessage(Session userSession, String message) {
 		for (Session session : connectedSessions) {
-			if (session.isOpen())session.getAsyncRemote().sendText(message );
+			if (session.isOpen())session.getAsyncRemote().sendText(message);
 		}
 		System.out.println("Message received: " + message);
 	}
