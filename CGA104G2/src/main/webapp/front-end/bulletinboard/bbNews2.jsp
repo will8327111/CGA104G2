@@ -132,7 +132,8 @@
                 <section id="faq" class="scroll-point">
                     <h2><span class="bgextend bgLRextendTrigger"><span class="bgappearTrigger">公佈欄</span></span></h2>
                     <%@ include file="bbPage.file" %>
-                    <c:forEach items="${list}" var="bulletinboardVO" begin="1" end="5">
+                    <c:forEach items="${list}" var="bulletinboardVO" begin="<%=pageIndex%>"
+                               end="<%=pageIndex+rowsPerPage-1%>">
                     <ul class="accordion-area">
                         <li class="fadeUpTrigger">
                             <section class="open">

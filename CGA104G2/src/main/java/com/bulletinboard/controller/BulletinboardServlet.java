@@ -150,10 +150,6 @@ public class BulletinboardServlet extends HttpServlet {
 
             Part part=req.getPart("bbpic");
             byte[] bbPic = part.getInputStream().readAllBytes();
-//            if(memberpic.length==0){
-//                MemberService memberSvc2 = new MemberService();
-//                memberpic=memberSvc2.getOneMember(memberId).getMemberPic();
-//            }
 
             BulletinboardVO bulletinboardVO = new BulletinboardVO();
             bulletinboardVO.setBbSubId(bbSubId);
@@ -178,7 +174,7 @@ public class BulletinboardServlet extends HttpServlet {
             /***************************2.開始修改資料*****************************************/
             BulletinboardService bulletinboardSvc = new BulletinboardService();
             bulletinboardVO = bulletinboardSvc.updateBulletinboard(bbSubId,bbClass, bbTitle,bbContent,
-                    bbPostdate, bbUpdate, bbArticalState, bmId);
+                    bbPostdate, bbUpdate, bbArticalState, bmId,bbPic);
 
             /***************************3.修改完成,準備轉交(Send the Success view)*************/
             req.setAttribute("bulletinboardVO", bulletinboardVO); // 資料庫update成功後,正確的VO物件,存入req
@@ -237,10 +233,7 @@ public class BulletinboardServlet extends HttpServlet {
 
             Part part=req.getPart("bbpic");
             byte[] bbPic = part.getInputStream().readAllBytes();
-//            if(memberpic.length==0){
-//                errorMsgs.add("請輸入圖片!");
-//            }
-
+//
             BulletinboardVO bulletinboardVO = new BulletinboardVO();
 
             bulletinboardVO.setBbClass(bbClass);
