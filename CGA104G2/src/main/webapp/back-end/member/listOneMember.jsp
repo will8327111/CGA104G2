@@ -95,10 +95,11 @@
 
     <!--        Home頁面 START-->
 <ul>
+        <h4><img src="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/back.svg" width="30" height="30" alt="返回"><a href="${pageContext.request.contextPath}/back-end/member/listAllMember.jsp">返回上一頁</a></h4>
     <div class="card text-center">
         <div class="card-header">
             <h3 class="card-title"></h3>
-            【住戶編號：${memberVO.memberId} 姓名：${memberVO.memberName}】住戶的資料 修改完成!!
+            【住戶編號：${memberVO.memberId} 姓名：${memberVO.memberName}】住戶的資料
         </div>
         <div class="card-body">
                     <div class="flex-row">
