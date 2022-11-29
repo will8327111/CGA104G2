@@ -122,22 +122,25 @@ body {
     white-space: nowrap;
     cursor: pointer;
     border: 1px solid transparent;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
     user-select: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     border-radius: 8px;
     background-color: #8e8686;
     color: #fff;
-    -webkit-transition: background-color 0.1s ease-in;
-    -moz-transition: background-color 0.1s ease-in;
-    -ms-transition: background-color 0.1s ease-in;
-    -o-transition: background-color 0.1s ease-in;
     transition: background-color 0.1s ease-in;
 }
+
+.btn:hover {
+    background-color: lightgrey;
+    border: lightgrey 1px solid;
+    transition: 0.1s ease-in;
+    position: relative;
+    top: 1px;
+    right: 1px;
+    color: black;
+}
+
 button, input[type="submit"] {
     cursor: pointer;
 }
@@ -192,6 +195,9 @@ button {
     border-color: buttonborder;
     border-image: initial;
 }
+
+
+
 .modal-footer {
     display: flex;
     flex-wrap: wrap;
@@ -202,6 +208,21 @@ button {
     border-top: 1px solid #dee2e6;
     border-bottom-right-radius: calc(0.3rem - 1px);
     border-bottom-left-radius: calc(0.3rem - 1px);
+    }
+    tbody, td, tfoot, th, thead, tr ,div{
+    border-style: none;
+    }
+	[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+}
+.dropdown-toggle {
+    white-space: nowrap;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
 </style>
 </head>
 <body>
@@ -209,61 +230,71 @@ button {
 <!-- <h1 class="store-name">帳單明細</h1> -->
 
 	<form action="<%=request.getContextPath()%>/member/ecpay" METHOD="post">
-			<table class="table caption-top">
-				<thead>
+	
+		<div style="width:40%;margin:auto;border-radius:10px;margin-top:100px; box-shadow: 0px 0px 6px #b1a7a6;padding-bottom:50px" >
+			<table class="table caption-top" >
+			<hr style="position:relative;top:250px;background-color:#e6ccb2;height:3px;width:80%;margin:auto;border-radius:80px">
+			<div style="position:relative;top:150px; border-bottom: 1px #dad7cd dashed;width:80%;margin:auto;"></div>
+    		<tbody>	
 					<c:forEach var="memberBillVO" items="${list}">
-						<div id="collapseSummary" class="summary-section">
-				
+						
 						<input type="hidden" name="memberBillId" value="${memberBillVO.memberBillId}"> 
-				
-						<div class="total-price-row" >
-							<div class="total-line_name">帳單月份</div>
-							<div class="total-line_price">${memberBillVO.billDate}</div>
-						</div>
-				
-						<div class="total-price-row">
-							<div>明細</div>
-							<div>管理費用</div>
-							<div>車位清潔費用</div>
-						</div>
-				
-						<div class="total-price-row">
-							<div>金額</div>
-							<div>NT$ ${memberBillVO.managementFees}</div>
-							<div>NT$ ${memberBillVO.parkingSpaceCleaningFee}</div>
-						</div>
-						<hr>
-						<div class="total-price-row">
-							<div>合計:</div>
-						<span><input  name="sum" type='hidden' value="<c:out value="${memberBillVO.managementFees+ memberBillVO.parkingSpaceCleaningFee}"/>" style="broder:0" id="total-price" class="total-line_price">NT$ <c:out value="${memberBillVO.managementFees+ memberBillVO.parkingSpaceCleaningFee}" /></span>
-						</div>
+						<div id="collapseSummary" class="summary-section" >
+						<tr>
+							<td><div style="font-size:20px;text-align:left;margin-left:10px;">項目明細</div></td>
+
+						</tr>
+						<tr>
+							<td><div style="text-align:left;margin-left:100px;">管理費用</div></td>
+							<td><div>NT$ ${memberBillVO.managementFees}</div></td>
+						</tr>
+						<tr>
+							<td><div style="text-align:left;margin-left:100px;">車位清潔費用</div></td>
+							<td><div>NT$ ${memberBillVO.parkingSpaceCleaningFee}</div></td>
+						</tr>
+						
+						<tr>
+							
+							<td><div style="text-align:left;margin-left:100px;">合計</div></td>
+							<td><div><span><input  name="sum" type='hidden' value="<c:out value="${memberBillVO.managementFees+ memberBillVO.parkingSpaceCleaningFee}"/>" style="broder:0" id="total-price" class="total-line_price">NT$ <c:out value="${memberBillVO.managementFees+ memberBillVO.parkingSpaceCleaningFee}" /></span></div></td>
+						</tr>
 				 		</div>
-							</c:forEach>
-					</thead>
+					</c:forEach>    	
+    			</tbody>						
 			</table>
+			
 			<div id="result">
     				${result}
  			 </div>
+ 			 
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">前往繳費</button>
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
  					<div class="modal-dialog">
-    				<div class="modal-content">
-      				<div class="modal-header">
-        		<h5 class="modal-title" id="exampleModalLabel">請選擇繳費方式</h5>
-        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-     			</div>
-      			<div class="modal-body">
-      	 			<button type="submit" class="btn btn-primary" name="action" value="transfer">匯款</button>
-					<button type="submit" class="btn btn-primary" name="action" value="buyToken">刷卡</button>
-				<div class="modal-footer" name="select_Transfer_Pay">
-        			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-        			<button type="button" class="btn btn-primary">確認送出</button>
-      			</div>
-      		</div>
- 		</div>
-  </div>
-</div>
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">請選擇繳費方式</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body" style="margin-top:30px">
+							<button type="submit" class="btn btn-primary" name="action"
+								value="transfer" style="margin-right:50px">匯款</button>
+							<button type="submit" class="btn btn-primary" name="action"
+								value="buyToken">刷卡</button>
+							<div class="modal-footer" name="select_Transfer_Pay" style="padding-left:75%;margin-top: 50px">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal" >取消</button>
+
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
 	</form>
 		</div>
+		<script>
+			
+			</script>
 			</body>
 				</html>

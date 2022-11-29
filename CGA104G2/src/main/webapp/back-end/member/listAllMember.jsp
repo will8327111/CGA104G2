@@ -319,6 +319,6 @@
 <script src="../../resources/back-end/assets/js/bootstrap.js"></script>
 <script src="../../resources/back-end/assets/js/app.js"></script>
 <!-- 樣板用js end -->
-<script src="${pageContext.request.contextPath}/resources/front-end/assets/js/search_origin.js"></script>
+<script src="${pageContext.request.contextPath}/resources/back-end/assets/js/search"></script>
 </body>
 </html>
