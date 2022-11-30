@@ -30,25 +30,25 @@
     <!--=============Google Font ===============-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
     <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
-    <link rel="shortcut icon" href="../../resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
 
     <!--==============css===============-->
     <!--font awesome kit-->
     <script src="https://kit.fontawesome.com/7e021e96db.js" crossorigin="anonymous"></script>
     <!--!!固定!! 前台樣式-->
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/jquery.bxslider.min.css">
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front-end/assets/css/jquery.bxslider.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front-end/assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front-end/assets/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front-end/assets/css/parts.css">
     <!--modaal-->
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front-end/assets/css/modaal.min.css">
 
     <!--=============js=============-->
     <!--延遲載入-->
-    <script src="../../resources/front-end/assets/js/lazyload.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/front-end/assets/js/lazyload.min.js"></script>
 
     <!--==============這邊放自己的 css===============-->
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/content.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front-end/assets/css/content.css">
 
 
     <!--==============css===============-->
@@ -56,7 +56,7 @@
  /*!!固定!! 字形*/
         @font-face {
             font-family: 'huninn';
-            src: url('../../resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
+            src: url('${pageContext.request.contextPath}/resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
         }
         body {
             font-family: 'huninn',serif;
@@ -72,7 +72,8 @@
             <nav id="pc-nav">
                 <!--!!固定!! logo-->
                 <div>
-                    <h1><a href="../../front-end/web/front-index2.html"><img src="../../resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台" style="width: 50%; display: flex;justify-content: flex-start; flex-direction: inherit;"></a></h1>
+                    <h1><a href="${pageContext.request.contextPath}/front-end/web/front-index2.html">
+                        <img src="${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台" style="width: 50%; display: flex;justify-content: flex-start; flex-direction: inherit;"></a></h1>
                 </div>
             </nav>
                 <ul>
@@ -93,25 +94,19 @@
 
 <!--!!固定!! main area-->
         <div id="container">
-<!--            <main id="main-area">-->
 
-
-<!--主要內容 start(從這邊開始改)-->
-
+            <!--主要內容 start(從這邊開始改)-->
             <main id="main-area-content">
-
                  <section id="about" class="scroll-point">
-                    <h2><span class="bgextend bgLRextendTrigger"><span class="bgappearTrigger">Member Information<br>住戶個人資訊</span></span></h2>
-                    <ul class="about-list fadeUpTrigger">
+                    <h2><span class="bgextend"><span>Member Information<br>住戶個人資訊</span></span></h2>
+                    <ul class="about-list bgextend">
                         <li>
                             <dl>
                                 <dt style="position: fixed; display: none;">住戶大頭</dt>
 <%--                                <dd>${memberLoginVO.memberPic}</dd>--%>
                                 <td><img src="${pageContext.request.contextPath}/member/PicuploadServlet?memberid=${memberLoginVO.memberId}" style="width:200px;  border-radius:50%;"></td>
-
                             </dl>
                         </li>
-
                         <li>
                             <dl>
                                 <dt>【姓名】</dt>
@@ -162,7 +157,7 @@
                         </li>
                         <li>
                             <dl>
-                                <dt>【點數】</dt>
+                                <dt>【住戶點數】</dt>
                                 <dd>${memberLoginVO.memberPoints}</dd>
                             </dl>
                         </li>
@@ -171,32 +166,37 @@
                      <section id="contact" class="scroll-point">
                          <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do"
                                style="margin-bottom: 0px;">
-                             <div class="submit-btn fadeUpTrigger "><input type="submit" name="submit" value="修改資訊">
+                             <div class="submit-btn fadeUpTrigger ">
+                                 <p>修改您的帳號/資訊<i class="fa-solid fa-caret-down"></i></p>
+                                 <input type="submit" name="submit" value="編輯">
                              <input type="hidden" name="memberid" value="${memberLoginVO.memberId}">
                              <input type="hidden" name="action" value="getUpdateProfile">
                              </div>
                          </FORM>
                      </section>
                  </section>
-<!--下面物件出現動畫-->
+                <!--下面物件出現動畫-->
                 <div class="fadeUpTrigger">
                     <div class="faq-bg"></div>
                 </div>
-<!--main area end-->
+
+                <!--main area end-->
             </main>
+
             <!--container-->
         </div>
 
 <!--!!固定!! footer-->
         <footer id="footer">
-<!--右上角menu-->
+
+            <!--右上角menu-->
             <div class="openbtn"><span></span><span>Menu</span><span></span></div>
             <div id="g-nav">
                 <div id="g-nav-list">
                     <ul>
-                        <li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
-                        <li><a href="../../front-end/member/memberProfile.jsp">住戶資訊</a></li>
-                        <li><a href="../../front-end/bulletinboard/bbNews2.jsp">公佈欄</a></li>
+                        <li><a href=""></a> <img src="${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
+                        <li><a href="${pageContext.request.contextPath}/front-end/member/memberProfile.jsp">住戶資訊</a></li>
+                        <li><a href="${pageContext.request.contextPath}/front-end/bulletinboard/bbNews2.jsp">公佈欄</a></li>
                         <li><a href="#">社區帳單</a></li>
                         <li><a href="#">郵件</a></li>
                         <li><a href="#">公共設施</a></li>
@@ -208,18 +208,19 @@
             </div>
             <p class="footer-logo">Community Management</p>
             <small>2022 &copy; 陪你e生e世　社區服務平台</small>
-<!--            返回最上方小圖示-->
+
+            <!--            返回最上方小圖示-->
             <p id="page-top"><a href="#">Top</a></p>
         </footer>
         <!--/wrapper-->
 
     <!--=============JS ===============-->
     <!--jQuery-->
-    <script src="../../resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
     <!--news tickerー-->
-    <script src="../../resources/front-end/assets/js/jquery.bxslider.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/front-end/assets/js/jquery.bxslider.min.js"></script>
     <!--背景線延伸效果-->
-    <script src="../../resources/front-end/assets/js/scrollgress.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/front-end/assets/js/scrollgress.min.js"></script>
     <!--apang 動畫-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apng-canvas/2.1.1/apng-canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -228,8 +229,8 @@
     <script src="https://unpkg.com/tippy.js@5"></script>
 
     <!--other-->
-    <script src="../../resources/front-end/assets/js/modaal.min.js"></script>
-    <script src="../../resources/front-end/assets/js/script.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/front-end/assets/js/modaal.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/front-end/assets/js/script.js"></script>
 
 </body>
 

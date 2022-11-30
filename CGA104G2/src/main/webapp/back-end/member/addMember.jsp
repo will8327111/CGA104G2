@@ -63,6 +63,7 @@
 
     <!-- 頁面 START!　網頁請從這邊以下開始修改，不需要此格式想用自己的請刪除~　-->
     <div id="main-content">
+        <h4><img src="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/back.svg" width="30" height="30" alt="返回"><a href="${pageContext.request.contextPath}/back-end/member/memberHome.jsp">返回上一頁</a></h4>
         <div class="page-heading">
             <div class="page-title">
                 <div class="row">

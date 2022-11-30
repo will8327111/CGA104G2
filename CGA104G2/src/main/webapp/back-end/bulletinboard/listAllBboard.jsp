@@ -32,11 +32,6 @@
     <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
     <!--=============================================================================================-->
-    <!--    需要用自己的css請放在這邊註解下方覆蓋 start -->
-
-
-
-    <!--    自己的css end-->
 
     <!--    網址列標題-->
     <title>陪你e生e世　社區服務平台：公佈欄Home</title>
@@ -62,15 +57,12 @@
             </div>
             <div class='sidebar-menu'>
                 <ul class='menu'>
-
-
                     <li class='sidebar-item'>
                         <a href='${pageContext.request.contextPath}/back-end/bulletinboard/bb_select_page.jsp' class='sidebar-link'>
                             <i class='bi bi-clipboard-check'></i>
                             <span>公佈欄</span>
                         </a>
                     </li>
-
                 </ul>
             </div>
         </div>
@@ -137,14 +129,12 @@
                             <tr>
 
                                 <th>公佈欄編號</th>
-                                <th>公佈欄項目類別</th>
+                                <th>類別</th>
                                 <th>標題</th>
-<%--                                <th>文章內容</th>--%>
                                 <th>發佈日期</th>
                                 <th>更新日期</th>
-<%--                                <th>公佈欄圖</th>--%>
                                 <th>發佈狀態</th>
-                                <th>公佈欄管理員編號</th>
+                                <th>管理員編號</th>
 
                                 <th>修改</th>
                                 <th>刪除</th>
@@ -158,13 +148,10 @@
                                     <td>${bulletinboardVO.bbSubId}</td>
                                     <td>${bulletinboardVO.bbClass}</td>
                                     <td>${bulletinboardVO.bbTitle}</td>
-<%--                                    <td>${bulletinboardVO.bbContent}</td>--%>
                                     <td>${bulletinboardVO.bbPostdate}</td>
                                     <td>${bulletinboardVO.bbUpdate}</td>
                                     <td>${bulletinboardVO.bbArticalState}</td>
                                     <td>${bulletinboardVO.bmId}</td>
-
-<%--                                    <td><img src="<%=request.getContextPath()%>/bulletinboardpic/BulletinBoardPicServlet?bbpicid=${bulletinboardpicVO.bbPicId}" width="150px" class="rounded"></td>--%>
 
                                     <td>
                                         <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/bulletinboard/bulletinboard.do"
@@ -178,7 +165,7 @@
                                     <td>
                                         <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/bulletinboard/bulletinboard.do"
                                               style="margin-bottom: 0px;">
-                                            <input type="submit" class="btn btn-outline-danger" disabled value="刪除">
+                                            <input type="submit" class="btn btn-outline-danger"  value="刪除">
                                             <input type="hidden" name="bbsubid" value="${bulletinboardVO.bbSubId}">
                                             <input type="hidden" name="action" value="delete">
                                         </FORM>

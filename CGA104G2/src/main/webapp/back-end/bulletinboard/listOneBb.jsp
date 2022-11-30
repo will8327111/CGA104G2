@@ -19,11 +19,6 @@
     <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
     <!--=============================================================================================-->
-    <!--    需要用自己的css請放在這邊註解下方覆蓋 start -->
-
-
-
-    <!--    自己的css end-->
 
     <!--    網址列標題-->
     <title>陪你e生e世　社區服務平台：公佈欄Home</title>
@@ -49,22 +44,18 @@
             </div>
             <div class='sidebar-menu'>
                 <ul class='menu'>
-
-
                     <li class='sidebar-item'>
                         <a href='${pageContext.request.contextPath}/back-end/bulletinboard/bb_select_page.jsp' class='sidebar-link'>
                             <i class='bi bi-clipboard-check'></i>
                             <span>公佈欄</span>
                         </a>
                     </li>
-
                 </ul>
             </div>
         </div>
     </div>
-
-
     <%--     !!固定!! 右上方 navbar end --%>
+
     <%--    !!Home頁面 固定!!navbar--%>
     <div id="main" class='layout-navbar'>
         <header class='mb-3'>
@@ -89,6 +80,7 @@
             </nav>
         </header>
         <!-- !!固定!! 右上方 navbar end -->
+
         <!-- 頁面 START!　網頁請從這邊以下開始修改，不需要此格式想用自己的請刪除~　-->
         <div id="main-content">
             <div class="page-heading">
@@ -98,7 +90,6 @@
 
                             <h3>後台管理 -公佈欄</h3>
                             <p class="text-subtitle text-muted">歡迎來到陪你e生e世 服務平台：後台 公佈欄管理HOME</p>
-
                         </div>
                         <!--右上方標註目前在哪個頁面-->
                         <div class="col-12 col-md-6 order-md-2 order-first">
@@ -113,7 +104,6 @@
                 </div>
 
                 <ul>
-
                     <section class="section">
                         <div class="page-title-headings"><h3>公佈欄查詢(單一)結果</h3></div>
 <%--                        <h4><img src="./images/back.svg" width="30" height="30" alt="返回"><a href="bb_select_page.jsp">返回查詢頁面</a></h4>--%>
@@ -123,12 +113,12 @@
                                     <table class="table table-striped">
                             <tr>
                                 <th>公佈欄編號</th>
-                                <th>公佈欄類別</th>
+                                <th>類別</th>
                                 <th>標題</th>
                                 <th>內容</th>
                                 <th>發佈日期</th>
                                 <th>更新日期</th>
-                                <th>顯示狀態</th>
+                                <th>發佈狀態</th>
                                 <th>管理員編號</th>
 
                             </tr>
@@ -141,8 +131,6 @@
                                 <td>${bulletinboardVO.bbUpdate}</td>
                                 <td>${bulletinboardVO.bbArticalState}</td>
                                 <td>${bulletinboardVO.bmId}</td>
-
-                                <%--                                <td><img src="<%=request.getContextPath()%>/member/PicuploadServlet?memberid=${memberVO.memberId}" width="150px" class="rounded"></td>--%>
 
                             </tr>
                         </table>

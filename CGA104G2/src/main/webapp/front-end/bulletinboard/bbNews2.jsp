@@ -112,12 +112,12 @@
 
 <!--主要內容 start(從這邊開始改)-->
                 <section id="vision" class="scroll-point">
-                    <div class="img flipLeftTrigger"></div>
-                    <div class="content flipLeftTrigger">
-                        <h2><span class="bgextend bgLRextendTrigger"><span class="bgappearTrigger">公佈欄</span></span>
+                    <div class="img bgextend"></div>
+                    <div class="content bgextend">
+                        <h2><span class="bgextend "><span class="bgextend">公佈欄</span></span>
                         </h2>
-                        <p class="vision-lead"><span class="bgextend bgLRextendTrigger"><span
-                                    class="bgappearTrigger">Bulletin Board<br></span></span></p>
+                        <p class="vision-lead"><span class="bgextend "><span
+                                    class="bgextend">Bulletin Board<br></span></span></p>
 
                         <p>在這裡您可得知有關社區的大小事</p>
                         <p>關於 <br>重大事項宣導、社區規約<br>管委會議記錄、社區財報</p>
@@ -126,13 +126,13 @@
 <!-- 社區服務section start -->
 
                 <section id="faq" class="scroll-point">
-<%--                    <h2><span class="bgextend bgLRextendTrigger"><span class="bgappearTrigger">公佈欄</span></span></h2>--%>
+
     <%@ include file="bbPage.file" %>
     <p><i class="fa-solid fa-star"></i>New!</p>
                     <c:forEach items="${list}" var="bulletinboardVO" begin="<%=pageIndex%>"
                                end="<%=pageIndex+rowsPerPage-1%>">
                     <ul class="accordion-area">
-                        <li class="fadeUpTrigger">
+                        <li class="bgextend">
                             <section class="open">
                                 <h3 class="title">
                                     <p>${bulletinboardVO.bbPostdate} </p>
@@ -143,7 +143,6 @@
                                     <p>${bulletinboardVO.bbContent}</p>
                                     <br>
                                     <time datetime>更新日：${bulletinboardVO.bbUpdate}</time>
-<%--                                    <p><img src="${pageContext.request.contextPath}/bulletinboardpic/UploadBbPic?bbsubid=${bulletinboardVO.bbSubId}" width="30%" class="rounded"></p>--%>
                                 </div>
                             </section>
                         </li>
@@ -151,21 +150,21 @@
                     </c:forEach>
                     <%@ include file="bbPage2.file" %>
                 </section>
-
-
-<!--main area end-->
             </main>
+            <!--main area end-->
+
             <!--container-->
         </div>
 
-<!--!!固定!! footer-->
+        <!--!!固定!! footer-->
         <footer id="footer">
-<!--右上角menu-->
+
+            <!--右上角menu-->
             <div class="openbtn"><span></span><span>Menu</span><span></span></div>
             <div id="g-nav">
                 <div id="g-nav-list">
                     <ul>
-                        <li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
+                        <li><a href="../../front-end/web/front-index2.html"></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
                         <li><a href="../../front-end/member/memberProfile.jsp">住戶資訊</a></li>
                         <li><a href="../../front-end/bulletinboard/bbNews2.jsp">公佈欄</a></li>
                         <li><a href="#">社區帳單</a></li>
@@ -183,6 +182,7 @@
             <p id="page-top"><a href="#">Top</a></p>
         </footer>
         <!--/wrapper-->
+
     </div>
 
     <!--=============JS ===============-->

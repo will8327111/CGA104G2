@@ -6,9 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
 import java.util.*;
-
 import java.sql.Date;
-
 import com.bulletinboard.model.*;
 
 
@@ -27,7 +25,7 @@ public class BulletinboardServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
 
-        if ("getOneBb_For_Display".equals(action)) { // 自select_page.jsp的請求
+        if ("getOneBb_For_Display".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<String>();
 
@@ -74,11 +72,11 @@ public class BulletinboardServlet extends HttpServlet {
             /***************************3.查詢完成,準備轉交(Send the Success view)*************/
             req.setAttribute("bulletinboardVO", bulletinboardVO);
             String url = "/back-end/bulletinboard/listOneBb.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneMember.jsp
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
 
-        if ("getOneBb_For_Update".equals(action)) { // 來自listAllBboard.jsp的請求
+        if ("getOneBb_For_Update".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<String>();
 
@@ -92,9 +90,9 @@ public class BulletinboardServlet extends HttpServlet {
             BulletinboardVO bulletinboardVO = bulletinboardSvc.getOneBulletinboard(bbSubId);
 
             /***************************3.查詢完成,準備轉交(Send the Success view)************/
-            req.setAttribute("bulletinboardVO", bulletinboardVO);         // 資料庫取出的memberVO物件,存入req
+            req.setAttribute("bulletinboardVO", bulletinboardVO);
             String url = "/back-end/bulletinboard/update_bb_input.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_member_input.jsp
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
 //修改
@@ -177,14 +175,14 @@ public class BulletinboardServlet extends HttpServlet {
                     bbPostdate, bbUpdate, bbArticalState, bmId);
 
             /***************************3.修改完成,準備轉交(Send the Success view)*************/
-            req.setAttribute("bulletinboardVO", bulletinboardVO); // 資料庫update成功後,正確的VO物件,存入req
+            req.setAttribute("bulletinboardVO", bulletinboardVO);
             String url = "/back-end/bulletinboard/listAllBboard.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneBboard.jsp
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
 
 //新增
-        if ("insert".equals(action)) { // 來自addBulletinboard.jsp的請求
+        if ("insert".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<String>();
 
@@ -231,8 +229,8 @@ public class BulletinboardServlet extends HttpServlet {
             }
             Integer bmId = Integer.valueOf(req.getParameter("bmid").trim());
 
-            Part part=req.getPart("bbpic");
-            byte[] bbPic = part.getInputStream().readAllBytes();
+//            Part part=req.getPart("bbpic");
+//            byte[] bbPic = part.getInputStream().readAllBytes();
 //
             BulletinboardVO bulletinboardVO = new BulletinboardVO();
 
@@ -244,11 +242,11 @@ public class BulletinboardServlet extends HttpServlet {
             bulletinboardVO.setBbArticalState(bbArticalState);
             bulletinboardVO.setBmId(bmId);
 
-            bulletinboardVO.setBbPic(bbPic);
+//            bulletinboardVO.setBbPic(bbPic);
 
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
-                req.setAttribute("bulletinboardVO", bulletinboardVO); // 含有輸入格式錯誤的VO物件,也存入req
+                req.setAttribute("bulletinboardVO", bulletinboardVO);
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/back-end/bulletinboard/addBboard.jsp");
                 failureView.forward(req, res);
@@ -258,15 +256,15 @@ public class BulletinboardServlet extends HttpServlet {
             /***************************2.開始新增資料***************************************/
             BulletinboardService bulletinboardSvc = new BulletinboardService();
             bulletinboardVO = bulletinboardSvc.addBulletinboard(bbClass, bbTitle,bbContent,
-                    bbPostdate,bbUpdate,bbArticalState,bmId,bbPic);
+                    bbPostdate,bbUpdate,bbArticalState,bmId);
 
             /***************************3.新增完成,準備轉交(Send the Success view)***********/
             String url = "/back-end/bulletinboard/listAllBboard.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllBulletinboard.jsp
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
 
-        if ("delete".equals(action)) { // 來自listAllMember.jsp
+        if ("delete".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<String>();
 
@@ -281,13 +279,13 @@ public class BulletinboardServlet extends HttpServlet {
 
             /***************************3.刪除完成,準備轉交(Send the Success view)***********/
             String url = "/back-end/bulletinboard/listAllBboard.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
 
         }
 
         //查詢類別
-        if ("getClass".equals(action)) { // 來自News.jsp
+        if ("getClass".equals(action)) {
 
                 List<String> errorMsgs = new LinkedList<String>();
 
@@ -295,7 +293,6 @@ public class BulletinboardServlet extends HttpServlet {
 
                 /*==========1.接收請求參數==========*/
                 String bbClass = new String(req.getParameter("bbclass"));
-//                Integer bbSubId = Integer.valueOf(req.getParameter("bbsubid"));
 
                 /*==========2.查詢資料==========*/
 
@@ -304,7 +301,7 @@ public class BulletinboardServlet extends HttpServlet {
 
                 /***************************3.查詢完成,準備轉交(Send the Success view)*************/
                 String url = "/front-end/bulletinboard/bbNews2.jsp";
-                RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交
+                RequestDispatcher successView = req.getRequestDispatcher(url);
                 successView.forward(req, res);
             }
 
