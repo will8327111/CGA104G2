@@ -95,8 +95,6 @@ public class ActivityServlet extends HttpServlet {
 			ActivityService actSvc = new ActivityService();
 			actSvc.addAct(memid, actType, name, content, max, min, sgst, sget, actst, actet, country, location, cost,
 					photo);
-			String url = req.getContextPath()+"/front-end/activity/homepage3.html";
-			res.sendRedirect(url);
 		}
 
 		// 有用
