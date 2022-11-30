@@ -5,6 +5,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
+import java.net.http.HttpClient;
 import java.util.*;
 
 import com.member.model.*;
@@ -26,7 +27,7 @@ public class MemberServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
 
-        if ("getOne_For_Display".equals(action)) { // 自select_page.jsp的請求
+        if ("getOne_For_Display".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<String>();
 
@@ -73,11 +74,11 @@ public class MemberServlet extends HttpServlet {
             /***************************3.查詢完成,準備轉交(Send the Success view)*************/
             req.setAttribute("memberVO", memberVO);
             String url = "/back-end/member/listOneMember.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneMember.jsp
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
 
-        if ("getOne_For_Update".equals(action)) { // 來自listAllMember.jsp的請求
+        if ("getOne_For_Update".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<String>();
 
@@ -91,13 +92,13 @@ public class MemberServlet extends HttpServlet {
             MemberVO memberVO = memberSvc.getOneMember(memberId);
 
             /***************************3.查詢完成,準備轉交(Send the Success view)************/
-            req.setAttribute("memberVO", memberVO);         // 資料庫取出的memberVO物件,存入req
+            req.setAttribute("memberVO", memberVO);
             String url = "/back-end/member/update_member_input.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_member_input.jsp
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
 //修改
-        if ("update".equals(action)) { // 來自update_member_input.jsp的請求
+        if ("update".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<String>();
 
@@ -177,7 +178,6 @@ public class MemberServlet extends HttpServlet {
                 memberPoints = 0;
                 errorMsgs.add("請填入正確數字格式.");
             }
-//            Byte memberpic = Byte.valueOf(req.getParameter("memberpic"));
 
             java.sql.Date regDate = null;
             try {
@@ -222,7 +222,7 @@ public class MemberServlet extends HttpServlet {
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/back-end/member/update_member_input.jsp");
                 failureView.forward(req, res);
-                return; //程式中斷
+                return;
             }
 
             /***************************2.開始修改資料*****************************************/
@@ -233,14 +233,14 @@ public class MemberServlet extends HttpServlet {
                     regDate, memberIdState, acState,memberpic);
 
             /***************************3.修改完成,準備轉交(Send the Success view)*************/
-            req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的memberVO物件,存入req
+            req.setAttribute("memberVO", memberVO);
             String url = "/back-end/member/listOneMember.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneMember.jsp
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
 
         //住戶修改
-        if ("getUpdateProfile".equals(action)) { // 來自memberProfile.jsp的請求
+        if ("getUpdateProfile".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<String>();
 
@@ -254,13 +254,13 @@ public class MemberServlet extends HttpServlet {
             MemberVO memberVO = memberSvc.getOneMember(memberId);
 
             /***************************3.查詢完成,準備轉交(Send the Success view)************/
-            req.setAttribute("memberVO", memberVO);         // 資料庫取出的memberVO物件,存入req
+            req.setAttribute("memberVO", memberVO);
             String url = "/front-end/member/updateProfile.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_member_input.jsp
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
         //住戶修改
-        if ("updateProfile".equals(action)) { // 來自updateProfile.jsp的請求
+        if ("updateProfile".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<String>();
 
@@ -340,7 +340,6 @@ public class MemberServlet extends HttpServlet {
                 memberPoints = 0;
                 errorMsgs.add("請填入正確數字格式.");
             }
-//            Byte memberpic = Byte.valueOf(req.getParameter("memberpic"));
 
             java.sql.Date regDate = null;
             try {
@@ -385,7 +384,7 @@ public class MemberServlet extends HttpServlet {
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/front-end/member/updateProfile.jsp");
                 failureView.forward(req, res);
-                return; //程式中斷
+                return;
             }
 
             /***************************2.開始修改資料*****************************************/
@@ -396,15 +395,14 @@ public class MemberServlet extends HttpServlet {
                     regDate, memberIdState, acState,memberpic);
 
             /***************************3.修改完成,準備轉交(Send the Success view)*************/
-            req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的memberVO物件,存入req
-            String url = "/front-end/member/memberProfile.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneMember.jsp
+            req.setAttribute("memberVO", memberVO);
+            String url = "/front-end/member/updateProfileDone.jsp";
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
 
-
 //新增
-        if ("insert".equals(action)) { // 來自addMember.jsp的請求
+        if ("insert".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<String>();
 
@@ -487,7 +485,6 @@ public class MemberServlet extends HttpServlet {
                 errorMsgs.add("日期沒有輸入或是格式錯誤,請重新輸入!");
             }
 
-//            Integer memberIdState = Integer.valueOf(req.getParameter("memberidstate"));
             Integer memberIdState =null;
             try {
                 memberIdState = Integer.valueOf(req.getParameter("memberidstate"));
@@ -496,16 +493,8 @@ public class MemberServlet extends HttpServlet {
                 errorMsgs.add("請選擇住戶身份別");
             }
 
-//            try{
-//            memberIdState=Integer.valueOf(req.getParameter("memberidstate").trim());
-//           } catch (NumberFormatException e){
-//            errorMsgs.add("請選擇住戶身份");
-//        }
-
-//            Integer acState = new Integer(req.getParameter("acstate"));
             Integer acState=null;
             try {
-//                     acState = new Integer(req.getParameter("acstate"));
                 acState = Integer.valueOf(req.getParameter("acstate"));
             } catch (NumberFormatException e) {
                 acState= 0;
@@ -539,7 +528,7 @@ public class MemberServlet extends HttpServlet {
 
             // Send the use back to the form, if there were errors
             if (!errorMsgs.isEmpty()) {
-                req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的memberVO物件,也存入req
+                req.setAttribute("memberVO", memberVO);
                 RequestDispatcher failureView = req
                         .getRequestDispatcher("/back-end/member/addMember.jsp");
                 failureView.forward(req, res);
@@ -555,11 +544,11 @@ public class MemberServlet extends HttpServlet {
 
             /***************************3.新增完成,準備轉交(Send the Success view)***********/
             String url = "/back-end/member/listAllMember.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllMember.jsp
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
 
-        if ("delete".equals(action)) { // 來自listAllMember.jsp
+        if ("delete".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<String>();
 
@@ -574,7 +563,7 @@ public class MemberServlet extends HttpServlet {
 
             /***************************3.刪除完成,準備轉交(Send the Success view)***********/
             String url = "/back-end/member/listAllMember.jsp";
-            RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+            RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
 
         }

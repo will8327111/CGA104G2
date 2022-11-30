@@ -17,11 +17,6 @@
     <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
     <!--=============================================================================================-->
-    <!--    需要用自己的css請放在這邊註解下方覆蓋 start -->
-
-
-
-    <!--    自己的css end-->
 
     <!--    網址列標題-->
     <title>陪你e生e世　社區服務平台：公佈欄Home</title>
@@ -46,15 +41,12 @@
             </div>
             <div class='sidebar-menu'>
                 <ul class='menu'>
-
-
                     <li class='sidebar-item'>
                         <a href='${pageContext.request.contextPath}/back-end/bulletinboard/bb_select_page.jsp' class='sidebar-link'>
                             <i class='bi bi-clipboard-check'></i>
                             <span>公佈欄</span>
                         </a>
                     </li>
-
                 </ul>
             </div>
         </div>

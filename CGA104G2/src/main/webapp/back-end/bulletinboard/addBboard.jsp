@@ -1,16 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.bulletinboard.model.*" %>
-<%--<%@ page import="com.bulletinboardpic.model.*" %>--%>
-<%--<%@ page import="com.bulletinboardpic.model.BulletinBoardPicVO" %>--%>
-<%--<%@ page import="com.bulletinboardpic.model.*" %>--%>
 
 <%
     BulletinboardVO bulletinboardVO = (BulletinboardVO) request.getAttribute("bulletinboardVO");
 %>
-<%--<%--%>
-<%--    BulletinBoardPicVO bulletinBoardPicVO = (BulletinBoardPicVO) request.getAttribute("bulletinboardpicVO");--%>
-<%--%>--%>
 
 <html>
 <head>
@@ -28,20 +22,13 @@
     <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
     <!--=============================================================================================-->
-    <!--    需要用自己的css請放在這邊註解下方覆蓋 start -->
-
-
-
-    <!--    自己的css end-->
 
     <!--    網址列標題-->
     <title>陪你e生e世　社區服務平台：公佈欄Home</title>
 
 </head>
 <body>
-<%--    <h4><a href="${pageContext.request.contextPath}/back-end/bulletinboard/Bboard_index.jsp">--%>
-<%--        <img src="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/back.svg" width="30" height="30"--%>
-<%--                                                                    alt="返回">回首頁</a></h4>--%>
+
 <%-- !!固定!! 旁邊導覽列sidebar menu start--%>
 <div id='app'>
     <div id='sidebar' class='active' >
@@ -73,8 +60,6 @@
             </div>
         </div>
     </div>
-
-
     <%--     !!固定!! 右上方 navbar end --%>
 
     <%--    !!Home頁面 固定!!navbar--%>
@@ -102,7 +87,6 @@
         </header>
         <!-- !!固定!! 右上方 navbar end -->
         <!-- 頁面 START!　網頁請從這邊以下開始修改，不需要此格式想用自己的請刪除~　-->
-
 
     <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/bulletinboard/bulletinboard.do" name="form1" enctype="multipart/form-data">
         <div id="main-content">
@@ -180,11 +164,11 @@
 
                                         </td>
                                     </tr>
-                                        <tr>
-                                            <td>上傳圖檔:</td>
-                                            <td><input type="file" name="bbpic" class="form-control"/>
-                                            </td>
-                                        </tr>
+<%--                                        <tr>--%>
+<%--                                            <td>上傳圖檔:</td>--%>
+<%--                                            <td><input type="file" name="bbpic" class="form-control"/>--%>
+<%--                                            </td>--%>
+<%--                                        </tr>--%>
                                     <tr>
                                         <td><span style="color: red; width: inherit; "><b>*</b></span>發佈日期:</td>
                                         <td><input type="text" name="bbpostdate" size="15" class="form-control"

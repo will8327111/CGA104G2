@@ -12,6 +12,20 @@
     <title>個人資料修改</title>
     <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css" rel="stylesheet">
 
+    <style>
+         .form-pass input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+         #checkEye {
+             position: absolute;
+             top: 50%;
+             right: 10px;
+             transform: translateY(-50%);
+         }
+
+    </style>
 </head>
 
 <body>
@@ -19,6 +33,8 @@
     <tr>
         <td>
             <h3>個人資料修改</h3>
+            <h5><a href="${pageContext.request.contextPath}/front-end/member/memberProfile.jsp"><img src="${pageContext.request.contextPath}/resources/front-end/assets/img/favicons/back.svg" width="25" height="25"
+                                                                                                           alt="返回">回上一頁</a></h5>
         </td>
     </tr>
 
@@ -46,31 +62,39 @@
                                 <table>
 
                                     <tr>
-                                        <td><span style="color: red; "><b>*</b></span>住戶帳號:</td>
+                                        <td><span style="color: red; "><b>*</b></span>帳號:</td>
                                         <td><input type="TEXT" name="memberac" size="40" class="form-control"
                                                    value="<%=memberVO.getMemberAc()%>"/></td>
                                     </tr>
 
                                     <tr>
-                                        <td><span style="color: red; "><b>*</b></span>住戶密碼:</td>
-                                        <td><input type="password" name="memberpw" size="40" class="form-control"
-                                                   value="<%=memberVO.getMemberPw()%>"/></td>
+                                        <div class="form-pass">
+                                        <td><span style="color: red; "><b>*</b></span>密碼:</td>
+                                        <td>
+                                            <div class="form-floating">
+                                            <input type="password" name="memberpw" size="40" class="form-control" id="floatingPassword" placeholder="Password"
+                                                   value="<%=memberVO.getMemberPw()%>"/>
+                                            <label for="floatingPassword">請輸入密碼</label>
+                                            <i id="checkEye" class="fas bi-eye-fill"></i>
+                                            </div>
+                                        </td>
+                                        </div>
                                     </tr>
 
                                     <tr>
-                                        <td><span style="color: red; "><b>*</b></span>住戶姓名:</td>
+                                        <td><span style="color: red; "><b>*</b></span>姓名:</td>
                                         <td><input type="TEXT" name="membername" size="40" class="form-control"
                                                    value="<%=memberVO.getMemberName()%>"/></td>
                                     </tr>
 
                                     <tr>
-                                        <td>住戶暱稱:</td>
+                                        <td>暱稱:</td>
                                         <td><input type="TEXT" name="membernickname" size="40" class="form-control"
                                                    value="<%=memberVO.getMemberNickname()%>"/></td>
                                     </tr>
 
                                     <tr>
-                                        <td><span style="color: red; "><b>*</b></span>住戶性別:</td>
+                                        <td><span style="color: red; "><b>*</b></span>性別:</td>
 
                                         <td>
                                             <select size="1" name="membersex" class="form-select">
@@ -92,7 +116,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td><span style="color: red; "><b>*</b></span>住戶email:</td>
+                                        <td><span style="color: red; "><b>*</b></span>email:</td>
                                         <td>
                                             <div class="form-floating">
                                                 <input type="TEXT" name="memberemail" size="40" class="form-control" id="floatingInput"
@@ -102,13 +126,13 @@
                                     </tr>
 
                                     <tr>
-                                        <td><span style="color: red; "><b>*</b></span>住戶手機:</td>
+                                        <td><span style="color: red; "><b>*</b></span>手機:</td>
                                         <td><input type="TEXT" name="membermobile" size="40" class="form-control"
                                                    value="<%=memberVO.getMemberMobile()%>"/></td>
                                     </tr>
 
                                     <tr>
-                                        <td>住戶市話:</td>
+                                        <td>市話:</td>
                                         <td><input type="TEXT" name="membertel" size="40" class="form-control"
                                                    value="<%=memberVO.getMemberTel()%>"/></td>
                                     </tr>
@@ -120,7 +144,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td><span style="color: red; "><b>*</b></span>住戶住址:</td>
+                                        <td><span style="color: red; "><b>*</b></span>住址:</td>
                                         <td><input type="TEXT" name="memberaddress" size="40" class="form-control"
                                                    value="<%=memberVO.getMemberAddress()%>"/></td>
                                     </tr>
@@ -131,7 +155,7 @@
                                                    value="<%=memberVO.getMemberPoints()%>"/></td>
                                     </tr>
                                     <tr>
-                                        <td>住戶頭貼:<td><img src="<%=request.getContextPath()%>/member/PicuploadServlet?memberid=${memberVO.memberId}" width="200px">
+                                        <td>頭貼:<td><img src="<%=request.getContextPath()%>/member/PicuploadServlet?memberid=${memberVO.memberId}" width="200px">
                                         <input name="memberpic" class="form-control"  type="file" value="<%=memberVO.getMemberPic()%>"></td></td>
                                     </tr>
                                     <tr style="display: none">
@@ -161,7 +185,6 @@
                                         </td>
                                     </tr>
 
-
                                 </table>
                                 <div style="height: 50px"></div>
                                 <div class="form-check mb-3">
@@ -181,8 +204,6 @@
         </div>
 
     </FORM>
-
-</body>
 
 <%--<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->--%>
 
@@ -206,15 +227,25 @@
     $('#f_date1').datetimepicker({
         theme: '',              //theme: 'dark',
         timepicker:true,       //timepicker:true,
-        step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+        step: 1,                //step: 60
         format: 'Y-m-d',         //format:'Y-m-d H:i:s',
         value: '<%=memberVO.getRegDate()%>', // value: new Date()
-        <%--        //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含--%>
-        <%--        //startDate:	            '2017/07/10',  // 起始日--%>
-        <%--        //minDate:               '-1970-01-01', // 去除今日(不含)之前--%>
-        <%--        //maxDate:               '+1970-01-01'  // 去除今日(不含)之後--%>
-    });
-
+     });
 
 </script>
+
+    <script>
+        //JQ 密碼眼睛
+        $("#checkEye").click(function () {
+        if($(this).hasClass('bi-eye-fill')){
+         $("#floatingPassword").attr('type', 'text');
+        }else{
+          $("#floatingPassword").attr('type', 'password');
+        }
+        $(this).toggleClass('bi-eye-fill').toggleClass('bi-eye-slash');
+        });
+    </script>
+
+</body>
+
 </html>

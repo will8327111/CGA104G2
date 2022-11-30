@@ -100,14 +100,12 @@
 </tr>
 
 
-
 <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/bulletinboard/bulletinboard.do" name="form1" enctype="multipart/form-data">
          <div id="main-content">
             <div class="page-heading">
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-
 
                         </div>
                         <!--右上方標註目前在哪個頁面-->
@@ -121,8 +119,8 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- 內頁排版section(會直接套用RWD效果) START -->
+
                 <%-- 錯誤表列 --%>
                 <c:if test="${not empty errorMsgs}">
                     <span style="color:red">請修正以下錯誤:</span>
@@ -185,10 +183,6 @@
                                     <td><input type="TEXT" name="bbupdate" size="40" class="form-control"
                                                value="<%=bulletinboardVO.getBbUpdate()%>"/></td>
                                 </tr>
-<%--                                <tr>--%>
-<%--                                    <td>公佈欄圖:<td>--%>
-<%--                                    <input name="bbpic" class="form-control"  type="file" value="<%=bulletinboardVO.getBbPic()%>"></td></td>--%>
-<%--                                </tr>--%>
 
                                 <tr>
                                     <td>公佈欄管理員:</td>

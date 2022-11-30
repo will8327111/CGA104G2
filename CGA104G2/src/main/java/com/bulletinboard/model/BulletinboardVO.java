@@ -12,7 +12,7 @@ public class BulletinboardVO implements java.io.Serializable{
   private Integer bbArticalState;
   private Integer bmId;
 
-  private byte[] bbPic;
+//  private byte[] bbPic;
 
 
   public Integer getBbSubId() {
@@ -85,13 +85,13 @@ public class BulletinboardVO implements java.io.Serializable{
   public void setBmId(Integer bmId) {
     this.bmId = bmId;
   }
+}
 
-    public byte[] getBbPic() {
-    return bbPic;
-    }
-    public void setBbPic(byte[] bbPic) {
-    this.bbPic = bbPic;
-    }
+//    public byte[] getBbPic() {
+//    return bbPic;
+//    }
+//    public void setBbPic(byte[] bbPic) {
+//    this.bbPic = bbPic;
 //     for join bbPic from bbPicId
 //  public com.bulletinboardpic.model.BulletinBoardPicVO getBulletinBoardVO() {
 //    com.bulletinboardpic.model.BulletinBoardPicService bulletinBoardPicSvc = new com.bulletinboardpic.model.BulletinBoardPicService();
@@ -99,4 +99,4 @@ public class BulletinboardVO implements java.io.Serializable{
 //    return bulletinboardpicVO;
 //  }
 
-}
+
