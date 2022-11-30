@@ -36,4 +36,4 @@ pageIndex=pageIndexArray[pageNumber-1];
 <b><font color=red>第<%=whichPage%>/<%=pageNumber%>頁</font></b>
 <%}%>
 
-<b>●目前公布欄文章: 共<%=rowNumber%></font>筆</b>
+<b>●目前公佈欄文章: 共<%=rowNumber%></font>筆</b>

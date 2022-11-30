@@ -127,18 +127,22 @@
 
                 <section id="faq" class="scroll-point">
 <%--                    <h2><span class="bgextend bgLRextendTrigger"><span class="bgappearTrigger">公佈欄</span></span></h2>--%>
-                    <%@ include file="bbPage.file" %>
+    <%@ include file="bbPage.file" %>
+    <p><i class="fa-solid fa-star"></i>New!</p>
                     <c:forEach items="${list}" var="bulletinboardVO" begin="<%=pageIndex%>"
                                end="<%=pageIndex+rowsPerPage-1%>">
                     <ul class="accordion-area">
                         <li class="fadeUpTrigger">
                             <section class="open">
                                 <h3 class="title">
-                                    <time datetime>${bulletinboardVO.bbPostdate}</time> 【${bulletinboardVO.bbClass}】　${bulletinboardVO.bbTitle}
+                                    <p>${bulletinboardVO.bbPostdate} </p>
+                                        【${bulletinboardVO.bbClass}】　
+                                    <p>${bulletinboardVO.bbTitle}</p>
                                 </h3>
                                 <div class="box">
                                     <p>${bulletinboardVO.bbContent}</p>
-                                    <p>更新日：${bulletinboardVO.bbUpdate}</p>
+                                    <br>
+                                    <time datetime>更新日：${bulletinboardVO.bbUpdate}</time>
 <%--                                    <p><img src="${pageContext.request.contextPath}/bulletinboardpic/UploadBbPic?bbsubid=${bulletinboardVO.bbSubId}" width="30%" class="rounded"></p>--%>
                                 </div>
                             </section>

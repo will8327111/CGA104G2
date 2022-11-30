@@ -185,10 +185,10 @@
                                     <td><input type="TEXT" name="bbupdate" size="40" class="form-control"
                                                value="<%=bulletinboardVO.getBbUpdate()%>"/></td>
                                 </tr>
-                                <tr>
-                                    <td>公佈欄圖:<td>
-                                    <input name="bbpic" class="form-control"  type="file" value="<%=bulletinboardVO.getBbPic()%>"></td></td>
-                                </tr>
+<%--                                <tr>--%>
+<%--                                    <td>公佈欄圖:<td>--%>
+<%--                                    <input name="bbpic" class="form-control"  type="file" value="<%=bulletinboardVO.getBbPic()%>"></td></td>--%>
+<%--                                </tr>--%>
 
                                 <tr>
                                     <td>公佈欄管理員:</td>

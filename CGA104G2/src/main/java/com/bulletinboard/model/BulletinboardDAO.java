@@ -36,13 +36,13 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
             "SELECT * from bulletin_board order by BB_SUB_ID";
 
     private static final String GET_ALL_BB_ON =
-            "SELECT bb.BB_CLASS,bb.BB_TITLE,bb.BB_CONTENT,bb.BB_POSTDATE,bb.BB_UPDATE,bbp.BB_PIC\n" +
+            "SELECT bb.BB_SUB_ID,bb.BB_CLASS,bb.BB_TITLE,bb.BB_CONTENT,bb.BB_POSTDATE,bb.BB_UPDATE,bbp.BB_PIC\n" +
                     "from bulletin_board bb\n" +
                     "        left join bulletin_board_pictures bbp\n" +
                     "              on bb.BB_SUB_ID = bbp.BB_SUB_ID\n" +
 //                    "where bb.BB_CLASS='社區規約'\n" +
 //                    "  and BB_ARTICAL_STATE=1;";
-    "where BB_ARTICAL_STATE=1;";
+    "where BB_ARTICAL_STATE=1 order by 1 DESC;";
     //查詢單一類別
     private static final String GET_ONE_BB =
             "SELECT * from bulletin_board bb1 left join bulletin_board_pictures bbp on bb1.BB_SUB_ID = bbp.BB_SUB_ID where bbp.BB_SUB_ID = ? order by bb1.BB_SUB_ID DESC ;";
@@ -61,8 +61,8 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
     //修改
     private static final String UPDATE =
             "UPDATE bulletin_board set BB_CLASS=?, BB_TITLE=?,BB_CONTENT=? ,BB_POSTDATE=?,BB_UPDATE=? ,BB_ARTICAL_STATE=? ,BM_ID=? where BB_SUB_ID = ?";
-    private static final String UPDATE_PIC =
-            "UPDATE bulletin_board_pictures set BB_PIC = ? where BB_SUB_ID = ?";
+//    private static final String UPDATE_PIC =
+//            "UPDATE bulletin_board_pictures set BB_PIC = ? where BB_SUB_ID = ?";
 
 
     //新增
@@ -135,11 +135,11 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
 
             pstmt.executeUpdate();
 
-            pstmt = con.prepareStatement(UPDATE_PIC);
-            pstmt.setBytes(1,bulletinboardVO.getBbPic());
-            pstmt.setInt(2, bulletinboardVO.getBbSubId());
-
-            pstmt.executeUpdate();
+//            pstmt = con.prepareStatement(UPDATE_PIC);
+//            pstmt.setBytes(1,bulletinboardVO.getBbPic());
+//            pstmt.setInt(2, bulletinboardVO.getBbSubId());
+//
+//            pstmt.executeUpdate();
 
             // Handle any driver errors
         } catch (SQLException se) {
@@ -343,7 +343,7 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
             while (rs.next()) {
                 //  Domain objects
                 bulletinboardVO = new BulletinboardVO();
-//                bulletinboardVO.setBbSubId(rs.getInt("BB_SUB_ID"));
+                bulletinboardVO.setBbSubId(rs.getInt("BB_SUB_ID"));
                 bulletinboardVO.setBbClass(rs.getString("BB_CLASS"));
                 bulletinboardVO.setBbTitle(rs.getString("BB_TITLE"));
                 bulletinboardVO.setBbContent(rs.getString("BB_CONTENT"));
