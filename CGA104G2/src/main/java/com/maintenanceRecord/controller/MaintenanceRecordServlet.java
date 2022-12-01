@@ -206,7 +206,6 @@ public class MaintenanceRecordServlet extends HttpServlet {
 
 		if ("getOneMtById2".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
 
 			String memberAc = req.getParameter("memberAc").trim();
 			Integer maintenanceId = null;
@@ -218,6 +217,7 @@ public class MaintenanceRecordServlet extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/maintenanceRecord/showMt.jsp");
 				failureView.forward(req, res);
 				return;
@@ -232,6 +232,7 @@ public class MaintenanceRecordServlet extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/maintenanceRecord/showMt.jsp");
 				failureView.forward(req, res);
 				return;

@@ -45,7 +45,7 @@ public class BackstageLoginServlet extends HttpServlet {
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/backstageAccount/backstageLogin.jsp");
+							.getRequestDispatcher("/back-end/backstageAccount/backstageLoginFinal.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -56,7 +56,7 @@ public class BackstageLoginServlet extends HttpServlet {
 
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/backstageAccount/backstageLogin.jsp");
+							.getRequestDispatcher("/back-end/backstageAccount/backstageLoginFinal.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -66,7 +66,7 @@ public class BackstageLoginServlet extends HttpServlet {
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/backstageAccount/backstageLogin.jsp");
+							.getRequestDispatcher("/back-end/backstageAccount/backstageLoginFinal.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -79,7 +79,7 @@ public class BackstageLoginServlet extends HttpServlet {
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/backstageAccount/backstageLogin.jsp");
+							.getRequestDispatcher("/back-end/backstageAccount/backstageLoginFinal.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -203,7 +203,7 @@ public class BackstageLoginServlet extends HttpServlet {
 //			=========================================登出 =================================================
 			if ("BackstageLogOut".equals(action)) {
 				session.invalidate();
-				String url = "/back-end/backstageAccount/backstageLogin.jsp";
+				String url = "/back-end/backstageAccount/backstageLoginFinal.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}

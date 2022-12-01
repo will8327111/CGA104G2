@@ -114,7 +114,6 @@ public class PrivateReportServlet1 extends HttpServlet {
 
 		if ("getOneReportById".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
 
 			Integer privateReportId = null;
 
@@ -125,6 +124,7 @@ public class PrivateReportServlet1 extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-end/privateReport/privateReportInfo.jsp");
 				failureView.forward(req, res);
@@ -140,6 +140,7 @@ public class PrivateReportServlet1 extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-end/privateReport/privateReportInfo.jsp");
 				failureView.forward(req, res);
@@ -206,7 +207,6 @@ public class PrivateReportServlet1 extends HttpServlet {
 
 		if ("getOneReportById2".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
 
 			String memberAc = req.getParameter("memberAc").trim();
 			Integer privateReportId = null;
@@ -218,6 +218,7 @@ public class PrivateReportServlet1 extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/privateReport/showReport.jsp");
 				failureView.forward(req, res);
 				return;
@@ -232,6 +233,7 @@ public class PrivateReportServlet1 extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/privateReport/showReport.jsp");
 				failureView.forward(req, res);
 				return;
