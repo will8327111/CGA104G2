@@ -60,7 +60,8 @@
 // 	  timer: 1500
 // 	})
 function test() {
-	let form = document.getElementById("form1")
+	let form = document.getElementById("form1");
+	
 	Swal.fire({
   		position: 'center',
  		icon: 'success',

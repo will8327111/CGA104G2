@@ -53,19 +53,19 @@ pageContext.setAttribute("list", list);
  	width: 1000px; 
  	background-color: white; 
  	margin-top: 5px; 
- 	margin-bottom: 5px; 
+ 	margin-bottom: 30px; 
  } 
 
  table, th, td { 
  	border: 0.5px solid lightgreen; 
  } 
 
- th, td { 
+ td { 
  	text-align: left; 
  } 
- img{ 
-     width: 100%; 
-     height: 100%; 
+ th img{ 
+     width: 80%; 
+     height: 80%; 
      object-fit:cover; 
  } 
 </style>

@@ -12,7 +12,7 @@
 
 <style>
 .calendar {
-	width: 80%;
+	width: 100%;
 	height: 80%;
 	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
 	padding: 1%;
@@ -76,6 +76,9 @@
 	border: 1px solid #6ac13c;
 	background: #e9f8df; /*浅绿色背景*/
 }
+#tbody {
+margin-left : 100px;
+}
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -97,15 +100,12 @@
 				<h1>顯示日曆</h1>
 				<h4>
 					<a href="<%=request.getContextPath()%>/front-end/ame/showAme.jsp">回瀏覽頁</a>
-<!-- 					http://localhost:8081/CGA104G2/front-end/ame/showAme.jsp -->
-<!-- 					http://localhost:8081/CGA104G2/front-end/ame/ame_sta.do -->
-<!-- 					/front-end/ame/front-end/ame/showAme.jsp -->
 				</h4>
 			</td>
 		</tr>
 	</table>
 	<div class="calendar">
-		<div class="title">
+		<div id="tbody" class="title">
 
 			<a href="" id="prev" style="float: left;"><svg
 					xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -122,7 +122,7 @@
 			<h2 class="green small" id="calendar-year">Year</h2>
 		</div>
 
-		<div class="body">
+		<div id="tbody" class="body">
 			<div class="lightgrey body-list">
 				<ul>
 					<li>MON</li>
