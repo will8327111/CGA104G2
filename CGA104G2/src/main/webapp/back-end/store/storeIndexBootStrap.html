@@ -387,10 +387,10 @@
            	        			const photoFile = updateStorePhoto2.files[0];
            	        			const fileReader = new FileReader();
             	        		
-	           	        		fileReader.addEventListener('load', e => {
+	           	        		fileReader.addEventListener('load', async e => {
 	           	                    const base64Str = btoa(e.target.result);
 	           	                   
-	           	                    fetch('../../back-end/store/store.do?action=update', {
+	           	                    await fetch('../../back-end/store/store.do?action=update', {
 	           	    					method: 'post',
 	           	    					headers: {
 	           	    						'Content-Type': 'application/json'

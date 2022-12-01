@@ -20,7 +20,11 @@ import javax.servlet.http.HttpSession;
 						  "/back-end/backstageAccount/listAllInfo.jsp",
 						  "/back-end/backstageAccount/listOneInfo.jsp",
 						  "/back-end/backstageAccount/updateOneInfo.jsp",
-						  "/back-end/memberbill/*"						  
+						  "/back-end/activity/*",
+						  "/back-end/memberbill/*",
+						  "/back-end/ame/*",
+						  "/back-end/mail/*",
+						  "/back-end/store/*",
 						 })
 
 public class BackstageFilter implements Filter {

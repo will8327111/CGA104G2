@@ -56,16 +56,6 @@
         body {
             font-family: 'huninn',serif;
         }
-        #mailRem{
-        	margin-top:2px;
-        	margin-left:2px;
-        }
-        #p1Reminder{
-        	margin-top:15px;
-        }
-        #p2Reminder{
-        	margin-top:15px;
-        }
     </style>
 </head>
 
@@ -118,27 +108,14 @@
                     <a href="#" class="me-3 dropdown-toggle hidden-arrow" id="navebarDropdownMenuLink" role="button" data-mdb-toggle="dropdown"
                      aria-expanded="false">
                         <!--小鈴鐺按鈕-->
-                        <button  id="out">
                             <i style="font-size: 1.3rem;" class="fa-solid fa-bell"></i>
                             <label style="font-size: 1.3rem;"></label>
                             <!--計數-->
                             <span id='countMessage'class="badge rounded-pill badge-notification bg-danger">0</span>
                             <!--鈴鐺裡的訊息-->
                             <ul id='reminder' class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-
-                            <ul  class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li>
-                                    <a class="dropdown-item" href="#">Some news</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">Another news</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </li>
-
                             </ul>
-                        </button>
+                              
                     </a>
                 </div>
             </ul>
@@ -417,7 +394,7 @@ function connect() {
 				 for (let i = 0; i < fromSQL.length; i++) {
 					 let str = "<a class='d-flex align-items-center' href='#'>"
 				            +"<div class='notification-text ms-4'>"
-				            +"<p id='p1Reminder' class='notification-title font-bold' name='mailReminder'>" + fromSQL[i].reminderInfo + "</p>"	
+				            +"<p id='p1Reminder' class='notification-title font-bold' name='mailReminder'style='margin-top:15px;'>" + fromSQL[i].reminderInfo + "</p>"	
 				            +"</div></a></li>";
 					 $("#reminder").append(str);
 					 $("#countMessage").text(++count);
@@ -440,7 +417,8 @@ function connect() {
 		console.log("訊息");
 		var reminder = document.getElementById("reminder");
 		
-		if(document.getElementById("p1Reminder") === null){
+		console.log(document.getElementById("p1Reminder"));
+		if(document.getElementById("p1Reminder") === null && document.getElementById("p2Reminder") === null){
 			var jsonObj = JSON.parse(event.data);
 			var message = jsonObj.message;
 			let Reminder = {};
@@ -449,7 +427,7 @@ function connect() {
 			sessionStorage.setItem("Reminder", JSON.stringify(Reminder));
 			let str ="<a class='d-flex align-items-center' href='#'>"
 	            +"<div id='mailRem' class='notification-text ms-4' >"
-	            +"<p id='p2Reminder' class='notification-title font-bold' name='mailReminder'>" + mailMessage +"</p>"	
+	            +"<p id='p2Reminder' class='notification-title font-bold' name='mailReminder' style='margin-top:15px;'>" + mailMessage +"</p>"	
 	            +"</div></a></li>";
 			$("#reminder").append(str);
 			$("#countMessage").text(++count);
