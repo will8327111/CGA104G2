@@ -30,6 +30,7 @@
 <!--=============================================================================================-->
 <!--    需要用自己的css請放在這邊註解下方覆蓋 start -->
 <meta charset="UTF-8">
+<link href='https://css.gg/eye-alt.css' rel='stylesheet'>
 <!-- CSS only -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -42,6 +43,100 @@
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
 <style>
+ .btn.btn-danger:focus , .btn.btn-danger:hover{
+background-color: #cfe2ff;
+border:#cfe2ff;
+}
+.btn.btn-warning{
+background-color: #3d8bfd;
+border:#3d8bfd;
+
+}
+.btn.btn-danger{
+
+background-color: #cfe2ff;
+border:#cfe2ff;
+}
+
+.btn.btn-warning:hover {
+    background-color: #052c65;
+    border:#052c65;
+    transition: 0.6s;
+}
+
+.btn.btn-danger:hover {
+     background-color: #9ec5fe;
+    border:#052c65;
+    transition: 0.6s;
+}
+
+
+.photo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 6rem;
+            border-radius: 5px;
+            box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+            z-index: 310;
+            
+        }
+
+        .overlay {
+/*             position: absolute; */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+            z-index: 305;
+        }
+        .hidden{
+        display:none;
+        }
+        .gg-eye-alt {
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 24px;
+    height: 18px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    overflow: hidden;
+    box-sizing: border-box
+}
+.gg-eye-alt::after,
+.gg-eye-alt::before {
+    content: "";
+    display: block;
+    border-radius: 100px;
+    position: absolute;
+    box-sizing: border-box
+}
+.gg-eye-alt::after {
+    top: 2px;
+    box-shadow:
+        inset 0 -8px 0 2px,
+        inset 0 0 0 2px;
+    width: 24px;
+    height: 24px
+}
+.gg-eye-alt::before {
+    width: 8px;
+    height: 8px;
+    border: 2px solid transparent;
+    box-shadow:
+        inset 0 0 0 6px,
+        0 0 0 4px,
+        6px 0 0 0,
+        -6px 0 0 0 ;
+    bottom: 4px;
+    left: 8px
+}
 </style>
 <head>
 <meta>
@@ -53,282 +148,46 @@
 </head>
 
 <body>
-	<!-- !!固定!! 旁邊導覽列sidebar menu start (不是js動態產生的,放body)-->
-	
-	<!-- !!固定!! 旁邊導覽列sidebar menu end -->
-	<div id='app'>
-    <div id='sidebar' class='active' >
-        <div class='sidebar-wrapper active'>
-            <div class='sidebar-header position-relative'>
-                <div class='d-flex justify-content-between align-items-center '>
+<div class="photo hidden">
+	<img id="showPhoto">
+</div>
 
-                    <div class='sidebar-toggler  x'>
-                        <a href='#' class='sidebar-hide d-xl-none d-block'><i class='bi bi-x bi-middle'></i></a>
+<div class="overlay hidden">
+
+</div>
+	<!-- !!固定!! 旁邊導覽列sidebar menu start -->
+    <script src=${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js></script>
+    <!-- !!固定!! 旁邊導覽列sidebar menu end -->
+	<div id='app'>
+        </div>
+
+	<!-- !!Home頁面? 固定!!  右上方放小鈴鐺+登出+通知等等的 navbar -->
+    <div id="main" class='layout-navbar'>
+        <header class='mb-3'>
+            <nav class="navbar navbar-expand navbar-light navbar-top">
+                <div class="container-fluid">
+                    <a href="#" class="burger-btn d-block">
+                        <i class="bi bi-justify fs-3"></i>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-lg-0">
+                        <li><a class="dropdown-item" href="#">
+                            <i  class="bi-sub fs-4 bi bi-box-arrow-left"></i> Logout</a>
+                        </li>
+                        </ul>
+
                     </div>
                 </div>
-            </div>
-            <div class='logo'>
-                <a href= ${pageContext.request.contextPath}/back-end/web/index-test.html><img src= ${pageContext.request.contextPath}/resources/back-end/assets/images/main/logospm21.png alt='Logo' srcset=''
-                                         width='80%'></a>
-            </div>
-            <div class='sidebar-menu'>
-                <ul class='menu'>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-person-badge-fill'></i>
-                            <span>住戶資訊</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='#'>個人資訊</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='#'>訪客</a>
-
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-clipboard-check'></i>
-                            <span>公佈欄</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='.html'>訪客</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>郵件</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>Divider</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-calculator'></i>
-                            <span>社區帳單</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名3</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-calendar-check-fill'></i>
-                            <span>公共設施</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名3</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名4</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名5</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-spotify'></i>
-                            <span>活動</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名3</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名4</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名5</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-tools'></i>
-                            <span>檢舉與維修服務</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名3</a>
-                            </li>
-                             </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-pin-map-fill'></i>
-                            <span>特約商店</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名3</a>
-                            </li>
-                             </ul>
-                    </li>
-
-                    <li class='sidebar-item  '>
-                        <a href='.html' class='sidebar-link'>
-                            <i class='bi bi-file-earmark-medical-fill'></i>
-                            <span>沒有子選單</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-        </div>
-
-	<!-- !!Home頁面? 固定!!  右上方放小鈴鐺+登出+通知等等的 navbar 使用的樣板格式(目前為假資料) -->
-	<div id="main" class='layout-navbar'>
-		<header class='mb-3'>
-			<nav class="navbar navbar-expand navbar-light navbar-top">
-				<div class="container-fluid">
-					<a href="#" class="burger-btn d-block"> <i
-						class="bi bi-justify fs-3"></i>
-					</a>
-
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav ms-auto mb-lg-0">
-							<li class="nav-item dropdown me-1"><a
-								class="nav-link active dropdown-toggle text-gray-600" href="#"
-								data-bs-toggle="dropdown" aria-expanded="false"> <i
-									class='bi bi-envelope bi-sub fs-4'></i>
-							</a>
-								<ul class="dropdown-menu dropdown-menu-end"
-									aria-labelledby="dropdownMenuButton">
-									<li>
-										<h6 class="dropdown-header">Mail</h6>
-									</li>
-									<li><a class="dropdown-item" href="#">No new mail</a></li>
-								</ul></li>
-							<li class="nav-item dropdown me-3"><a
-								class="nav-link active dropdown-toggle text-gray-600" href="#"
-								data-bs-toggle="dropdown" data-bs-display="static"
-								aria-expanded="false"> <i class='bi bi-bell bi-sub fs-4'></i>
-							</a>
-								<ul
-									class="dropdown-menu dropdown-menu-end notification-dropdown"
-									aria-labelledby="dropdownMenuButton">
-									<li class="dropdown-header">
-										<h6>Notifications</h6>
-									</li>
-									<li class="dropdown-item notification-item"><a
-										class="d-flex align-items-center" href="#">
-											<div class="notification-icon bg-primary">
-												<i class="bi bi-cart-check"></i>
-											</div>
-											<div class="notification-text ms-4">
-												<p class="notification-title font-bold">Successfully
-													check out</p>
-												<p class="notification-subtitle font-thin text-sm">
-													Order ID #256</p>
-											</div>
-									</a></li>
-									<li class="dropdown-item notification-item"><a
-										class="d-flex align-items-center" href="#">
-											<div class="notification-icon bg-success">
-												<i class="bi bi-file-earmark-check"></i>
-											</div>
-											<div class="notification-text ms-4">
-												<p class="notification-title font-bold">Homework
-													submitted</p>
-												<p class="notification-subtitle font-thin text-sm">
-													Algebra math homework</p>
-											</div>
-									</a></li>
-									<li>
-										<p class="text-center py-2 mb-0">
-											<a href="#">See all notification</a>
-										</p>
-									</li>
-								</ul></li>
-						</ul>
-						<div class="dropdown">
-							<a href="#" data-bs-toggle="dropdown" aria-expanded="false">
-								<div class="user-menu d-flex">
-									<div class="user-name text-end me-3">
-										<h6 class="mb-0 text-gray-600">管理員名</h6>
-										<p class="mb-0 text-sm text-gray-600">Administrator</p>
-									</div>
-									<div class="user-img d-flex align-items-center">
-										<div class="avatar avatar-md">
-											<img src="">
-										</div>
-									</div>
-								</div>
-							</a>
-							<ul class="dropdown-menu dropdown-menu-end"
-								aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
-								<li>
-									<h6 class="dropdown-header">Hello!</h6>
-								</li>
-								<li><a class="dropdown-item" href="#"><i
-										class="icon-mid bi bi-person me-2"></i> My Profile</a></li>
-								<li><a class="dropdown-item" href="#"><i
-										class="icon-mid bi bi-gear me-2"></i> Settings</a></li>
-								<li><a class="dropdown-item" href="#"><i
-										class="icon-mid bi bi-wallet me-2"></i> Wallet</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-								<li><a class="dropdown-item" href="#"><i
-										class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</nav>
-		</header>
-		<!-- !!固定!! 右上方 navbar end -->
+            </nav>
+        </header>
+        <!-- !!固定!! 右上方 navbar end -->
 		<!-- 頁面 START!　網頁請從這邊以下開始修改，不需要此格式想用自己的請刪除 ~　-->
 		<div id="main-content">
 			<div class="page-heading">
@@ -399,8 +258,7 @@
 										<th>繳費狀態</th>
 									</tr>
 								</thead>
-							</table>
-							<table class="table table-bordered">
+							
 								<c:forEach var="TransferVO" items="${list}" varStatus="s">
 									<tr>
 										<td>${TransferVO.memberBillId}</td>
@@ -409,29 +267,31 @@
 										<td>${TransferVO.bankId}</td>
 										<td>${TransferVO.bankNumber}</td>
 										<td>${TransferVO.bankDate}</td>
-										<td><img
+										<td><i class="gg-eye-alt"><img
 											src="${pageContext.request.contextPath}/member/bill.do?action=memberphoto&memberBillId=${TransferVO.memberBillId}"
-											width="160px" hight="200px"></td>
+											width="160px" hight="200px" id="img" class="openPhoto"></i></td>
 										<td>${TransferVO.billDate}</td>
 										<td>${TransferVO.memberPay}</td>
-						
-									</tr>
-
-									<td>
+<!-- 										 selected -->
+										<td>
 										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/bill.do" style="margin-bottom: 0px;">
-											<button type="button" onclick="toggleSelect(${s.count})" class="btn btn-danger">編輯</button>
-											<input type="submit" value="修改" class="btn btn-warning">
-											<input type="hidden" name="memberBillId" value="${TransferVO.memberBillId}">
-											<input type="hidden" name="action" value="getOne_For_Update">
-
 											<span>繳費狀態:</span>
 											<select name="memberPay" disabled id="open${s.count}">
-												<option value="1" selected>已繳費</option>
-												<option value="0">未繳費</option>
-												<option value="2">待審核</option>
+												<option>修改繳費狀態</option>
+<!-- 												<option value="0">未繳費</option> -->
+												<option value="1">已繳費</option>
 											</select>
+											<br>
+											<div style="display: flex;justify-content: space-around;margin-top:10px;">
+											<button style="color:#052c65;" type="button" onclick="toggleSelect(${s.count})" class="btn btn-danger">編輯</button>
+											<input type="submit" value="修改" class="btn btn-warning" style="color:#cff4fc">
+											<input type="hidden" name="memberBillId" value="${TransferVO.memberBillId}">
+											<input type="hidden" name="action" value="getOne_For_Update">
+											</div>
+											
 										</FORM>
-									</td>
+									</td style="border-bottom: 1px solid black">
+									</tr>
 								</c:forEach>
 							</table>
 							</div>
@@ -464,8 +324,8 @@
 		src=${pageContext.request.contextPath}/resources/back-end/assets/js/app.js></script>
 	<!-- 樣板用js end -->
 	<!-- !!固定!! 後台樣板 css -->
-	<link rel="stylesheet"
-	href=${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css>
+	<link rel="stylesheet" href=${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="crossorigin="anonymous"></script>
 	
 	<script>
 		function toggleSelect(count) {
@@ -473,5 +333,47 @@
 			select.disabled = !select.disabled;
 		}
 	</script>
+	<script type="text/javascript">
+	window.onload=function(){
+	var op = document.getElementById("open${s.count}");
+	var opts = op.getElementByTagName("option");
+	var om = document.getElementById("toggleSelect(${s.count})")
+	
+	om.onclick = function(){
+		opts[1].selected = true;
+		}	
+	}
+	 </script>
+	 
+	
+	<script>
+	const overlay = document.querySelector('.overlay');
+	const photo = document.querySelector('.photo');
+	const openPhoto = document.querySelectorAll('.openPhoto');
+	const showPhoto = document.querySelector('#showPhoto');
+	
+	
+	openPhoto.forEach(e=>{
+		e.addEventListener('click', openPhotoDiv);
+	})
+	
+	overlay.addEventListener('click', closePhoto);
+	
+	//顯示照片
+    function openPhotoDiv(e) {
+        photo.classList.remove('hidden');
+        overlay.classList.remove('hidden');
+        showPhoto.src=e.target.src;
+       
+    };
+
+    //關閉照片
+    function closePhoto() {
+        overlay.classList.add('hidden');
+        photo.classList.add('hidden')
+    }
+	
+	</script>
+
 </body>
 </html>

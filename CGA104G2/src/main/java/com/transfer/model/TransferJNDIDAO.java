@@ -69,7 +69,16 @@ public class TransferJNDIDAO implements TransferDAO_interface {
 				while (rs.next()) {
 					TransferVO vo = new TransferVO();
 					vo.setMemberBillId(rs.getInt("MEMBER_BILL_ID"));
-					vo.setMemberPay(rs.getString("MEMBER_PAY"));
+//					vo.setMemberPay(rs.getString("MEMBER_PAY"));
+					if (rs.getInt("MEMBER_PAY") == 0) {
+
+						vo.setMemberPay("未繳費");
+					} else if (rs.getInt("MEMBER_PAY") == 1) {
+
+						vo.setMemberPay("已繳費");
+					} else {
+						vo.setMemberPay("待審核");
+					}
 					vo.setBankId(rs.getString("BANK_ID"));
 					vo.setBankNumber(rs.getInt("BANK_NUMBER"));
 					vo.setBankDate(rs.getTimestamp("BANK_DATE"));
@@ -142,7 +151,18 @@ public class TransferJNDIDAO implements TransferDAO_interface {
 				vo.setBankNumber(rs.getInt("BANK_NUMBER"));
 				vo.setBankDate(rs.getTimestamp("BANK_DATE"));
 				vo.setBillDate(rs.getString("BILL_DATE"));
-				vo.setMemberPay(rs.getString("MEMBER_PAY"));
+				
+//				vo.setMemberPay(rs.getString("MEMBER_PAY"));
+				
+				if (rs.getInt("MEMBER_PAY") == 0) {
+
+					vo.setMemberPay("未繳費");
+				} else if (rs.getInt("MEMBER_PAY") == 1) {
+
+					vo.setMemberPay("已繳費");
+				} else {
+					vo.setMemberPay("待審核");
+				}
 				vo.setMemberPhoto(rs.getBytes("MEMBER_PHOTO"));
 				
 				list.add(vo);

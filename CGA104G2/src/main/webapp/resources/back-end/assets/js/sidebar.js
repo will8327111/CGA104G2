@@ -99,13 +99,10 @@ document.writeln("                            <span>檢舉與維修服務</span>
 document.writeln("                        </a>");
 document.writeln("                        <ul class=\'submenu \'>");
 document.writeln("                            <li class=\'submenu-item \'>");
-document.writeln("                                <a href=\'\'>我是子選單名1</a>");
+document.writeln("                                <a href=\'../../back-end/privateReport/privateReportInfo.jsp\'>住戶檢舉</a>");
 document.writeln("                            </li>");
 document.writeln("                            <li class=\'submenu-item \'>");
-document.writeln("                                <a href=\'\'>我是子選單名2</a>");
-document.writeln("                            </li>");
-document.writeln("                            <li class=\'submenu-item \'>");
-document.writeln("                                <a href=\'\'>我是子選單名3</a>");
+document.writeln("                                <a href=\'../../back-end/maintenanceRecord/maintenanceRecordInfo.jsp\'>住戶維修提報</a>");
 document.writeln("                            </li>");
 document.writeln("                             </ul>");
 document.writeln("                    </li>");

@@ -52,5 +52,11 @@ public class Ame_StateService {
 		return ame_StateVO2;
 	}
 	
-	
+	public void updateOne(String recordStatime, Integer ameId) {
+		Ame_StateVO ame_StateVO = new Ame_StateVO();
+		ame_StateVO.setRecordStatime(recordStatime);
+		ame_StateVO.setAmeId(ameId);
+		
+		dao.updateOne(ame_StateVO);
+	}
 }

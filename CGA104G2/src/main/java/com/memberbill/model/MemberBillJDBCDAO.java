@@ -18,7 +18,7 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 	private static final String UPDATE = "UPDATE MEMBER_BILL SET MEMBER_PAY=? WHERE MEMBER_BILL_ID = ?";//修改狀態
 	private static final String MEMBER_PHOTO = "SELECT MEMBER_PHOTO FROM TRANSFER WHERE MEMBER_BILL_ID = ?";
 	private static final String GET_BILL_DATE = "SELECT BILL_DATE,MEMBER_ID,MEMBER_BILL_ID FROM MEMBER_BILL WHERE MEMBER_ID=? and MEMBER_PAY=0"; 
-	private static final String UPDATE_memberPay = "UPDATE  MEMBER_BILL SET MEMBER_PAY=2 WHERE MEMBER_BILL_ID=?";//修改狀態(給匯款用)
+	private static final String UPDATE_memberPay = "UPDATE  MEMBER_BILL SET MEMBER_PAY=2,MEMBER_PAY_METHOD=1 WHERE MEMBER_BILL_ID=?";//修改狀態(給匯款用)
 	
 	
 	private DataSource ds;
@@ -102,8 +102,8 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 				}
 
 				MemberBillVO.setMemberPayDate(rs.getDate("MEMBER_PAY_DATE"));
-				MemberBillVO.setMemberPayLimit(rs.getDate("MEMBER_PAY_LIMIT"));
-//				MemberBillVO.setMemberPayMethod(rs.getInt("MEMBER_PAY_METHOD") == 0 ? "匯款" : "刷卡");
+//				MemberBillVO.setMemberPayLimit(rs.getDate("MEMBER_PAY_LIMIT"));
+
 				if(rs.getInt("MEMBER_PAY_METHOD")==0) {
 					MemberBillVO.setMemberPayMethod("尚未繳費");
 					System.out.println(rs.getInt("MEMBER_PAY_METHOD"));
@@ -446,9 +446,10 @@ public class MemberBillJDBCDAO implements MemberBillDAO_interface {
 			pstmt.setInt(1,memberBillVO.getMemberBillId());
 			pstmt.setInt(2, memberBillVO.getMemberId());
 			pstmt.setString(3, memberBillVO.getMemberName());
-			pstmt.setString(4,"2022-12");
+			pstmt.setString(4,"2023-01");
 			pstmt.setDate(5, memberBillVO.getMemberPayLimit());
 			pstmt.setString(6, memberBillVO.getBillGroup());
+
 
 			pstmt.executeUpdate();
 		} catch (SQLException se) {

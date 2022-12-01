@@ -56,282 +56,37 @@
 </head>
 
 <body>
-	<!-- !!固定!! 旁邊導覽列sidebar menu start (不是js動態產生的,放body)-->
-	
-	<!-- !!固定!! 旁邊導覽列sidebar menu end -->
-	<div id='app'>
-    <div id='sidebar' class='active' >
-        <div class='sidebar-wrapper active'>
-            <div class='sidebar-header position-relative'>
-                <div class='d-flex justify-content-between align-items-center '>
+	<!-- !!固定!! 旁邊導覽列sidebar menu start -->
+    <script src=${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js></script>
+    <!-- !!固定!! 旁邊導覽列sidebar menu end -->
 
-                    <div class='sidebar-toggler  x'>
-                        <a href='#' class='sidebar-hide d-xl-none d-block'><i class='bi bi-x bi-middle'></i></a>
+	<!-- !!Home頁面? 固定!!  右上方放小鈴鐺+登出+通知等等的 navbar -->
+    <div id="main" class='layout-navbar'>
+        <header class='mb-3'>
+            <nav class="navbar navbar-expand navbar-light navbar-top">
+                <div class="container-fluid">
+                    <a href="#" class="burger-btn d-block">
+                        <i class="bi bi-justify fs-3"></i>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-lg-0">
+                        <li><a class="dropdown-item" href="#">
+                            <i  class="bi-sub fs-4 bi bi-box-arrow-left"></i> Logout</a>
+                        </li>
+                        </ul>
+
                     </div>
                 </div>
-            </div>
-            <div class='logo'>
-                <a href= ${pageContext.request.contextPath}/back-end/web/index-test.html><img src= ${pageContext.request.contextPath}/resources/back-end/assets/images/main/logospm21.png alt='Logo' srcset=''
-                                         width='80%'></a>
-            </div>
-            <div class='sidebar-menu'>
-                <ul class='menu'>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-person-badge-fill'></i>
-                            <span>住戶資訊</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='#'>個人資訊</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='#'>訪客</a>
-
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-clipboard-check'></i>
-                            <span>公佈欄</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='.html'>訪客</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>郵件</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>Divider</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-calculator'></i>
-                            <span>社區帳單</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名3</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-calendar-check-fill'></i>
-                            <span>公共設施</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名3</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名4</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名5</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-spotify'></i>
-                            <span>活動</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名3</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名4</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href='.html'>我是子選單名5</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-tools'></i>
-                            <span>檢舉與維修服務</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名3</a>
-                            </li>
-                             </ul>
-                    </li>
-
-                    <li class='sidebar-item  has-sub'>
-                        <a href='#' class='sidebar-link'>
-                            <i class='bi bi-pin-map-fill'></i>
-                            <span>特約商店</span>
-                        </a>
-                        <ul class='submenu '>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名1</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名2</a>
-                            </li>
-                            <li class='submenu-item '>
-                                <a href=''>我是子選單名3</a>
-                            </li>
-                             </ul>
-                    </li>
-
-                    <li class='sidebar-item  '>
-                        <a href='.html' class='sidebar-link'>
-                            <i class='bi bi-file-earmark-medical-fill'></i>
-                            <span>沒有子選單</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-        </div>
-
-	<!-- !!Home頁面? 固定!!  右上方放小鈴鐺+登出+通知等等的 navbar 使用的樣板格式(目前為假資料) -->
-	<div id="main" class='layout-navbar'>
-		<header class='mb-3'>
-			<nav class="navbar navbar-expand navbar-light navbar-top">
-				<div class="container-fluid">
-					<a href="#" class="burger-btn d-block"> <i
-						class="bi bi-justify fs-3"></i>
-					</a>
-
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav ms-auto mb-lg-0">
-							<li class="nav-item dropdown me-1"><a
-								class="nav-link active dropdown-toggle text-gray-600" href="#"
-								data-bs-toggle="dropdown" aria-expanded="false"> <i
-									class='bi bi-envelope bi-sub fs-4'></i>
-							</a>
-								<ul class="dropdown-menu dropdown-menu-end"
-									aria-labelledby="dropdownMenuButton">
-									<li>
-										<h6 class="dropdown-header">Mail</h6>
-									</li>
-									<li><a class="dropdown-item" href="#">No new mail</a></li>
-								</ul></li>
-							<li class="nav-item dropdown me-3"><a
-								class="nav-link active dropdown-toggle text-gray-600" href="#"
-								data-bs-toggle="dropdown" data-bs-display="static"
-								aria-expanded="false"> <i class='bi bi-bell bi-sub fs-4'></i>
-							</a>
-								<ul
-									class="dropdown-menu dropdown-menu-end notification-dropdown"
-									aria-labelledby="dropdownMenuButton">
-									<li class="dropdown-header">
-										<h6>Notifications</h6>
-									</li>
-									<li class="dropdown-item notification-item"><a
-										class="d-flex align-items-center" href="#">
-											<div class="notification-icon bg-primary">
-												<i class="bi bi-cart-check"></i>
-											</div>
-											<div class="notification-text ms-4">
-												<p class="notification-title font-bold">Successfully
-													check out</p>
-												<p class="notification-subtitle font-thin text-sm">
-													Order ID #256</p>
-											</div>
-									</a></li>
-									<li class="dropdown-item notification-item"><a
-										class="d-flex align-items-center" href="#">
-											<div class="notification-icon bg-success">
-												<i class="bi bi-file-earmark-check"></i>
-											</div>
-											<div class="notification-text ms-4">
-												<p class="notification-title font-bold">Homework
-													submitted</p>
-												<p class="notification-subtitle font-thin text-sm">
-													Algebra math homework</p>
-											</div>
-									</a></li>
-									<li>
-										<p class="text-center py-2 mb-0">
-											<a href="#">See all notification</a>
-										</p>
-									</li>
-								</ul></li>
-						</ul>
-						<div class="dropdown">
-							<a href="#" data-bs-toggle="dropdown" aria-expanded="false">
-								<div class="user-menu d-flex">
-									<div class="user-name text-end me-3">
-										<h6 class="mb-0 text-gray-600">管理員名</h6>
-										<p class="mb-0 text-sm text-gray-600">Administrator</p>
-									</div>
-									<div class="user-img d-flex align-items-center">
-										<div class="avatar avatar-md">
-											<img src="">
-										</div>
-									</div>
-								</div>
-							</a>
-							<ul class="dropdown-menu dropdown-menu-end"
-								aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
-								<li>
-									<h6 class="dropdown-header">Hello!</h6>
-								</li>
-								<li><a class="dropdown-item" href="#"><i
-										class="icon-mid bi bi-person me-2"></i> My Profile</a></li>
-								<li><a class="dropdown-item" href="#"><i
-										class="icon-mid bi bi-gear me-2"></i> Settings</a></li>
-								<li><a class="dropdown-item" href="#"><i
-										class="icon-mid bi bi-wallet me-2"></i> Wallet</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-								<li><a class="dropdown-item" href="#"><i
-										class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</nav>
-		</header>
-		<!-- !!固定!! 右上方 navbar end -->
+            </nav>
+        </header>
+        <!-- !!固定!! 右上方 navbar end -->
 		<!-- 頁面 START!　網頁請從這邊以下開始修改，不需要此格式想用自己的請刪除 ~　-->
 		<div id="main-content">
 			<div class="page-heading">
@@ -404,9 +159,11 @@
                                     <td>${CardVO.memberId}</td>
                                     <td>${CardVO.memberName}</td>
                                     <td>${CardVO.billDate}</td>
-                                    <td>${CardVO.memberPay}</td>
+<%--                                     <td>${CardVO.memberPay}</td> --%>
+									<td>已繳費</td>
                                     <td>${CardVO.payDate}</td>
-                                    <td>${CardVO.billGroup}</td>
+<%--                                     <td>${CardVO.billGroup}</td> --%>
+									<td>NT $3000</td>
                                     
                                 </tr>
                             </c:forEach>
