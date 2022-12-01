@@ -24,7 +24,7 @@
 			<td>
 				<h1>顯示時段</h1>
 				<h4>
-					<a href="front-end/ame/showAme.jsp">回瀏覽頁</a>
+					<a href="<%=request.getContextPath()%>/front-end/ame/showAme.jsp">回瀏覽頁</a>
 				</h4>
 			</td>
 		</tr>
@@ -33,7 +33,7 @@
 	<table>
 		<c:forEach items="${statime}" var="tmp" varStatus="loop">
 			<c:if test="${tmp == 0}">
-					<form METHOD="post" ACTION="../CGA104G2/ame_sta.do">
+					<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/ame/ame_sta.do">
 						<input type="hidden" name="action" value="doRecord3">
 						<input type="hidden" name="ameid" value="${ameid}">
 						<input type="hidden" name="ame_StaDate" value="${ame_StaDate}">
@@ -48,5 +48,22 @@
 			</c:if>
 		</c:forEach>
 	</table>
+	
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+// Swal.fire({
+// 	  position: 'top-end',
+// 	  icon: 'success',
+// 	  title: 'Your work has been saved',
+// 	  showConfirmButton: false,
+// 	  timer: 1500
+// 	})
+	
+</script>
+
 </body>
 </html>
+
+
+
+
