@@ -59,6 +59,7 @@ public class ActivityServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 
 		if ("insert".equals(action)) {
+			System.out.println("我有執行");
 			Integer memid = (Integer) session.getAttribute("id");
 
 			List<byte[]> photo = new ArrayList<byte[]>();
@@ -95,6 +96,9 @@ public class ActivityServlet extends HttpServlet {
 			ActivityService actSvc = new ActivityService();
 			actSvc.addAct(memid, actType, name, content, max, min, sgst, sget, actst, actet, country, location, cost,
 					photo);
+			String url = req.getContextPath()+"/front-end/activity/homepage3.html";
+			res.sendRedirect(url);
+			
 		}
 
 		// 有用

@@ -54,106 +54,33 @@ label.error {
 <!-- !!固定!! 旁邊導覽列sidebar menu end -->
 
 
-<!-- !!Home頁面? 固定!!  右上方放小鈴鐺+登出+通知等等的 navbar 使用的樣板格式(目前為假資料) -->
-<div id="main" class='layout-navbar'>
-                <header class='mb-3'>
-                    <nav class="navbar navbar-expand navbar-light navbar-top">
-                        <div class="container-fluid">
-                            <a href="#" class="burger-btn d-block">
-                                <i class="bi bi-justify fs-3"></i>
-                            </a>
+<!-- !!Home頁面? 固定!!  右上方放小鈴鐺+登出+通知等等的 navbar -->
+    <div id="main" class='layout-navbar'>
+        <header class='mb-3'>
+            <nav class="navbar navbar-expand navbar-light navbar-top">
+                <div class="container-fluid">
+                    <a href="#" class="burger-btn d-block">
+                        <i class="bi bi-justify fs-3"></i>
+                    </a>
 
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav ms-auto mb-lg-0">
-                                    <li class="nav-item dropdown me-1">
-                                        <a class="nav-link active dropdown-toggle text-gray-600" href="#" data-bs-toggle="dropdown"
-                                           aria-expanded="false">
-                                            <i class='bi bi-envelope bi-sub fs-4'></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                            <li>
-                                                <h6 class="dropdown-header">Mail</h6>
-                                            </li>
-                                            <li><a class="dropdown-item" href="#">No new mail</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item dropdown me-3">
-                                        <a class="nav-link active dropdown-toggle text-gray-600" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                            <i class='bi bi-bell bi-sub fs-4'></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="dropdownMenuButton">
-                                            <li class="dropdown-header">
-                                                <h6>Notifications</h6>
-                                            </li>
-                                            <li class="dropdown-item notification-item">
-                                                <a class="d-flex align-items-center" href="#">
-                                                    <div class="notification-icon bg-primary">
-                                                        <i class="bi bi-cart-check"></i>
-                                                    </div>
-                                                    <div class="notification-text ms-4">
-                                                        <p class="notification-title font-bold">Successfully check out</p>
-                                                        <p class="notification-subtitle font-thin text-sm">Order ID #256</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="dropdown-item notification-item">
-                                                <a class="d-flex align-items-center" href="#">
-                                                    <div class="notification-icon bg-success">
-                                                        <i class="bi bi-file-earmark-check"></i>
-                                                    </div>
-                                                    <div class="notification-text ms-4">
-                                                        <p class="notification-title font-bold">Homework submitted</p>
-                                                        <p class="notification-subtitle font-thin text-sm">Algebra math homework</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <p class="text-center py-2 mb-0"><a href="#">See all notification</a></p>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <div class="dropdown">
-                                    <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <div class="user-menu d-flex">
-                                            <div class="user-name text-end me-3">
-                                                <h6 class="mb-0 text-gray-600">管理員名</h6>
-                                                <p class="mb-0 text-sm text-gray-600">Administrator</p>
-                                            </div>
-                                            <div class="user-img d-flex align-items-center">
-                                                <div class="avatar avatar-md">
-                                                    <img src="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
-                                        <li>
-                                            <h6 class="dropdown-header">Hello!</h6>
-                                        </li>
-                                        <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My
-                                            Profile</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-gear me-2"></i>
-                                            Settings</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-wallet me-2"></i>
-                                            Wallet</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="#"><i
-                                                class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                </header>
-<!-- !!固定!! 右上方 navbar end -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-lg-0">
+                        <li><a class="dropdown-item" href="#">
+                            <i  class="bi-sub fs-4 bi bi-box-arrow-left"></i> Logout</a>
+                        </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- !!固定!! 右上方 navbar end -->
 
 
 <!-- 頁面 START!　網頁請從這邊以下開始修改，不需要此格式想用自己的請刪除 ~　-->
@@ -315,87 +242,90 @@ label.error {
 	<!-- 樣板用js end -->
 
 <script>
-	jQuery.validator.addMethod("checkInput", function(value, element) {
-	var pattern = new RegExp("[.`~!@#$^&*=|{}':;',\\[\\]<>《》/?~！@#￥……&*|{}【】‘；：”“'。，、？' ']");
-	var reg = /^([0-9]+)$/;
-	if(pattern.test(value)) {
-		return false;
-	} else if(value.indexOf(" ") != -1){
-		return false;
-	} else {
-		return true;
-	}
-	}, "禁止输入特殊字符");
-	
-    $.validator.addMethod("checkOpening", function(value, element){
-        let opentime = document.getElementById("opentime").value;
-        opentime = parseInt(opentime);
-        let closetime = document.getElementById("closetime").value;
-        closetime = parseInt(closetime);
-        return(closetime > opentime);
-    }, );
-	
-    $.validator.setDefaults({
-		submitHandler: function (form) {
-			alert("新增公共設施成功喔！！！");
-			form.submit();
-		}
-	});
-    
-	$(function () {
-		$('#form').validate({
-			onkeyup: function (element, event) {
-			//去除左側空白
-				var value = this.elementValue(element).replace(/^\s+/g, "");
-				$(element).val(value);
+    $(function () {
+        $('#form').validate({
+            onkeyup: function (element, event) {
+                //去除左側空白
+                var value = this.elementValue(element).replace(/^\s+/g, "");
+                $(element).val(value);
+            },
+
+            rules: {
+                amename: {
+                    required: true,
+                    checkInput: true ,
+                    minlength: 2
                 },
-			rules: {
-				amename: {
-					required: true,
-					maxlength: 10,
-					minlength: 1,
-					checkInput: true
-				},
-                    amemax: {
-					required: true,
-					number: true
-				},
-				ameintroduce: 'required',
-				amepoint: {
-					required: true,
-					number: true
-				},
-				closetime: {
-                    checkOpening: true
+                amemax: {
+                    required: true,
+                    number: true
+                },
+                ameintroduce:{
+                 required : true
+                },
+                 amepoint: {
+                    required: true,
+                    number: true
                 },
                 ameimg: {
-					required: true,
-				} },
-				messages: {
-				amename: {
-					required: '必填',
-					maxlength: '公設名稱 長度需在2到10之間',
-					minlength: '公設名稱 長度需在2到10之間',
-					checkInput: '只能是中、英文、數字和- , 且長度必需在2到10之間'
-				},
-				amemax: {
-					required: '必填',
-					number: '人數需為數字'
-				},
-				ameintroduce: '必填',
-				amepoint: {
-					required: '必填',
-					number: '人數需為數字'
-				},
-				closetime: {
-                    checkOpening: '關閉時間不能小於、等於開放時間 請選取!'
+                    required: true
                 },
-				ameimg: {
-					required: "請選擇圖片"
-				},
-				},
-		});
-	});
+                closetime: {
+                    checkOpening: true
+                },
+            },
+                messages: {
+                    amename: {
+                        required: '必需填',
+                        checkInput: '只能是中、英文、數字和- , 請　重　新　輸　入　！！！',
+                        minlength: '公設名稱最少兩字 請重新輸入'
+                    },
+                    amemax: {
+                        required: '必需填',
+                        number: '人數需為數字'
+                    },
+                    ameintroduce: '必需填',
+                    amepoint: {
+                        required: '必需填',
+                        number: '人數需為數字'
+                    },
+                    closetime: {
+                    checkOpening: '關閉時間不能小於、等於開放時間 請 重 新 選 ！！！'
+                    },
+                    ameimg: {
+                    required: '必需選'
+                     },
+                },
+            });
+    });
+
+    $.validator.addMethod("checkInput", function(value, element) {
+        var pattern = new RegExp("[.`~!@#$^&*=|{}':;',\\[\\]<>《》/?~！@#￥……&*|{}【】‘；：”“'。，、？' ']");
+        var reg = /^([0-9]+)$/;
+    if(pattern.test(value)) {
+        return false;
+    } else if(value.indexOf(" ") != -1){
+        return false;
+    } else {
+        return true;
+    }
+}, "禁止输入特殊字符");
+
+$.validator.addMethod("checkOpening", function(value, element){
+    let opentime = document.getElementById("opentime").value;
+    opentime = parseInt(opentime);
+    
+    let closetime = document.getElementById("closetime").value;
+    closetime = parseInt(closetime);
+    return(closetime > opentime);
+    
+}, );
+$.validator.setDefaults({
+	submitHandler: function (form) {
+		alert("新增公共設施成功喔！！！");
+		form.submit();
+	}
+});
 </script>
 </body>
 </html>

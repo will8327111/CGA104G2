@@ -61,7 +61,6 @@ public class PrivateReportServlet1 extends HttpServlet {
 
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer privateReportId = Integer.parseInt(req.getParameter("privateReportId"));
@@ -77,6 +76,7 @@ public class PrivateReportServlet1 extends HttpServlet {
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/privateReport/updateOneReport.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
@@ -114,7 +114,6 @@ public class PrivateReportServlet1 extends HttpServlet {
 
 		if ("getOneReportById".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
 
 			Integer privateReportId = null;
 
@@ -125,6 +124,7 @@ public class PrivateReportServlet1 extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-end/privateReport/privateReportInfo.jsp");
 				failureView.forward(req, res);
@@ -140,6 +140,7 @@ public class PrivateReportServlet1 extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-end/privateReport/privateReportInfo.jsp");
 				failureView.forward(req, res);
@@ -206,7 +207,6 @@ public class PrivateReportServlet1 extends HttpServlet {
 
 		if ("getOneReportById2".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
 
 			String memberAc = req.getParameter("memberAc").trim();
 			Integer privateReportId = null;
@@ -218,6 +218,7 @@ public class PrivateReportServlet1 extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/privateReport/showReport.jsp");
 				failureView.forward(req, res);
 				return;
@@ -232,6 +233,7 @@ public class PrivateReportServlet1 extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/privateReport/showReport.jsp");
 				failureView.forward(req, res);
 				return;
@@ -269,7 +271,7 @@ public class PrivateReportServlet1 extends HttpServlet {
 			Integer memberId = Integer.parseInt(req.getParameter("memberId"));
 			Integer privateReportStatus = Integer.parseInt(req.getParameter("privateReportStatus"));
 			String privateReportContent = req.getParameter("privateReportContent").trim();
-
+			
 			/*************************** 2.傳送圖片 *****************************************/
 			List<byte[]> privateReportPic = new ArrayList<byte[]>();
 			for (Part part : req.getParts()) {

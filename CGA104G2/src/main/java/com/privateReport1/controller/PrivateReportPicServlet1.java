@@ -68,7 +68,7 @@ public class PrivateReportPicServlet1 extends HttpServlet {
 				con = DriverManager.getConnection(url, account, password);
 				Statement stmt = con.createStatement();
 				
-				ResultSet rs = stmt.executeQuery("SELECT PRIVATE_REPORT_PIC, REPLY_PIC FROM PRIVATE_REPORT WHERE PRIVATE_REPORT_ID =" + privateReportId);
+				ResultSet rs = stmt.executeQuery("SELECT PRIVATE_REPORT_PIC FROM PRIVATE_REPORT WHERE PRIVATE_REPORT_ID =" + privateReportId);
 				if (rs.next()) {
 					BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("PRIVATE_REPORT_PIC"));
 					byte[] buf = new byte[4 * 1024]; // 4K buffer

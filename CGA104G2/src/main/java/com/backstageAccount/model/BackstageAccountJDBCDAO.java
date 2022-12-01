@@ -26,7 +26,7 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 
 	private static final String DELETE = "DELETE FROM BACKSTAGE_ACCOUNT where BM_ID = ?";
 
-	private static final String UPDATE = "UPDATE BACKSTAGE_ACCOUNT set BM_NAME=?, BM_ACCOUNT=?, "
+	private static final String UPDATE = "UPDATE BACKSTAGE_ACCOUNT set BM_NAME=?,"
 			+ "BM_PASSWORD=?,BM_EMAIL=?,BM_STATUS=? where BM_ID = ?";
 
 	private static final String GET_ONE_STMT = "SELECT BM_ID,BM_NAME,BM_ACCOUNT,BM_PASSWORD,BM_EMAIL,BM_STATUS FROM BACKSTAGE_ACCOUNT"
@@ -40,6 +40,8 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 	private static final String GET_BY_EMAIL = "select * from BACKSTAGE_ACCOUNT where BM_EMAIL = ?";
 
 	private static final String GET_BY_ACCOUNT = "select * from BACKSTAGE_ACCOUNT where BM_ACCOUNT = ?";
+	
+	private static final String UPDATE_NEEDS = "select * from BACKSTAGE_ACCOUNT where BM_NAME=? AND BM_PASSWORD=? AND BM_EMAIL=? AND BM_STATUS=? AND BM_ID = ?";
 
 	public void insert(BackstageAccountVO backstageAccountVO) {
 
@@ -85,6 +87,71 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 		}
 
 	}
+
+	public BackstageAccountVO updateNeeds(String bmName, String bmPassword, String bmEmail, Integer bmStatus, Integer bmId) {
+
+		BackstageAccountVO backstageAccountVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, account, password);
+			pstmt = con.prepareStatement(UPDATE_NEEDS);
+			pstmt.setString(1, bmName);
+			pstmt.setString(2, bmPassword);
+			pstmt.setString(3, bmEmail);
+			pstmt.setInt(4, bmStatus);
+			pstmt.setInt(5, bmId);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				backstageAccountVO = new BackstageAccountVO();
+				backstageAccountVO.setBmId(rs.getInt("bm_id"));
+				backstageAccountVO.setBmName(rs.getString("bm_name"));
+				backstageAccountVO.setBmAccount(rs.getString("bm_account"));
+				backstageAccountVO.setBmPassword(rs.getString("bm_password"));
+				backstageAccountVO.setBmEmail(rs.getString("bm_email"));
+				backstageAccountVO.setBmStatus(rs.getInt("bm_status"));
+
+			}
+			;
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return backstageAccountVO;
+	};
 
 	public BackstageAccountVO findByAcAndPwd(String bmAccount, String bmPassword) {
 
@@ -145,10 +212,9 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 			}
 		}
 		
-//		System.out.println("我式vo"+backstageAccountVO.getBmEmail());
 		return backstageAccountVO;
 	};
-
+	
 	public BackstageAccountVO findByAcAndEmail(String bmAccount, String bmEmail) {
 
 		BackstageAccountVO backstageAccountVO = null;
@@ -233,7 +299,6 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 				backstageAccountVO.setBmPassword(rs.getString("bm_password"));
 				backstageAccountVO.setBmEmail(rs.getString("bm_email"));
 				backstageAccountVO.setBmStatus(rs.getInt("bm_status"));
-
 			}
 			;
 
@@ -271,7 +336,6 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 	};
 
 	public BackstageAccountVO findByAccount(String bmAccount) {
-
 		BackstageAccountVO backstageAccountVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -293,7 +357,6 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 				backstageAccountVO.setBmPassword(rs.getString("bm_password"));
 				backstageAccountVO.setBmEmail(rs.getString("bm_email"));
 				backstageAccountVO.setBmStatus(rs.getInt("bm_status"));
-
 			}
 			;
 
@@ -384,11 +447,10 @@ public class BackstageAccountJDBCDAO implements BackstageAccountDAO_interface {
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, backstageAccountVO.getBmName());
-			pstmt.setString(2, backstageAccountVO.getBmAccount());
-			pstmt.setString(3, backstageAccountVO.getBmPassword());
-			pstmt.setString(4, backstageAccountVO.getBmEmail());
-			pstmt.setInt(5, backstageAccountVO.getBmStatus());
-			pstmt.setInt(6, backstageAccountVO.getBmId());
+			pstmt.setString(2, backstageAccountVO.getBmPassword());
+			pstmt.setString(3, backstageAccountVO.getBmEmail());
+			pstmt.setInt(4, backstageAccountVO.getBmStatus());
+			pstmt.setInt(5, backstageAccountVO.getBmId());
 
 			pstmt.executeUpdate();
 

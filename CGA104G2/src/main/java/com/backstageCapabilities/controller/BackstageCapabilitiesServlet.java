@@ -71,7 +71,7 @@ public class BackstageCapabilitiesServlet extends HttpServlet {
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 
 			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
-			req.setAttribute("errorMsgs", errorMsgs);
+			List<String> errorMsgs2 = new LinkedList<String>();
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer bmCapabilitiesId = Integer.parseInt(req.getParameter("bmCapabilitiesId").trim());
@@ -93,24 +93,31 @@ public class BackstageCapabilitiesServlet extends HttpServlet {
 			}
 
 			BackstageCapabilitiesService backstageCapabilitieistSvc2 = new BackstageCapabilitiesService();
-			BackstageCapabilitiesVO backstageCapabilitiesVO2 = backstageCapabilitieistSvc2.findByCapName(bmCapabilitiesName);
+			BackstageCapabilitiesVO backstageCapabilitiesVO2 = backstageCapabilitieistSvc2.updateNeeds(bmCapabilitiesName, bmCapabilitiesContent);
 			if (backstageCapabilitiesVO2 != null) {
-				errorMsgs.put("bmCapabilitiesName", "權限功能名稱: 請勿與原名稱相同或是已有重複名稱!");
+				errorMsgs2.add("看起來似乎沒有修改東西呢!");
 			}
 			
-			BackstageCapabilitiesVO backstageCapabilitiesVO = new BackstageCapabilitiesVO();
-			backstageCapabilitiesVO.setBmCapabilitiesName(bmCapabilitiesName);
-			backstageCapabilitiesVO.setBmCapabilitiesContent(bmCapabilitiesContent);
-
-			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("errorMsgs", errorMsgs);
 //				req.setAttribute("BackstageCapabilitiesVO", backstageCapabilitiesVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-end/backstageCapabilities/updateOneCapability.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
-
+			
+			if (!errorMsgs2.isEmpty()) {
+				req.setAttribute("errorMsgs2", errorMsgs2);
+//				req.setAttribute("BackstageCapabilitiesVO", backstageCapabilitiesVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/backstageCapabilities/updateOneCapability.jsp");
+				failureView.forward(req, res);
+				return; // 程式中斷
+			}
+			BackstageCapabilitiesVO backstageCapabilitiesVO = new BackstageCapabilitiesVO();
+			backstageCapabilitiesVO.setBmCapabilitiesName(bmCapabilitiesName);
+			backstageCapabilitiesVO.setBmCapabilitiesContent(bmCapabilitiesContent);
 			/*************************** 2.開始修改資料 *****************************************/
 			BackstageCapabilitiesService backstageCapabilitiesSvc = new BackstageCapabilitiesService();
 			backstageCapabilitiesVO = backstageCapabilitiesSvc.update(bmCapabilitiesId, bmCapabilitiesName,

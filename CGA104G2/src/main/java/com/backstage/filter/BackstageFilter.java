@@ -20,7 +20,11 @@ import javax.servlet.http.HttpSession;
 						  "/back-end/backstageAccount/listAllInfo.jsp",
 						  "/back-end/backstageAccount/listOneInfo.jsp",
 						  "/back-end/backstageAccount/updateOneInfo.jsp",
-						  "/back-end/memberbill/*"						  
+						  "/back-end/activity/*",
+						  "/back-end/memberbill/*",
+						  "/back-end/ame/*",
+						  "/back-end/mail/*",
+						  "/back-end/store/*",
 						 })
 
 public class BackstageFilter implements Filter {
@@ -46,7 +50,7 @@ public class BackstageFilter implements Filter {
 		Object backstageAccountVO = session.getAttribute("backstageAccountVO");
 		if (backstageAccountVO == null) {
 			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath() + "/back-end/backstageAccount/backstageLogin.jsp");
+			res.sendRedirect(req.getContextPath() + "/back-end/backstageAccount/backstageLoginFinal.jsp");
 			return;
 		} else {
 			chain.doFilter(request, response);

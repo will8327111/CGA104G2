@@ -40,7 +40,7 @@ public class FrontEndFilter implements Filter {
 		Object memberLoginVO = session.getAttribute("memberLoginVO");
 		if (memberLoginVO == null) {
 			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath() + "/front-end/memberLogin/memberLogin.jsp");
+			res.sendRedirect(req.getContextPath() + "/front-end/memberLogin/memberLoginFinal.jsp");
 			return;
 		} else {
 			chain.doFilter(request, response);

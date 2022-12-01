@@ -137,7 +137,7 @@
                                 <td>${memberVO.memberPost}</td>
                                 <td>${memberVO.memberAddress}</td>
                                 <td>${memberVO.memberPoints}</td>
-                                <td><img src="${pageContext.request.contextPath}/member/PicuploadServlet?memberid=${memberVO.memberId}" width="150px" class="rounded"></td>
+<%--                                 <td><img src="${pageContext.request.contextPath}/member/PicuploadServlet?memberid=${memberVO.memberId}" width="150px" class="rounded"></td> --%>
                                 <td>${memberVO.regDate}</td>
                                 <td>${memberVO.memberIdState}</td>
                                 <td>${memberVO.acState}</td>

@@ -12,6 +12,8 @@ public interface BackstageCapabilitiesDAO_interface {
 
 	public void delete(Integer bmCapabilitiesId);
 
+	public BackstageCapabilitiesVO updateNeeds(String bmCapabilitiesName, String bmCapabilitiesContent);
+	
 	public BackstageCapabilitiesVO findByPrimaryKey(Integer bmCapabilitiesId);
 	
 	public BackstageCapabilitiesVO findByCapName(String bmCapabilitiesName);

@@ -199,7 +199,11 @@ public class AmeDAO implements AmeDAO_interface {
 				    	ameVO.setAmeIntroduce(rs.getString("AME_INTRODUCE"));
 				    	ameVO.setAmePoint(rs.getInt("AME_POINT"));
 				    	ameVO.setAmeMax(rs.getInt("AME_MAX"));
-				    	ameVO.setAmeOpening(rs.getString("AME_OPENING"));
+				    	String open = rs.getString("AME_OPENING");
+				    	int s =open.indexOf("0");
+				    	int l =open.lastIndexOf("0") + 1;
+				    	String opening = s + " : 00 ～ " + l + " : 00";
+				    	ameVO.setAmeOpening(opening);
 				    	ameVO.setAmestates(rs.getInt("AME_STATES"));
 				    	if(ameVO.getAmestates() == 1) {
 				    		continue;

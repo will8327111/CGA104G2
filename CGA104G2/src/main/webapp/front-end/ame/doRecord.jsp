@@ -50,6 +50,15 @@
 	box-sizing: border-box;
 	float: left;
 }
+.body-list ul li button{
+	width: 70%;
+	height: 60px;
+	line-height: 55px;
+	list-style-type: none;
+	display: block;
+	box-sizing: border-box;
+	float: right;
+}
 
 .lightgrey {
 	color: #a8a8a8; /*浅灰色*/
@@ -87,7 +96,10 @@
 			<td>
 				<h1>顯示日曆</h1>
 				<h4>
-					<a href="front-end/ame/showAme.jsp">回瀏覽頁</a>
+					<a href="<%=request.getContextPath()%>/front-end/ame/showAme.jsp">回瀏覽頁</a>
+<!-- 					http://localhost:8081/CGA104G2/front-end/ame/showAme.jsp -->
+<!-- 					http://localhost:8081/CGA104G2/front-end/ame/ame_sta.do -->
+<!-- 					/front-end/ame/front-end/ame/showAme.jsp -->
 				</h4>
 			</td>
 		</tr>
@@ -171,36 +183,40 @@
 				str += "<li></li>"; //为起始日之前的日期创建空白节点
 			}
 			for (var i = 1; i <= totalDay; i++) {
-				const value = my_year + "-" + (my_month + 1) + "-" + i;
+				if(i < 10){
+				value = my_year + "-" + (my_month + 1) + "-" + 0 + i;
+				}else{
+				value = my_year + "-" + (my_month + 1) + "-" + i;
+				}
 				if ((i < my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) || my_year < my_date.getFullYear() || (my_year == my_date.getFullYear() && my_month < my_date.getMonth())) {
 					myclass = " class='lightgrey'"; //当该日期在今天之前时，以浅灰色字体显示
 					str += `<li \${myclass} > \${i}</li>`; //创建日期节点
 				} else if (i == my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) {
 					myclass = " class='green greenbox'"; //当天日期以绿色背景突出显示
-					str += `<form METHOD="post" ACTION="../CGA104G2/ame_sta.do" style="margin-bottom: 0px;"> 
+					str += `<form METHOD="post" style="margin-bottom: 0px;"> 
 						<li \${myclass} > \${i}  
 						<input type="hidden" name="action" value="doRecord2"> 
 						<input type="hidden" name="ameid" value="${ameid}">  
 						<input type="hidden" name="ame_StaDate" value="\${value}"> 
-						<input class="btn btn-outline-warning" type="submit" value="查看時段"> </li></form>`; //创建日期节点
+						<button class="btn btn-outline-success" > 查看時段 </button> </li></form>`; //创建日期节点
 					
 				} else if(i < my_day + 30 && my_year == my_date.getFullYear() && my_month == my_date.getMonth() ){
 					myclass = " class='darkgrey'"; //当该日期在今天之后时，以深灰字体显示
-					str += `<form METHOD="post" ACTION="../CGA104G2/ame_sta.do" style="margin-bottom: 0px;"> 
+					str += `<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/ame/ame_sta.do" style="margin-bottom: 0px;"> 
 						<li \${myclass} > \${i}  
 						<input type="hidden" name="action" value="doRecord2"> 
 						<input type="hidden" name="ameid" value="${ameid}">  
 						<input type="hidden" name="ame_StaDate" value="\${value}">  
-						<input class="btn btn-outline-warning" type="submit" value="查看時段"> </li></form>`; //创建日期节点
+						<button class="btn btn-outline-success" > 查看時段 </button> </li></form>`; //创建日期节点
 										
 				} else if(i < my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth() +1 ){
 					myclass = " class='darkgrey'"; //当该日期在今天之后时，以深灰字体显示
-					str += `<form METHOD="post" ACTION="../CGA104G2/ame_sta.do" style="margin-bottom: 0px;"> 
+					str += `<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/ame/ame_sta.do" style="margin-bottom: 0px;"> 
 						<li \${myclass} > \${i}  
 						<input type="hidden" name="action" value="doRecord2"> 
 						<input type="hidden" name="ameid" value="${ameid}">  
 						<input type="hidden" name="ame_StaDate" value="\${value}">  
-						<input class="btn btn-outline-warning" type="submit" value="查看時段"> </li></form>`; //创建日期节点
+						<button class="btn btn-outline-success" > 查看時段 </button> </li></form>`; //创建日期节点
 
 				
 				}else {
@@ -234,12 +250,9 @@
 		}
 		
 
-// 		function myFunction(data) {
-// 			valDate = e.toString().substring(0, 4) + "-"
-// 					+ e.toString().substring(4, 6) + "-"
-// 					+ e.toString().substring(6, 8);
+// 		function myFunction(value) {
 // 			$.ajax({
-// 				url : "${pageContext.request.contextPath}/ame_sta.do",
+// 				url : "${pageContext.request.contextPath}/front-end/ame/ame_sta.do",
 // 				dataTpye : "json",
 // 				data : {
 // 				},
@@ -257,8 +270,10 @@
 // 				}
 
 // 			})
-// 			alert('333333333333')
 // 		}
+// 			valDate = e.toString().substring(0, 4) + "-"
+// 					+ e.toString().substring(4, 6) + "-"
+// 					+ e.toString().substring(6, 8);
 	</script>
 </body>
 </html>
