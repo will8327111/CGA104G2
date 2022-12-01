@@ -17,6 +17,7 @@ import javax.servlet.http.Part;
 
 import com.bank.model.BankService;
 import com.bank.model.BankVO;
+import com.memberLogin.model.MemberLoginVO;
 import com.memberbill.model.MemberBillService;
 import com.memberbill.model.MemberBillVO;
 import com.transfer.model.TransferService;
@@ -48,7 +49,8 @@ public class MemberBillEcpayServlet extends HttpServlet {
 			System.out.println("近來");
 		  
 			
-			Integer memId = (Integer) req.getSession().getAttribute("memberId");
+			MemberLoginVO  memberLoginVO = (MemberLoginVO)session.getAttribute("memberLoginVO");
+			Integer memId = memberLoginVO.getMemberId();
 			Integer sum = Integer.parseInt(req.getParameter("sum"));
 			Integer memberBillId = Integer.parseInt(req.getParameter("memberBillId"));
 			
@@ -71,7 +73,11 @@ public class MemberBillEcpayServlet extends HttpServlet {
 		}
 		// 匯款按鈕至匯款頁面
 		if ("transfer".equals(action)) {
-			Integer memId = (Integer) req.getSession().getAttribute("memberId");
+//			Integer memId = (Integer) req.getSession().getAttribute("memberId");
+			//改
+			MemberLoginVO  memberLoginVO = (MemberLoginVO)session.getAttribute("memberLoginVO");
+			Integer memId = memberLoginVO.getMemberId();
+			
 			BankService bank = new BankService();
 			List<BankVO> list = bank.getAll();
 			List<MemberBillVO> list1 = memSvc.getBillDate(memId);
@@ -89,10 +95,13 @@ public class MemberBillEcpayServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
+			//改
+			MemberLoginVO  memberLoginVO = (MemberLoginVO)session.getAttribute("memberLoginVO");
+			Integer memId = memberLoginVO.getMemberId();
+			
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			byte[] memberPhoto = req.getPart("file").getInputStream().readAllBytes();
 			Integer memberPayMethod=0;
-			Integer memId = (Integer) session.getAttribute("memberId");
 			List<MemberBillVO> list = memSvc.getBillDate(memId);
 			req.setAttribute("list1", list);
 			Integer memberBillId=Integer.valueOf(req.getParameter("billDate"));

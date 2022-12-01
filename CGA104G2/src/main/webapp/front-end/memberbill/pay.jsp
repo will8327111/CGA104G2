@@ -7,11 +7,11 @@
 <%@ page import="com.memberLogin.model.*"%>
 <%
 	MemberBillService service = new MemberBillService();
-	Integer memId = (Integer) request.getSession().getAttribute("memberId");
-	MemberBillVO one = service.getOneCost(memId);
+// 	Integer memId = (Integer) request.getSession().getAttribute("memberId");
 // 	pageContext.setAttribute("list",list);
-//   MemberLoginVO memberLoginVO = (MemberLoginVO) request.getSession().getAttribute("memberLoginVO");
-//   Integer memId = (Integer) memberLoginVO.getMemberId();
+   MemberLoginVO memberLoginVO = (MemberLoginVO) request.getSession().getAttribute("memberLoginVO");
+   Integer memId = (Integer) memberLoginVO.getMemberId();
+	MemberBillVO one = service.getOneCost(memId);
 %>
 
 <!DOCTYPE html>
