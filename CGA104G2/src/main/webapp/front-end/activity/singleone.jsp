@@ -334,7 +334,7 @@ body {
 		src="<%=request.getContextPath()%>/resources/front-end/assets/js/search_origin.js"></script>
 
 
-	<link
+	<link 
 		href="https://cdn.bootcss.com/flexslider/2.6.3/flexslider.min.css"
 		rel="stylesheet">
 	<script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
@@ -394,8 +394,8 @@ async function join(){
  			  icon: 'success',
  			  title: '參加成功',
  			  showConfirmButton: false,
- 				timer: 1500 
- 				background: '#fff url(https://sweetalert2.github.io/images/trees.png)', backdrop: 
+ 				timer: 1500, 
+ 				 backdrop: 
  			` rgba(0,0,123,0.4) url("https://sweetalert2.github.io/images/nyan-cat.gif") left top no-repeat `
  				
  				
