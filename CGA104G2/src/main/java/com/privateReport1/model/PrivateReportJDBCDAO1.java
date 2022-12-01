@@ -63,7 +63,7 @@ public class PrivateReportJDBCDAO1 implements PrivateReportDAO1_interface {
 	private static final String GET_ALL_SELECTED = "SELECT PRIVATE_REPORT_ID, PR.MEMBER_ID, MEMBER_NAME, PRIVATE_REPORT_TIME,\r\n"
 			+ "PRIVATE_REPORT_CONTENT, PRIVATE_REPORT_PIC, PRIVATE_REPORT_STATUS, \r\n"
 			+ "REPLY_OF_REPORT, REPLY_PIC, REPLY_OF_REPORT_TIME FROM PRIVATE_REPORT PR\r\n"
-			+ "JOIN MEMBER MB on PR.MEMBER_ID = MB.MEMBER_ID\r\n" + "WHERE PRIVATE_REPORT_STATUS = ?;";
+			+ "JOIN MEMBER MB on PR.MEMBER_ID = MB.MEMBER_ID\r\n" + "WHERE PRIVATE_REPORT_STATUS = ? ORDER BY PRIVATE_REPORT_ID;";
 
 	private static final String MEMBER_GET_ALL_SELECTED = "SELECT PRIVATE_REPORT_ID, PR.MEMBER_ID, MEMBER_NAME, PRIVATE_REPORT_TIME,\r\n"
 			+ "PRIVATE_REPORT_CONTENT, PRIVATE_REPORT_PIC, PRIVATE_REPORT_STATUS, \r\n"
@@ -86,9 +86,7 @@ public class PrivateReportJDBCDAO1 implements PrivateReportDAO1_interface {
 			pstmt.setString(2, privateReportVO1.getPrivateReportContent());
 			pstmt.setBytes(3, privateReportVO1.getPrivateReportPic());
 			pstmt.setInt(4, privateReportVO1.getPrivateReportStatus());
-
 			pstmt.executeUpdate();
-
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -199,7 +197,6 @@ public class PrivateReportJDBCDAO1 implements PrivateReportDAO1_interface {
 			pstmt.setInt(3, privateReportVO1.getPrivateReportStatus());
 			pstmt.setInt(4, privateReportVO1.getPrivateReportId());
 			pstmt.executeUpdate();
-
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -848,17 +845,17 @@ public class PrivateReportJDBCDAO1 implements PrivateReportDAO1_interface {
 
 		// 前台新增檢舉資料
 //		PrivateReportVO1 privateReportVO1 = new PrivateReportVO1();
-//		privateReportVO1.setMemberId(1);
+//		privateReportVO1.setMemberId(3);
 //		privateReportVO1.setPrivateReportContent("外面地板都是尿欸!");
 //		privateReportVO1.setPrivateReportPic(null);
 //		privateReportVO1.setPrivateReportStatus(0);
 //		privateReportJDBCDAO1.frontEndInsert(privateReportVO1);
 
 		// 前台以會員帳號查詢
-		PrivateReportVO1 privateReportVO1 = privateReportJDBCDAO1.findInfoByAc("EreYea1");
-		System.out.print(privateReportVO1.getMemberId() + ",");
-		System.out.print(privateReportVO1.getMemberAc() + ",");
-		System.out.println();
+//		PrivateReportVO1 privateReportVO1 = privateReportJDBCDAO1.findInfoByAc("EreYea1");
+//		System.out.print(privateReportVO1.getMemberId() + ",");
+//		System.out.print(privateReportVO1.getMemberAc() + ",");
+//		System.out.println();
 		
 		// 前台以會員帳號查詢個人檢舉
 //		List<PrivateReportVO1> list = privateReportJDBCDAO1.findByMemberAc("EreYea1");
@@ -900,7 +897,7 @@ public class PrivateReportJDBCDAO1 implements PrivateReportDAO1_interface {
 //		privateReportJDBCDAO1.update(privateReportVO1);
 
 //		 前台刪除檢舉資料
-//		privateReportJDBCDAO1.delete(30);
+		privateReportJDBCDAO1.delete(63);
 
 		// 以檢舉編號查詢個人檢舉
 //		PrivateReportVO1 privateReportVO1 = privateReportJDBCDAO1.findByReportId(3);

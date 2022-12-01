@@ -11,8 +11,8 @@ function timesCount() {
 	if (count == 0){
 		clearInterval(timerId);
 		console.log("安安");
-//	location.href = "https://tw.yahoo.com/";
-	console.log("幹");
+//		location.href = "https://tw.yahoo.com";
+//		location.href = "../../back-end/backstageGetPassword/passwordForgotten.jsp";
 	}
 }
 timesCount();

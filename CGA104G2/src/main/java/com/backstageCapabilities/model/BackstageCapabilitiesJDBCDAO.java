@@ -11,7 +11,7 @@ import java.util.List;
 import com.backstageAccount.model.BackstageAccountJDBCDAO;
 import com.backstageAccount.model.BackstageAccountVO;
 
-public class BackstageCapabilitiesJDBCDAO implements BackstageCapabilitiesDAO_interface{
+public class BackstageCapabilitiesJDBCDAO implements BackstageCapabilitiesDAO_interface {
 
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/Community_Management?useUnicode=yes&characterEncoding=utf8&useSSL=true&serverTimezone=Asia/Taipei";
@@ -27,12 +27,14 @@ public class BackstageCapabilitiesJDBCDAO implements BackstageCapabilitiesDAO_in
 			+ "BM_CAPABILITIES_CONTENT=? where BM_CAPABILITIES_ID = ?";
 
 	private static final String GET_ONE_STMT = "SELECT BM_CAPABILITIES_ID, BM_CAPABILITIES_NAME, BM_CAPABILITIES_CONTENT FROM BACKSTAGE_CAPABILITIES where BM_CAPABILITIES_ID = ?";
-	
+
 	private static final String GET_ALL_STMT = "SELECT BM_CAPABILITIES_ID, BM_CAPABILITIES_NAME,"
 			+ "BM_CAPABILITIES_CONTENT FROM BACKSTAGE_CAPABILITIES order by BM_CAPABILITIES_ID";
 
 	private static final String FIND_BY_NAME = "select * from BACKSTAGE_CAPABILITIES where BM_CAPABILITIES_NAME = ?";
-	
+
+	private static final String UPDATE_NEEDS = "select * from BACKSTAGE_CAPABILITIES where BM_CAPABILITIES_NAME=? AND BM_CAPABILITIES_CONTENT = ?";
+
 	@Override
 	public void insert(BackstageCapabilitiesVO backstageCapabilitiesVO) {
 
@@ -161,8 +163,65 @@ public class BackstageCapabilitiesJDBCDAO implements BackstageCapabilitiesDAO_in
 
 	}
 
+	public BackstageCapabilitiesVO updateNeeds(String bmCapabilitiesName, String bmCapabilitiesContent) {
+
+		BackstageCapabilitiesVO backstageCapabilitiesVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, account, password);
+			pstmt = con.prepareStatement(UPDATE_NEEDS);
+			pstmt.setString(1, bmCapabilitiesName);
+			pstmt.setString(2, bmCapabilitiesContent);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				backstageCapabilitiesVO = new BackstageCapabilitiesVO();
+				backstageCapabilitiesVO.setBmCapabilitiesName(rs.getString("bm_capabilities_name"));
+				backstageCapabilitiesVO.setBmCapabilitiesContent(rs.getString("bm_capabilities_content"));
+			}
+			;
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return backstageCapabilitiesVO;
+	};
+
 	public BackstageCapabilitiesVO findByPrimaryKey(Integer bmCapabilitiesId) {
-		
+
 		BackstageCapabilitiesVO backstageCapabilitiesVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -177,7 +236,7 @@ public class BackstageCapabilitiesJDBCDAO implements BackstageCapabilitiesDAO_in
 			pstmt.setInt(1, bmCapabilitiesId);
 
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				// empVo 也稱為 Domain objects
 				backstageCapabilitiesVO = new BackstageCapabilitiesVO();
@@ -188,12 +247,10 @@ public class BackstageCapabilitiesJDBCDAO implements BackstageCapabilitiesDAO_in
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -221,8 +278,8 @@ public class BackstageCapabilitiesJDBCDAO implements BackstageCapabilitiesDAO_in
 		return backstageCapabilitiesVO;
 	};
 
-public BackstageCapabilitiesVO findByCapName(String bmCapabilitiesName) {
-		
+	public BackstageCapabilitiesVO findByCapName(String bmCapabilitiesName) {
+
 		BackstageCapabilitiesVO backstageCapabilitiesVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -237,7 +294,7 @@ public BackstageCapabilitiesVO findByCapName(String bmCapabilitiesName) {
 			pstmt.setString(1, bmCapabilitiesName);
 
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
 				// empVo 也稱為 Domain objects
 				backstageCapabilitiesVO = new BackstageCapabilitiesVO();
@@ -248,12 +305,10 @@ public BackstageCapabilitiesVO findByCapName(String bmCapabilitiesName) {
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -280,7 +335,7 @@ public BackstageCapabilitiesVO findByCapName(String bmCapabilitiesName) {
 		}
 		return backstageCapabilitiesVO;
 	};
-	
+
 	public List<BackstageCapabilitiesVO> getAll() {
 
 		List<BackstageCapabilitiesVO> list = new ArrayList<BackstageCapabilitiesVO>();
@@ -365,13 +420,13 @@ public BackstageCapabilitiesVO findByCapName(String bmCapabilitiesName) {
 //			System.out.print(backstageCapabilitiesVO3.getBmCapabilitiesId() + ",");
 //			System.out.print(backstageCapabilitiesVO3.getBmCapabilitiesName() + ",");
 //			System.out.print(backstageCapabilitiesVO3.getBmCapabilitiesContent() + ",");
-		
+
 		// 以功能名稱查詢
 		BackstageCapabilitiesVO backstageCapabilitiesVO3 = backstageCapabilitiesJDBCDAO.findByCapName("公佈欄管理");
 		System.out.print(backstageCapabilitiesVO3.getBmCapabilitiesId() + ",");
 		System.out.print(backstageCapabilitiesVO3.getBmCapabilitiesName() + ",");
 		System.out.print(backstageCapabilitiesVO3.getBmCapabilitiesContent() + ",");
-		
+
 		// 查詢全部
 //		List<BackstageCapabilitiesVO> list = backstageCapabilitiesJDBCDAO.getAll();
 //		for (BackstageCapabilitiesVO aBackstageCapabilities : list) {
@@ -380,7 +435,7 @@ public BackstageCapabilitiesVO findByCapName(String bmCapabilitiesName) {
 //			System.out.print(aBackstageCapabilities.getBmCapabilitiesContent() + ",");
 //			System.out.println();
 //		}
-		
+
 	}
-	
+
 }

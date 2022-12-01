@@ -1,4 +1,4 @@
-package com.privateReport1.controller;
+package com.maintenanceRecord.controller;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -16,10 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet("/back-end/maintenanceRecord/maintenancePicServlet.do")
+public class MaintenanceRecordPicServlet extends HttpServlet {
 
-@WebServlet("/back-end/privateReport1/privateReportPicServlet.do")
-public class PrivateReportPicServlet1 extends HttpServlet {
-	
 	private static final long serialVersionUID = 1L;
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/Community_Management?useUnicode=yes&characterEncoding=utf8&useSSL=true&serverTimezone=Asia/Taipei";
@@ -35,13 +34,13 @@ public class PrivateReportPicServlet1 extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		if ("showPic".equals(action)) {
-			Integer privateReportId = Integer.parseInt(req.getParameter("privateReportId"));
+			Integer maintenanceId = Integer.parseInt(req.getParameter("maintenanceId"));
 			try {
 				Class.forName(driver);
 				con = DriverManager.getConnection(url, account, password);
 				Statement stmt = con.createStatement();
 				
-				ResultSet rs = stmt.executeQuery("SELECT REPLY_PIC FROM PRIVATE_REPORT WHERE PRIVATE_REPORT_ID =" + privateReportId);
+				ResultSet rs = stmt.executeQuery("SELECT REPLY_PIC FROM MAINTENANCE_RECORD WHERE MAINTENANCE_ID =" + maintenanceId);
 				if (rs.next()) {
 					BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("REPLY_PIC"));
 					byte[] buf = new byte[4 * 1024]; // 4K buffer
@@ -62,15 +61,15 @@ public class PrivateReportPicServlet1 extends HttpServlet {
 		}
 		
 		if ("showMemberPic".equals(action)) {
-			Integer privateReportId = Integer.parseInt(req.getParameter("privateReportId"));
+			Integer maintenanceId = Integer.parseInt(req.getParameter("maintenanceId"));
 			try {
 				Class.forName(driver);
 				con = DriverManager.getConnection(url, account, password);
 				Statement stmt = con.createStatement();
 				
-				ResultSet rs = stmt.executeQuery("SELECT PRIVATE_REPORT_PIC FROM PRIVATE_REPORT WHERE PRIVATE_REPORT_ID =" + privateReportId);
+				ResultSet rs = stmt.executeQuery("SELECT MAINTENANCE_PIC FROM MAINTENANCE_RECORD WHERE MAINTENANCE_ID =" + maintenanceId);
 				if (rs.next()) {
-					BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("PRIVATE_REPORT_PIC"));
+					BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("MAINTENANCE_PIC"));
 					byte[] buf = new byte[4 * 1024]; // 4K buffer
 					int len;
 					while ((len = in.read(buf)) != -1) {
@@ -89,3 +88,4 @@ public class PrivateReportPicServlet1 extends HttpServlet {
 		}
 	}
 }
+

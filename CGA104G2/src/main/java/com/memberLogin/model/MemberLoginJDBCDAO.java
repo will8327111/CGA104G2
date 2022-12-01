@@ -89,7 +89,7 @@ public class MemberLoginJDBCDAO implements MemberLoginDAO_interface {
 	public static void main(String[] args) {
 		
 		MemberLoginJDBCDAO jdbcDao = new MemberLoginJDBCDAO();
-		MemberLoginVO test = jdbcDao.findByAcAndPwd("EreYea1", "EY8350330");
+		MemberLoginVO test = jdbcDao.findByAcAndPwd("ArmiAlert2", "A8351103A");
 		
 			System.out.print(test.getMemberId() + ",");
 			System.out.print(test.getMemberAc() + ",");
