@@ -27,4 +27,12 @@ public class RecordService {
 	public List<RecordVO> findByPrimaryKey(Integer member_Id) {
 		return dao.findByPrimaryKey(member_Id);
 	}
+	
+	public boolean dorecordsta(Integer ameId,  Date recordDate, String recordStatime) {
+		return dao.dorecordsta(ameId, recordDate, recordStatime);
+	}
+	
 }
+
+
+
