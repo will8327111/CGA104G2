@@ -229,7 +229,7 @@ public class ActivityDAO implements ActivityDAO_interface {
 	@Override
 	public JSONArray getPage(Integer number) {
 		beginTranscation();
-		final StringBuilder sql = new StringBuilder().append("SELECT * FROM ACTIVITY  WHERE ACTIVITY_STATUS = 0  ");
+		final StringBuilder sql = new StringBuilder().append("SELECT * FROM ACTIVITY  WHERE ACTIVITY_STATUS = 0 order by ACTIVITY_ID desc ");
 		String first = Integer.toString(number * 3);
 		sql.append(" " + "LIMIT" + " " + first + "," + "3");
 		List<ActivityVO> list = getSession().createNativeQuery(sql.toString(), ActivityVO.class).list();
