@@ -19,8 +19,7 @@ import com.ame_state.model.Ame_StateService;
 import com.ame_state.model.Ame_StateVO;
 import com.record.model.RecordService;
 
-@WebServlet("/ame_sta.do")
-
+@WebServlet("/front-end/ame/ame_sta.do")
 public class Ame_StateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -94,7 +93,6 @@ public class Ame_StateServlet extends HttpServlet {
 
 			java.sql.Date date = java.sql.Date.valueOf(ame_StaDate);
 
-//			Time recordStatime = 
 
 			Ame_StateVO ame_StateVO = ame_ssvc.selectByIdDate(ameid, date);
 			Integer ameStateId = ame_StateVO.getAmeStateId();
@@ -109,7 +107,6 @@ public class Ame_StateServlet extends HttpServlet {
 					String recordStatime = statime_ind + ":00";
 					rs.addRecord(memberId, ameid, date, recordStatime);
 				}
-//				
 			} else {
 				System.out.println("失敗喔");
 			}

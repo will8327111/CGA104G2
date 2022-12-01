@@ -27,6 +27,8 @@ public class Ame_StateDAO implements Ame_StateDAO_interface {
 			"INSERT INTO AME_STATE (AME_ID, RECORD_DATE, RECORD_STATIME) VALUES (?, ?, ?)";
 	private static final String UPDATE =
 			"UPDATE AME_STATE set RECORD_STATIME = ? where AME_STATE_ID = ?";
+	private static final String UPDATEONE =
+			"UPDATE AME_STATE set RECORD_STATIME = ? where AME_ID = ? and RECORD_DATE = date_add(date(now()),interval + ? day)";
 	private static final String GET_SOME_STMT = 
 			"SELECT  AME_ID, RECORD_DATE, RECORD_STATIME FROM AME_STATE where AME_ID = ?";
 	private static final String SELECT_ONE = 
@@ -58,6 +60,44 @@ public class Ame_StateDAO implements Ame_StateDAO_interface {
 
 			ps.executeUpdate();
 
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	public void updateOne(Ame_StateVO ame_StateVO) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = ds.getConnection();
+			ps = con.prepareStatement(UPDATEONE);
+			
+			for(int i = 0 ; i < 30; i ++) {
+				ps.setString(1, ame_StateVO.getRecordStatime());
+				ps.setInt(2, ame_StateVO.getAmeId());
+				ps.setInt(3, i);
+				
+				ps.executeUpdate();
+			}
+			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured " + se.getMessage());
 			// Clean up JDBC resources
@@ -69,7 +109,6 @@ public class Ame_StateDAO implements Ame_StateDAO_interface {
 					se.printStackTrace(System.err);
 				}
 			}
-
 			if (con != null) {
 				try {
 					con.close();
