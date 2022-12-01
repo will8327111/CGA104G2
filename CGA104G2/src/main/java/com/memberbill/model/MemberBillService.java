@@ -97,7 +97,7 @@ public class MemberBillService {
 //        r= (int)(Math.random()*10);
         AllInOne allInOne = new AllInOne("");
         AioCheckOutALL aioCheckOutALL = new AioCheckOutALL();
-        aioCheckOutALL.setMerchantTradeNo(memId+"elife"+"nedyhmsdrbxart");
+        aioCheckOutALL.setMerchantTradeNo(memId+"elife"+"neddxartrr");
         aioCheckOutALL.setMerchantTradeDate(payDate);
         aioCheckOutALL.setTotalAmount(sum.toString());
         aioCheckOutALL.setTradeDesc("test");
