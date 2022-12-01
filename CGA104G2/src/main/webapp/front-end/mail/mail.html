@@ -2,241 +2,377 @@
 <html lang="zh-Hant">
 
 <head>
-    <meta charset="utf-8">
-    <title>社區業務管理系統-陪你e生e世</title>
-    <meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<title>社區業務管理系統-陪你e生e世</title>
+<meta name="robots" content="noindex,nofollow">
 <!--    禁止本地端快取-->
 <!--    <Meta http-equiv="Pragma" Content="No-cache">-->
 <!--    隱藏圖片下載-->
-    <meta http-equiv="imagetoolbar" content="false">
-    <meta name="keywords" content="">
-    <!-- 定義為RWD web -->
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <!-- 最佳兼容模式 -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <!--=============Google Font ===============-->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
-    <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
-    <link rel="shortcut icon" href="../../resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
-	<link rel="stylesheet" href="../../resources/back-end/assets/css/main/app.css">
-    <!--==============css===============-->
-    <!--font awesome kit-->
-    <script src="https://kit.fontawesome.com/7e021e96db.js" crossorigin="anonymous"></script>
-    <!--!!固定!! 前台樣式-->
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/jquery.bxslider.min.css">
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
-    <!--modaal-->
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
+<meta http-equiv="imagetoolbar" content="false">
+<meta name="keywords" content="">
+<!-- 定義為RWD web -->
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<!-- 最佳兼容模式 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<!--=============Google Font ===============-->
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:300&display=swap"
+	rel="stylesheet">
+<!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
+<link rel="shortcut icon"
+	href="../../resources/back-end/assets/images/main/favicons/favicon2.ico"
+	type="image/x-icon">
+<link rel="stylesheet"
+	href="../../resources/back-end/assets/css/main/app.css">
+<!--==============css===============-->
+<!--font awesome kit-->
+<script src="https://kit.fontawesome.com/7e021e96db.js"
+	crossorigin="anonymous"></script>
+<!--!!固定!! 前台樣式-->
+<link rel="stylesheet" type="text/css"
+	href="../../resources/front-end/assets/css/jquery.bxslider.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../../resources/front-end/assets/css/reset.css">
+<link rel="stylesheet" type="text/css"
+	href="../../resources/front-end/assets/css/layout.css">
+<link rel="stylesheet" type="text/css"
+	href="../../resources/front-end/assets/css/parts.css">
+<!--modaal-->
+<link rel="stylesheet" type="text/css"
+	href="../../resources/front-end/assets/css/modaal.min.css">
+<!--=============js=============-->
+<!--延遲載入-->
+<script src="../../resources/front-end/assets/js/lazyload.min.js"></script>
 
-    <!--=============js=============-->
-    <!--延遲載入-->
-    <script src="../../resources/front-end/assets/js/lazyload.min.js"></script>
+<!--==============這邊放自己的 css===============-->
+<!-- Font Awesome -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+	rel="stylesheet" />
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+	rel="stylesheet" />
+<!-- MDB -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css"
+	rel="stylesheet" />
 
-    <!--==============這邊放自己的 css===============-->
-	
 
+<!--==============css===============-->
+<style>
+/*!!固定!! 字形*/
+@font-face {
+	font-family: 'huninn';
+	src: url('../../resources/front-end/assets/font/jf-openhuninn-1.1.ttf')
+		format("truetype");
+}
 
-    <!--==============css===============-->
-    <style>
- /*!!固定!! 字形*/
-        @font-face {
-            font-family: 'huninn';
-            src: url('../../resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
-        }
-        body {
-            font-family: 'huninn',serif;
-        }
-        .form-select {
-			width:11%;
-			display: inline-block;
-		}
-		#search_mailID{
-			border: 1px solid gray;
-			margin: 10px;
-		}
-		#searchMail{
-			margin-left: 20px;
-		}
-		body{
-			background-color: white;
-		}
-		
-    </style>
+body {
+	font-family: 'huninn', serif;
+}
+
+.form-select {
+	width: 11%;
+	display: inline-block;
+}
+
+#search_mailID {
+	border: 1px solid gray;
+	margin: 10px;
+}
+
+#searchMail {
+	margin-left: 20px;
+}
+
+body {
+	background-color: white;
+}
+</style>
 </head>
 
 
-<body>
-        <header id="header">
+<body onload="connect();">
+	<header id="header">
 
-<!--!!固定!! 導覽列 start-->
-            <nav id="pc-nav">
-                <!--!!固定!! logo-->
-                <div>
-                    <h1><a href="../../front-end/web/front-index2.html"><img src="../../resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台" style="width: 50%; display: flex;justify-content: flex-start; flex-direction: inherit;"></a></h1>
-                </div>
-            </nav>
-                <ul>
-                    <div id="login-div" >
-                        <a href="#"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>住戶登入/登出。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 登出</label></button></a>
-                    </div>
-                </ul>
-            <ul>
-                <div id="out-div" >
-                    <a href="#"><button class="cap"  id="out" data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-bell"></i><label style="font-size: 1rem;"> 通知</label></button></a>
-                </div>
-            </ul>
-            <!--導覽列 end-->
-        </header>
+		<!--!!固定!! 導覽列 start-->
+		<nav id="pc-nav">
+			<!--!!固定!! logo-->
+			<div>
+				<h1>
+					<a href="../../front-end/web/front-index2.html"><img
+						src="../../resources/front-end/assets/img/logo11_trans4.png"
+						alt="陪你e生e世　社區服務平台"
+						style="width: 50%; display: flex; justify-content: flex-start; flex-direction: inherit;"></a>
+				</h1>
+			</div>
+		</nav>
+		<ul>
+			<div id="login-div">
+				<a href="#"><button class="cap" id="login"
+						data-tippy-content="<div class='inner-cap'><p>住戶登入/登出。</p><p>社區住戶專用。</p></div>">
+						<i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label
+							style="font-size: 1rem;"> 登出</label>
+					</button></a>
+			</div>
+		</ul>
+		<ul>
+			<div id="out-div">
+				<a href="#" class="me-3 dropdown-toggle hidden-arrow"
+					id="navebarDropdownMenuLink" role="button"
+					data-mdb-toggle="dropdown" aria-expanded="false"> <!--小鈴鐺按鈕-->
+						<i style="font-size: 1.3rem;" class="fa-solid fa-bell"></i> <label
+							style="font-size: 1.3rem;"></label>
+						<!--計數-->
+						<span class="badge rounded-pill badge-notification bg-danger" id='countMessage'>0</span>
+						<!--鈴鐺裡的訊息-->
+						<ul id='reminder' class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						</ul>
+				</a>
+			</div>
+		</ul>
+		<!--導覽列 end-->
+	</header>
 
-<!--!!固定!! 空白遮罩-->
-        <div style="width: 100%; height:100px;"></div>
+	<!--!!固定!! 空白遮罩-->
+	<div style="width: 100%; height: 100px;"></div>
 
-<!--!!固定!! main area-->
-        <div id="container">
-            <main id="main-area">
-
-
-<!-- 頁面 START!　網頁請從這邊以下開始修改，不需要此格式想用自己的請刪除 ~　-->
-
-            <div id="main-content">
-                    <div class="page-heading">
-                        <div class="page-title">
-                            <div class="row">
-                                <div class="col-12 col-md-6 order-md-1 order-last">
-                                    <h3>我的郵件</h3>
-                                </div>
-                                <div class="col-12 col-md-6 order-md-2 order-first">
-                                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="../web/backEndHome.html">Home</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Mail Management</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                        <section class="section">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title"></h4>
-                                </div>
-                                <div class="card-body">
-                                
-	                               	<div>
-										<select id="select_mailType" name="select_mailType"  class="form-select">
-											<option style="display: none;">請選擇</option>
-										</select>
-								        <input type="text" id="search_mailID" placeholder="輸入郵件編號"> <input type="button" id="searchMail" class="btn btn-primary" value="搜尋">
-								   </div>
-                                   <div id="showAllMail" class="showAllMail">
-										<table id="getAllMail" class='table table_sm'>
-											<tr>
-												<th>郵件編號</th>
-												<th>住戶編號</th>
-												<th>郵件項目</th>
-												<th>郵件到達日期</th>
-												<th>郵件領取日期</th>
-												<th>郵件狀態</th>
-											</tr>
-											<tr id="allMail">
-						
-											</tr>
-										</table>
-
-                                	</div>
-                                </div>
-                            </div>
-                        </section>
-        </div>
-<!--        頁面 END-->
+	<!--!!固定!! main area-->
+	<div id="container">
+		<main id="main-area">
 
 
-<!--        !!固定!! footer(擺每個頁面最下方的版權用) START-->
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2022 &copy; 陪你e生e世　社區服務平台</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Community Management</p>
-                    </div>
-                </div>
-            </footer>
-<!--        !!固定!! footer END-->
-                </div>
-            </div>
+			<!-- 頁面 START!　網頁請從這邊以下開始修改，不需要此格式想用自己的請刪除 ~　-->
 
-<!-- 樣板用js start -->
-<script src="../../resources/back-end/assets/js/bootstrap.js"></script>
-<script src="../../resources/back-end/assets/js/app.js"></script>
-<!-- 樣板用js end -->
+			<div id="main-content">
+				<div class="page-heading">
+					<div class="page-title">
+						<div class="row">
+							<div class="col-12 col-md-6 order-md-1 order-last">
+								<h3>我的郵件</h3>
+							</div>
+							<div class="col-12 col-md-6 order-md-2 order-first">
+								<nav aria-label="breadcrumb"
+									class="breadcrumb-header float-start float-lg-end">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a
+											href="../web/front-index2.html">Home</a></li>
+										<li class="breadcrumb-item active" aria-current="page">Mail
+											Management</li>
+									</ol>
+								</nav>
+							</div>
+						</div>
+					</div>
+					<section class="section">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title"></h4>
+							</div>
+							<div class="card-body">
+
+								<div>
+									<select id="select_mailType" name="select_mailType"
+										class="form-select">
+										<option style="display: none;">請選擇</option>
+									</select> <input type="text" id="search_mailID" placeholder="輸入郵件編號">
+									<input type="button" id="searchMail" class="btn btn-primary" value="搜尋"><span id='err'></span>
+								</div>
+								<div id="showAllMail" class="showAllMail">
+									<table id="getAllMail" class='table table_sm'>
+										<tr>
+											<th>郵件編號</th>
+											<th>住戶編號</th>
+											<th>郵件項目</th>
+											<th>郵件到達日期</th>
+											<th>郵件領取日期</th>
+											<th>郵件狀態</th>
+										</tr>
+										<tr id="allMail">
+
+										</tr>
+									</table>
+
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+				<!--        頁面 END-->
+
+
+				<!--        !!固定!! footer(擺每個頁面最下方的版權用) START-->
+				<footer>
+					<div class="footer clearfix mb-0 text-muted">
+						<div class="float-start">
+							<p>2022 &copy; 陪你e生e世 社區服務平台</p>
+						</div>
+						<div class="float-end">
+							<p>Community Management</p>
+						</div>
+					</div>
+				</footer>
+				<!--        !!固定!! footer END-->
+			</div>
+	</div>
+
+	<!-- 樣板用js start -->
+	<script src="../../resources/back-end/assets/js/bootstrap.js"></script>
+	<script src="../../resources/back-end/assets/js/app.js"></script>
+	<!-- 樣板用js end -->
 
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<script src="../../resources/datetimepicker/jquery.js"></script>
-	<script src="../../resources/datetimepicker/jquery.datetimepicker.full.js"></script>
-	<script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="../../resources/datetimepicker/jquery.js"></script>
+<script
+	src="../../resources/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
 <!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script> -->
 <!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> -->
 <!-- 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 <!-- 	<script type="text/javascript"></script> -->
 
-	
+<!-- MDB -->
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
 
 <!--main area end-->
-            </main>
-            <!--container-->
-        </div>
+</main>
+<!--container-->
+</div>
 
 <!--!!固定!! footer-->
-        <footer id="footer">
-<!--右上角menu-->
-            <div class="openbtn"><span></span><span>Menu</span><span></span></div>
-            <div id="g-nav">
-                <div id="g-nav-list">
-                    <ul>
-                        <li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
-                        <li><a href="#">住戶帳號</a></li>
-                        <li><a href="#">社區帳單</a></li>
-                        <li><a href="#">郵件</a></li>
-                        <li><a href="#">公共設施</a></li>
-                        <li><a href="#">活動</a></li>
-                        <li><a href="#">檢舉與維修</a></li>
-                        <li><a href="#">特約商店</a></li>
-                    </ul>
-                </div>
-            </div>
-            <p class="footer-logo">Community Management</p>
-            <small>2022 &copy; 陪你e生e世　社區服務平台</small>
-<!--            返回最上方小圖示-->
-            <p id="page-top"><a href="#">Top</a></p>
-        </footer>
-        <!--/wrapper-->
-    </div>
+<footer id="footer">
+	<!--右上角menu-->
+	<div class="openbtn">
+		<span></span><span>Menu</span><span></span>
+	</div>
+	<div id="g-nav">
+		<div id="g-nav-list">
+			<ul>
+				<li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" style="width: 70%"></li>
+				<li><a href="#">住戶帳號</a></li>
+				<li><a href="#">社區帳單</a></li>
+				<li><a href="#">公共設施</a></li>
+				<li><a href="">活動</a></li>
+				<li><a href="#">檢舉與維修</a></li>
+				<li><a href="#">特約商店</a></li>
+			</ul>
+		</div>
+	</div>
+	<p class="footer-logo">Community Management</p>
+	<small>2022 &copy; 陪你e生e世 社區服務平台</small>
+	<!--            返回最上方小圖示-->
+	<p id="page-top">
+		<a href="#">Top</a>
+	</p>
+</footer>
+<!--/wrapper-->
+</div>
 
-    <!--=============JS ===============-->
-    <!--jQuery-->
-    <script src="../../resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
-    <!--news tickerー-->
-    <script src="../../resources/front-end/assets/js/jquery.bxslider.min.js"></script>
-    <!--背景線延伸效果-->
-    <script src="../../resources/front-end/assets/js/scrollgress.min.js"></script>
-    <!--apang 動畫-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/apng-canvas/2.1.1/apng-canvas.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <!--Tippy-->
-    <script src="https://unpkg.com/popper.js@1"></script>
-    <script src="https://unpkg.com/tippy.js@5"></script>
+<!--=============JS ===============-->
+<!--jQuery-->
+<script src="../../resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
+<!--news tickerー-->
+<script src="../../resources/front-end/assets/js/jquery.bxslider.min.js"></script>
+<!--背景線延伸效果-->
+<script src="../../resources/front-end/assets/js/scrollgress.min.js"></script>
+<!--apang 動畫-->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/apng-canvas/2.1.1/apng-canvas.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!--Tippy-->
+<script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@5"></script>
 
-    <!--other-->
-    <script src="../../resources/front-end/assets/js/modaal.min.js"></script>
-    <script src="../../resources/front-end/assets/js/script.js"></script>
-    <script src="../../resources/front-end/assets/js/search_origin.js"></script>
-    
-    <script>
+<!--other-->
+<script src="../../resources/front-end/assets/js/modaal.min.js"></script>
+<script src="../../resources/front-end/assets/js/script.js"></script>
+
+<script>
+var MyPoint = "/TogetherWS/will";
+var host = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf('/', 1));
+var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+var webSocket;
+
+
+
+function connect() {
+	// create a websocket
+	webSocket = new WebSocket(endPointURL);
+	let allReminder = JSON.parse(sessionStorage.getItem("Reminder"));
+	let memberId = JSON.parse(sessionStorage.getItem("memberId"));
+	let count = 0;
 	
+	
+	webSocket.onopen = async function(event) {
+		
+		console.log("已連線");
+		await fetch("../../reminder/ReminderServlet?action=getAll", {
+			method: 'get'
+		})
+		.then(res => res.json())	
+		.then(res =>{
+			showReminder(res);
+		})
+		
+		function showReminder(fromSQL){
+			if(fromSQL !== undefined){
+				 for (let i = 0; i < fromSQL.length; i++) {
+					 let str = "<a class='d-flex align-items-center' href='#'>"
+				            +"<div class='notification-text ms-4'>"
+				            +"<p id='p1Reminder' class='notification-title font-bold' name='mailReminder'style='margin-top:15px;'>" + fromSQL[i].reminderInfo + "</p>"	
+				            +"</div></a></li>";
+					 $("#reminder").append(str);
+					 $("#countMessage").text(++count);
+					 sessionStorage.setItem("Reminder", JSON.stringify(fromSQL[i].reminderInfo));
+				 }
+			}
+		}
+		document.getElementById("p1Reminder").onclick = async function(){
+			$(this).remove();
+			console.log("刪除1");
+			$("#countMessage").text(--count);
+			await fetch("../../reminder/ReminderServlet?action=update", {method: 'get'})
+		};
+		
+		
+	};
+
+	webSocket.onmessage = function(event) {
+		let allReminder = JSON.parse(sessionStorage.getItem("Reminder"));
+		console.log("訊息");
+		var reminder = document.getElementById("reminder");
+		
+		console.log(document.getElementById("p1Reminder"));
+		if(document.getElementById("p1Reminder") === null && document.getElementById("p2Reminder") === null){
+			var jsonObj = JSON.parse(event.data);
+			var message = jsonObj.message;
+			let Reminder = {};
+			Reminder.mailMessage = JSON.stringify(message);
+			let mailMessage = Reminder.mailMessage.replaceAll('"'," ");
+			sessionStorage.setItem("Reminder", JSON.stringify(Reminder));
+			let str ="<a class='d-flex align-items-center' href='#'>"
+	            +"<div id='mailRem' class='notification-text ms-4' >"
+	            +"<p id='p2Reminder' class='notification-title font-bold' name='mailReminder' style='margin-top:15px;'>" + mailMessage +"</p>"	
+	            +"</div></a></li>";
+			$("#reminder").append(str);
+			$("#countMessage").text(++count);
+		}
+		document.getElementById("p2Reminder").onclick = async function(){
+			$(this).remove();
+			console.log("刪除2");
+			$("#countMessage").text(--count);
+			await fetch("../../reminder/ReminderServlet?action=update", {method: 'get'})
+		};
+	}
+	
+}
 //     =====================================顯示AllMail=============================================
 		window.addEventListener("load", async function (){
 	            
@@ -273,46 +409,52 @@
 		
 		
 		document.getElementById("searchMail").onclick = async function searchMail(){
-			rest();
 			let select_mailType = $("#select_mailType").val();
 			let search_mailID = $("#search_mailID").val();
-			if(search_mailID === ""){
-				search_mailID = 0;
-			}
 			
-			let res = await fetch(`../../back-end/mail/mail.do?action=frontSearch&mailType=${select_mailType}&mailId=${search_mailID}`, { method: 'get' });
-			let data = await res.json();
-			 
-			$("#showAllMail").append(
-					`
-					<table id="getAllMail" class='table table_sm'>
-					<tr>
-					<th>郵件編號</th>
-					<th>住戶編號</th>
-					<th>郵件項目</th>
-					<th>郵件到達日期</th>
-					<th>郵件領取日期</th>
-					<th>郵件狀態</th>
-					</tr>
-					<tr id="allMail">
-					</tr>
-					</table>
-					<div><input type='button' id='backButton' class="btn btn-primary" value='回首頁'></div>`),
-
-					 
-					 
-			data.forEach(mail => {
-				$("#allMail").after(
-					`<tr><td> ${mail.mailId} </td>
-			    	<td> ${mail.memberId} </td>
-			    	<td> ${mail.mailType} </td>
-			    	<td> ${mail.mailDelTime} </td>
-			    	<td> ${mail.mailPickupTime === undefined ? "": mail.mailPickupTime} </td>
-			    	<td value='${mail.mailState}'> ${mail.mailStateName} </td></tr>`)
-			})
-			document.getElementById('backButton').addEventListener('click', function(){
-	        	 window.location.reload(); 
-	         })
+			if(select_mailType === "請選擇" && search_mailID === ""){
+				$("#search_mailID").attr("value","請勿空白")
+				$("#search_mailID").attr("style","color:red")
+			}else{
+				$("#errMessage").remove();
+				rest();
+	 			if(search_mailID === ""){
+	 				search_mailID = 0;
+	 			}
+				
+	 			let res = await fetch(`../../back-end/mail/mail.do?action=frontSearch&mailType=${select_mailType}&mailId=${search_mailID}`, { method: 'get' });
+	 			let data = await res.json();
+				 
+	 			$("#showAllMail").append(
+	 					`
+	 					<table id="getAllMail" class='table table_sm'>
+	 					<tr>
+	 					<th>郵件編號</th>
+	 					<th>住戶編號</th>
+	 					<th>郵件項目</th>
+	 					<th>郵件到達日期</th>
+	 					<th>郵件領取日期</th>
+	 					<th>郵件狀態</th>
+	 					</tr>
+	 					<tr id="allMail">
+	 					</tr>
+	 					</table>
+	 					<div><input type='button' id='backButton' class="btn btn-primary" value='回首頁'></div>`),
+						 
+	 			data.forEach(mail => {
+	 				$("#allMail").after(
+	 					`<tr><td> ${mail.mailId} </td>
+	 			    	<td> ${mail.memberId} </td>
+	 			    	<td> ${mail.mailType} </td>
+	 			    	<td> ${mail.mailDelTime} </td>
+	 			    	<td> ${mail.mailPickupTime === undefined ? "": mail.mailPickupTime} </td>
+	 			    	<td value='${mail.mailState}'> ${mail.mailStateName} </td></tr>`)
+	 			})
+	 			document.getElementById('backButton').addEventListener('click', function(){
+	 	        	 window.location.reload(); 
+	 	         })
+			}
+ 			
 		}
 		 
 		
@@ -331,7 +473,9 @@
 	     
 	     
 	   //====================================其他========================================
-	
+		document.getElementById('backButton').addEventListener('click', function(){
+	       	 window.location.reload(); 
+        })
 		function rest(){
 			document.getElementById("showAllMail").innerHTML="";
 		}

@@ -5,6 +5,13 @@
         }
 
 
+
+#container {
+    position: relative;
+    z-index: 1;
+    background: #eae7e7;
+}
+
 .img1{
     width: 100px;
     height: 100px;

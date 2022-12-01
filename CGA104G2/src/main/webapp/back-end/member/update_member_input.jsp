@@ -8,50 +8,89 @@
 
 <html>
 <head>
+    <meta charset="UTF-8">
+    <!-- 定義為RWD web -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 最佳兼容模式 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>住戶資料修改 - update_member_input.jsp</title>
-    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css" rel="stylesheet">
+    <!-- 防止搜索引擎索引及檢索 -->
+    <meta name="robots" content="noindex,nofollow">
 
+    <!-- !!固定!! 後台樣板 css -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css">
+
+    <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
+    <!--=============================================================================================-->
+    <!--    網址列標題-->
+    <title>陪你e生e世　社區服務平台：住戶Home</title>
+    <!-- !!固定!! 旁邊導覽列sidebar menu start (不是js動態產生的,放body)-->
+    <script src="${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js"></script>
+    <!-- !!固定!! 旁邊導覽列sidebar menu end -->
 </head>
 
 <body>
-<ul class="form-group">
-<tr>
-    <td>
-        <h3>住戶資料修改 - update_member_input.jsp</h3>
-        <br>
-        <h4><a href="${pageContext.request.contextPath}/back-end/member/member_index.jsp"><img src="./images/back.svg" width="30" height="30"
-                                                                        alt="返回">回首頁</a></h4>
-    </td>
-</tr>
+<!-- !!固定!! 右上方 navbar end -->
 
+<!-- !!Home頁面 固定!!  navbar -->
+<div id="main" class='layout-navbar'>
+    <header class='mb-3'>
+        <nav class="navbar navbar-expand navbar-light navbar-top">
+            <div class="container-fluid">
+                <a href="#" class="burger-btn d-block">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-lg-0">
+                        <li><a class="dropdown-item" href="#">
+                            <i  class="bi-sub fs-4 bi bi-box-arrow-left"></i> Logout</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- !!固定!! 右上方 navbar end -->
+
+    <!-- 頁面 START!　網頁請從這邊以下開始修改，不需要此格式想用自己的請刪除~　-->
+    <div id="main-content">
+        <h4><img src="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/back.svg" width="30" height="30" alt="返回"><a href="${pageContext.request.contextPath}/back-end/member/listAllMember.jsp">返回上一頁</a></h4>
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+
+                    <!-- 內頁排版section START -->
 <%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-    <span style="color:red">請修正以下錯誤:</span>
-    <ul>
-        <c:forEach var="message" items="${errorMsgs}">
-            <li style="color:red">${message}</li>
-        </c:forEach>
-    </ul>
-</c:if>
+                    <c:if test="${not empty errorMsgs}">
+                        <span style="color:red">請修正以下錯誤:</span>
+                        <ul>
+                            <c:forEach var="message" items="${errorMsgs}">
+                            <li style="color:red">${message}</li>
+                        </c:forEach>
+                        </ul>
+                    </c:if>
 
 <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do" name="form1" enctype="multipart/form-data">
-    <div class="page-content">
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Update Member</h4>
+                    <h3 class="card-title">修改住戶資料</h3>
                     <h4 class="card-subtitle">標示<span style="color: red; "><b>紅色*</b></span>為必填項目</h4>
-                    這裡是新位置
+                    正在修改【住戶編號：${memberVO.memberId} 姓名：${memberVO.memberName}】住戶的資料
+
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-auto">
                             <table>
-<%--                                <tr>--%>
-<%--                                    <td><span style="color: red; "><b>*</b></span>住戶編號:</td>--%>
-<%--                                    <td><%=memberVO.getMemberId()%></td>--%>
-<%--                                </tr>--%>
 
                                 <tr>
                                     <td><span style="color: red; "><b>*</b></span>住戶帳號:</td>
@@ -79,14 +118,8 @@
 
                                 <tr>
                                     <td><span style="color: red; "><b>*</b></span>住戶性別:</td>
-<%--                                   <input type="TEXT" name="membersex" size="2" value="<%=memberVO.getMemberSex()%>"/></td>--%>
-<%--                                    <td>--%>
-<%--                                        <label><input type="radio" name="membersex" id="male" value="男性" />男性</label>--%>
-<%--                                        <label><input type="radio" name="membersex" id="female" value="女性" />女性</label>--%>
-<%--                                   </td>--%>
                                     <td>
                                         <select size="1" name="membersex" class="form-select">
-<%--                                            <option value="<%= (memberVO== null)?"":memberVO.getMemberSex()%>"><%=(memberVO!= null)? "請選擇性別" :memberVO.getMemberSex()%></option>--%>
                                             <option value="男性" <c:if test="${memberVO.memberSex==('男性')}">selected="selected"</c:if>>男性</option>
                                             <option value="女性" <c:if test="${memberVO.memberSex==('女性')}">selected="selected"</c:if>>女性</option>
                                             <option value="保留" <c:if test="${memberVO.memberSex==('保留')}">selected="selected"</c:if>>保留</option>
@@ -140,7 +173,7 @@
 
                                 <tr>
                                     <td><span style="color: red; "><b>*</b></span>住戶點數:</td>
-                                    <td><input readonly type="TEXT" name="memberpoints" size="40" class="form-control"
+                                    <td><input  type="TEXT" name="memberpoints" size="40" class="form-control"
                                                value="<%=memberVO.getMemberPoints()%>"/></td>
                                 </tr>
                                 	<tr>
@@ -149,14 +182,13 @@
                                 	</tr>
                                <tr>
                                     <td><span style="color: red; "><b>*</b></span>加入時間:</td>
-                                    <td><input  style="display: none" readonly name="regdate" id="f_date1" type="text" size="40" class="form-control"></td>
+                                    <td><input   name="regdate" id="f_date1" type="text" size="40" class="form-control"></td>
                                 </tr>
 
                                 <tr>
                                     <td><span style="color: red; "><b>*</b></span>住戶身份別:</td>
                                     <td>
-                                        <select style="display: none" readonly size="1" name="memberidstate" class="form-select">
-<%--                                            <option value="<%= (memberVO== null)?"":memberVO.getMemberIdState()%>"><%=(memberVO== null)?"請選擇身分別":memberVO.getMemberIdState()%></option>--%>
+                                        <select  size="1" name="memberidstate" class="form-select">
                                             <option value="0" <c:if test="${memberVO.memberIdState==('0')}"> selected="selected"</c:if>>0:沒有住人</option>
                                             <option value="1" <c:if test="${memberVO.memberIdState==('1')}"> selected="selected"</c:if>>1:一般住戶</option>
                                             <option value="2" <c:if test="${memberVO.memberIdState==('2')}"> selected="selected"</c:if>>2:租客</option>
@@ -168,15 +200,12 @@
                                    <td><span style="color: red; "><b>*</b></span>帳號狀態:</td>
                                     <td>
                                         <select size="1" name="acstate" class="form-select">
-<%--                                            <option value="<%= (memberVO== null)?"":memberVO.getAcState()%>"><%=(memberVO== null)?"請選擇帳號狀態":memberVO.getAcState()%></option>--%>
                                             <option value="0" <c:if test="${memberVO.acState==('0')}"> selected="selected"</c:if>>0:未啟用(Email未驗證)</option>
                                             <option value="1" <c:if test="${memberVO.acState==('1')}"> selected="selected"</c:if>>1:已啟用(Email已驗證)</option>
                                             <option value="2" <c:if test="${memberVO.acState==('2')}"> selected="selected"</c:if>>2:停權</option>
                                         </select>
                                        </td>
                                 </tr>
-
-
                             </table>
                         </div>
                     </div>
@@ -186,11 +215,28 @@
                 <input type="submit" class="btn btn-outline-primary" value="送出修改">
             </div>
         </section>
+    </FORM>
+</div>
+</div>
+
+<!-- 網頁排版用section END -->
+
+<!-- !!固定!! footer(擺每個頁面最下方的版權用) START -->
+<footer>
+    <div class="footer clearfix mb-0 text-muted">
+        <div class="float-start">
+            <p>2022 &copy; 陪你e生e世　社區服務平台</p>
+        </div>
+        <div class="float-end">
+            <p>Community Management</p>
+        </div>
     </div>
+</footer>
+<!--        !!固定!! footer END-->
+</div>
+</div>
 
-</FORM>
 
-</body>
 
 <%--<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->--%>
 
@@ -223,6 +269,6 @@
 <%--        //maxDate:               '+1970-01-01'  // 去除今日(不含)之後--%>
     });
 
-
 </script>
+</body>
 </html>

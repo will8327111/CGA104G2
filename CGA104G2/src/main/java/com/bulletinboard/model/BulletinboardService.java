@@ -13,7 +13,7 @@ public class BulletinboardService {
 
     //新增
     public BulletinboardVO addBulletinboard(String bbClass, String bbTitle, String bbContent, Date bbPostdate,
-                                            Date bbUpdate, Integer bbArticalState,Integer bmId,byte[] bbPic) {
+                                            Date bbUpdate, Integer bbArticalState,Integer bmId) {
 
         BulletinboardVO bulletinboardVO = new BulletinboardVO();
 
@@ -26,7 +26,7 @@ public class BulletinboardService {
 
         bulletinboardVO.setBmId(bmId);
 
-        bulletinboardVO.setBbPic(bbPic);
+//        bulletinboardVO.setBbPic(bbPic);
 
         dao.insert(bulletinboardVO);
 
@@ -35,7 +35,7 @@ public class BulletinboardService {
 
     //修改
     public BulletinboardVO updateBulletinboard(Integer bbSubId, String bbClass, String bbTitle, String bbContent,
-                                               Date bbPostdate,Date bbUpdate, Integer bbArticalState, Integer bmId) {
+                                               Date bbPostdate, Date bbUpdate, Integer bbArticalState, Integer bmId) {
 
         BulletinboardVO bulletinboardVO = new BulletinboardVO();
 

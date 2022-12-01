@@ -7,6 +7,6 @@ import com.mail.common.MailCommon;
 
 public interface Reminder_interface extends MailCommon{
 	 public void insert(ReminderVO remVO);
-	 public void update(ReminderVO remVO);
 	 public JSONArray getAll(Integer memberId);
+	 public void update(Integer remStatus,Integer memberId);
 }

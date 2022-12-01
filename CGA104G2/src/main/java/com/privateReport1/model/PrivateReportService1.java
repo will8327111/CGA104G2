@@ -26,14 +26,13 @@ public class PrivateReportService1 {
 		
 		if (!(privateReportPic.size() == 0)) {
 			for (byte[] photo : privateReportPic) {
-				privateReportVO1.setReplyPic(photo);
+				privateReportVO1.setPrivateReportPic(photo);
 				dao.frontEndInsert(privateReportVO1);
 			}
 		} else {
 			dao.frontEndInsert(privateReportVO1);
 		}
 		;
-
 		return privateReportVO1;
 	};
 
@@ -55,7 +54,6 @@ public class PrivateReportService1 {
 			dao.update(privateReportVO1);
 		}
 		;
-
 		return privateReportVO1;
 	};
 

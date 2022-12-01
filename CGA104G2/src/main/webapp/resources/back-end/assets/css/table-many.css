@@ -1,5 +1,10 @@
 /* table03 */
 
+/*#table03{*/
+/*    display: block;*/
+/*    overflow-x: scroll;*/
+/*    white-space: nowrap;*/
+/*}*/
 #table03 th, #table05 td {
     text-align: center;
     width: 20%;
@@ -17,7 +22,7 @@
 }
 
 /* tab */
-@media only screen and (max-width: 768px) {
+/*@media only screen and (max-width: 768px) {*/
     #table03 {
         display: block;
         overflow-x: scroll;
@@ -37,4 +42,4 @@
         border-left: 1px solid #707070;
         border-right: 1px solid #707070;
     }
-}
+/*}*/

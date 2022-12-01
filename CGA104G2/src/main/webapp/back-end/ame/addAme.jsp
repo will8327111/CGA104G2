@@ -315,87 +315,90 @@ label.error {
 	<!-- 樣板用js end -->
 
 <script>
-	jQuery.validator.addMethod("checkInput", function(value, element) {
-	var pattern = new RegExp("[.`~!@#$^&*=|{}':;',\\[\\]<>《》/?~！@#￥……&*|{}【】‘；：”“'。，、？' ']");
-	var reg = /^([0-9]+)$/;
-	if(pattern.test(value)) {
-		return false;
-	} else if(value.indexOf(" ") != -1){
-		return false;
-	} else {
-		return true;
-	}
-	}, "禁止输入特殊字符");
-	
-    $.validator.addMethod("checkOpening", function(value, element){
-        let opentime = document.getElementById("opentime").value;
-        opentime = parseInt(opentime);
-        let closetime = document.getElementById("closetime").value;
-        closetime = parseInt(closetime);
-        return(closetime > opentime);
-    }, );
-	
-    $.validator.setDefaults({
-		submitHandler: function (form) {
-			alert("新增公共設施成功喔！！！");
-			form.submit();
-		}
-	});
-    
-	$(function () {
-		$('#form').validate({
-			onkeyup: function (element, event) {
-			//去除左側空白
-				var value = this.elementValue(element).replace(/^\s+/g, "");
-				$(element).val(value);
+    $(function () {
+        $('#form').validate({
+            onkeyup: function (element, event) {
+                //去除左側空白
+                var value = this.elementValue(element).replace(/^\s+/g, "");
+                $(element).val(value);
+            },
+
+            rules: {
+                amename: {
+                    required: true,
+                    checkInput: true ,
+                    minlength: 2
                 },
-			rules: {
-				amename: {
-					required: true,
-					maxlength: 10,
-					minlength: 1,
-					checkInput: true
-				},
-                    amemax: {
-					required: true,
-					number: true
-				},
-				ameintroduce: 'required',
-				amepoint: {
-					required: true,
-					number: true
-				},
-				closetime: {
-                    checkOpening: true
+                amemax: {
+                    required: true,
+                    number: true
+                },
+                ameintroduce:{
+                 required : true
+                },
+                 amepoint: {
+                    required: true,
+                    number: true
                 },
                 ameimg: {
-					required: true,
-				} },
-				messages: {
-				amename: {
-					required: '必填',
-					maxlength: '公設名稱 長度需在2到10之間',
-					minlength: '公設名稱 長度需在2到10之間',
-					checkInput: '只能是中、英文、數字和- , 且長度必需在2到10之間'
-				},
-				amemax: {
-					required: '必填',
-					number: '人數需為數字'
-				},
-				ameintroduce: '必填',
-				amepoint: {
-					required: '必填',
-					number: '人數需為數字'
-				},
-				closetime: {
-                    checkOpening: '關閉時間不能小於、等於開放時間 請選取!'
+                    required: true
                 },
-				ameimg: {
-					required: "請選擇圖片"
-				},
-				},
-		});
-	});
+                closetime: {
+                    checkOpening: true
+                },
+            },
+                messages: {
+                    amename: {
+                        required: '必需填',
+                        checkInput: '只能是中、英文、數字和- , 請　重　新　輸　入　！！！',
+                        minlength: '公設名稱最少兩字 請重新輸入'
+                    },
+                    amemax: {
+                        required: '必需填',
+                        number: '人數需為數字'
+                    },
+                    ameintroduce: '必需填',
+                    amepoint: {
+                        required: '必需填',
+                        number: '人數需為數字'
+                    },
+                    closetime: {
+                    checkOpening: '關閉時間不能小於、等於開放時間 請 重 新 選 ！！！'
+                    },
+                    ameimg: {
+                    required: '必需選'
+                     },
+                },
+            });
+    });
+
+    $.validator.addMethod("checkInput", function(value, element) {
+        var pattern = new RegExp("[.`~!@#$^&*=|{}':;',\\[\\]<>《》/?~！@#￥……&*|{}【】‘；：”“'。，、？' ']");
+        var reg = /^([0-9]+)$/;
+    if(pattern.test(value)) {
+        return false;
+    } else if(value.indexOf(" ") != -1){
+        return false;
+    } else {
+        return true;
+    }
+}, "禁止输入特殊字符");
+
+$.validator.addMethod("checkOpening", function(value, element){
+    let opentime = document.getElementById("opentime").value;
+    opentime = parseInt(opentime);
+    
+    let closetime = document.getElementById("closetime").value;
+    closetime = parseInt(closetime);
+    return(closetime > opentime);
+    
+}, );
+$.validator.setDefaults({
+	submitHandler: function (form) {
+		alert("新增公共設施成功喔！！！");
+		form.submit();
+	}
+});
 </script>
 </body>
 </html>

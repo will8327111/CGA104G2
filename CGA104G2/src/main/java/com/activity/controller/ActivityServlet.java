@@ -27,6 +27,7 @@ import javax.servlet.http.Part;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.activity.model.ActivityDAO;
 import com.activity.model.ActivityService;
 import com.activity.model.ActivityVO;
 import com.activityphoto.model.ActivityPhotoService;
@@ -94,8 +95,6 @@ public class ActivityServlet extends HttpServlet {
 			ActivityService actSvc = new ActivityService();
 			actSvc.addAct(memid, actType, name, content, max, min, sgst, sget, actst, actet, country, location, cost,
 					photo);
-			String url = req.getContextPath()+"/front-end/activity/homepage3.html";
-			res.sendRedirect(url);
 		}
 
 		// 有用
@@ -241,15 +240,12 @@ public class ActivityServlet extends HttpServlet {
 //			successView.forward(req, res);
 //		}
 
-		if ("delete".equals(action)) {
-			System.out.println("我有執行");
+		if ("delete".equals(action)) {;
 			Integer actId = Integer.valueOf(req.getParameter("deleteId"));
 			ActivityReportService report = SpringUtil.getBean(getServletContext(), ActivityReportService.class);
 			 report.deleteAct(actId);
-			 System.out.println("我有執行2");
 			ActivityService service = new ActivityService();
 			service.delete(actId);
-			System.out.println("我有執行3");
 		}
 
 		// 有用
@@ -355,7 +351,7 @@ public class ActivityServlet extends HttpServlet {
 			out.write(json.toString());
 		}
 		
-		
+
 		
 		
 		

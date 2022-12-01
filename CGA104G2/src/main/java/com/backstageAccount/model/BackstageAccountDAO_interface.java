@@ -17,6 +17,8 @@ public interface BackstageAccountDAO_interface {
 	
 	public List<BackstageAccountVO> findOneAuthorization(Integer bmId);
 	
+	public BackstageAccountVO updateNeeds(String bmName, String bmPassword, String bmEmail, Integer bmStatus, Integer bmId);
+	
 	public BackstageAccountVO findByPrimaryKey(Integer bmId);
 
 	public BackstageAccountVO findByAcAndEmail(String bmAccount, String bmEmail);

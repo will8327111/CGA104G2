@@ -71,6 +71,9 @@
 </head>
 
 <body>
+<!-- !!固定!! 右上方 navbar end -->
+
+<!-- !!Home頁面 固定!! navbar -->
 <div id="main" class='layout-navbar'>
     <header class='mb-3'>
         <nav class="navbar navbar-expand navbar-light navbar-top">
@@ -84,93 +87,19 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-lg-0">
-                        <li class="nav-item dropdown me-1">
-                            <a class="nav-link active dropdown-toggle text-gray-600" href="#" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                <i class='bi bi-envelope bi-sub fs-4'></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                <li>
-                                    <h6 class="dropdown-header">Mail</h6>
-                                </li>
-                                <li><a class="dropdown-item" href="#">No new mail</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown me-3">
-                            <a class="nav-link active dropdown-toggle text-gray-600" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                <i class='bi bi-bell bi-sub fs-4'></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="dropdownMenuButton">
-                                <li class="dropdown-header">
-                                    <h6>Notifications</h6>
-                                </li>
-                                <li class="dropdown-item notification-item">
-                                    <a class="d-flex align-items-center" href="#">
-                                        <div class="notification-icon bg-primary">
-                                            <i class="bi bi-cart-check"></i>
-                                        </div>
-                                        <div class="notification-text ms-4">
-                                            <p class="notification-title font-bold">Successfully check out</p>
-                                            <p class="notification-subtitle font-thin text-sm">Order ID #256</p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="dropdown-item notification-item">
-                                    <a class="d-flex align-items-center" href="#">
-                                        <div class="notification-icon bg-success">
-                                            <i class="bi bi-file-earmark-check"></i>
-                                        </div>
-                                        <div class="notification-text ms-4">
-                                            <p class="notification-title font-bold">Homework submitted</p>
-                                            <p class="notification-subtitle font-thin text-sm">Algebra math homework</p>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <p class="text-center py-2 mb-0"><a href="#">See all notification</a></p>
-                                </li>
-                            </ul>
+                        <li><a class="dropdown-item" href="#">
+                            <i  class="bi-sub fs-4 bi bi-box-arrow-left"></i> Logout</a>
                         </li>
                     </ul>
-                    <div class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="user-menu d-flex">
-                                <div class="user-name text-end me-3">
-                                    <h6 class="mb-0 text-gray-600">管理員名</h6>
-                                    <p class="mb-0 text-sm text-gray-600">Administrator</p>
-                                </div>
-                                <div class="user-img d-flex align-items-center">
-                                    <div class="avatar avatar-md">
-                                        <img src="">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
-                            <li>
-                                <h6 class="dropdown-header">Hello!</h6>
-                            </li>
-                            <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My
-                                Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-gear me-2"></i>
-                                Settings</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-wallet me-2"></i>
-                                Wallet</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#"><i
-                                    class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
-                        </ul>
-                    </div>
+
                 </div>
             </div>
         </nav>
     </header>
-    <!--            右上方 navbar end-->
-    <!--            右上方 navbar end-->
+    <!-- !!固定!! 右上方 navbar end -->
 
     <!--        Home頁面 START-->
     <div id="main-content">
@@ -178,14 +107,13 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>後台管理 -HOME</h3>
-                        <p class="text-subtitle text-muted">歡迎來到陪你e生e世 服務平台：後台管理HOME</p>
-                        <h4><a href="${pageContext.request.contextPath}/back-end/web/backEndHomeMgr.html"><img src="./images/back.svg" width="30" height="30" alt="返回">回首頁</a></h4>
+                        <h3>住戶資訊：所有住戶名單</h3>
+                        <p class="text-subtitle text-muted">管理社區所有住戶帳號等資料</p>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/back-end/web/backEndHomeMgr.html">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Home Page</li>
                             </ol>
                         </nav>
@@ -193,31 +121,12 @@
                 </div>
             </div>
             <section class="section">
-<%--                <div class="card">--%>
-<%--                    <div class="card-header">--%>
-<%--                        <h4 class="card-title"></h4>--%>
-<%--                    </div>--%>
-<%--                    <div class="card-body">--%>
-
-
-<%--                        <table id="table-1">--%>
-<%--                            <tr>--%>
-<%--                                <td>--%>
-<%--                                    <h3>所有住戶資料</h3>--%>
-
-<%--                                </td>--%>
-<%--                            </tr>--%>
-<%--                        </table>--%>
-
 
                         <ul>
-
-
                             <div class="card text-center">
                                 <div class="card-header">
                                     <h3 class="card-title"></h3>
                                 </div>
-
                                 <div class="card-body">
                                     搜尋：<input type="search" class="table-filter" data-table="order-table" placeholder="請輸入關鍵字">
                                     <table id="table03" class="order-table">
@@ -236,7 +145,7 @@
                                             <th>郵遞區號</th>
                                             <th>住址</th>
                                             <th>點數</th>
-                                            <th>頭貼</th>
+<%--                                            <th>頭貼</th>--%>
                                             <th>加入時間</th>
                                             <th>身份別</th>
                                             <th>帳號狀態</th>
@@ -263,10 +172,10 @@
                                                 <td>${memberVO.memberPost}</td>
                                                 <td>${memberVO.memberAddress}</td>
                                                 <td>${memberVO.memberPoints}</td>
-                                                <td><img src="${pageContext.request.contextPath}/member/PicuploadServlet?memberid=${memberVO.memberId}" width="150px" class="rounded"></td>
-                                                                                    <td>${memberVO.regDate}</td>
-                                                                                    <td>${memberVO.memberIdState}</td>
-                                                                                    <td>${memberVO.acState}</td>
+<%--                                                <td><img src="${pageContext.request.contextPath}/member/PicuploadServlet?memberid=${memberVO.memberId}" width="150px" class="rounded"></td>--%>
+                                                <td>${memberVO.regDate}</td>
+                                                <td>${memberVO.memberIdState}</td>
+                                                <td>${memberVO.acState}</td>
                                                 <td>
                                                     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do"
                                                           style="margin-bottom: 0px;">
@@ -319,6 +228,6 @@
 <script src="../../resources/back-end/assets/js/bootstrap.js"></script>
 <script src="../../resources/back-end/assets/js/app.js"></script>
 <!-- 樣板用js end -->
-<script src="${pageContext.request.contextPath}/resources/front-end/assets/js/search_origin.js"></script>
+<script src="${pageContext.request.contextPath}/resources/front-end/assets/js/searchTable.js"></script>
 </body>
 </html>

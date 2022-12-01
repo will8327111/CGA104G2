@@ -28,7 +28,7 @@ public class ReminderVO {
 	private Integer reminderId;
 	@Column(name = "MEMBER_ID")
 	private Integer memberId;
-	@Column(name = "REM_INFO")
+	@Column(name = "REM_INFO",updatable = false)
 	private String reminderInfo;
 	@Column(name = "REM_STATUS")
 	private Integer reminderStatus;

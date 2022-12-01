@@ -18,27 +18,17 @@
     <!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
     <!--=============================================================================================-->
-    <!--    需要用自己的css請放在這邊註解下方覆蓋 start -->
-
-
-
-    <!--    自己的css end-->
-
     <!--    網址列標題-->
     <title>陪你e生e世　社區服務平台：住戶Home</title>
-
+<!-- !!固定!! 旁邊導覽列sidebar menu start-->
+<script src="${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js"></script>
+    <!-- !!固定!! 旁邊導覽列sidebar menu end -->
 </head>
 
 <body>
-<!-- !!固定!! 旁邊導覽列sidebar menu start (不是js動態產生的,放body)-->
-<script src="${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js"></script>
-<div id='app'>
-    
-
     <!-- !!固定!! 右上方 navbar end -->
 
-
-    <!-- !!Home頁面? 固定!!  右上方放小鈴鐺+登出+通知等等的 navbar 使用的樣板格式(目前為假資料) -->
+    <!-- !!Home頁面 固定!!navbar -->
     <div id="main" class='layout-navbar'>
         <header class='mb-3'>
             <nav class="navbar navbar-expand navbar-light navbar-top">
@@ -46,7 +36,6 @@
                     <a href="#" class="burger-btn d-block">
                         <i class="bi bi-justify fs-3"></i>
                     </a>
-
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -54,85 +43,10 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-lg-0">
-                            <li class="nav-item dropdown me-1">
-                                <a class="nav-link active dropdown-toggle text-gray-600" href="#" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <i class='bi bi-envelope bi-sub fs-4'></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                    <li>
-                                        <h6 class="dropdown-header">Mail</h6>
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">No new mail</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown me-3">
-                                <a class="nav-link active dropdown-toggle text-gray-600" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                    <i class='bi bi-bell bi-sub fs-4'></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="dropdownMenuButton">
-                                    <li class="dropdown-header">
-                                        <h6>Notifications</h6>
-                                    </li>
-                                    <li class="dropdown-item notification-item">
-                                        <a class="d-flex align-items-center" href="#">
-                                            <div class="notification-icon bg-primary">
-                                                <i class="bi bi-cart-check"></i>
-                                            </div>
-                                            <div class="notification-text ms-4">
-                                                <p class="notification-title font-bold">Successfully check out</p>
-                                                <p class="notification-subtitle font-thin text-sm">Order ID #256</p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item notification-item">
-                                        <a class="d-flex align-items-center" href="#">
-                                            <div class="notification-icon bg-success">
-                                                <i class="bi bi-file-earmark-check"></i>
-                                            </div>
-                                            <div class="notification-text ms-4">
-                                                <p class="notification-title font-bold">Homework submitted</p>
-                                                <p class="notification-subtitle font-thin text-sm">Algebra math homework</p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <p class="text-center py-2 mb-0"><a href="#">See all notification</a></p>
-                                    </li>
-                                </ul>
-                            </li>
+                        <li><a class="dropdown-item" href="#">
+                            <i  class="bi-sub fs-4 bi bi-box-arrow-left"></i> Logout</a>
+                        </li>
                         </ul>
-                        <div class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div class="user-menu d-flex">
-                                    <div class="user-name text-end me-3">
-                                        <h6 class="mb-0 text-gray-600">管理員名</h6>
-                                        <p class="mb-0 text-sm text-gray-600">Administrator</p>
-                                    </div>
-                                    <div class="user-img d-flex align-items-center">
-                                        <div class="avatar avatar-md">
-                                            <img src="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="min-width: 11rem;">
-                                <li>
-                                    <h6 class="dropdown-header">Hello!</h6>
-                                </li>
-                                <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My
-                                    Profile</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-gear me-2"></i>
-                                    Settings</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-wallet me-2"></i>
-                                    Wallet</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#"><i
-                                        class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </nav>
@@ -145,17 +59,15 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-
-                        <h3>後台管理 -HOME</h3>
-                        <p class="text-subtitle text-muted">歡迎來到陪你e生e世 服務平台：後台管理HOME</p>
-
+                        <h3>住戶資訊：住戶管理專區</h3>
+                        <p class="text-subtitle text-muted">管理社區住戶及新增住戶資料。</p>
                     </div>
                 <!--右上方標註目前在哪個頁面-->
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="back-index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Home Page</li>
+                            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/back-end/web/backEndHomeMgr.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">住戶管理</li>
                         </ol>
                     </nav>
                 </div>
@@ -171,27 +83,16 @@
                 </div>
                 <!--內容區塊-->
                 <div class="card-body">
-                        <div class="form-group">
-                           <h4>住戶管理</h4>
+                    <div class="row">
+                        <div class="col-md-auto">
                            <li>
-                                <a href="${pageContext.request.contextPath}/back-end/member/listAllMember.jsp">所有住戶</a>
+                           <h5><a href="${pageContext.request.contextPath}/back-end/member/listAllMember.jsp">住戶管理(修改資料)</a></h5>
                            </li>
 
                            <li>
-                                <a href="${pageContext.request.contextPath}/back-end/member/addMember.jsp">新增住戶資料</a>
+                            <h5><a href="${pageContext.request.contextPath}/back-end/member/addMember.jsp">住戶新增</a></h5>
                            </li>
-
-                           <div class="col-6 col-md-6">
-                           <br>
-                           <h4>住戶查詢</h4>
-
-                           <li>
-                                <a href="${pageContext.request.contextPath}/back-end/member/select_page.jsp">查詢住戶資料</a>
-                           </li>
-
                         </div>
-
-<%--                    </div>--%>
                 </div>
                 </div>
             </div>
@@ -200,7 +101,6 @@
         </div>
         </div>
             <!-- 網頁排版用section END -->
-
 
         <!-- !!固定!! footer(擺每個頁面最下方的版權用) START -->
         <footer>

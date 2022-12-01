@@ -23,8 +23,6 @@
     <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
     <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
-    <!--modaal-->
-    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
 
     <!-- Font Awesome -->
     <link
@@ -45,8 +43,6 @@
     <!--延遲載入-->
     <script src="../../resources/front-end/assets/js/lazyload.min.js"></script>
 
-<!--<link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/nav.css">-->
-
     <style>
  /*字形*/
         @font-face {
@@ -55,9 +51,6 @@
         }
         body {
             font-family: 'huninn',serif;
-        }
-        #mailRem{
-        	margin-left:2px;
         }
     </style>
 </head>
@@ -111,24 +104,15 @@
                     <a href="#" class="me-3 dropdown-toggle hidden-arrow" id="navebarDropdownMenuLink" role="button" data-mdb-toggle="dropdown"
                      aria-expanded="false">
                         <!--小鈴鐺按鈕-->
-                        <button class="fadeUpTrigger cap"  id="out">
                             <i style="font-size: 1.3rem;" class="fa-solid fa-bell"></i>
                             <label style="font-size: 1.3rem;"></label>
                             <!--計數-->
-                            <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                            <span id='countMessage'class="badge rounded-pill badge-notification bg-danger">0</span>
                             <!--鈴鐺裡的訊息-->
-                            <ul id='reminder' class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li>
-                                    <a class="dropdown-item" href="#">Some news</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">Another news</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </li>
+                            <ul id='reminder' class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">                            
                             </ul>
-                        </button>
+                           
+                              
                     </a>
                 </div>
             </ul>
@@ -198,7 +182,7 @@
                             <div class="content-area">
                                 <h3><span>Member Information</span>住戶帳號</h3>
                                 <p>查看或修改您的個人基本資料、帳號及密碼。</p>
-                                <div class="btn"><a href="#" class="btnlinestretches3"><span>點我進入</span></a>
+                                <div class="btn"><a href="../../front-end/member/memberProfile.jsp" class="btnlinestretches3"><span>點我進入</span></a>
                                 </div>
                             </div>
                         </div>
@@ -224,7 +208,7 @@
                         <div class="content flipLeftTrigger">
                             <div class="content-area">
                                 <h3><span>Bill</span>社區帳單</h3>
-                                <p>納您的各種社區帳單費用。</p>
+                                <p>繳納您的各種社區帳單費用。</p>
                                 <div class="btn">
                                     <!--按鈕連結-->
                                     <a href="#" class="btnlinestretches3"><span>點我進入</span></a>
@@ -330,7 +314,7 @@
                 <div id="g-nav-list">
                     <ul>
                         <li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
-                        <li><a href="#">住戶資訊</a></li>
+                        <li><a href="../../front-end/member/memberProfile.jsp">住戶資訊</a></li>
                         <li><a href="../../front-end/bulletinboard/bbNews2.jsp">公佈欄</a></li>
                         <li><a href="#">社區帳單</a></li>
                         <li><a href="../../front-end/mail/mail.html">郵件</a></li>
@@ -382,11 +366,14 @@ var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
 var webSocket;
 
 
+
 function connect() {
 	// create a websocket
 	webSocket = new WebSocket(endPointURL);
 	let allReminder = JSON.parse(sessionStorage.getItem("Reminder"));
 	let memberId = JSON.parse(sessionStorage.getItem("memberId"));
+	let count = 0;
+	
 	
 	webSocket.onopen = async function(event) {
 		
@@ -397,55 +384,64 @@ function connect() {
 		.then(res => res.json())	
 		.then(res =>{
 			showReminder(res);
-			console.log(res);
 		})
 		
-		if(!(allReminder === null)){
-			let str = "<a class='d-flex align-items-center' href='../../front-end/mail/mail.html'>"
-	            +"<div class='notification-text ms-4'>"
-	            +"<p class='notification-title font-bold'>" + allReminder.mailMessage + "</p>"	
-	            +"</div></a></li>";
-				
-			$("#reminder").append(str);
+		function showReminder(fromSQL){
+			if(fromSQL !== undefined){
+				 for (let i = 0; i < fromSQL.length; i++) {
+					 let str = "<a class='d-flex align-items-center' href='#'>"
+				            +"<div class='notification-text ms-4'>"
+				            +"<p id='p1Reminder' class='notification-title font-bold' name='mailReminder'style='margin-top:15px;'>" + fromSQL[i].reminderInfo + "</p>"	
+				            +"</div></a></li>";
+					 $("#reminder").append(str);
+					 $("#countMessage").text(++count);
+					 sessionStorage.setItem("Reminder", JSON.stringify(fromSQL[i].reminderInfo));
+				 }
+			}
 		}
+		document.getElementById("p1Reminder").onclick = async function(){
+			$(this).remove();
+			console.log("刪除1");
+			$("#countMessage").text(--count);
+			await fetch("../../reminder/ReminderServlet?action=update", {method: 'get'})
+		};
 		
-
 		
-		
-		function showReminder(res){
-			 for (let i = 0; i < res.length; i++) {
-				 let str = "<a class='d-flex align-items-center' href='../../front-end/mail/mail.html'>"
-			            +"<div class='notification-text ms-4'>"
-			            +"<p class='notification-title font-bold'>" + res[i].reminderInfo + "</p>"	
-			            +"</div></a></li>";
-			            
-				 $("#reminder").append(str);
-			 }
-		}
 	};
 
 	webSocket.onmessage = function(event) {
 		let allReminder = JSON.parse(sessionStorage.getItem("Reminder"));
 		console.log("訊息");
 		var reminder = document.getElementById("reminder");
-		console.log(allReminder);
 		
-		if(allReminder === null){
-			console.log(allReminder);
+		console.log(document.getElementById("p1Reminder"));
+		if(document.getElementById("p1Reminder") === null && document.getElementById("p2Reminder") === null){
 			var jsonObj = JSON.parse(event.data);
 			var message = jsonObj.message;
 			let Reminder = {};
 			Reminder.mailMessage = JSON.stringify(message);
-			let a = Reminder.mailMessage.replace('"'," ");
-			let b = Reminder.mailMessage.replace('"'," ");
+			let mailMessage = Reminder.mailMessage.replaceAll('"'," ");
 			sessionStorage.setItem("Reminder", JSON.stringify(Reminder));
-			let str ="<a class='d-flex align-items-center' href='../../front-end/mail/mail.html'>"
-	            +"<div id='mailRem' class='notification-text ms-4'>"
-	            +"<p class='notification-title font-bold'>" + b +"</p>"	
+			let str ="<a class='d-flex align-items-center' href='#'>"
+	            +"<div id='mailRem' class='notification-text ms-4' >"
+	            +"<p id='p2Reminder' class='notification-title font-bold' name='mailReminder' style='margin-top:15px;'>" + mailMessage +"</p>"	
 	            +"</div></a></li>";
 			$("#reminder").append(str);
+			$("#countMessage").text(++count);
 		}
+		document.getElementById("p2Reminder").onclick = async function(){
+			$(this).remove();
+			console.log("刪除2");
+			$("#countMessage").text(--count);
+			await fetch("../../reminder/ReminderServlet?action=update", {method: 'get'})
+		};
 	}
+	
 }
+
+
 </script>
 </html>
+
+
+

@@ -9,12 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class ActivityReportService {
 
 	@Autowired
-	private ActivityReportDAO_interface dao;
-	
-	public ActivityReportService() {
-		dao = new ActivityReportDAO();
+	  private ActivityReportDAO_interface dao;
 		
-	}
+	
 	
 	@Transactional
 	public void insert(ActivityReportVO activityReportVO) {

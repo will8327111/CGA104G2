@@ -4,24 +4,106 @@
 <%
     MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 %>
-<html>
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>住戶個人資訊</title>
-    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css" rel="stylesheet">
+<html lang="zh-Hant">
 
+<head>
+    <meta charset="UTF-8">
+    <!-- 定義為RWD web -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 最佳兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 防止搜索引擎索引及檢索 -->
+    <meta name="robots" content="noindex,nofollow">
+
+    <!-- !!固定!! 後台樣板 css start -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css">
+    <!-- !!固定!! 後台樣板 css end -->
+
+    <!-- favicon 網址列小圖示 -->
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
+
+    <!--    需要用自己的css請放在這邊註解下方覆蓋 start -->
+
+    <link href="${pageContext.request.contextPath}/resources/back-end/assets/css/table-many.css" rel="stylesheet">
+
+    <style>
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table tr{
+            border-bottom: solid 2px white;
+        }
+        table tr:last-child{
+            border-bottom: none;
+        }
+        table th{
+            position: relative;
+            text-align: left;
+            width: 20%;
+            background-color: #b8ced1;
+            color: white;
+            text-align: center;
+            padding: 0 0;
+            /*z-index: 9999;*/
+        }
+        table td{
+            text-align: left;
+            width: 15%;
+            text-align: center;
+            background-color: #eee;
+            padding: 10px 0;
+        }
+    </style>
+    <!--    自己的css end-->
+    <!--    網址列標題-->
+    <title>陪你e生e世　社區服務平台：後台Home</title>
+    <!-- !!固定!! 旁邊導覽列sidebar menu start -->
+    <script src="${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js"></script>
+    <!-- !!固定!! 旁邊導覽列sidebar menu end -->
 </head>
 <body>
+<!-- !!固定!! 右上方 navbar end -->
+
+<!-- !!Home頁面 固定!! navbar -->
+<div id="main" class='layout-navbar'>
+    <header class='mb-3'>
+        <nav class="navbar navbar-expand navbar-light navbar-top">
+            <div class="container-fluid">
+                <a href="#" class="burger-btn d-block">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-lg-0">
+                        <li><a class="dropdown-item" href="#">
+                            <i  class="bi-sub fs-4 bi bi-box-arrow-left"></i> Logout</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- !!固定!! 右上方 navbar end -->
+
+    <!--        Home頁面 START-->
 <ul>
-    <div class="page-content">
-        <section class="section">
-            <div class="page-title-headings"><h3>住戶資料查詢結果</h3></div>
-            <br>
-            <h4><img src="./images/back.svg" width="30" height="30" alt="返回"><a href="${pageContext.request.contextPath}/back-end/member/select_page.jsp">返回查詢頁面</a></h4>
-            <div class="card">
-                <div class="card-body">
+        <h4><img src="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/back.svg" width="30" height="30" alt="返回"><a href="${pageContext.request.contextPath}/back-end/member/listAllMember.jsp">返回上一頁</a></h4>
+    <div class="card text-center">
+        <div class="card-header">
+            <h3 class="card-title"></h3>
+            【住戶編號：${memberVO.memberId} 姓名：${memberVO.memberName}】住戶的資料
+        </div>
+        <div class="card-body">
                     <div class="flex-row">
-                        <table class="table table-striped">
+                        <table id="table03" >
                             <tr>
                                 <th>住戶編號</th>
                                 <th>帳號</th>
@@ -55,26 +137,46 @@
                                 <td>${memberVO.memberPost}</td>
                                 <td>${memberVO.memberAddress}</td>
                                 <td>${memberVO.memberPoints}</td>
-                                <td><img src="${pageContext.request.contextPath}/member/PicuploadServlet?memberid=${memberVO.memberId}" width="150px" class="rounded"></td>
-<%--                                <td>${memberVO.regDate}</td>--%>
-<%--                                <td>${memberVO.memberIdState}</td>--%>
-<%--                                <td>${memberVO.acState}</td>--%>
+<%--                                 <td><img src="${pageContext.request.contextPath}/member/PicuploadServlet?memberid=${memberVO.memberId}" width="150px" class="rounded"></td> --%>
+                                <td>${memberVO.regDate}</td>
+                                <td>${memberVO.memberIdState}</td>
+                                <td>${memberVO.acState}</td>
                             </tr>
                         </table>
-                        <td>
+
                             <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do"
                                   style="margin-bottom: 0px;">
                                 <input type="submit" class="btn btn-outline-primary" value="修改資料">
                                 <input type="hidden" name="memberid" value="${memberVO.memberId}">
                                 <input type="hidden" name="action" value="getOne_For_Update">
                             </FORM>
-                        </td>
+
                     </div>
                 </div>
             </div>
         </section>
-    </div>
 </ul>
+</div>
+<!--        頁面 END-->
 
+
+<!--        !!固定!! footer(擺每個頁面最下方的版權用) START-->
+<footer>
+    <div class="footer clearfix mb-0 text-muted">
+        <div class="float-start">
+            <p>2022 &copy; 陪你e生e世　社區服務平台</p>
+        </div>
+        <div class="float-end">
+            <p>Community Management</p>
+        </div>
+    </div>
+</footer>
+<!--        !!固定!! footer END-->
+</div>
+</div>
+
+<!-- 樣板用js start -->
+<script src="../../resources/back-end/assets/js/bootstrap.js"></script>
+<script src="../../resources/back-end/assets/js/app.js"></script>
 </body>
 </html>

@@ -16,7 +16,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-@WebServlet("/UploadBbPic")
+@WebServlet("/bulletinboardpic/UploadBbPic")
 public class BulletinBoardPicServlet extends HttpServlet {
 
     Connection con;
@@ -29,13 +29,14 @@ public class BulletinBoardPicServlet extends HttpServlet {
 
         try {
             Statement stmt = con.createStatement();
-            String BB_PIC_ID=req.getParameter("bbpicid").trim();
+            String BB_SUB_ID=req.getParameter("bbsubid").trim();
             ResultSet rs = stmt.executeQuery(
-                    "SELECT BB_PIC_ID FROM community_management.bulletin_board_pictures where BB_PIC_ID = "+BB_PIC_ID);
+                    "select BB_PIC FROM community_management.bulletin_board_pictures\n" +
+                            "where BB_SUB_ID="+BB_SUB_ID);
 
             if (rs.next()) {
 
-                BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("BB_PIC_ID"));
+                BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("BB_PIC"));
                 byte[] buf = new byte[4 * 1024]; // 4K buffer
                 int len;
                 while ((len = in.read(buf)) != -1) {

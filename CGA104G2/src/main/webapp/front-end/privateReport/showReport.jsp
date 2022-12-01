@@ -38,7 +38,7 @@ form {
 </style>
 </head>
 
-<body bgcolor="lightYellow">
+<body>
 
 	<div id="header">
 		<h1 id="test">您好，這裡是住戶檢舉頁面!</h1>
@@ -48,9 +48,9 @@ form {
 		action="<%=request.getContextPath()%>/back-end/privateReport1/privateReportServlet.do">
 		<b>請選擇: </b> <select name="privateReportStatus">
 			<option value="1"
-				${(privateReportVO1.privateReportStatus == 1) ? 'selected' : '' }>瀏覽已完成檢舉</option>
+				>瀏覽已完成檢舉</option>
 			<option value="0"
-				${(privateReportVO1.privateReportStatus == 0) ? 'selected' : '' }>瀏覽未完成檢舉</option>
+				>瀏覽未完成檢舉</option>
 		</select> <input type="hidden" name="action" value="getAllSelected2"> <input
 			type="hidden" name="memberAc" value="EreYea1"> <input
 			type="submit" value="確定">
@@ -66,7 +66,7 @@ form {
 
 	<a
 		href="<%=request.getContextPath()%>/front-end/privateReport/showReport.jsp">
-		<button>返回所有檢舉列表</button>
+		<button disabled>返回所有檢舉列表</button>
 	</a>
 
 	<form method="get"
@@ -86,72 +86,75 @@ form {
 				<h2>我的所有檢舉列表</h2>
 			</caption>
 			<tr>
-				<th>檢舉編號</th>
+				<th>編號</th>
 				<th>住戶名稱</th>
-				<th>檢舉日期/時間</th>
-				<th>檢舉表單內容</th>
-				<th>檢舉內容附圖</th>
-				<th>檢舉狀態</th>
+				<th>時間</th>
+				<th>表單內容</th>
+				<th>內容附圖</th>
+				<th>狀態</th>
 				<th>回覆內容</th>
 				<th>回覆內容附圖</th>
-				<th>回覆日期/時間</th>
+				<th>回覆時間</th>
 			</tr>
 			<c:forEach var="privateReportVO1" items="${list}">
 				<tr>
-					<th>${privateReportVO1.privateReportId}</th>
-					<th>${privateReportVO1.memberName}</th>
-					<th>${privateReportVO1.privateReportTime}</th>
-					<th>${privateReportVO1.privateReportContent}</th>
+					<td>${privateReportVO1.privateReportId}</td>
+					<td>${privateReportVO1.memberName}</td>
+					<td>${privateReportVO1.privateReportTime}</td>
+					<td>${privateReportVO1.privateReportContent}</td>
+
 					<c:choose>
-						<c:when test="${privateReportVO1.privateReportPic == null}">
-							<th>無附圖</th>
+						<c:when test="${empty privateReportVO1.privateReportPic}">
+							<td><b>無附圖</b></td>
 						</c:when>
 						<c:otherwise>
-							<th>${privateReportVO1.privateReportPic}</th>
+							<td><img
+								src="<%=request.getContextPath()%>/back-end/privateReport1/privateReportPicServlet.do?action=showMemberPic&privateReportId=${privateReportVO1.privateReportId}"
+								width="100px" /></td>
 						</c:otherwise>
 					</c:choose>
 
 					<c:choose>
 						<c:when test="${privateReportVO1.privateReportStatus == 1}">
-							<th>已結案</th>
+							<td>已結案</td>
 						</c:when>
 						<c:otherwise>
-							<th>未結案</th>
+							<td>未結案</td>
 						</c:otherwise>
 					</c:choose>
 
 					<c:choose>
 						<c:when test="${empty privateReportVO1.replyOfReport}">
-							<th><font color="red"><b>管理員尚未回覆!</b></th>
+							<td><font color="red"><b>管理員尚未回覆!</b></td>
 						</c:when>
 						<c:otherwise>
-							<th>${privateReportVO1.replyOfReport}</th>
+							<td>${privateReportVO1.replyOfReport}</td>
 						</c:otherwise>
 					</c:choose>
 
 					<c:choose>
 						<c:when
 							test="${(empty privateReportVO1.replyPic) and privateReportVO1.privateReportStatus == 0}">
-							<th><font color="red"><b>管理員尚未回覆!</b></th>
+							<td><font color="red"><b>管理員尚未回覆!</b></td>
 						</c:when>
 						<c:when
 							test="${(empty privateReportVO1.replyPic) and privateReportVO1.privateReportStatus == 1}">
-							<th>無附圖</th>
+							<td>無附圖</td>
 						</c:when>
 						<c:otherwise>
-							<th><img
-								src="<%=request.getContextPath()%>/back-end/privateReport1/privateReportPicServlet.do?action=showMemberPic&privateReportId=${privateReportVO1.privateReportId}"
-								width="300px" /></th>
+							<td><img
+								src="<%=request.getContextPath()%>/back-end/privateReport1/privateReportPicServlet.do?action=showPic&privateReportId=${privateReportVO1.privateReportId}"
+								width="300px" /></td>
 						</c:otherwise>
 					</c:choose>
 
 					<c:choose>
 						<c:when
 							test="${(empty privateReportVO1.replyOfReportTime) and privateReportVO1.privateReportStatus == 0}">
-							<th><font color="red"><b>管理員尚未回覆!</b></th>
+							<td><font color="red"><b>管理員尚未回覆!</b></td>
 						</c:when>
 						<c:otherwise>
-							<th>${privateReportVO1.replyOfReportTime}</th>
+							<td>${privateReportVO1.replyOfReportTime}</td>
 						</c:otherwise>
 					</c:choose>
 				</tr>

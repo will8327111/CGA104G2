@@ -279,6 +279,7 @@ int last = op.lastIndexOf("0");
 		</td></tr>
 	</table>
 		
+		<input type="hidden" name="op" value="${op}"> 
 		<input type="hidden" name="ameid" value="<%=ameVO.getAmeId()%>"> 
 		<input type="hidden" name="action" value="updateAme"> 
 		<input type="submit" value="確認修改">
