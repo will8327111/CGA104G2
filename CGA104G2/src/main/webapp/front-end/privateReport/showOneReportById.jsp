@@ -26,10 +26,10 @@ form {
 }
 </style>
 <meta charset="UTF-8">
-<title>私人檢舉頁面</title>
+<title>我的檢舉頁面</title>
 </head>
 
-<body bgcolor="lightYellow">
+<body>
 
 	<div id="header">
 		<h1 id="test">您好，這裡是住戶檢舉頁面！</h1>
@@ -69,74 +69,76 @@ form {
 	<div id='select'>
 		<table id="reportTable" style='border: 1px solid black'>
 			<caption>
-				<h2>住戶所有檢舉列表</h2>
+				<h2>我的所有檢舉列表</h2>
 			</caption>
 			<tr>
-				<th>檢舉編號</th>
+				<th>編號</th>
 				<th>住戶名稱</th>
-				<th>檢舉日期/時間</th>
-				<th>檢舉表單內容</th>
-				<th>檢舉內容附圖</th>
-				<th>檢舉狀態</th>
+				<th>時間</th>
+				<th>表單內容</th>
+				<th>內容附圖</th>
+				<th>狀態</th>
 				<th>回覆內容</th>
 				<th>回覆內容附圖</th>
-				<th>回覆日期/時間</th>
+				<th>回覆時間</th>
 			</tr>
 			<tr>
-				<th>${privateReportVO1.privateReportId}</th>
-				<th>${privateReportVO1.memberName}</th>
-				<th>${privateReportVO1.privateReportTime}</th>
-				<th>${privateReportVO1.privateReportContent}</th>
+				<td>${privateReportVO1.privateReportId}</td>
+				<td>${privateReportVO1.memberName}</td>
+				<td>${privateReportVO1.privateReportTime}</td>
+				<td>${privateReportVO1.privateReportContent}</td>
 				<c:choose>
-					<c:when test="${privateReportVO1.privateReportPic == null}">
-						<th>無附圖</th>
+					<c:when test="${empty privateReportVO1.privateReportPic}">
+						<td><b>無附圖</b></td>
 					</c:when>
 					<c:otherwise>
-						<th>${privateReportVO1.privateReportPic}</th>
+						<td><img
+							src="<%=request.getContextPath()%>/back-end/privateReport1/privateReportPicServlet.do?action=showMemberPic&privateReportId=${privateReportVO1.privateReportId}"
+							width="100px" /></td>
 					</c:otherwise>
 				</c:choose>
 
 				<c:choose>
 					<c:when test="${privateReportVO1.privateReportStatus == 1}">
-						<th>已結案</th>
+						<td>已結案</td>
 					</c:when>
 					<c:otherwise>
-						<th>未結案</th>
+						<td>未結案</td>
 					</c:otherwise>
 				</c:choose>
 
 				<c:choose>
 					<c:when test="${empty privateReportVO1.replyOfReport}">
-						<th><font color="red"><b>管理員尚未回覆!</b></th>
+						<td><font color="red"><b>管理員尚未回覆!</b></td>
 					</c:when>
 					<c:otherwise>
-						<th>${privateReportVO1.replyOfReport}</th>
+						<td>${privateReportVO1.replyOfReport}</td>
 					</c:otherwise>
 				</c:choose>
 
 				<c:choose>
 					<c:when
 						test="${(empty privateReportVO1.replyPic) and privateReportVO1.privateReportStatus == 0}">
-						<th><font color="red"><b>管理員尚未回覆!</b></th>
+						<td><font color="red"><b>管理員尚未回覆!</b></td>
 					</c:when>
 					<c:when
 						test="${(empty privateReportVO1.replyPic) and privateReportVO1.privateReportStatus == 1}">
-						<th>無附圖</th>
+						<td>無附圖</td>
 					</c:when>
 					<c:otherwise>
-						<th><img
+						<td><img
 							src="<%=request.getContextPath()%>/back-end/privateReport1/privateReportPicServlet.do?action=showPic&memberAc=EreYea1&privateReportId=${privateReportVO1.privateReportId}"
-							width="300px" /></th>
+							width="300px" /></td>
 					</c:otherwise>
 				</c:choose>
 
 				<c:choose>
 					<c:when
 						test="${(empty privateReportVO1.replyOfReportTime) and privateReportVO1.privateReportStatus == 0}">
-						<th><font color="red"><b>管理員尚未回覆!</b></th>
+						<td><font color="red"><b>管理員尚未回覆!</b></td>
 					</c:when>
 					<c:otherwise>
-						<th>${privateReportVO1.replyOfReportTime}</th>
+						<td>${privateReportVO1.replyOfReportTime}</td>
 					</c:otherwise>
 				</c:choose>
 			</tr>

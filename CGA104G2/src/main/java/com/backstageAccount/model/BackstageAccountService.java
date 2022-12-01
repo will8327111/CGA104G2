@@ -14,6 +14,10 @@ public class BackstageAccountService {
 		dao = new BackstageAccountJDBCDAO();
 	};
 	
+	public BackstageAccountVO updateNeeds(String bmName, String bmPassword, String bmEmail, Integer bmStatus, Integer bmId) {
+		return dao.updateNeeds(bmName, bmPassword, bmEmail, bmStatus, bmId);
+	};
+	
 	public BackstageAccountVO findByAcAndPwd(String bmAccount, String bmPassword) {
 
 		return dao.findByAcAndPwd(bmAccount, bmPassword);
@@ -61,14 +65,13 @@ public class BackstageAccountService {
 	};
 	
 	
-	public BackstageAccountVO update(Integer bmId, String bmName, String bmAccount, 
+	public BackstageAccountVO update(Integer bmId, String bmName, 
 			String bmPassword, String bmEmail, Integer bmStatus) {
 		
 		BackstageAccountVO backstageAccountVO = new BackstageAccountVO();
 		
 		backstageAccountVO.setBmId(bmId);
 		backstageAccountVO.setBmName(bmName);
-		backstageAccountVO.setBmAccount(bmAccount);
 		backstageAccountVO.setBmPassword(bmPassword);
 		backstageAccountVO.setBmEmail(bmEmail);
 		backstageAccountVO.setBmStatus(bmStatus);

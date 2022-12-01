@@ -24,13 +24,21 @@ public class BackstageAuthorizationJDBCDAO implements BackstageAuthorizationDAO_
 
 	private static final String GET_ALL_STMT = "SELECT BA.BM_ID, BM_NAME, BC.BM_CAPABILITIES_ID, BM_CAPABILITIES_NAME, BM_CAPABILITIES_CONTENT FROM BACKSTAGE_ACCOUNT BA join BACKSTAGE_AUTHORIZATION BAA on BA.BM_ID = BAA.BM_ID join BACKSTAGE_CAPABILITIES BC on BAA.BM_CAPABILITIES_ID = BC.BM_CAPABILITIES_ID order by BA.BM_ID";
 	
-	private static final String GET_BMID_AND_BMNAME = "SELECT DISTINCT BA.BM_ID, BA.BM_NAME FROM BACKSTAGE_ACCOUNT BA join BACKSTAGE_AUTHORIZATION BAA on BA.BM_ID = BAA.BM_ID join BACKSTAGE_CAPABILITIES BC on BAA.BM_CAPABILITIES_ID = BC.BM_CAPABILITIES_ID";
+	private static final String GET_BMID_AND_BMNAME = "SELECT * from BACKSTAGE_ACCOUNT";
 	
 	private static final String GET_CAPID_AND_CAPNAME = "SELECT * from BACKSTAGE_CAPABILITIES";
+	
+	private static final String GET_BMID_AND_CAPID = "SELECT BA.BM_ID, BAT.BM_CAPABILITIES_ID from BACKSTAGE_AUTHORIZATION BAT\r\n"
+			+ "JOIN BACKSTAGE_ACCOUNT BA\r\n"
+			+ "ON BA.BM_ID = BAT.BM_ID\r\n"
+			+ "JOIN BACKSTAGE_CAPABILITIES BC\r\n"
+			+ "ON BAT.BM_CAPABILITIES_ID = BC.BM_CAPABILITIES_ID\r\n"
+			+ "WHERE BA.BM_ID = ?\r\n"
+			+ "AND BAT.BM_CAPABILITIES_ID = ?";
 
 	private static final String GET_SELECTED_AUTHORIZATION = "SELECT BA.BM_ID, BM_NAME, BC.BM_CAPABILITIES_ID, BM_CAPABILITIES_NAME, BM_CAPABILITIES_CONTENT FROM BACKSTAGE_ACCOUNT BA join BACKSTAGE_AUTHORIZATION BAA on BA.BM_ID = BAA.BM_ID join BACKSTAGE_CAPABILITIES BC on BAA.BM_CAPABILITIES_ID = BC.BM_CAPABILITIES_ID where BA.BM_ID = ?";
 	
-	private static final String TEST = "SELECT BM_NAME, BM_ID FROM BACKSTAGE_ACCOUNT where BM_ID = ?";
+	private static final String GET_ALL_NAME_ID = "SELECT BM_NAME, BM_ID FROM BACKSTAGE_ACCOUNT";
 
 	public void insert(BackstageAuthorizationVO backstageAuthorizationVO) {
 
@@ -117,8 +125,65 @@ public class BackstageAuthorizationJDBCDAO implements BackstageAuthorizationDAO_
 
 	}
 	
-	public BackstageAuthorizationVO getOneBmName(Integer bmId) {
+	public BackstageAuthorizationVO findByBmIdAndCapId(Integer bmId, Integer bmCapabilitiesId) {
 
+		BackstageAuthorizationVO backstageAuthorizationVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, account, password);
+			pstmt = con.prepareStatement(GET_BMID_AND_CAPID);
+			pstmt.setInt(1, bmId);
+			pstmt.setInt(2, bmCapabilitiesId);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				backstageAuthorizationVO = new BackstageAuthorizationVO();
+				backstageAuthorizationVO.setBmId(rs.getInt("bm_id"));
+				backstageAuthorizationVO.setBmCapabilitiesId(rs.getInt("bm_capabilities_id"));
+			}
+			;
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return backstageAuthorizationVO;
+	};
+	
+	public List<BackstageAuthorizationVO> getEveryInfo() {
+		List<BackstageAuthorizationVO> list = new ArrayList<BackstageAuthorizationVO>();
 		BackstageAuthorizationVO backstageAuthorizationVO = new BackstageAuthorizationVO();
 
 		Connection con = null;
@@ -129,8 +194,7 @@ public class BackstageAuthorizationJDBCDAO implements BackstageAuthorizationDAO_
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, account, password);
-			pstmt = con.prepareStatement(TEST);
-			pstmt.setInt(1, bmId);
+			pstmt = con.prepareStatement(GET_ALL_NAME_ID);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -138,6 +202,7 @@ public class BackstageAuthorizationJDBCDAO implements BackstageAuthorizationDAO_
 				backstageAuthorizationVO = new BackstageAuthorizationVO();
 				backstageAuthorizationVO.setBmId(rs.getInt("bm_id"));
 				backstageAuthorizationVO.setBmName(rs.getString("bm_name"));
+				list.add(backstageAuthorizationVO);
 			}
 
 			// Handle any driver errors
@@ -170,7 +235,7 @@ public class BackstageAuthorizationJDBCDAO implements BackstageAuthorizationDAO_
 				}
 			}
 		}
-		return backstageAuthorizationVO;
+		return list;
 	}
 	
 	public List<BackstageAuthorizationVO> getSelectedAuthorization(Integer bmId) {
@@ -423,10 +488,17 @@ public class BackstageAuthorizationJDBCDAO implements BackstageAuthorizationDAO_
 //		dao.delete(7, 3);
 
 		// 單一查詢
-		BackstageAuthorizationVO backstageAuthorizationVO1 = dao.getOneBmName(1);
-		System.out.print(backstageAuthorizationVO1.getBmId() + ",");
-		System.out.print(backstageAuthorizationVO1.getBmName() + ",");
+//		List<BackstageAuthorizationVO> list = dao.getEveryInfo();
+//		for (BackstageAuthorizationVO a : list) {
+//			System.out.print(a.getBmId() + ",");
+//			System.out.print(a.getBmName() + ",");
+//			System.out.println();
+//		}
 		
+		// 查詢單一個權限
+		BackstageAuthorizationVO backstageAuthorizationVO = dao.findByBmIdAndCapId(1, 1);
+		System.out.print(backstageAuthorizationVO.getBmId() + ",");
+		System.out.print(backstageAuthorizationVO.getBmCapabilitiesId() + ",");
 		
 		// 查詢不重複的管理員IDc和名字
 //		List<BackstageAuthorizationVO> list = dao.getBmIdAndBmName();

@@ -38,12 +38,6 @@ public class PrivateReportVO1 implements Serializable{
 	public void setMemberAc(String memberAc) {
 		this.memberAc = memberAc;
 	}
-	public String getMemberPw() {
-		return memberPw;
-	}
-	public void setMemberPw(String memberPw) {
-		this.memberPw = memberPw;
-	}
 	public String getMemberName() {
 		return memberName;
 	}

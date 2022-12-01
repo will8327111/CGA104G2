@@ -8,6 +8,8 @@ public interface BackstageAuthorizationDAO_interface {
 	public void insert(BackstageAuthorizationVO backstageAuthorizationVO);
 	
 	public void delete(Integer bmId, Integer bmCapabliitieId);
+	
+	public BackstageAuthorizationVO findByBmIdAndCapId(Integer bmId, Integer bmCapabliitiesId);
 
 	public List<BackstageAuthorizationVO> getSelectedAuthorization(Integer bmId);
 	
@@ -17,5 +19,5 @@ public interface BackstageAuthorizationDAO_interface {
 	
 	public List<BackstageAuthorizationVO> getBmCapIdAndBmCapName();
 	
-	public BackstageAuthorizationVO getOneBmName(Integer bmId);
+	public List<BackstageAuthorizationVO> getEveryInfo();
 }

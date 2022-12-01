@@ -1,13 +1,13 @@
-<%@page import="com.backstageAccount.model.*"%>
-<%@ page import="java.util.*"%>
+<%@page import="com.maintenanceRecord.model.*"%>
+<%@page import="java.util.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-BackstageAccountService backstageAccountSvc = new BackstageAccountService();
-List<BackstageAccountVO> list = backstageAccountSvc.getAll(); // 設定Account的getAll集合
-pageContext.setAttribute("list", list);
+session.getAttribute("maintenanceRecordVO");
 %>
+
+<!DOCTYPE html>
 <!--繁體中文-->
 <html lang="zh-Hant">
 
@@ -37,7 +37,12 @@ pageContext.setAttribute("list", list);
 
 <!--    網址列標題-->
 <title>陪你e生e世 社區服務平台：後台Home</title>
-
+<style>
+th {
+	white-space: nowrap;
+}
+;
+</style>
 </head>
 
 <body>
@@ -163,8 +168,8 @@ pageContext.setAttribute("list", list);
 					<div class="row">
 						<div class="col-12 col-md-6 order-md-1 order-last">
 
-							<h3>所有管理員基本資料</h3>
-							<p class="text-subtitle text-muted">歡迎來到陪你e生e世 服務平台：管理員基本資料</p>
+							<h3>住戶姓名查詢維修頁面</h3>
+							<p class="text-subtitle text-muted">歡迎來到陪你e生e世 服務平台：住戶姓名查詢維修頁面</p>
 
 						</div>
 
@@ -192,74 +197,138 @@ pageContext.setAttribute("list", list);
 						<!--內容區塊-->
 						<div class="card-body">
 							<body>
+								<form method="get"
+									action="<%=request.getContextPath()%>/back-end/maintenanceRecord/maintenanceRecordServlet.do">
+									<b>請選擇: </b> <select name="maintenanceStatus">
+										<option value="1"
+											${(maintenanceRecordVO.maintenanceStatus == 1) ? 'selected' : '' }>瀏覽已完成維修</option>
+										<option value="0"
+											${(maintenanceRecordVO.maintenanceStatus == 0) ? 'selected' : '' }>瀏覽未完成維修</option>
+									</select> <input type="hidden" name="action" value="getAllSelected">
+									<input type="submit" value="確定">
+								</form>
+<br>
+								<form method="get"
+									action="<%=request.getContextPath()%>/back-end/maintenanceRecord/maintenanceRecordServlet.do">
+									<b> 依表單編號查詢: </b><input type="text" name="maintenanceId">
+									<input type="hidden" name="action" value="getOneMyReportById">
+									<input type="submit" value="送出">
+								</form>
+<br>
+								<form method="get"
+									action="<%=request.getContextPath()%>/back-end/maintenanceRecord/maintenanceRecordServlet.do">
+									<b> 依住戶姓名查詢: </b><input type="text" name="memberName">
+									<input type="hidden" name="action" value="getOneMtByName">
+									<input type="submit" value="送出">
+								</form>
+<br>
+								<a
+									href="<%=request.getContextPath()%>/back-end/maintenanceRecord/maintenanceRecordInfo.jsp">
+									<button>返回所有維修列表</button>
+								</a>
 
-<!-- 								<form method="get" -->
-<%-- 									action="<%=request.getContextPath()%>/back-end/backstageAccount/backstageLogin.do"> --%>
-<!-- 									<div> -->
-<!-- 										<input type="hidden" name="action" value="BackstageLogOut"> -->
-<!-- 										<input type="submit" value="登出" style="float: right"> -->
-<!-- 									</div> -->
-<!-- 								</form> -->
+								<div id='select'>
+									<table id="MtTable" class='table table_sm'>
+										<tr>
+											<th>編號</th>
+											<th>住戶名稱</th>
+											<th>時間</th>
+											<th>表單內容</th>
+											<th>內容附圖</th>
+											<th>狀態</th>
+											<th>回覆內容</th>
+											<th>回覆內容附圖</th>
+											<th>回覆時間</th>
+											<th>管理員回覆</th>
+										</tr>
+										<c:forEach var="maintenanceRecordVO" items="${listByName}">
+											<tr>
+												<td>${maintenanceRecordVO.maintenanceId}</td>
+												<td>${maintenanceRecordVO.memberName}</td>
+												<td>${maintenanceRecordVO.maintenanceTime}</td>
+												<td>${maintenanceRecordVO.maintenanceContent}</td>
+												<c:choose>
+													<c:when test="${empty maintenanceRecordVO.maintenancePic}">
+														<td><b>無附圖</b></td>
+													</c:when>
+													<c:otherwise>
+														<td><img
+															src="<%=request.getContextPath()%>/back-end/maintenanceRecord/maintenancePicServlet.do?action=showMemberPic&maintenanceId=${maintenanceRecordVO.maintenanceId}"
+															width="100px" /></td>
+													</c:otherwise>
+												</c:choose>
 
-								<table id="backstageInfo" class='table table_sm'>
-									<tr>
-											<div>
-												<FORM METHOD="get"
-													ACTION="<%=request.getContextPath()%>/back-end/backstageAccount/addInfo.jsp"
-													style="margin-bottom: 0px;">
-													<input type="submit" value="新增管理員" style="float: left">
-													<input type="hidden" name="action" value="insert">
-												</FORM>
-											</div>
-									</tr>
-										<tr>
-											<th>管理員編號</th>
-											<th>管理員姓名</th>
-											<th>帳號</th>
-											<th>密碼</th>
-											<th>電子郵件</th>
-											<th>帳號狀態</th>
-											<th>修改</th>
-											<th>刪除</th>
-										</tr>
-											<c:forEach var="backstageAccountVO" items="${list}">
-										<tr>
-											<td>${backstageAccountVO.bmId}</td>
-											<td>${backstageAccountVO.bmName}</td>
-											<td>${backstageAccountVO.bmAccount}</td>
-											<td>${backstageAccountVO.bmPassword}</td>
-											<td>${backstageAccountVO.bmEmail}</td>
-											<c:choose>
-												<c:when test="${backstageAccountVO.bmStatus==0}">
-													<td>停權</td>
-												</c:when>
-												<c:otherwise>
-													<td>啟用中</td>
-												</c:otherwise>
-											</c:choose>
-											<td>
-												<FORM METHOD="get"
-													ACTION="<%=request.getContextPath()%>/back-end/backstageAccount/BackstageAccountInfo.do"
-													style="margin-bottom: 0px;">
-													<input id="modify" type="submit" value="修改"> <input
-														type="hidden" name="bmId"
-														value="${backstageAccountVO.bmId}"> <input
-														type="hidden" name="action" value="getOne_For_Update">
-												</FORM>
-											</td>
-											<td>
-												<FORM METHOD="get"
-													ACTION="<%=request.getContextPath()%>/back-end/backstageAccount/BackstageAccountInfo.do"
-													style="margin-bottom: 0px;">
-													<input id="delete" type="submit" value="刪除"> <input
-														type="hidden" name="bmId"
-														value="${backstageAccountVO.bmId}"> <input
-														type="hidden" name="action" value="delete">
-												</FORM>
-											</td>
-										</tr>
-									</c:forEach>
-								</table>
+												<c:choose>
+													<c:when
+														test="${maintenanceRecordVO.maintenanceStatus == 1}">
+														<td>已結案</td>
+													</c:when>
+													<c:otherwise>
+														<td>未結案</td>
+													</c:otherwise>
+												</c:choose>
+
+												<c:choose>
+													<c:when
+														test="${empty maintenanceRecordVO.replyOfMaintenance}">
+														<td><font color="red"><b>管理員尚未回覆!</b></td>
+													</c:when>
+													<c:otherwise>
+														<td>${maintenanceRecordVO.replyOfMaintenance}</td>
+													</c:otherwise>
+												</c:choose>
+
+												<c:choose>
+													<c:when
+														test="${(empty maintenanceRecordVO.replyPic) and maintenanceRecordVO.maintenanceStatus == 0}">
+														<td><font color="red"><b>管理員尚未回覆!</b></td>
+													</c:when>
+													<c:when
+														test="${(empty maintenanceRecordVO.replyPic) and maintenanceRecordVO.maintenanceStatus == 1}">
+														<td>無附圖</td>
+													</c:when>
+													<c:otherwise>
+														<td><img
+															src="<%=request.getContextPath()%>/back-end/maintenanceRecord/maintenancePicServlet.do?action=showPic&maintenanceId=${maintenanceRecordVO.maintenanceId}"
+															width="100px" /></td>
+													</c:otherwise>
+												</c:choose>
+
+												<c:choose>
+													<c:when
+														test="${(empty maintenanceRecordVO.replyOfMaintenanceTime) and maintenanceRecordVO.maintenanceStatus == 0}">
+														<td><font color="red"><b>管理員尚未回覆!</b></td>
+													</c:when>
+													<c:otherwise>
+														<td>${maintenanceRecordVO.replyOfMaintenanceTime}</td>
+													</c:otherwise>
+												</c:choose>
+
+												<c:choose>
+													<c:when
+														test="${not empty maintenanceRecordVO.replyOfMaintenance}">
+														<td><input type="submit" value="管理員回覆"
+															disabled="disabled"></td>
+													</c:when>
+													<c:otherwise>
+														<td>
+															<form method="get"
+																action="<%=request.getContextPath()%>/back-end/maintenanceRecord/maintenanceRecordServlet.do">
+																<input type="hidden" name="maintenanceId"
+																	value="${maintenanceRecordVO.maintenanceId}"> <input
+																	type="submit" value="管理員回覆"> <input
+																	type="hidden" name="memberId"
+																	value="${maintenanceRecordVO.memberId}"><input
+																	type="hidden" name="action" value="getOne_For_Update">
+															</form>
+														</td>
+													</c:otherwise>
+												</c:choose>
+											</tr>
+										</c:forEach>
+									</table>
+								</div>
+
 							</body>
 
 						</div>
