@@ -40,7 +40,7 @@
 						<input type="hidden" name="ame_StaDate" value="${ame_StaDate}">
 						<input type="hidden" name="statime" value="${statime}">
 						<input type="hidden" name="statime_ind" value="${loop.index}">
-						<input type="button" onclick="test()" value="${loop.index}:00" class="btn btn-success btn-lg"><br>
+						<input type="button" onclick="test()" value="${loop.index}:00" class="btn btn-success btn-lg">
 					</form>
 			</c:if>
 			<c:if test="${tmp == 1}">
