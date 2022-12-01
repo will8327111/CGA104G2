@@ -188,9 +188,8 @@ body {
 							style="background-color: transparent; border: 0">
 					</div>
 					<div class="inputfield">
-						<label>活動內容</label> <input type="text" class="input"
-							value="<%=activityVO.getActContent()%>" readonly
-							style="background-color: transparent; border: 0">
+						<label>活動內容</label> <textarea  class="input"
+							 readonly style="background-color: transparent; border: 0"><%=activityVO.getActContent()%></textarea>
 					</div>
 					<div class="inputfield">
 						<label>活動地址</label> <input type="text" class="input"
