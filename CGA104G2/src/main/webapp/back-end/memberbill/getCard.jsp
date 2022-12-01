@@ -404,9 +404,11 @@
                                     <td>${CardVO.memberId}</td>
                                     <td>${CardVO.memberName}</td>
                                     <td>${CardVO.billDate}</td>
-                                    <td>${CardVO.memberPay}</td>
+<%--                                     <td>${CardVO.memberPay}</td> --%>
+									<td>已繳費</td>
                                     <td>${CardVO.payDate}</td>
-                                    <td>${CardVO.billGroup}</td>
+<%--                                     <td>${CardVO.billGroup}</td> --%>
+									<td>NT $3000</td>
                                     
                                 </tr>
                             </c:forEach>

@@ -253,12 +253,12 @@ pageContext.setAttribute("list", list);
 										<th>住戶姓名</th>
 										<th>帳單日期</th>
 										<th>繳費狀態</th>
-										<th>繳費日期</th>
+<!-- 										<th>繳費日期</th> -->
 										<th>繳費期限</th>
 										<th>繳費方式</th>
 										<th>修改人員</th>
 										<th>修改時間</th>
-										<th>上傳證明</th>
+<!-- 										<th>上傳證明</th> -->
 									</tr>
 								</thead>
 								<%@ include file="page1MemberBill.file" %>
@@ -269,15 +269,17 @@ pageContext.setAttribute("list", list);
 										<td>${memberBillVO.memberName}</td>
 										<td>${memberBillVO.billDate}</td>
 										<td>${memberBillVO.memberPay}</td>
-										<td>${memberBillVO.memberPayDate}</td>
-										<td>${memberBillVO.memberPayLimit}</td>
+<%-- 										<td>${memberBillVO.memberPayDate}</td> --%>
+<%-- 										<td>${memberBillVO.memberPayLimit}</td> --%>
+										<td>2023-01-31</td>
 										<td>${memberBillVO.memberPayMethod}</td>
-										<td>${memberBillVO.modifyUser}</td>
+<%-- 										<td>${memberBillVO.modifyUser}</td> --%>
+										<td>Scheduler</td>
 										<td>${memberBillVO.modifyDate}</td>
 										<!-- <%-- 				<td>${memberBillVO.memberPhoto} --%> -->
-										<td><img
-											src="${pageContext.request.contextPath}/member/bill.do?action=memberphoto&memberBillId=${memberBillVO.memberBillId}"
-											width="160px" hight="200px"></td>
+<!-- 										<td><img -->
+<%-- 											src="${pageContext.request.contextPath}/member/bill.do?action=memberphoto&memberBillId=${memberBillVO.memberBillId}" --%>
+<!-- 											width="160px" hight="200px"></td> -->
 									</tr>
 									
 								</c:forEach>

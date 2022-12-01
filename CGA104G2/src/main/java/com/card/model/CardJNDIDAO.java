@@ -17,7 +17,7 @@ import com.transfer.model.TransferVO;
 public class CardJNDIDAO implements CardDAO_interface {
 	private DataSource ds = null;
 	private static final String INSERT= "INSERT INTO CARD(BILL_GROUP,MEMBER_ID,MEMBER_BILL_ID)VALUES(?,?,?)";
-	private static final String UPDATE_CARD = "UPDATE CARD SET MEMBER_PAY=1 WHERE MEMBER_BILL_ID = ?";//修改狀態(給綠界用)
+	private static final String UPDATE_CARD = "UPDATE MEMBER_BILL SET MEMBER_PAY=1,MEMBER_PAY_METHOD=2 WHERE MEMBER_BILL_ID = ?";//修改狀態(給綠界用)
 	
 	public CardJNDIDAO() {
 		try {

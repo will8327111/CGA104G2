@@ -25,23 +25,26 @@
 //		public void run() {
 //			MemberBillService memberBillService = new MemberBillService();
 //			List<MemberBillVO> list = memberBillService.getAllMemberGroupData();
-//
+//			
+//			String to = "yunru29@gmail.com";
+//			String subject = "112年01月綜合帳單";
+//			String ch_name = "最新應繳總金額";
+//			String passRandom = "3,000元";
+//			String alert = "繳費期限 2023/01/31";
+//			String messageText = ch_name + "\n" + passRandom + "\n" + alert;
+//			MemberBillMailService memberBillMailService = new MemberBillMailService();
+//			memberBillMailService.sendMail(to, subject, messageText);
+//			
 //			for (MemberBillVO memberBillVO : list) {
 //				
 //				Integer memberBillId = (int) ((Math.random() * 100000) + 1);
 //				memberBillVO.setMemberBillId(memberBillId);
 //				memberBillVO.setBillDate(getDate());// 帳單月份
 //
+//				
 //				memberBillService.insertMemberBill(memberBillVO);
 //
-//				String to = "yunru29@gmail.com";
-//				String subject = "111年12月綜合帳單";
-//				String ch_name = "最新應繳總金額";
-//				String passRandom = "3,000元";
-//				String alert = "繳費期限 2022/12/31";
-//				String messageText = ch_name + "\n" + passRandom + "\n" + alert;
-//				MemberBillMailService memberBillMailService = new MemberBillMailService();
-//				memberBillMailService.sendMail(to, subject, messageText);
+//				
 //			}
 //
 //		}

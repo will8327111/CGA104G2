@@ -97,7 +97,7 @@ public class MemberBillService {
 //        r= (int)(Math.random()*10);
         AllInOne allInOne = new AllInOne("");
         AioCheckOutALL aioCheckOutALL = new AioCheckOutALL();
-        aioCheckOutALL.setMerchantTradeNo(memId+"elife"+"nedyhmsdrbxxa");
+        aioCheckOutALL.setMerchantTradeNo(memId+"elife"+"nedyhmsdrbxart");
         aioCheckOutALL.setMerchantTradeDate(payDate);
         aioCheckOutALL.setTotalAmount(sum.toString());
         aioCheckOutALL.setTradeDesc("test");
@@ -129,4 +129,10 @@ public class MemberBillService {
 		dao.sendMail(to,subject,messageText);
 		
 	}
+	
+	public MemberBillVO getOneCost(Integer memberId){//11.16
+		return dao.getAllCost(memberId).get(0);
+		
+	}
+	
 }

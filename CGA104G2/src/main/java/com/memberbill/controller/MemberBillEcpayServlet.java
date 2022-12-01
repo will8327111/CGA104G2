@@ -88,31 +88,39 @@ public class MemberBillEcpayServlet extends HttpServlet {
 	
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-
+			
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			byte[] memberPhoto = req.getPart("file").getInputStream().readAllBytes();
 			Integer memberPayMethod=0;
 			Integer memId = (Integer) session.getAttribute("memberId");
+			List<MemberBillVO> list = memSvc.getBillDate(memId);
+			req.setAttribute("list1", list);
 			Integer memberBillId=Integer.valueOf(req.getParameter("billDate"));
 			String bankId=req.getParameter("bankId"); // 請求銀行資訊
+			
 			String bankNumber = req.getParameter("bankNumber").trim();// 請求後五碼
-			String bankNumber1 = "^[0-9]{1,5}$";
 			if (bankNumber == null || bankNumber.trim().length() == 0) {
 				errorMsgs.add("後五碼請勿空白");
-			} else if (!bankNumber.trim().matches(bankNumber1)) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberbill/transfer.jsp");
+				failureView.forward(req, res);
+				return;
+			} else if (bankNumber.trim().length() != 5) {
+				
 				errorMsgs.add("後五碼長度須為五個數字");
-			}
-			Integer bankNumber2 = Integer.valueOf(bankNumber);// 字串轉回int
-
-			TransferVO transferVO = new TransferVO();
-			transferVO.setBankId(bankId);
-			transferVO.setBankNumber(bankNumber2);
-
-			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberbill/transfer.jsp");
 				failureView.forward(req, res);
 				return;
 			}
+			
+				
+			
+			
+			Integer bankNumber2 = Integer.valueOf(bankNumber);// 字串轉回int
+			TransferVO transferVO = new TransferVO();
+			transferVO.setBankId(bankId);
+			transferVO.setBankNumber(bankNumber2);
+
+			
 
 			/*************************** 2.開始新增資料 *****************************************/
 
@@ -120,16 +128,16 @@ public class MemberBillEcpayServlet extends HttpServlet {
 			transferVO = transferService.insert(memberBillId, bankId, bankNumber2, memId, memberPhoto, memberPayMethod);
 
 			/*************************** 3.開始新增照片 *****************************************/
-
-//			MemberBillService memberBillService = new MemberBillService();
+//
+			MemberBillService memberBillService = new MemberBillService();
 //			List<MemberBillVO> list = memberBillService.getUnpaid(memId);
 //			Part file = req.getPart("file"); // 檔案用part裝
 //			byte[] memberPhoto = file.getInputStream().readAllBytes(); // 把所有轉byte[]的檔案讀進來(取到)
-//			MemberBillVO vo = new MemberBillVO(); // 從VO取
-//			vo.setMemberPhoto(memberPhoto);
-//			vo.setMemberBillId(memId); // 有帳單ID才能改變照片值
-//			memberBillService.uploadPhoto(vo);
-//			MemberBillVO vo1 = memberBillService.updateMemberPay(memberBillId);// 繳費狀態為待審核// 把方法傳進來
+			MemberBillVO vo = new MemberBillVO(); // 從VO取
+			vo.setMemberPhoto(memberPhoto);
+			vo.setMemberBillId(memId); // 有帳單ID才能改變照片值
+			memberBillService.uploadPhoto(vo);
+			MemberBillVO vo1 = memberBillService.updateMemberPay(memberBillId);// 繳費狀態為待審核// 把方法傳進來
 
 			/*************************** 4.新增完成,準備轉交(Send the Success view) *************/
 

@@ -30,6 +30,7 @@
 <!--=============================================================================================-->
 <!--    需要用自己的css請放在這邊註解下方覆蓋 start -->
 <meta charset="UTF-8">
+<link href='https://css.gg/eye-alt.css' rel='stylesheet'>
 <!-- CSS only -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -42,6 +43,100 @@
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
 <style>
+ .btn.btn-danger:focus , .btn.btn-danger:hover{
+background-color: #cfe2ff;
+border:#cfe2ff;
+}
+.btn.btn-warning{
+background-color: #3d8bfd;
+border:#3d8bfd;
+
+}
+.btn.btn-danger{
+
+background-color: #cfe2ff;
+border:#cfe2ff;
+}
+
+.btn.btn-warning:hover {
+    background-color: #052c65;
+    border:#052c65;
+    transition: 0.6s;
+}
+
+.btn.btn-danger:hover {
+     background-color: #9ec5fe;
+    border:#052c65;
+    transition: 0.6s;
+}
+
+
+.photo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 6rem;
+            border-radius: 5px;
+            box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+            z-index: 310;
+            
+        }
+
+        .overlay {
+/*             position: absolute; */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+            z-index: 305;
+        }
+        .hidden{
+        display:none;
+        }
+        .gg-eye-alt {
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 24px;
+    height: 18px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    overflow: hidden;
+    box-sizing: border-box
+}
+.gg-eye-alt::after,
+.gg-eye-alt::before {
+    content: "";
+    display: block;
+    border-radius: 100px;
+    position: absolute;
+    box-sizing: border-box
+}
+.gg-eye-alt::after {
+    top: 2px;
+    box-shadow:
+        inset 0 -8px 0 2px,
+        inset 0 0 0 2px;
+    width: 24px;
+    height: 24px
+}
+.gg-eye-alt::before {
+    width: 8px;
+    height: 8px;
+    border: 2px solid transparent;
+    box-shadow:
+        inset 0 0 0 6px,
+        0 0 0 4px,
+        6px 0 0 0,
+        -6px 0 0 0 ;
+    bottom: 4px;
+    left: 8px
+}
 </style>
 <head>
 <meta>
@@ -53,6 +148,13 @@
 </head>
 
 <body>
+<div class="photo hidden">
+	<img id="showPhoto">
+</div>
+
+<div class="overlay hidden">
+
+</div>
 	<!-- !!固定!! 旁邊導覽列sidebar menu start (不是js動態產生的,放body)-->
 	
 	<!-- !!固定!! 旁邊導覽列sidebar menu end -->
@@ -399,8 +501,7 @@
 										<th>繳費狀態</th>
 									</tr>
 								</thead>
-							</table>
-							<table class="table table-bordered">
+							
 								<c:forEach var="TransferVO" items="${list}" varStatus="s">
 									<tr>
 										<td>${TransferVO.memberBillId}</td>
@@ -409,29 +510,31 @@
 										<td>${TransferVO.bankId}</td>
 										<td>${TransferVO.bankNumber}</td>
 										<td>${TransferVO.bankDate}</td>
-										<td><img
+										<td><i class="gg-eye-alt"><img
 											src="${pageContext.request.contextPath}/member/bill.do?action=memberphoto&memberBillId=${TransferVO.memberBillId}"
-											width="160px" hight="200px"></td>
+											width="160px" hight="200px" id="img" class="openPhoto"></i></td>
 										<td>${TransferVO.billDate}</td>
 										<td>${TransferVO.memberPay}</td>
-						
-									</tr>
-
-									<td>
+<!-- 										 selected -->
+										<td>
 										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/bill.do" style="margin-bottom: 0px;">
-											<button type="button" onclick="toggleSelect(${s.count})" class="btn btn-danger">編輯</button>
-											<input type="submit" value="修改" class="btn btn-warning">
-											<input type="hidden" name="memberBillId" value="${TransferVO.memberBillId}">
-											<input type="hidden" name="action" value="getOne_For_Update">
-
 											<span>繳費狀態:</span>
 											<select name="memberPay" disabled id="open${s.count}">
-												<option value="1" selected>已繳費</option>
-												<option value="0">未繳費</option>
-												<option value="2">待審核</option>
+												<option>修改繳費狀態</option>
+<!-- 												<option value="0">未繳費</option> -->
+												<option value="1">已繳費</option>
 											</select>
+											<br>
+											<div style="display: flex;justify-content: space-around;margin-top:10px;">
+											<button style="color:#052c65;" type="button" onclick="toggleSelect(${s.count})" class="btn btn-danger">編輯</button>
+											<input type="submit" value="修改" class="btn btn-warning" style="color:#cff4fc">
+											<input type="hidden" name="memberBillId" value="${TransferVO.memberBillId}">
+											<input type="hidden" name="action" value="getOne_For_Update">
+											</div>
+											
 										</FORM>
-									</td>
+									</td style="border-bottom: 1px solid black">
+									</tr>
 								</c:forEach>
 							</table>
 							</div>
@@ -464,8 +567,8 @@
 		src=${pageContext.request.contextPath}/resources/back-end/assets/js/app.js></script>
 	<!-- 樣板用js end -->
 	<!-- !!固定!! 後台樣板 css -->
-	<link rel="stylesheet"
-	href=${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css>
+	<link rel="stylesheet" href=${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="crossorigin="anonymous"></script>
 	
 	<script>
 		function toggleSelect(count) {
@@ -473,5 +576,47 @@
 			select.disabled = !select.disabled;
 		}
 	</script>
+	<script type="text/javascript">
+	window.onload=function(){
+	var op = document.getElementById("open${s.count}");
+	var opts = op.getElementByTagName("option");
+	var om = document.getElementById("toggleSelect(${s.count})")
+	
+	om.onclick = function(){
+		opts[1].selected = true;
+		}	
+	}
+	 </script>
+	 
+	
+	<script>
+	const overlay = document.querySelector('.overlay');
+	const photo = document.querySelector('.photo');
+	const openPhoto = document.querySelectorAll('.openPhoto');
+	const showPhoto = document.querySelector('#showPhoto');
+	
+	
+	openPhoto.forEach(e=>{
+		e.addEventListener('click', openPhotoDiv);
+	})
+	
+	overlay.addEventListener('click', closePhoto);
+	
+	//顯示照片
+    function openPhotoDiv(e) {
+        photo.classList.remove('hidden');
+        overlay.classList.remove('hidden');
+        showPhoto.src=e.target.src;
+       
+    };
+
+    //關閉照片
+    function closePhoto() {
+        overlay.classList.add('hidden');
+        photo.classList.add('hidden')
+    }
+	
+	</script>
+
 </body>
 </html>
