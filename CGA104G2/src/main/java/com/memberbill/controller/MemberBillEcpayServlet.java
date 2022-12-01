@@ -105,6 +105,7 @@ public class MemberBillEcpayServlet extends HttpServlet {
 			List<MemberBillVO> list = memSvc.getBillDate(memId);
 			req.setAttribute("list1", list);
 			Integer memberBillId=Integer.valueOf(req.getParameter("billDate"));
+			
 			String bankId=req.getParameter("bankId"); // 請求銀行資訊
 			
 			String bankNumber = req.getParameter("bankNumber").trim();// 請求後五碼

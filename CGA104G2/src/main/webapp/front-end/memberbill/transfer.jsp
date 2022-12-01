@@ -63,53 +63,55 @@
 									crossorigin="anonymous"></script>
 								<style>
 								
-							.btn-primary_1{
-    color: #1b3a4b;
-    background-color: #d8e2dc;
-    border-color: #d8e2dc;
-}	
+									.btn-primary_1{
+   									 color: #1b3a4b;
+    								 background-color: #d8e2dc;
+    								 border-color: #d8e2dc;
+									 }	
 								
-								.btn-primary_1:hover {
-    color: #1b3a4b;
-    background-color:#bee3db;
-    border-color: #d8e2dc;
-}
+									.btn-primary_1:hover {
+                 					 color: #1b3a4b;
+    								 background-color:#bee3db;
+    								 border-color: #d8e2dc;
+									 }
 
 								
-element.style {
-    position: absolute;
-    opacity: 0;
-    width: 425px;
-    height: 150px;
-    border: 1px solid white;
-    top: -2%;
-    left: -2%;
-}
+									 element.style {
+    								 position: absolute;
+    								 opacity: 0;
+                                     width: 425px;
+                                     height: 150px;
+                                     border: 1px solid white;
+                                     top: -2%;
+                                     left: -2%;
+                                     }
+                                     
 									.mt-3, .my-3 {
-    margin-top: 1rem!important;
-}
+    								 margin-top: 1rem!important;
+									}
 
-.d-flex {
-    display: flex!important;
-}
-.alert-primary {
-    color: #003b76;
-    background-color: #cce3f9;
-    border-color: #b8d7f7;
-}
-.alert {
-    position: relative;
-    padding: .9rem 1.25rem;
-    /* margin-bottom: 1rem; */
-    border: 1px solid transparent;
-    border-radius: .35rem;
-    width: 40%;
-    margin: 20px auto;
-    
-}
-*, :after, :before {
-    box-sizing: width : 50px;
-}
+									.d-flex {
+                                     display: flex!important;
+                                     }
+                
+                                    .alert-primary {
+                                     color: #003b76;
+                                     background-color: #cce3f9;
+                                     border-color: #b8d7f7;
+                                     }
+
+									.alert {
+                                     position: relative;
+                                     padding: .9rem 1.25rem;
+                                     /* margin-bottom: 1rem; */
+                                     border: 1px solid transparent;
+                                     border-radius: .35rem;
+                                     width: 40%;
+                                     margin: 20px auto;
+                                     }
+                                     *, :after, :before {
+                                     box-sizing: width : 50px;
+                                     }
 									select,input{
 									border: 1px solid #ced4da;
 									}
