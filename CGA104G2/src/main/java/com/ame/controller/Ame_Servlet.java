@@ -16,6 +16,8 @@ import javax.servlet.http.Part;
 
 import com.ame.model.AmeService;
 import com.ame.model.AmeVO;
+import com.ame_state.model.Ame_StateService;
+import com.record.model.RecordVO;
 
 @WebServlet("/back-end/ame/ame.do")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 10 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -181,6 +183,7 @@ public class Ame_Servlet extends HttpServlet {
 			}
 
 			req.setAttribute("ameVO", ameVO);
+			req.setAttribute("op", op);
 			req.setAttribute("list", list);
 			String url = "/back-end/ame/updateAme.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -238,8 +241,26 @@ public class Ame_Servlet extends HttpServlet {
 			sb.append(dt.substring(0, opentime));
 			sb.append(sb2);
 			sb.append(dt.substring(closetime, 24));
-			String ameopening = sb.toString();
-
+			
+		String ameopening = sb.toString();
+		String[] oldameopening = req.getParameter("op").split("");
+		String[] newameopening =  ameopening.split("");
+//		System.out.println(oldameopening);
+//		System.out.println(ameopening);
+		
+		List<RecordVO> recordlist = new LinkedList<RecordVO>();
+		for (int i = 0 ; i < oldameopening.length; i ++) {
+			if ( !(newameopening[i].equals(oldameopening[i])) && newameopening[i].equals("1")) {
+				RecordVO recordVO = new RecordVO();		
+				recordVO.setAmeId(ameid);
+				recordVO.setRecordDate(null);
+			}
+		}
+		
+		
+		
+		
+		
 //		  Part part = req.getPart("ameimg");
 //		    InputStream in = part.getInputStream();
 //		    ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -268,14 +289,28 @@ public class Ame_Servlet extends HttpServlet {
 
 			if (!errorMsgs.isEmpty()) {
 				System.out.println(errorMsgs);
+				
+				String op = ameVO.getAmeOpening();
+				List<Character> list = new ArrayList<Character>();
+
+				for (int i = 0; i <= op.length() - 1; i++) {
+					list.add(op.charAt(i));
+				}
+				req.setAttribute("list", list);
+				req.setAttribute("ameVO", ameVO);
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/ame/updateAme.jsp");
 				failureView.forward(req, res);
 				return;
 			}
-
+			
+			
+			
 			AmeService ameSvc = new AmeService();
 			ameVO = ameSvc.updateAme(ameid, amename, ameintroduce, amepoint, amemax, ameopening, ameimg);
-
+			
+			Ame_StateService amestaSvc = new Ame_StateService();
+			amestaSvc.updateOne(ameopening, ameid);
+			
 			String url = "/back-end/ame/controlAme.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
