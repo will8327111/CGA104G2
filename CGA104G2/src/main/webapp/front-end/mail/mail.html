@@ -40,7 +40,6 @@
 <!--modaal-->
 <link rel="stylesheet" type="text/css"
 	href="../../resources/front-end/assets/css/modaal.min.css">
-
 <!--=============js=============-->
 <!--延遲載入-->
 <script src="../../resources/front-end/assets/js/lazyload.min.js"></script>
@@ -90,9 +89,6 @@ body {
 body {
 	background-color: white;
 }
-/* 		#out-div{ */
-/*  			background-color:blue; */
-/* 		} */
 </style>
 </head>
 
@@ -126,16 +122,13 @@ body {
 				<a href="#" class="me-3 dropdown-toggle hidden-arrow"
 					id="navebarDropdownMenuLink" role="button"
 					data-mdb-toggle="dropdown" aria-expanded="false"> <!--小鈴鐺按鈕-->
-					<button class="fadeUpTrigger cap" id="out">
 						<i style="font-size: 1.3rem;" class="fa-solid fa-bell"></i> <label
 							style="font-size: 1.3rem;"></label>
 						<!--計數-->
-						<span class="badge rounded-pill badge-notification bg-danger">1</span>
+						<span class="badge rounded-pill badge-notification bg-danger" id='countMessage'>0</span>
 						<!--鈴鐺裡的訊息-->
-						<ul id='reminder' class="dropdown-menu"
-							aria-labelledby="navbarDropdownMenuLink">
+						<ul id='reminder' class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 						</ul>
-					</button>
 				</a>
 			</div>
 		</ul>
@@ -300,85 +293,86 @@ body {
 <script src="../../resources/front-end/assets/js/script.js"></script>
 
 <script>
-    var MyPoint = "/TogetherWS/will";
-    var host = window.location.host;
-    var path = window.location.pathname;
-    var webCtx = path.substring(0, path.indexOf('/', 1));
-    var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
-    var webSocket;
+var MyPoint = "/TogetherWS/will";
+var host = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf('/', 1));
+var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+var webSocket;
 
 
 
-    function connect() {
-    	// create a websocket
-    	webSocket = new WebSocket(endPointURL);
-    	let allReminder = JSON.parse(sessionStorage.getItem("Reminder"));
-    	let memberId = JSON.parse(sessionStorage.getItem("memberId"));
-    	let count = 0;
-    	
-    	
-    	webSocket.onopen = async function(event) {
-    		
-    		console.log("已連線");
-    		await fetch("../../reminder/ReminderServlet?action=getAll", {
-    			method: 'get'
-    		})
-    		.then(res => res.json())	
-    		.then(res =>{
-    			showReminder(res);
-    		})
-    		
-    		function showReminder(fromSQL){
-    			if(fromSQL !== undefined){
-    				 for (let i = 0; i < fromSQL.length; i++) {
-    					 let str = "<a class='d-flex align-items-center' href='#'>"
-    				            +"<div class='notification-text ms-4'>"
-    				            +"<p id='p1Reminder' class='notification-title font-bold' name='mailReminder'>" + fromSQL[i].reminderInfo + "</p>"	
-    				            +"</div></a></li>";
-    					 $("#reminder").append(str);
-    					 $("#countMessage").text(++count);
-    					 sessionStorage.setItem("Reminder", JSON.stringify(fromSQL[i].reminderInfo));
-    				 }
-    			}
-    		}
-    		document.getElementById("p1Reminder").onclick = async function(){
-    			$(this).remove();
-    			console.log("刪除1");
-    			$("#countMessage").text(--count);
-    			await fetch("../../reminder/ReminderServlet?action=update", {method: 'get'})
-    		};
-    		
-    		
-    	};
+function connect() {
+	// create a websocket
+	webSocket = new WebSocket(endPointURL);
+	let allReminder = JSON.parse(sessionStorage.getItem("Reminder"));
+	let memberId = JSON.parse(sessionStorage.getItem("memberId"));
+	let count = 0;
+	
+	
+	webSocket.onopen = async function(event) {
+		
+		console.log("已連線");
+		await fetch("../../reminder/ReminderServlet?action=getAll", {
+			method: 'get'
+		})
+		.then(res => res.json())	
+		.then(res =>{
+			showReminder(res);
+		})
+		
+		function showReminder(fromSQL){
+			if(fromSQL !== undefined){
+				 for (let i = 0; i < fromSQL.length; i++) {
+					 let str = "<a class='d-flex align-items-center' href='#'>"
+				            +"<div class='notification-text ms-4'>"
+				            +"<p id='p1Reminder' class='notification-title font-bold' name='mailReminder'style='margin-top:15px;'>" + fromSQL[i].reminderInfo + "</p>"	
+				            +"</div></a></li>";
+					 $("#reminder").append(str);
+					 $("#countMessage").text(++count);
+					 sessionStorage.setItem("Reminder", JSON.stringify(fromSQL[i].reminderInfo));
+				 }
+			}
+		}
+		document.getElementById("p1Reminder").onclick = async function(){
+			$(this).remove();
+			console.log("刪除1");
+			$("#countMessage").text(--count);
+			await fetch("../../reminder/ReminderServlet?action=update", {method: 'get'})
+		};
+		
+		
+	};
 
-    	webSocket.onmessage = function(event) {
-    		let allReminder = JSON.parse(sessionStorage.getItem("Reminder"));
-    		console.log("訊息");
-    		var reminder = document.getElementById("reminder");
-    		
-    		if(document.getElementById("p1Reminder") === null){
-    			var jsonObj = JSON.parse(event.data);
-    			var message = jsonObj.message;
-    			let Reminder = {};
-    			Reminder.mailMessage = JSON.stringify(message);
-    			let mailMessage = Reminder.mailMessage.replaceAll('"'," ");
-    			sessionStorage.setItem("Reminder", JSON.stringify(Reminder));
-    			let str ="<a class='d-flex align-items-center' href='#'>"
-    	            +"<div id='mailRem' class='notification-text ms-4' >"
-    	            +"<p id='p2Reminder' class='notification-title font-bold' name='mailReminder'>" + mailMessage +"</p>"	
-    	            +"</div></a></li>";
-    			$("#reminder").append(str);
-    			$("#countMessage").text(++count);
-    		}
-    		document.getElementById("p2Reminder").onclick = async function(){
-    			$(this).remove();
-    			console.log("刪除2");
-    			$("#countMessage").text(--count);
-    			await fetch("../../reminder/ReminderServlet?action=update", {method: 'get'})
-    		};
-    	}
-    	
-    }
+	webSocket.onmessage = function(event) {
+		let allReminder = JSON.parse(sessionStorage.getItem("Reminder"));
+		console.log("訊息");
+		var reminder = document.getElementById("reminder");
+		
+		console.log(document.getElementById("p1Reminder"));
+		if(document.getElementById("p1Reminder") === null && document.getElementById("p2Reminder") === null){
+			var jsonObj = JSON.parse(event.data);
+			var message = jsonObj.message;
+			let Reminder = {};
+			Reminder.mailMessage = JSON.stringify(message);
+			let mailMessage = Reminder.mailMessage.replaceAll('"'," ");
+			sessionStorage.setItem("Reminder", JSON.stringify(Reminder));
+			let str ="<a class='d-flex align-items-center' href='#'>"
+	            +"<div id='mailRem' class='notification-text ms-4' >"
+	            +"<p id='p2Reminder' class='notification-title font-bold' name='mailReminder' style='margin-top:15px;'>" + mailMessage +"</p>"	
+	            +"</div></a></li>";
+			$("#reminder").append(str);
+			$("#countMessage").text(++count);
+		}
+		document.getElementById("p2Reminder").onclick = async function(){
+			$(this).remove();
+			console.log("刪除2");
+			$("#countMessage").text(--count);
+			await fetch("../../reminder/ReminderServlet?action=update", {method: 'get'})
+		};
+	}
+	
+}
 //     =====================================顯示AllMail=============================================
 		window.addEventListener("load", async function (){
 	            

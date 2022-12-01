@@ -116,14 +116,6 @@ public class StoreServlet extends HttpServlet {
 			String StorePhoto = (String)obj.get("storePhoto");
 			String storeInfo = (String)obj.get("storeInfo");
 			
-			System.out.println(storeLon2);			
-			System.out.println(storeTypeId);			
-			System.out.println(storeId);			
-			System.out.println(storeName);			
-			System.out.println(storeLoc);			
-			System.out.println(StorePhoto);			
-			System.out.println(storeInfo);			
-			
 			StoreVO storeVO = new StoreVO();
 			storeVO.setStoreId(storeId);
 			storeVO.setStoreName(storeName);

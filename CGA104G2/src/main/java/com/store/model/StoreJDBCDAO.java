@@ -181,7 +181,6 @@ public class StoreJDBCDAO implements StoreDAO_interface {
 			pstmt.setInt(7, storeVO.getStoreId());
 			pstmt.executeUpdate();
 
-			
 			pstmt = con.prepareStatement(UPDATE_PHOTO);
 			pstmt.setString(1, storeVO.getBase64img());
 			pstmt.setInt(2, storeVO.getStoreId());		
