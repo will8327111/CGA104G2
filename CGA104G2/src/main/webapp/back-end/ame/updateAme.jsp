@@ -209,7 +209,7 @@ int last = op.lastIndexOf("0");
 		<input type="hidden" name="op" value="${op}"> 
 		<input type="hidden" name="ameid" value="<%=ameVO.getAmeId()%>"> 
 		<input type="hidden" name="action" value="updateAme"> 
-		<input type="submit" value="確認修改">
+		<input id='updateButton'type="submit" value="確認修改">
 </form>
 
                                 </div>
@@ -238,6 +238,7 @@ int last = op.lastIndexOf("0");
 
 
 <!-- 樣板用js start -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="../../resources/back-end/assets/js/bootstrap.js"></script>
 <script src="../../resources/back-end/assets/js/app.js"></script>
 <!-- 樣板用js end -->
