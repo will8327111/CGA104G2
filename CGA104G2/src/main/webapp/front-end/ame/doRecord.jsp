@@ -193,7 +193,7 @@
 					str += `<li \${myclass} > \${i}</li>`; //创建日期节点
 				} else if (i == my_day && my_year == my_date.getFullYear() && my_month == my_date.getMonth()) {
 					myclass = " class='green greenbox'"; //当天日期以绿色背景突出显示
-					str += `<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/ame/ame_sta.do" style="margin-bottom: 0px;"> 
+					str += `<form METHOD="post" style="margin-bottom: 0px;"> 
 						<li \${myclass} > \${i}  
 						<input type="hidden" name="action" value="doRecord2"> 
 						<input type="hidden" name="ameid" value="${ameid}">  
