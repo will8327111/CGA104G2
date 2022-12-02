@@ -170,7 +170,7 @@ th {
 												value="${privateReportVO1.memberId}"> <input
 												type="hidden" name="privateReportStatus" value="1">
 											<input type="hidden" name="action" value="update"> <input
-												type="submit" value="確定"> <input type="reset"
+												type="submit" value="確定" id='confrim'> <input type="reset"
 												value="清除"> <input type="button" value="回上一頁"
 												onClick="history.back()">
 									</form>
@@ -207,6 +207,26 @@ th {
 	<script src="../../resources/back-end/assets/js/bootstrap.js"></script>
 	<script src="../../resources/back-end/assets/js/app.js"></script>
 	<!-- 樣板用js end -->
+	<script src="../../resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
+	<script>
+	
+	$('#confrim').click(function() {
+		var MyPoint = "/TogetherWS/james";
+		var host = window.location.host;
+		var path = window.location.pathname;
+		var webCtx = path.substring(0, path.indexOf('/', 1));
+		var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+		var webSocket;
+		webSocket = new WebSocket(endPointURL);
+		
+		webSocket.onopen = function(event) {
+			var json = {
+						message: "您的檢舉已被回覆"
+					};
+					webSocket.send(JSON.stringify(json));
+		};
+	});
+	</script>
 </body>
 
 </html>

@@ -30,7 +30,7 @@ import com.store.model.StoreService;
 import com.store.model.StoreVO;
 
 @WebServlet("/back-end/store/store.do")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024,maxFileSize = 10 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
+@MultipartConfig(fileSizeThreshold = 100 * 1024 * 1024,maxFileSize = 100 * 1024 * 1024, maxRequestSize = 100 * 1024 * 1024)
 public class StoreServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

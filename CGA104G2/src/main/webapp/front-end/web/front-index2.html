@@ -397,7 +397,7 @@ function connect() {
 				 for (let i = 0; i < fromSQL.length; i++) {
 					 let str = "<a class='d-flex align-items-center' href='#'>"
 				            +"<div class='notification-text ms-4'>"
-				            +"<p id='p1Reminder' class='notification-title font-bold' name='mailReminder'style='margin-top:15px;'>" + fromSQL[i].reminderInfo + "</p>"	
+				            +"<p id='pReminder' class='notification-title font-bold' name='mailReminder'style='margin-top:15px;'>" + fromSQL[i].reminderInfo + "</p>"	
 				            +"</div></a></li>";
 					 $("#reminder").append(str);
 					 $("#countMessage").text(++count);
@@ -405,7 +405,7 @@ function connect() {
 				 }
 			}
 		}
-		document.getElementById("p1Reminder").onclick = async function(){
+		document.getElementById("pReminder").onclick = async function(){
 			$(this).remove();
 			console.log("刪除1");
 			$("#countMessage").text(--count);
@@ -420,29 +420,85 @@ function connect() {
 		console.log("訊息");
 		var reminder = document.getElementById("reminder");
 		
-		console.log(document.getElementById("p1Reminder"));
-		if(document.getElementById("p1Reminder") === null && document.getElementById("p2Reminder") === null){
+		console.log(document.getElementById("pReminder"));
+		if(document.getElementById("pReminder") === null){
 			var jsonObj = JSON.parse(event.data);
 			var message = jsonObj.message;
 			let Reminder = {};
 			Reminder.mailMessage = JSON.stringify(message);
 			let mailMessage = Reminder.mailMessage.replaceAll('"'," ");
-			sessionStorage.setItem("Reminder", JSON.stringify(Reminder));
-			let str ="<a class='d-flex align-items-center' href='#'>"
-	            +"<div id='mailRem' class='notification-text ms-4' >"
-	            +"<p id='p2Reminder' class='notification-title font-bold' name='mailReminder' style='margin-top:15px;'>" + mailMessage +"</p>"	
-	            +"</div></a></li>";
-			$("#reminder").append(str);
-			$("#countMessage").text(++count);
+			console.log(mailMessage);
+			
+			if(mailMessage === "您的檢舉已被回覆"	){
+				sessionStorage.setItem("Reminder", JSON.stringify(Reminder));
+				let str ="<a class='d-flex align-items-center' href='#'>"
+		            +"<div id='mailRem' class='notification-text ms-4' >"
+		            +"<p id='p1ReportReminder' class='notification-title font-bold' name='mailReminder' style='margin-top:15px;'>" + mailMessage +"</p>"	
+		            +"</div></a></li>";
+				$("#reminder").append(str);
+				$("#countMessage").text(++count);
+			}else{
+				sessionStorage.setItem("Reminder", JSON.stringify(Reminder));
+				let str ="<a class='d-flex align-items-center' href='#'>"
+		            +"<div id='mailRem' class='notification-text ms-4' >"
+		            +"<p id='pReminder' class='notification-title font-bold' name='mailReminder' style='margin-top:15px;'>" + mailMessage +"</p>"	
+		            +"</div></a></li>";
+				$("#reminder").append(str);
+				$("#countMessage").text(++count);
+			}
+		}else if(document.getElementById("p1ReportReminder") === null){
+			var jsonObj = JSON.parse(event.data);
+			var message = jsonObj.message;
+			let Reminder = {};
+			Reminder.mailMessage = JSON.stringify(message);
+			let mailMessage = Reminder.mailMessage.replaceAll('"'," ");
+			console.log("123123");
+			console.log(mailMessage);
+			
+			if(mailMessage === "您的檢舉已被回覆"){
+				sessionStorage.setItem("Reminder", JSON.stringify(Reminder));
+				let str ="<a class='d-flex align-items-center' href='#'>"
+		            +"<div id='mailRem' class='notification-text ms-4' >"
+		            +"<p id='p1ReportReminder' class='notification-title font-bold' name='mailReminder' style='margin-top:15px;'>" + mailMessage +"</p>"	
+		            +"</div></a></li>";
+				$("#reminder").append(str);
+				$("#countMessage").text(++count);
+			}else{
+				sessionStorage.setItem("Reminder", JSON.stringify(Reminder));
+				let str ="<a class='d-flex align-items-center' href='#'>"
+		            +"<div id='mailRem' class='notification-text ms-4' >"
+		            +"<p id='pReminder' class='notification-title font-bold' name='mailReminder' style='margin-top:15px;'>" + mailMessage +"</p>"	
+		            +"</div></a></li>";
+				$("#reminder").append(str);
+				$("#countMessage").text(++count);
+			}
+			
 		}
-		document.getElementById("p2Reminder").onclick = async function(){
+		document.getElementById("pReminder").onclick = async function(){
 			$(this).remove();
 			console.log("刪除2");
 			$("#countMessage").text(--count);
 			await fetch("../../reminder/ReminderServlet?action=update", {method: 'get'})
 		};
+		document.getElementById("p1ReportReminder").onclick = async function(){
+			$(this).remove();
+			console.log("刪除3");
+			$("#countMessage").text(--count);
+// 			await fetch("../../reminder/ReminderServlet?action=update", {method: 'get'})
+		};
 	}
-	
+	document.getElementById("pReminder").onclick = async function(){
+		$(this).remove();
+		console.log("刪除2");
+		$("#countMessage").text(--count);
+		await fetch("../../reminder/ReminderServlet?action=update", {method: 'get'})
+	};
+	document.getElementById("p1ReportReminder").onclick = async function(){
+		$(this).remove();
+		console.log("刪除3");
+		$("#countMessage").text(--count);
+//			await fetch("../../reminder/ReminderServlet?action=update", {method: 'get'})
+	};
 }
 
 
