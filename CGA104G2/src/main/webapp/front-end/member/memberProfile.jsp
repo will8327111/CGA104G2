@@ -203,7 +203,7 @@
             <div id="g-nav">
                 <div id="g-nav-list">
                     <ul>
-                        <li><a href=""></a> <img src="${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
+                        <li><a href="${pageContext.request.contextPath}/front-end/web/front-index2.html"><img src="${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></a> </li>
                         <li><a href="${pageContext.request.contextPath}/front-end/member/memberProfile.jsp">住戶資訊</a></li>
                         <li><a href="${pageContext.request.contextPath}/front-end/bulletinboard/bbNews2.jsp">公佈欄</a></li>
                         <li><a href="#">社區帳單</a></li>

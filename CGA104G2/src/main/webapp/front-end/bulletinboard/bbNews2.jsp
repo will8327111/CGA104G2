@@ -164,14 +164,14 @@
             <div id="g-nav">
                 <div id="g-nav-list">
                     <ul>
-                        <li><a href="../../front-end/web/front-index2.html"></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
+                        <li><a href="../../front-end/web/front-index2.html"><img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></a> </li>
                         <li><a href="../../front-end/member/memberProfile.jsp">住戶資訊</a></li>
                         <li><a href="../../front-end/bulletinboard/bbNews2.jsp">公佈欄</a></li>
-                        <li><a href="#">社區帳單</a></li>
+                        <li><a href="../../front-end/memberbill/pay.jsp">社區帳單</a></li>
                         <li><a href="../../front-end/mail/mail.html">郵件</a></li>
-                        <li><a href="#">公共設施</a></li>
+                        <li><a href="../../front-end/ame/showAme.jsp">公共設施</a></li>
                         <li><a href="../../front-end/activity/homepage3.html">活動</a></li>
-                        <li><a href="#">檢舉與維修</a></li>
+                        <li><a href="../../front-end/privateReport/privateReportIndex.jsp">檢舉與維修</a></li>
                         <li><a href="../../front-end/store/store.html">特約商店</a></li>
                     </ul>
                 </div>
