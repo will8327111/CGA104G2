@@ -62,7 +62,9 @@
 									integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
 									crossorigin="anonymous"></script>
 								<style>
-								
+									label {
+   									 color: inline-block;
+									}
 									.btn-primary_1{
    									 color: #1b3a4b;
     								 background-color: #d8e2dc;
@@ -394,10 +396,10 @@
 																<!--  -->
 																<span style="margin-right: 20px">帳單月份:</span>
 																<select name="billDate" style="box-shadow:2px 2px 5px #d8e2dc;font-weight:100;background: #ffffff;color:#6c757d;text-align:center;border:#d8e2dc .2px solid;border-radius: 5px;width:200px;height:30px">						
-																	<option disabled selected value="memberBillId" style="background: #d8e2dc;">
-																		請選擇帳單月份</option>
+<!-- 																	<option  value=2022-12 style="background: #d8e2dc;" > -->
+<!-- 																		2022-12</option> -->
 																	<c:forEach var="billDate" items="${list1}">
-																		<option  style="background: #d8e2dc;" id="date"
+																		<option selected style="background: #d8e2dc;" id="date"
 																			value="${billDate.memberBillId}">
 																			${billDate.billDate}</option>
 																	</c:forEach>

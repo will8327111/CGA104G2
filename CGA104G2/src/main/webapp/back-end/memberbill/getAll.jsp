@@ -140,7 +140,7 @@ pageContext.setAttribute("list", list);
 							<form method="post" action="<%=request.getContextPath() %>/member/bill.do" name="form2"
 								enctype="multipart/form-data">
 								<th>所有帳單資料</th>
-								<table id="table-1" class="table table-borderless">
+								<table id="table-1" class="table table-hover">
 									<div style="width: 500px; display: flex; flex-wrap: nowrap;">
 										<div style="width: 200px">
 											<select name="billDate2" class="form-select">
@@ -166,7 +166,7 @@ pageContext.setAttribute("list", list);
 								</table>
 							</form>
 
-							<table class="table table-bordered">
+							<table class="table table-hover">
 								<thead>
 									<tr>
 										<th>住戶帳單編號</th>

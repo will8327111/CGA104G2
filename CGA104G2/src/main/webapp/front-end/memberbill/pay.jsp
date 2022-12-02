@@ -54,6 +54,7 @@
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 	<style>
+		
 		h1{
 			color: #7d7d7d;
 		}
@@ -61,7 +62,7 @@
 			padding: 10px;
 			text-align: center;
 			font-weight: bold;
-			font-family: "Montserrat","Open Sans","Helvetica Neue", Helvetica, Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun, sans-serif;
+/* 			font-family: "Montserrat","Open Sans","Helvetica Neue", Helvetica, Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun, sans-serif; */
 		}
 		.total-price-row {
 			display: flex;
@@ -112,7 +113,7 @@
 				}
 				body {
 					margin: 0;
-					font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,Liberation Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+/* 					font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,Liberation Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji; */
 					font-size: 1rem;
 					font-weight: 400;
 					line-height: 1.5;
@@ -140,7 +141,7 @@
 					margin-bottom: 10px !important;
 				}
 				.btn, input[type="submit"], .btn--tertiary, input.btn--tertiary, .btn--secondary, input.btn--secondary {
-					font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+/* 					font-family: Arial,"Helvetica Neue",Helvetica,sans-serif; */
 					font-weight: bold;
 					font-size: 1.2em;
 					box-shadow: 0px 2px 15px rgb(0 0 0 / 40%);
@@ -190,7 +191,7 @@
 				body, input, textarea, button, select {
 					font-size: 12px;
 					line-height: 1.7;
-					font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+/* 					font-family: Arial,"Helvetica Neue",Helvetica,sans-serif; */
 					color: #333;
 					-webkit-font-smoothing: antialiased;
 					-webkit-text-size-adjust: 100%;
@@ -266,6 +267,12 @@
 						max-width: 500px;
 						margin: 6rem auto;
 					}
+					
+					form{
+/* 					background:url("${pageContext.request.contextPath}/resources/back-end/assets/images/maim/bill_bg.jpg");  */
+		
+					}
+					
 
 	</style>
 	<link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
@@ -275,16 +282,28 @@
 		/*!!固定!! 字形*/
 		@font-face {
 			font-family: 'huninn';
-			src: url('../../resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
+			src: url('<%= request.getContextPath() %>/resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
 		}
 		body {
 			font-family: 'huninn',serif;
+			}
+		
+		#cover-main{
+		background-color:#ccc;
+/* 		 background:url("${pageContext.request.contextPath}/resources/front-end/assets/img/bb_board.jpg") no-repeat left; */
+		height:600px;
+		z-index:-9999;
 		}
+		
+		
+		
+		
 	</style>
 </head>
 
 
 <body>
+
 <header id="header">
 
 	<!--!!固定!! 導覽列 start-->
@@ -314,9 +333,15 @@
 <div id="container">
 	<main id="main-area">
 
+<!-- <div id="cover-main"> -->
+
+<!-- <div id="cover-content"> -->
+
+
+
 
 		<!--主要內容 start(從這邊開始改)-->
-		<div class="cart-container bg-light">
+		<div class="cart-container bg-#ccc" style="z-index:999;" >
 			<!-- <h1 class="store-name">帳單明細</h1> -->
 			<h3 style="width: 40% ;margin: auto;font-size: 1.75rem;text-align:left">本期 2022-12月帳單</h3>
 			<form action="<%=request.getContextPath()%>/member/ecpay" METHOD="post">
@@ -384,6 +409,8 @@
 			</form>
 		</div>
 
+</div>
+</div>
 		<!--main area end-->
 	</main>
 	<!--container-->

@@ -227,12 +227,12 @@ border:#cfe2ff;
 							<th>匯款查詢頁面</th>
 							<form method="post" action="transfer" name="form2"
 								enctype="multipart/form-data">
-							<table id="table-1" class="table table-borderless">
+							<table id="table-1" class="table table-hover">
 								<div style="width: 500px; display: flex; flex-wrap: nowrap;" >
 									<div style="width: 200px; margin-left: 10px;">
 										<select name="memberPay" class="form-select">
 											<option disabled selected>請選擇繳費方式</option>
-											<option value="0">待審核</option>
+											<option value="2">待審核</option>
 											<option value="1">已繳費</option>
 										</select>
 									</div>
@@ -244,7 +244,7 @@ border:#cfe2ff;
 								</div>
 							</table>
 							</form>
-							<table class="table table-bordered">
+							<table class="table table-hover">
 								<thead>
 									<tr>
 										<th>住戶帳單編號</th>
@@ -256,6 +256,7 @@ border:#cfe2ff;
 										<th>繳費證明</th>
 										<th>帳單月份</th>
 										<th>繳費狀態</th>
+										<th></th>
 									</tr>
 								</thead>
 							
