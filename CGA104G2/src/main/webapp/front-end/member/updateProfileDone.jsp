@@ -104,7 +104,8 @@
     <main id="main-area-content">
         <section id="about" class="scroll-point">
             <h3 style="display:flex; justify-content:space-around; ">
-                <span class="bgextend">== 修改資訊成功!!! 請重新登入 ==</span>
+                <span class="bgextend">== 修改資訊成功!!! 5秒後會登出,或請點選重新登入 ==</span>
+                <div id="timeBox"></div>
             </h3>
             <h2>
                 <span class="bgextend">
@@ -238,6 +239,23 @@
 <!--other-->
 <script src="${pageContext.request.contextPath}/resources/front-end/assets/js/modaal.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/front-end/assets/js/script.js"></script>
+
+
+<script>
+    // 設定秒數
+    var count = 5;
+    function countDown(){
+        document.getElementById("timeBox").innerHTML= count;
+        count -= 1;
+        if (count == 0){
+            sessionStorage.clear() //清除所有session值
+            window.location.href="/CGA104G2/front-end/memberLogin/memberLoginFinal.jsp";
+        }
+        // 設定每秒執行1次
+        setTimeout("countDown()",1000);
+    }
+    countDown();
+</script>
 
 </body>
 
