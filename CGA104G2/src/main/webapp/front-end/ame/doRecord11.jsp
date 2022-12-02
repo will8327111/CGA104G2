@@ -1,14 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@page import="java.util.List"%>
+<%@ page import="com.ame.model.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<% Integer ameid = (Integer)request.getAttribute("ameid");  %>
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-<meta charset="utf-8">
-<title>預約頁面1</title>
 
+<!DOCTYPE html>
+<html >
+
+<head>
+    <meta charset="utf-8">
+    <title>社區業務管理系統-陪你e生e世</title>
+    <meta name="robots" content="noindex,nofollow">
+<!-- <!--    禁止本地端快取--> 
+   <Meta http-equiv="Pragma" Content="No-cache">
+<!-- <!--    隱藏圖片下載-->
+    <meta http-equiv="imagetoolbar" content="false">
+    <meta name="keywords" content="">
+<!--     定義為RWD web -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<!--     最佳兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<!--     =============Google Font =============== -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
+<!--     !!固定!! favicon 網址列屬於網站的小圖示 -->
+    <link rel="shortcut icon" href="../../resources/back-end/assets/images/main/favicons/favicon2.ico" type="image/x-icon">
+
+<!--     ==============css=============== -->
+<!--     font awesome kit -->
+    <script src="https://kit.fontawesome.com/7e021e96db.js" crossorigin="anonymous"></script>
+<!--     !!固定!! 前台樣式 -->
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/jquery.bxslider.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
+<!--     modaal -->
+    <link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
+
+<!--     =============js============= -->
+<!--     延遲載入 -->
+    <script src="../../resources/front-end/assets/js/lazyload.min.js"></script>
+
+<!--     ==============這邊放自己的 css=============== -->
 <style>
 .calendar {
 	width: 100%;
@@ -76,25 +108,57 @@
 	background: #e9f8df; /*浅绿色背景*/
 }
 #tbody {
-margin-left : 80px;
+margin-left : 100px;
 }
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!--     ==============css=============== -->
+    <style>
+  /*!!固定!! 字形*/ 
+       @font-face { 
+             font-family: 'huninn'; 
+             src: url('../../resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype"); 
+         } 
+         body { 
+             font-family: 'huninn',serif; 
+         } 
+    </style>
 </head>
 
+
 <body>
-	<table>
-		<tr>
-			<td>
-				<h1>顯示日曆</h1>
-				<h4>
-					<a href="<%=request.getContextPath()%>/front-end/ame/showAme.jsp">回瀏覽頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
-	<div class="calendar">
+        <header id="header">
+
+<!--!!固定!! 導覽列 start -->
+            <nav id="pc-nav">
+<!--!!固定!! logo -->
+                <div>
+                    <h1><a href="../../front-end/web/front-index2.html"><img src="../../resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台" style="width: 50%; display: flex;justify-content: flex-start; flex-direction: inherit;"></a></h1>
+                </div>
+            </nav>
+                <ul>
+                    <div id="login-div" >
+                        <a href="#"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>住戶登入/登出。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 登出</label></button></a>
+                    </div>
+                </ul>
+            <ul>
+                <div id="out-div" >
+                    <a href="#"><button class="cap"  id="out" data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-bell"></i><label style="font-size: 1rem;"> 通知</label></button></a>
+                </div>
+            </ul>
+<!-- 導覽列 end -->
+        </header>
+
+<!--!!固定!! 空白遮罩 -->
+        <div style="width: 100%; height:100px;"></div>
+
+<!--!!固定!! main area -->
+        <div id="container">
+            <main id="main-area">
+
+<!--這邊往下新增 -->
+
+<div class="calendar">
 		<div id="tbody" class="title">
 
 			<a href="" id="prev" style="float: left;"><svg
@@ -108,7 +172,7 @@ margin-left : 80px;
   			<path fill-rule="evenodd"
 						d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
 			</svg></a>
-			<h1 class="green" id="calendar-title">Month</h1>
+			<h2 class="green" id="calendar-title">Month</h2>
 			<h2 class="green small" id="calendar-year">Year</h2>
 		</div>
 
@@ -130,8 +194,57 @@ margin-left : 80px;
 			</div>
 		</div>
 	</div>
+<!--main area end -->
+            </main>
+<!--             container -->
+        </div>
 
-	<script>
+<!--!!固定!! footer -->
+        <footer id="footer">
+<!--右上角menu -->
+            <div class="openbtn"><span></span><span>Menu</span><span></span></div>
+            <div id="g-nav">
+                <div id="g-nav-list">
+                    <ul>
+                        <li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
+                        <li><a href="#">住戶帳號</a></li>
+                        <li><a href="#">社區帳單</a></li>
+                        <li><a href="#">郵件</a></li>
+                        <li><a href="#">公共設施</a></li>
+                        <li><a href="#">活動</a></li>
+                        <li><a href="#">檢舉與維修</a></li>
+                        <li><a href="#">特約商店</a></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="footer-logo">Community Management</p>
+            <small>2022 &copy; 陪你e生e世　社區服務平台</small>
+<!--            返回最上方小圖示 -->
+            <p id="page-top"><a href="#">Top</a></p>
+        </footer>
+<!--         /wrapper -->
+    
+
+<!--     =============JS =============== -->
+<!--     jQuery -->
+    <script src="../../resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
+<!--     news tickerー -->
+    <script src="../../resources/front-end/assets/js/jquery.bxslider.min.js"></script>
+<!--     背景線延伸效果 -->
+    <script src="../../resources/front-end/assets/js/scrollgress.min.js"></script>
+<!--     apang 動畫 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apng-canvas/2.1.1/apng-canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!--     Tippy -->
+    <script src="https://unpkg.com/popper.js@1"></script>
+    <script src="https://unpkg.com/tippy.js@5"></script>
+
+<!--     other -->
+    <script src="../../resources/front-end/assets/js/modaal.min.js"></script>
+    <script src="../../resources/front-end/assets/js/script.js"></script>
+    <script src="../../resources/front-end/assets/js/search_origin.js"></script>
+
+<script>
 		var month_olympic = [ 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 		var month_normal = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 		var month_name = [ "January", "Febrary", "March", "April", "May",
@@ -266,29 +379,5 @@ margin-left : 80px;
 // 					+ e.toString().substring(6, 8);
 	</script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

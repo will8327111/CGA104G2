@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.util.List"%>
+<%@ page import="com.record.model.*"%>
+<% 
+Integer memberId = (Integer)session.getAttribute("memberId");
+RecordService recSvc = new RecordService();
+List<RecordVO> list = recSvc.findByPrimaryKey(memberId);
+pageContext.setAttribute("list", list);
+%>
     
 <!DOCTYPE html>
 
@@ -41,7 +49,6 @@ th, td {
 			<th>公設編號</th>
 			<th>預約日期</th>
 			<th>預約時段</th>
-			<th>預約人數</th>
 		</tr>
 
 		<c:forEach var="recordVO" items="${list}">
@@ -50,11 +57,9 @@ th, td {
 				<td>${recordVO.ameId}</td>
 				<td>${recordVO.recordDate}</td>
 				<td>${recordVO.recordStatime}</td>
-				<td>${recordVO.recordCount}</td>
 			</tr>
 		</c:forEach>
 	</table>
-
 
 </body>
 </html>
