@@ -248,7 +248,8 @@
         document.getElementById("timeBox").innerHTML= count;
         count -= 1;
         if (count == 0){
-            sessionStorage.clear() //清除所有session值
+            localStorage.clear();
+            sessionStorage.clear(); //清除所有session值
             window.location.href="/CGA104G2/front-end/memberLogin/memberLoginFinal.jsp";
         }
         // 設定每秒執行1次
