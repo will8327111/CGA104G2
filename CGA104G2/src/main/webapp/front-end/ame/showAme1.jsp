@@ -39,7 +39,7 @@ img{
 	
 	<table>
 		<tr>
-			<th>圖示</th>
+			<th style="font-size:20px;">圖示</th>
 			<th>詳解</th>
 			
 		</tr>
