@@ -64,8 +64,13 @@ public class MemberLoginServlet extends HttpServlet {
 					return;
 				}
 //			=========================================資料驗證跳轉(Send the Success view) ================
+<<<<<<< HEAD
 				session.setAttribute("memberLoginVO", memberLoginVO);
 				session.setAttribute("memberAc", memberAc);
+=======
+				session.setAttribute("memberLoginVO", memberLoginVO); 
+				session.setAttribute("memberId", memberLoginVO.getMemberId()); 
+>>>>>>> refs/heads/HaoYu
 				String url = "/front-end/web/front-index2.html";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
