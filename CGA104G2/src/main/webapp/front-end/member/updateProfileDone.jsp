@@ -1,16 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.memberLogin.model.MemberLoginVO" %>
 <%@ page import="com.member.model.*" %>
 <%@ page import="java.util.List" %>
 <html lang="zh-Hant">
 
-<%
-    MemberLoginVO memberloginVO = (MemberLoginVO) request.getAttribute("memberloginVO");
-%>
-<%
-    MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
-%>
 <%
     MemberService memberSvc = new MemberService();
     List<MemberVO> list = memberSvc.getAll();
@@ -75,18 +68,27 @@
     <nav id="pc-nav">
         <!--!!固定!! logo-->
         <div>
-            <h1><a href="${pageContext.request.contextPath}/front-end/web/front-index2.html">
+            <h1><a disabled href="${pageContext.request.contextPath}/front-end/web/front-index2.html">
                 <img src="${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台" style="width: 50%; display: flex;justify-content: flex-start; flex-direction: inherit;"></a></h1>
         </div>
     </nav>
     <ul>
         <div id="login-div" >
-            <a href="#"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>住戶登入/登出。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 登出</label></button></a>
+            <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do">
+                <button type="submit" name="submit" value="登出" class="cap" id="login" data-tippy-content="<div class='inner-cap'><p>住戶登出。</p><p>社區住戶專用。</p></div>">
+                    <i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i>
+                    <label style="font-size: 1rem;">登出</label>
+                </button>
+                    <input type="hidden" name="memberid" value="${memberLoginVO.memberId}">
+                    <input type="hidden" name="action" value="memberLogOut">
+            </FORM>
         </div>
     </ul>
     <ul>
-        <div id="out-div" >
-            <a href="#"><button class="cap"  id="out" data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-bell"></i><label style="font-size: 1rem;"> 通知</label></button></a>
+        <div id="out-div" style="display: none" >
+            <a href="#"><button class="cap"  id="out" data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>">
+                <i style="font-size: 1rem;" class="fa-solid fa-bell"></i><label style="font-size: 1rem;"> 通知</label></button>
+            </a>
         </div>
     </ul>
     <!--導覽列 end-->
@@ -101,7 +103,15 @@
     <!--主要內容 start(從這邊開始改)-->
     <main id="main-area-content">
         <section id="about" class="scroll-point">
-            <h2><span class="bgextend"><span>Member Information<br>住戶個人資訊</span></span></h2>
+            <h3 style="display:flex; justify-content:space-around; ">
+                <span class="bgextend">== 修改資訊成功!!! 5秒後會登出,或請點選重新登入 ==</span>
+                <div id="timeBox"></div>
+            </h3>
+            <h2>
+                <span class="bgextend">
+                    <span>Member Information<br>住戶個人資訊</span>
+                </span>
+            </h2>
             <ul class="about-list bgextend">
                 <li>
                     <dl>
@@ -168,15 +178,6 @@
                 </li>
             </ul>
 
-            <section id="contact" class="scroll-point">
-                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do"
-                      style="margin-bottom: 0px;">
-                    <div class="submit-btn fadeUpTrigger "><input type="submit" name="submit" value="修改資訊">
-                        <input type="hidden" name="memberid" value="${memberLoginVO.memberId}">
-                        <input type="hidden" name="action" value="getUpdateProfile">
-                    </div>
-                </FORM>
-            </section>
         </section>
         <!--下面物件出現動畫-->
         <div class="fadeUpTrigger">
@@ -198,14 +199,18 @@
         <div id="g-nav-list">
             <ul>
                 <li><a href=""></a> <img src="${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
-                <li><a href="${pageContext.request.contextPath}/front-end/member/memberProfile.jsp">住戶資訊</a></li>
-                <li><a href="${pageContext.request.contextPath}/front-end/bulletinboard/bbNews2.jsp">公佈欄</a></li>
-                <li><a href="#">社區帳單</a></li>
-                <li><a href="#">郵件</a></li>
-                <li><a href="#">公共設施</a></li>
-                <li><a href="#">活動</a></li>
-                <li><a href="#">檢舉與維修</a></li>
-                <li><a href="#">特約商店</a></li>
+                <div style="width: 100%; height:50px;"></div>
+                <li>
+                <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do">
+                    <button type="submit" name="submit" value="登出" class="cap"  data-tippy-content="<div class='inner-cap'><p>住戶登出。</p><p>社區住戶專用。</p></div>">
+                        <i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i>
+                        <label style="font-size: 1rem;">登出</label>
+                    </button>
+                    <input type="hidden" name="memberid" value="${memberLoginVO.memberId}">
+                    <input type="hidden" name="action" value="memberLogOut">
+                </FORM>
+                </li>
+
             </ul>
         </div>
     </div>
@@ -234,6 +239,24 @@
 <!--other-->
 <script src="${pageContext.request.contextPath}/resources/front-end/assets/js/modaal.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/front-end/assets/js/script.js"></script>
+
+
+<script>
+    // 設定秒數
+    var count = 5;
+    function countDown(){
+        document.getElementById("timeBox").innerHTML= count;
+        count -= 1;
+        if (count == 0){
+            localStorage.clear();
+            sessionStorage.clear(); //清除所有session值
+            window.location.href="/CGA104G2/front-end/memberLogin/memberLoginFinal.jsp";
+        }
+        // 設定每秒執行1次
+        setTimeout("countDown()",1000);
+    }
+    countDown();
+</script>
 
 </body>
 

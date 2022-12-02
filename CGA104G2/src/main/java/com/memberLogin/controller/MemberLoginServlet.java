@@ -25,48 +25,61 @@ public class MemberLoginServlet extends HttpServlet {
 		try {
 			req.setCharacterEncoding("UTF-8");
 			String action = req.getParameter("action");
-			String member_ac = req.getParameter("member_ac");
-			String member_pw = req.getParameter("member_pw");
+			String memberAc = req.getParameter("memberAc");
+			String memberPw = req.getParameter("memberPw");
 			HttpSession session = req.getSession();
 //			========================================錯誤訊息=====================================================
 			if ("textForLogin".equals(action)) {
 				List<String> errorMsgs = new LinkedList<String>();
 				req.setAttribute("errorMsgs", errorMsgs);
 
-				if (member_ac == null || (member_ac.trim()).length() == 0) {
-					errorMsgs.add("請輸入帳號");
+				if (memberAc == null || (memberAc.trim()).length() == 0) {
+					errorMsgs.add("請輸入完整帳號和密碼！");
 				}
 //				 Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberLogin/memberLogin.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberLogin/memberLoginFinal.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 
-				if (member_pw == null || (member_pw.trim()).length() == 0) {
-					errorMsgs.add("請輸入密碼");
+				if (memberPw == null || (memberPw.trim()).length() == 0) {
+					errorMsgs.add("請輸入完整帳號和密碼！");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberLogin/memberLogin.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberLogin/memberLoginFinal.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 
 //			=============================================================================================
 				MemberLoginService memberLoginSvc = new MemberLoginService();
-				MemberLoginVO memberLoginVO = memberLoginSvc.findByAcAndPwd(member_ac, member_pw);
+				MemberLoginVO memberLoginVO = memberLoginSvc.findByAcAndPwd(memberAc, memberPw);
 				if (memberLoginVO == null) {
-					errorMsgs.add("查無資料");
+					errorMsgs.add("查無資料，請重新輸入！");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberLogin/memberLogin.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/memberLogin/memberLoginFinal.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 //			=========================================資料驗證跳轉(Send the Success view) ================
+
+				session.setAttribute("memberLoginVO", memberLoginVO);
+				session.setAttribute("memberAc", memberAc);
+
 				session.setAttribute("memberLoginVO", memberLoginVO); 
+				session.setAttribute("memberId", memberLoginVO.getMemberId()); 
+
 				String url = "/front-end/web/front-index2.html";
-				RequestDispatcher successView = req.getRequestDispatcher(url); 
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			}
+//			=========================================登出 =================================================
+			if ("memberLogOut".equals(action)) {
+				session.invalidate();
+				String url = "/front-end/memberLogin/memberLogin.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}
 		} catch (Exception e) {

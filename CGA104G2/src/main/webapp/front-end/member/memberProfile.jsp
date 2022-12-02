@@ -5,14 +5,14 @@
 <%@ page import="java.util.List" %>
 <html lang="zh-Hant">
 
-<%
-    MemberLoginVO memberloginVO = (MemberLoginVO) request.getAttribute("memberloginVO");
-%>
-<%
-    MemberService memberSvc = new MemberService();
-    List<MemberVO> list = memberSvc.getAll();
-    pageContext.setAttribute("list", list);
-%>
+<%--<%--%>
+<%--    MemberLoginVO memberloginVO = (MemberLoginVO) request.getAttribute("memberloginVO");--%>
+<%--%>--%>
+<%--<%--%>
+<%--    MemberService memberSvc = new MemberService();--%>
+<%--    List<MemberVO> list = memberSvc.getAll();--%>
+<%--    pageContext.setAttribute("list", list);--%>
+<%--%>--%>
 
 <head>
     <meta charset="utf-8">
@@ -78,7 +78,14 @@
             </nav>
                 <ul>
                     <div id="login-div" >
-                        <a href="#"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>住戶登入/登出。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 登出</label></button></a>
+
+                        <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do">
+                        <button type="submit" name="submit" value="登出" class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>住戶登出。</p><p>社區住戶專用。</p></div>">
+                            <i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 登出</label>
+                        </button>
+                            <input type="hidden" name="memberid" value="${memberLoginVO.memberId}">
+                            <input type="hidden" name="action" value="memberLogOut">
+                        </FORM>
                     </div>
                 </ul>
             <ul>
@@ -173,6 +180,8 @@
                              <input type="hidden" name="action" value="getUpdateProfile">
                              </div>
                          </FORM>
+<%--                         <p><a href="#" class="iframe-open">→ iframe </a></p>--%>
+
                      </section>
                  </section>
                 <!--下面物件出現動畫-->
@@ -194,7 +203,7 @@
             <div id="g-nav">
                 <div id="g-nav-list">
                     <ul>
-                        <li><a href=""></a> <img src="${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></li>
+                        <li><a href="${pageContext.request.contextPath}/front-end/web/front-index2.html"><img src="${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans3.png" alt="" style="width: 70%"></a> </li>
                         <li><a href="${pageContext.request.contextPath}/front-end/member/memberProfile.jsp">住戶資訊</a></li>
                         <li><a href="${pageContext.request.contextPath}/front-end/bulletinboard/bbNews2.jsp">公佈欄</a></li>
                         <li><a href="#">社區帳單</a></li>

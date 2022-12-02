@@ -8,7 +8,8 @@
 <title>預約頁面2</title>
 <link rel="stylesheet"
 	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 <script
 	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <Style>
@@ -33,13 +34,13 @@
 	<table>
 		<c:forEach items="${statime}" var="tmp" varStatus="loop">
 			<c:if test="${tmp == 0}">
-					<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/ame/ame_sta.do">
+					<form METHOD="post" id="form1" ACTION="<%=request.getContextPath()%>/front-end/ame/ame_sta.do">
 						<input type="hidden" name="action" value="doRecord3">
 						<input type="hidden" name="ameid" value="${ameid}">
 						<input type="hidden" name="ame_StaDate" value="${ame_StaDate}">
 						<input type="hidden" name="statime" value="${statime}">
 						<input type="hidden" name="statime_ind" value="${loop.index}">
-						<input type="submit" value="${loop.index}:00" class="btn btn-success btn-lg"><br>
+						<input type="button" onclick="test()" value="${loop.index}:00" class="btn btn-success btn-lg">
 					</form>
 			</c:if>
 			<c:if test="${tmp == 1}">
@@ -58,7 +59,20 @@
 // 	  showConfirmButton: false,
 // 	  timer: 1500
 // 	})
+function test() {
+	let form = document.getElementById("form1");
 	
+	Swal.fire({
+  		position: 'center',
+ 		icon: 'success',
+ 		title: '預約成功喔',
+ 		showConfirmButton: false,
+  		timer: 3000
+	}).then(function (){
+		form.submit();
+	})
+	}
+
 </script>
 
 </body>

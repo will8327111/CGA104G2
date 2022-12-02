@@ -1,9 +1,6 @@
 <%@page import="com.memberLogin.model.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-  MemberLoginVO memberLoginVO = (MemberLoginVO) request.getAttribute("memberLoginVO");
-%>
 
 <html>
 <head>
@@ -339,11 +336,11 @@ slider css
 
       <form method="post" action="<%=request.getContextPath()%>/front-end/memberLogin/MemberLogin.do">
         <div class="input-field">
-          <input type="text" name="member_ac" placeholder="輸入您的帳號" >
+          <input type="text" name="memberAc" placeholder="輸入您的帳號" >
           <i class="uil-user-circle"></i>
         </div>
         <div class="input-field">
-          <input type="password" name="member_pw"  class="password" placeholder="輸入您的密碼" >
+          <input type="password" name="memberPw"  class="password" placeholder="輸入您的密碼" >
           <i class="uil uil-lock icon"></i>
           <i class="uil uil-eye-slash showHidePw"></i>
         </div>

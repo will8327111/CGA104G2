@@ -58,10 +58,147 @@
     <!--    自己的css end-->
     <!--    網址列標題-->
     <title>陪你e生e世　社區服務平台：後台Home</title>
-    <!-- !!固定!! 旁邊導覽列sidebar menu start -->
-    <script src="${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js"></script>
-    <!-- !!固定!! 旁邊導覽列sidebar menu end -->
 </head>
+    <!-- !!固定!! 旁邊導覽列sidebar menu start -->
+<%--    <script src="${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js"></script>--%>
+    <div id='app'>
+        <div id='sidebar' class='active' >
+            <div class='sidebar-wrapper active'>
+                <div class='sidebar-header position-relative'>
+                    <div class='d-flex justify-content-between align-items-center '>
+
+                        <div class='sidebar-toggler  x'>
+                            <a href='#' class='sidebar-hide d-xl-none d-block'><i class='bi bi-x bi-middle'></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class='logo'>
+                    <a href='${pageContext.request.contextPath}/back-end/web/backEndHomeMgr.html'><img src='${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans4.png' alt='Logo' srcset=''
+                                                                          width='80%'></a>
+                </div>
+                <div class='sidebar-menu'>
+                    <ul class='menu'>
+
+                        <li class='sidebar-item  has-sub'>
+                            <a href='#' class='sidebar-link'>
+                                <i class='bi bi-person-badge-fill'></i>
+                                <span>住戶資訊</span>
+                            </a>
+                            <ul class='submenu '>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/member/memberHome.jsp'>住戶管理</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/member/select_page.jsp'>住戶查詢</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class='sidebar-item'>
+                            <a href='${pageContext.request.contextPath}/back-end/mail/mailIndexBootStrap.html' class='sidebar-link'>
+                                <i class='bi bi-clipboard-check'></i>
+                                <span>郵件</span>
+                            </a>
+                        </li>
+
+                        <li class='sidebar-item has-sub'>
+                            <a href='#' class='sidebar-link'>
+                                <i class='bi bi-calculator'></i>
+                                <span>社區帳單</span>
+                            </a>
+                            <ul class='submenu '>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/member/bill.do?action=getAll'>帳單管理</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class='sidebar-item  has-sub'>
+                            <a href='#' class='sidebar-link'>
+                                <i class='bi bi-calendar-check-fill'></i>
+                                <span>公共設施</span>
+                            </a>
+                            <ul class='submenu '>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/ame/addAme.jsp'>新增公設</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/ame/controlAme.jsp'>公設管理</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='.html'>維修公設</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class='sidebar-item  has-sub'>
+                            <a href='#' class='sidebar-link'>
+                                <i class='bi bi-spotify'></i>
+                                <span>活動</span>
+                            </a>
+                            <ul class='submenu'>
+                                <li class='submenu-item'>
+                                    <a href='${pageContext.request.contextPath}/back-end/activity/management.html'>管理活動檢舉</a>
+                                </li>
+                                <li class='submenu-item'>
+                                    <a href='${pageContext.request.contextPath}/back-end/activity/history.html'>檢舉紀錄</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class='sidebar-item  has-sub'>
+                            <a href='#' class='sidebar-link'>
+                                <i class='bi bi-tools'></i>
+                                <span>檢舉與維修服務</span>
+                            </a>
+                            <ul class='submenu '>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/privateReport/privateReportInfo.jsp'>住戶檢舉</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/maintenanceRecord/maintenanceRecordInfo.jsp'>住戶維修提報</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class='sidebar-item'>
+                            <a href='${pageContext.request.contextPath}/back-end/store/storeIndexBootStrap.html' class='sidebar-link'>
+                                <i class='bi bi-pin-map-fill'></i>
+                                <span>特約商店</span>
+                            </a>
+                        </li>
+
+                        <li class='sidebar-item has-sub'>
+                            <a href='.html' class='sidebar-link'>
+                                <i class='bi bi-file-earmark-medical-fill'></i>
+                                <span>管理員帳號與權限</span>
+                            </a>
+                            <ul class='submenu '>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/backstageAccount/listOneInfo.jsp'>我的資訊</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/backstageAccount/listAllInfo.jsp'>所有管理員資訊</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/backstageAuthorization/listOneAuthorization.jsp'>我的權限</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/backstageAuthorization/listAllAuthorization.jsp'>所有管理員權限功能</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/backstageCapabilities/listAllCapabilities.jsp'>權限功能列表</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <!-- !!固定!! 旁邊導覽列sidebar menu end -->
+
 <body>
 <!-- !!固定!! 右上方 navbar end -->
 
@@ -118,7 +255,7 @@
                                 <th>郵遞區號</th>
                                 <th>住戶住址</th>
                                 <th>住戶點數</th>
-                                <th>住戶頭貼</th>
+<%--                                <th>住戶頭貼</th>--%>
                                 <th>加入時間</th>
                                 <th>住戶身份別</th>
                                 <th>帳號狀態</th>

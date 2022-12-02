@@ -32,9 +32,12 @@
 <ul class="form-group">
     <tr>
         <td>
-            <h3>個人資料修改</h3>
-            <h5><a href="${pageContext.request.contextPath}/front-end/member/memberProfile.jsp"><img src="${pageContext.request.contextPath}/resources/front-end/assets/img/favicons/back.svg" width="25" height="25"
-                                                                                                           alt="返回">回上一頁</a></h5>
+            <h2 style="display: flex; justify-content: space-around;">個人資訊修改</h2>
+            <div style="width: 100%; height:20px;"></div>
+            <h5  style="display: flex; justify-content: space-around;"><a href="${pageContext.request.contextPath}/front-end/member/memberProfile.jsp">
+                <img src="${pageContext.request.contextPath}/resources/front-end/assets/img/favicons/back.svg" width="25" height="25" alt="返回">回上一頁</a>
+                <p><i class="bi-pen-fill"></i>修改您的個人帳號/資訊</p>
+            </h5>
         </td>
     </tr>
 
@@ -49,9 +52,9 @@
     </c:if>
 
     <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do" name="form1" enctype="multipart/form-data">
-        <div class="page-content">
+        <div class="page-content" style="display: flex; justify-content: space-around;">
             <section class="section">
-                <div class="card">
+                <div class="card" style="width: 28rem;">
                     <div class="card-header">
 
                         <h4 class="card-subtitle">標示<span style="color: red; "><b>紅色*</b></span>為必填項目</h4>
@@ -154,9 +157,10 @@
                                         <td><input readonly type="TEXT" name="memberpoints" size="40" class="form-control"
                                                    value="<%=memberVO.getMemberPoints()%>"/></td>
                                     </tr>
+
                                     <tr>
-                                        <td>頭貼:<td><img src="<%=request.getContextPath()%>/member/PicuploadServlet?memberid=${memberVO.memberId}" width="200px">
-                                        <input name="memberpic" class="form-control"  type="file" value="<%=memberVO.getMemberPic()%>"></td></td>
+                                        <td>頭貼:<td><img src="<%=request.getContextPath()%>/member/PicuploadServlet?memberid=${memberVO.memberId}" style="width:200px; border-radius:50%;" alt="頭貼">
+                                        <input name="memberpic" class="form-control"  type="file" value="<%=memberVO.getMemberPic()%>"></td>
                                     </tr>
                                     <tr style="display: none">
                                         <td><span style="color: red; "><b>*</b></span>加入時間:</td>
@@ -244,8 +248,24 @@
         }
         $(this).toggleClass('bi-eye-fill').toggleClass('bi-eye-slash');
         });
-    </script>
 
+        // 禁止返回上一頁
+        function prohibitPreviousPage(){
+
+            if(navigator.userAgent.indexOf('Firefox') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Firefox') + 8)) >= 3.6 ){
+                //Firefox
+                setTimeout("fn_forward()",1);
+                window.history.go(1);
+            }else{ //IE.Chrome.Edge
+                window.history.forward();
+            }
+        }
+        function fn_forward() {
+            history.forward();
+            setTimeout("fn_forward()",1);
+        }
+    </script>
+    <script type="text/javascript">prohibitpreviouspage();</script>
 </body>
 
 </html>

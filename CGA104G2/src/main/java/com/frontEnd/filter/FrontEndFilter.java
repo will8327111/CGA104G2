@@ -12,7 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = {"/front-end/mail/*", 
+@WebFilter(urlPatterns = {"/front-end/activity/*",
+						  "/front-end/ame/*",
+						  "/front-end/mail/*", 
+						  "/front-end/maintenanceRecord/*", 
+						  "/front-end/member/*", 
+						  "/front-end/memberbill/*", 
+						  "/front-end/privateReport/*", 
 						  "/front-end/store/*",
 						  "/front-end/web/*",
 						 })

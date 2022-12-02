@@ -9,6 +9,7 @@ import java.net.http.HttpClient;
 import java.util.*;
 
 import com.member.model.*;
+import com.memberLogin.model.MemberLoginVO;
 
 
 @WebServlet("/member/member.do")
@@ -25,14 +26,17 @@ public class MemberServlet extends HttpServlet {
             throws ServletException, IOException {
 
         req.setCharacterEncoding("UTF-8");
+        res.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
+        HttpSession session = req.getSession();
+//        Integer userId = 0;
+        System.out.println(action);
 
         if ("getOne_For_Display".equals(action)) {
 
             List<String> errorMsgs = new LinkedList<String>();
 
             req.setAttribute("errorMsgs", errorMsgs);
-
             /*==========1.接收請求參數,輸入格式的錯誤處理==========*/
             String str = req.getParameter("memberid");
             if (str == null || (str.trim()).length() == 0) {
@@ -247,7 +251,9 @@ public class MemberServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /***************************1.接收請求參數****************************************/
-            Integer memberId= Integer.valueOf(req.getParameter("memberid"));
+            MemberLoginVO memberLoginVO = (MemberLoginVO)session.getAttribute("memberLoginVO");
+//            Integer memberId= Integer.valueOf(req.getParameter("memberid"));
+            Integer memberId = memberLoginVO.getMemberId();
 
             /***************************2.開始查詢資料****************************************/
             MemberService memberSvc = new MemberService();
@@ -259,6 +265,7 @@ public class MemberServlet extends HttpServlet {
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
         }
+
         //住戶修改
         if ("updateProfile".equals(action)) {
 
@@ -267,7 +274,10 @@ public class MemberServlet extends HttpServlet {
             req.setAttribute("errorMsgs", errorMsgs);
 
             /***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-            Integer memberId = Integer.valueOf(req.getParameter("memberid").trim());
+            MemberLoginVO  memberLoginVO = (MemberLoginVO)session.getAttribute("memberLoginVO");
+
+//            Integer memberId = Integer.valueOf(req.getParameter("memberid").trim());
+            Integer memberId = memberLoginVO.getMemberId();
 
             String memberAc = req.getParameter("memberac");
             String memberAcReg = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,20}$";
@@ -396,6 +406,7 @@ public class MemberServlet extends HttpServlet {
 
             /***************************3.修改完成,準備轉交(Send the Success view)*************/
             req.setAttribute("memberVO", memberVO);
+            System.out.println(memberVO);
             String url = "/front-end/member/updateProfileDone.jsp";
             RequestDispatcher successView = req.getRequestDispatcher(url);
             successView.forward(req, res);
@@ -567,5 +578,14 @@ public class MemberServlet extends HttpServlet {
             successView.forward(req, res);
 
         }
+
+//        ======住戶登出======
+        if ("memberLogOut".equals(action)) {
+            session.invalidate();
+            String url = "/front-end/memberLogin/memberLoginFinal.jsp";
+            RequestDispatcher successView = req.getRequestDispatcher(url);
+            successView.forward(req, res);
+        }
+
     }
 }

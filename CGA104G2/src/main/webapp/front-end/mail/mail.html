@@ -89,6 +89,21 @@ body {
 body {
 	background-color: white;
 }
+#getAllMail{
+	font-size:18px;
+}
+#selectFont{
+	font-size:20px;
+}
+#searchMail{
+	font-size:15px;
+	margin-bottom:5px;
+}
+#backButton{
+	margin-left: 650px;
+	font-size:15px;
+}
+
 </style>
 </head>
 
@@ -172,15 +187,15 @@ body {
 							</div>
 							<div class="card-body">
 
-								<div>
+								<div id='selectFont'>
 									<select id="select_mailType" name="select_mailType"
 										class="form-select">
 										<option style="display: none;">請選擇</option>
-									</select> <input type="text" id="search_mailID" placeholder="輸入郵件編號">
-									<input type="button" id="searchMail" class="btn btn-primary" value="搜尋"><span id='err'></span>
+									</select> <input type="text" id="search_mailID" placeholder="輸入郵件編號" required>
+									<input type="button" id="searchMail" class="btn btn-primary" value="搜尋" ><span id='err'></span>
 								</div>
 								<div id="showAllMail" class="showAllMail">
-									<table id="getAllMail" class='table table_sm'>
+									<table id="getAllMail" class="table table-hover">
 										<tr>
 											<th>郵件編號</th>
 											<th>住戶編號</th>
@@ -421,7 +436,9 @@ function connect() {
 	 			if(search_mailID === ""){
 	 				search_mailID = 0;
 	 			}
-				
+				if(select_mailType === "請選擇"){
+					select_mailType = "";
+				}
 	 			let res = await fetch(`../../back-end/mail/mail.do?action=frontSearch&mailType=${select_mailType}&mailId=${search_mailID}`, { method: 'get' });
 	 			let data = await res.json();
 				 

@@ -4,12 +4,6 @@
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<% 
-AmeService ameSvc = new AmeService();
-List<AmeVO> list = ameSvc.getAll();
-pageContext.setAttribute("list", list);
-%>
-
 <!DOCTYPE html>
 <html >
 
@@ -49,26 +43,7 @@ pageContext.setAttribute("list", list);
 <!--     ==============這邊放自己的 css=============== -->
 
 <style>
- table { 
- 	width: 1000px;
- 	maxheight: 800px; 
- 	background-color: white; 
- 	margin-top: 5px; 
- 	margin-left: 175px; 
- } 
-
- table, th, td { 
- 	border: 1px solid lightgreen; 
- } 
-
- td { 
- 	margin: center;
- 	text-align: left; 
- } 
-table, td, #img1{ 
-object-fit: contain ;
-maxwidth: 80%;
- } 
+ 
 </style>
 
 <!--     ==============css=============== -->
@@ -95,16 +70,6 @@ maxwidth: 80%;
                     <h1><a href="../../front-end/web/front-index2.html"><img src="../../resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台" style="width: 50%; display: flex;justify-content: flex-start; flex-direction: inherit;"></a></h1>
                 </div>
             </nav>
-             <ul>
-                    <div>
-                        <a href="showAme.jsp"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>回到公設首頁</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-house"></i><label style="font-size: 1rem;">公設首頁</label></button></a>
-                    </div>
-                </ul>
-                <ul>
-                    <div>
-                        <a href="selectRecord.jsp"><button class="cap" id="mylist" data-tippy-content="<div class='inner-cap'><p>我預約的時段</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-table-list"></i><label style="font-size: 1rem;">我預約的公設</label></button></a>
-                    </div>
-                </ul>
                 <ul>
                     <div id="login-div" >
                         <a href="#"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>住戶登入/登出。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 登出</label></button></a>
@@ -126,32 +91,6 @@ maxwidth: 80%;
             <main id="main-area">
 
 <!--這邊往下新增 -->
-
-<table>
-		<tr>
-			<th><h3>圖　　　　　示</h3></th>
-			<th><h3>詳　　　　　　　　　　解</h3></th>
-			
-		</tr>
-
-		<c:forEach var="ameVO" items="${list}">
-			<tr>
-				<td><img src="<%=request.getContextPath()%>/Amepho_Servlet?AME_ID=${ameVO.ameId}" ></td>
-				<td><font size="6" color="skyblue">公設編號 : </font> <font size="5">${ameVO.ameId} </font><br>
-				<font size="6" color="skyblue">點數需求 : </font><font size="5" color="red">${ameVO.amePoint} </font><br>
-				<font size="6" color="skyblue">公設名稱 : </font><font size="5">${ameVO.ameName} </font><br>
-				<font size="6" color="skyblue">開放時段 : </font><font size="5" color="red">${ameVO.ameOpening} </font><br>
-				<font size="6" color="skyblue">公設介紹 : </font><font size="5">${ameVO.ameIntroduce} </font></td>
-				<td>
-					<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/ame/ame_sta.do" style="margin-bottom: 0px;">
-						<input type="hidden" name="action" value="doRecord">
-						<input type="hidden" name="ameid" value="${ameVO.ameId}"> 
-						<input type="submit" value="我要預約">
-					</form>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
 
 
 <!--main area end -->

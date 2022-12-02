@@ -284,6 +284,8 @@ public class MemberDAO implements MemberDAO_interface {
                 memberVO.setMemberIdState(rs.getInt("MEMBER_ID_STATE"));
                 memberVO.setAcState(rs.getInt("AC_STATE"));
                 list.add(memberVO);
+
+                System.out.println(rs.getString("member_name"));
             }
             // Handle any driver errors
         } catch (SQLException se) {
