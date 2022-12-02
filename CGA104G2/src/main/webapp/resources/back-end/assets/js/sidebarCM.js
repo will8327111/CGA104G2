@@ -10,7 +10,7 @@ document.writeln("                    </div>");
 document.writeln("                </div>");
 document.writeln("            </div>");
 document.writeln("            <div class=\'logo\'>");
-document.writeln("                <a href=\'../../back-end/web/index-test.html\'><img src=\'../../resources/back-end/assets/images/main/logospm21.png\' alt=\'Logo\' srcset=\'\'");
+document.writeln("                <a href=\'../../back-end/web/index-test.html\'><img src=\'../../resources/back-end/assets/images/main/logo11_trans4.png\' alt=\'Logo\' srcset=\'\'");
 document.writeln("                                         width=\'80%\'></a>");
 document.writeln("            </div>");
 document.writeln("            <div class=\'sidebar-menu\'>");
