@@ -142,7 +142,7 @@
 
 <!-- 								</div> -->
 <!-- 							</table> -->
-							<table class="table table-bordered">
+							<table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>住戶編號</th>
@@ -198,6 +198,9 @@
 	<script
 		src=${pageContext.request.contextPath}/resources/back-end/assets/js/app.js></script>
 	<!-- 樣板用js end -->
+	<!-- !!固定!! 後台樣板 css -->
+	<link rel="stylesheet" href=${pageContext.request.contextPath}/resources/back-end/assets/css/main/app.css>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="crossorigin="anonymous"></script>
     <script>
         let ed${s.count} = document.getElementById("edit${s.count}");
         let op${s.count} = document.getElementById("open${s.count}");

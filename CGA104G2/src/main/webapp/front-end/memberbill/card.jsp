@@ -45,6 +45,20 @@
 			integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
 			crossorigin="anonymous"></script>
 		<style type="text/css">
+			.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.5rem;
+    border: 1px solid #ccd5ae;
+    width: 50%;
+    margin: auto;
+    background: #d3d3d326;
+    border-radius: 10px;
+    border-style: dashed;
+}
+			label,.fa-right-to-bracket:before,.fa-bell:before {
+   			color:#000000;
+			}
 			body {
 				display: flex;
 				justify-content: center;
@@ -142,7 +156,7 @@
 
 
 	<body>
-		<header id="header" style="margin-top:-843px">
+		<header id="header" style="margin-top:-850px">
 
 			<!--!!固定!! 導覽列 start-->
 			<nav id="pc-nav">
@@ -156,7 +170,7 @@
 			</nav>
 			<ul>
 				<div id="login-div">
-					<a href="#"><button class="cap" id="login"
+					<a href="#"><button  style="font-weight: bold;" class="cap" id="login"
 							data-tippy-content="<div class='inner-cap'><p>住戶登入/登出。</p><p>社區住戶專用。</p></div>"><i
 								style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label
 								style="font-size: 1rem;"> 登出</label></button></a>
@@ -164,7 +178,7 @@
 			</ul>
 			<ul>
 				<div id="out-div">
-					<a href="#"><button class="cap" id="out"
+					<a href="#"><button  style="font-weight: bold;" class="cap" id="out"
 							data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>"><i
 								style="font-size: 1rem;" class="fa-solid fa-bell"></i><label style="font-size: 1rem;">
 								通知</label></button></a>

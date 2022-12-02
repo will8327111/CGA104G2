@@ -148,6 +148,7 @@ public class MemberBillEcpayServlet extends HttpServlet {
 			vo.setMemberBillId(memId); // 有帳單ID才能改變照片值
 			memberBillService.uploadPhoto(vo);
 			MemberBillVO vo1 = memberBillService.updateMemberPay(memberBillId);// 繳費狀態為待審核// 把方法傳進來
+			System.out.println("我有執行");
 
 			/*************************** 4.新增完成,準備轉交(Send the Success view) *************/
 

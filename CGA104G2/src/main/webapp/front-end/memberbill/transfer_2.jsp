@@ -18,19 +18,19 @@
 		<!--=============Google Font ===============-->
 		<link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
 		<!-- !!固定!! favicon 網址列屬於網站的小圖示 -->
-		<link rel="shortcut icon" href="../../resources/back-end/assets/images/main/favicons/favicon2.ico"
+		<link rel="shortcut icon" href="<%= request.getContextPath() %>/resources/back-end/assets/images/main/favicons/favicon2.ico"
 			type="image/x-icon">
 
 		<!--==============css===============-->
 		<!--font awesome kit-->
 		<script src="https://kit.fontawesome.com/7e021e96db.js" crossorigin="anonymous"></script>
 		<!--!!固定!! 前台樣式-->
-		<link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/jquery.bxslider.min.css">
-		<link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/reset.css">
-		<link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/layout.css">
-		<link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/parts.css">
+		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/front-end/assets/css/jquery.bxslider.min.css">
+		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/front-end/assets/css/reset.css">
+		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/front-end/assets/css/layout.css">
+		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/front-end/assets/css/parts.css">
 		<!--modaal-->
-		<link rel="stylesheet" type="text/css" href="../../resources/front-end/assets/css/modaal.min.css">
+		<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/front-end/assets/css/modaal.min.css">
 
 		<!--=============js=============-->
 		<!--延遲載入-->
@@ -45,6 +45,10 @@
 			integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
 			crossorigin="anonymous"></script>
 		<style type="text/css">
+			label,.fa-right-to-bracket:before,.fa-bell:before {
+   									 color:#000000;
+									}
+									
 			body {
 				display: flex;
 				justify-content: center;
@@ -60,7 +64,7 @@
 			}
 
 			h2 {
-				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+/* 				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
 				font-size: 36px;
 				margin-top: 40px;
 				color: #333;
@@ -131,7 +135,7 @@
 			/*!!固定!! 字形*/
 			@font-face {
 				font-family: 'huninn';
-				src: url('../../resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
+				src: url('<%= request.getContextPath() %>/resources/front-end/assets/font/jf-openhuninn-1.1.ttf')format("truetype");
 			}
 
 			body {
@@ -148,15 +152,15 @@
 			<nav id="pc-nav">
 				<!--!!固定!! logo-->
 				<div>
-					<h1><a href="../../front-end/web/front-index2.html"><img
-								src="../../resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台"
+					<h1><a href="<%= request.getContextPath() %>/front-end/web/front-index2.html"><img
+								src="<%= request.getContextPath() %>/resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台"
 								style="width: 50%; display: flex;justify-content: flex-start; flex-direction: inherit;"></a>
 					</h1>
 				</div>
 			</nav>
 			<ul>
 				<div id="login-div">
-					<a href="#"><button class="cap" id="login"
+					<a href="#"><button style="font-weight: bold;" class="cap" id="login"
 							data-tippy-content="<div class='inner-cap'><p>住戶登入/登出。</p><p>社區住戶專用。</p></div>"><i
 								style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label
 								style="font-size: 1rem;"> 登出</label></button></a>
@@ -164,7 +168,7 @@
 			</ul>
 			<ul>
 				<div id="out-div">
-					<a href="#"><button class="cap" id="out"
+					<a href="#"><button style="font-weight: bold;" class="cap" id="out"
 							data-tippy-content="<div class='inner-cap'><p>住戶訊息通知。</p><p>檢視您的個人訊息。</p></div>"><i
 								style="font-size: 1rem;" class="fa-solid fa-bell"></i><label style="font-size: 1rem;">
 								通知</label></button></a>
@@ -208,7 +212,7 @@
 			<div id="g-nav">
 				<div id="g-nav-list">
 					<ul>
-						<li><a href=""></a> <img src="../../resources/front-end/assets/img/logo11_trans3.png" alt=""
+						<li><a href=""></a> <img src="<%= request.getContextPath() %>/resources/front-end/assets/img/logo11_trans3.png" alt=""
 								style="width: 70%"></li>
 						<li><a href="#">住戶帳號</a></li>
 						<li><a href="#">社區帳單</a></li>
@@ -230,11 +234,11 @@
 
 		<!--=============JS ===============-->
 		<!--jQuery-->
-		<script src="../../resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
+		<script src="<%= request.getContextPath() %>/resources/front-end/assets/js/jquery-3.4.1.min.js"></script>
 		<!--news tickerー-->
-		<script src="../../resources/front-end/assets/js/jquery.bxslider.min.js"></script>
+		<script src="<%= request.getContextPath() %>/resources/front-end/assets/js/jquery.bxslider.min.js"></script>
 		<!--背景線延伸效果-->
-		<script src="../../resources/front-end/assets/js/scrollgress.min.js"></script>
+		<script src="<%= request.getContextPath() %>/resources/front-end/assets/js/scrollgress.min.js"></script>
 		<!--apang 動畫-->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/apng-canvas/2.1.1/apng-canvas.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -243,9 +247,9 @@
 		<script src="https://unpkg.com/tippy.js@5"></script>
 
 		<!--other-->
-		<script src="../../resources/front-end/assets/js/modaal.min.js"></script>
-		<script src="../../resources/front-end/assets/js/script.js"></script>
-		<script src="../../resources/front-end/assets/js/search_origin.js"></script>
+		<script src="<%= request.getContextPath() %>/resources/front-end/assets/js/modaal.min.js"></script>
+		<script src="<%= request.getContextPath() %>/resources/front-end/assets/js/script.js"></script>
+		<script src="<%= request.getContextPath() %>/resources/front-end/assets/js/search_origin.js"></script>
 
 	</body>
 
