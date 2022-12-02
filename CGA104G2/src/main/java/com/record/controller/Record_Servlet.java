@@ -38,5 +38,21 @@ public class Record_Servlet extends HttpServlet {
 			successView.forward(req, res);
 
 		}
+		
+		if ("changeRecord".equals(action)) {
+			Integer memberid = Integer.valueOf(req.getParameter("memberid").trim());
+			Integer ameid = Integer.valueOf(req.getParameter("ameid").trim());
+			String date = req.getParameter("recordDate");
+			String recordStatime = req.getParameter("recordStatime");
+			
+			java.sql.Date recordDate = java.sql.Date.valueOf(date);
+			
+			RecordService recSvc = new RecordService();
+			recSvc.updaterecordsta(memberid, ameid, recordDate, recordStatime);
+			
+			String url = "/front-end/ame/selectRecord.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		}
 	}
 }

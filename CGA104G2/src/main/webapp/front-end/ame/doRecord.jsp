@@ -78,12 +78,43 @@
 #tbody {
 margin-left : 80px;
 }
+ table { 
+ 	width: 1000px;
+ 	maxheight: 800px; 
+ 	background-color: white; 
+ 	margin-top: 5px; 
+ 	margin-left: 175px; 
+ } 
+
+ table, th, td { 
+ 	margin: auto;
+ 	border: 1px solid lightgreen; 
+ } 
+
+ td { 
+ 	margin: auto;
+ 	text-align: center; 
+ } 
+img{
+width: 100%;
+}
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
+<img src="bar.png">
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
+
 	<table>
 		<tr>
 			<td>
@@ -94,6 +125,7 @@ margin-left : 80px;
 			</td>
 		</tr>
 	</table>
+	
 	<div class="calendar">
 		<div id="tbody" class="title">
 

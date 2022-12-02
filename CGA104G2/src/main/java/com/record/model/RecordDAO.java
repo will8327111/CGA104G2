@@ -1,7 +1,6 @@
 package com.record.model;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,8 +11,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
-import com.ame.model.AmeVO;
 
 public class RecordDAO implements RecordDAO_interface {
 	private static DataSource ds = null;
@@ -30,11 +27,11 @@ public class RecordDAO implements RecordDAO_interface {
 		private static final String GET_ALL_STMT = 
 			"SELECT RECORD_ID, MEMBER_ID, AME_ID, RECORD_DATE, RECORD_STATIME, RECORD_COUNT, RECORD_STATUS FROM RECORD order by RECORD_ID";
 		private static final String GET_SOME_STMT = 
-			"SELECT MEMBER_ID, AME_ID, RECORD_DATE, RECORD_STATIME, RECORD_COUNT FROM RECORD where MEMBER_ID = ? order by RECORD_DATE";
-		private static final String GET_RECORD = 
-			"UPDATE RECORD set RECORD_STATUS = ? where AME_ID = ? and RECORD_DATE = ? and RECORD_STATIME = ?";
-		private static final String UPDATE = 
-			"UPDATE RECORD set RECORD_STATUS=? where RECORD_DATE =? ";
+			"SELECT MEMBER_ID, AME_ID, RECORD_DATE, RECORD_STATIME, RECORD_COUNT, RECORD_STATUS FROM RECORD where MEMBER_ID = ? order by RECORD_STATUS DESC, RECORD_DATE ASC ";
+		private static final String CHANGE_RECORD = 
+			"UPDATE RECORD set RECORD_STATUS = ? where AME_ID = ? and RECORD_STATIME = ?";
+		private static final String UPDATE_RECORDSTA = 
+			"UPDATE RECORD set RECORD_STATUS = 1 where MEMBER_ID =? and AME_ID = ? and RECORD_DATE = ? and RECORD_STATIME = ?";
 		
 		@Override
 		public void insert(RecordVO recordVO) {
@@ -74,16 +71,17 @@ public class RecordDAO implements RecordDAO_interface {
 		}
 		
 		@Override
-		public void update(RecordVO recordVO) {
+		public void updaterecordsta(RecordVO recordVO) {
 			Connection con = null;
 			PreparedStatement ps = null;
 			
 			try {
 				con = ds.getConnection();
-				ps = con.prepareStatement(UPDATE);
-				
-				ps.setInt(1, recordVO.getRecordStatus());
-				ps.setDate(2, recordVO.getRecordDate());
+				ps = con.prepareStatement(UPDATE_RECORDSTA);
+				ps.setInt(1, recordVO.getMemberId());
+				ps.setInt(2, recordVO.getAmeId());
+				ps.setDate(3, recordVO.getRecordDate());
+				ps.setString(4, recordVO.getRecordStatime());
 				
 				ps.executeUpdate();
 			} catch (SQLException se) {
@@ -109,15 +107,14 @@ public class RecordDAO implements RecordDAO_interface {
 		}
 
 		@Override
-		public boolean dorecordsta(Integer ameId,  Date recordDate, String recordStatime) {
+		public boolean dorecordsta(Integer ameId, String recordStatime) {
 			
 			try (Connection con = ds.getConnection();
-				 PreparedStatement ps = con.prepareStatement(GET_RECORD)){
+				 PreparedStatement ps = con.prepareStatement(CHANGE_RECORD)){
 				
 				ps.setInt(1, 1);
 				ps.setInt(2, ameId);
-				ps.setDate(3, recordDate);
-				ps.setString(4, recordStatime);
+				ps.setString(3, recordStatime);
 				
 				ps.executeUpdate();
 
@@ -147,6 +144,7 @@ public class RecordDAO implements RecordDAO_interface {
 					recordVO.setRecordDate(rs.getDate("RECORD_DATE"));
 					recordVO.setRecordStatime(rs.getString("RECORD_STATIME"));
 					recordVO.setRecordCount(rs.getInt("RECORD_COUNT"));
+					recordVO.setRecordStatus(rs.getInt("RECORD_STATUS"));
 					
 					list.add(recordVO);
 				}

@@ -27,10 +27,19 @@ public class RecordService {
 		return dao.findByPrimaryKey(member_Id);
 	}
 	
-	public boolean dorecordsta(Integer ameId,  Date recordDate, String recordStatime) {
-		return dao.dorecordsta(ameId, recordDate, recordStatime);
+	public boolean dorecordsta(Integer ameId, String recordStatime) {
+		return dao.dorecordsta(ameId, recordStatime);
 	}
 	
+	public void updaterecordsta(Integer memberId, Integer ameId, Date recordDate, String recordStatime) {
+		RecordVO recordVO = new RecordVO();
+		recordVO.setMemberId(memberId);
+		recordVO.setAmeId(ameId);
+		recordVO.setRecordDate(recordDate);
+		recordVO.setRecordStatime(recordStatime);
+
+		dao.updaterecordsta(recordVO);
+	}
 }
 
 

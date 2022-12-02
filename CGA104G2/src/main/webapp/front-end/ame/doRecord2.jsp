@@ -8,18 +8,21 @@
 <title>預約頁面2</title>
 <link rel="stylesheet"
 	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-<script
-	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <Style>
-.form {
-	
+input, button{
+width: 100px;
+margin-left:7%;
+margin-top:10px;
+}
+img{
+width:100%;
 }
 </Style>
 </head>
 <body>
-
+	<img src="bar.png">
 	<table>
 		<tr>
 			<td>
@@ -30,7 +33,7 @@
 			</td>
 		</tr>
 	</table>
-
+<!-- 	<div class="table table-striped table-hover" style="display:flex; justify-content:space-around;"> -->
 	<table>
 		<c:forEach items="${statime}" var="tmp" varStatus="loop">
 			<c:if test="${tmp == 0}">
@@ -45,20 +48,12 @@
 			</c:if>
 			<c:if test="${tmp == 1}">
 					<button value="${loop.index}" disabled="disabled" class="btn btn-danger btn-lg">${loop.index}:00</button>
-					<br>
 			</c:if>
 		</c:forEach>
-	</table>
+</table>
 	
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-// Swal.fire({
-// 	  position: 'top-end',
-// 	  icon: 'success',
-// 	  title: 'Your work has been saved',
-// 	  showConfirmButton: false,
-// 	  timer: 1500
-// 	})
 function test() {
 	let form = document.getElementById("form1");
 	
@@ -74,6 +69,9 @@ function test() {
 	}
 
 </script>
+
+<!-- <script src="../../resources/back-end/assets/js/bootstrap.js"></script> -->
+<!-- <script src="../../resources/back-end/assets/js/app.js"></script> -->
 
 </body>
 </html>

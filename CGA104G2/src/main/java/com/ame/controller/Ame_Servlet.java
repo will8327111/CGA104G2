@@ -17,6 +17,7 @@ import javax.servlet.http.Part;
 import com.ame.model.AmeService;
 import com.ame.model.AmeVO;
 import com.ame_state.model.Ame_StateService;
+import com.record.model.RecordService;
 import com.record.model.RecordVO;
 
 @WebServlet("/back-end/ame/ame.do")
@@ -251,15 +252,15 @@ public class Ame_Servlet extends HttpServlet {
 		List<RecordVO> recordlist = new LinkedList<RecordVO>();
 		for (int i = 0 ; i < oldameopening.length; i ++) {
 			if ( !(newameopening[i].equals(oldameopening[i])) && newameopening[i].equals("1")) {
-				RecordVO recordVO = new RecordVO();		
-				recordVO.setAmeId(ameid);
-				recordVO.setRecordDate(null);
+				if(i < 10) {
+					RecordService rdSvc = new RecordService();
+					rdSvc.dorecordsta(ameid, "0" + i + ":00");
+				}else {
+					RecordService rdSvc = new RecordService();
+					rdSvc.dorecordsta(ameid, i + ":00");
+				}
 			}
 		}
-		
-		
-		
-		
 		
 //		  Part part = req.getPart("ameimg");
 //		    InputStream in = part.getInputStream();

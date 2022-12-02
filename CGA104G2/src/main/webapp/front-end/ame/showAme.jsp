@@ -63,7 +63,7 @@ pageContext.setAttribute("list", list);
 
  td { 
  	margin: center;
- 	text-align: left; 
+ 	text-align: center; 
  } 
 table, td, #img1{ 
 object-fit: contain ;
@@ -129,19 +129,18 @@ maxwidth: 80%;
 
 <table>
 		<tr>
-			<th><h3>圖　　　　　示</h3></th>
-			<th><h3>詳　　　　　　　　　　解</h3></th>
-			
+			<th><h2>圖　　　示</h2></th>
+			<th><h2>詳　　　解</h2></th>
 		</tr>
 
 		<c:forEach var="ameVO" items="${list}">
 			<tr>
 				<td><img src="<%=request.getContextPath()%>/Amepho_Servlet?AME_ID=${ameVO.ameId}" ></td>
-				<td><font size="6" color="skyblue">公設編號 : </font> <font size="5">${ameVO.ameId} </font><br>
-				<font size="6" color="skyblue">點數需求 : </font><font size="5" color="red">${ameVO.amePoint} </font><br>
-				<font size="6" color="skyblue">公設名稱 : </font><font size="5">${ameVO.ameName} </font><br>
-				<font size="6" color="skyblue">開放時段 : </font><font size="5" color="red">${ameVO.ameOpening} </font><br>
-				<font size="6" color="skyblue">公設介紹 : </font><font size="5">${ameVO.ameIntroduce} </font></td>
+				<td><font size="5" color="#005AB5">公設編號 : </font> <font size="5">${ameVO.ameId} </font><br>
+				<font size="5" color="#005AB5">點數需求 : </font><font size="5" color="#CE0000">${ameVO.amePoint} </font><br>
+				<font size="5" color="#005AB5">公設名稱 : </font><font size="5">${ameVO.ameName} </font><br>
+				<font size="5" color="#005AB5">開放時段 : </font><font size="5" color="#CE0000">${ameVO.ameOpening} </font><br>
+				<font size="5" color="#005AB5">公設介紹 : </font><font size="5">${ameVO.ameIntroduce} </font></td>
 				<td>
 					<form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/ame/ame_sta.do" style="margin-bottom: 0px;">
 						<input type="hidden" name="action" value="doRecord">
