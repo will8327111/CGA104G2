@@ -5,14 +5,14 @@
 <%@ page import="java.util.List" %>
 <html lang="zh-Hant">
 
-<%
-    MemberLoginVO memberloginVO = (MemberLoginVO) request.getAttribute("memberloginVO");
-%>
-<%
-    MemberService memberSvc = new MemberService();
-    List<MemberVO> list = memberSvc.getAll();
-    pageContext.setAttribute("list", list);
-%>
+<%--<%--%>
+<%--    MemberLoginVO memberloginVO = (MemberLoginVO) request.getAttribute("memberloginVO");--%>
+<%--%>--%>
+<%--<%--%>
+<%--    MemberService memberSvc = new MemberService();--%>
+<%--    List<MemberVO> list = memberSvc.getAll();--%>
+<%--    pageContext.setAttribute("list", list);--%>
+<%--%>--%>
 
 <head>
     <meta charset="utf-8">
@@ -78,7 +78,14 @@
             </nav>
                 <ul>
                     <div id="login-div" >
-                        <a href="#"><button class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>住戶登入/登出。</p><p>社區住戶專用。</p></div>"><i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 登出</label></button></a>
+
+                        <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do">
+                        <button type="submit" name="submit" value="登出" class="cap"  id="login" data-tippy-content="<div class='inner-cap'><p>住戶登出。</p><p>社區住戶專用。</p></div>">
+                            <i style="font-size: 1rem;" class="fa-solid fa-right-to-bracket"></i><label style="font-size: 1rem;"> 登出</label>
+                        </button>
+                            <input type="hidden" name="memberid" value="${memberLoginVO.memberId}">
+                            <input type="hidden" name="action" value="memberLogOut">
+                        </FORM>
                     </div>
                 </ul>
             <ul>
@@ -173,6 +180,8 @@
                              <input type="hidden" name="action" value="getUpdateProfile">
                              </div>
                          </FORM>
+<%--                         <p><a href="#" class="iframe-open">→ iframe </a></p>--%>
+
                      </section>
                  </section>
                 <!--下面物件出現動畫-->
