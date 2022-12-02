@@ -65,6 +65,7 @@ public class MemberLoginServlet extends HttpServlet {
 				}
 //			=========================================資料驗證跳轉(Send the Success view) ================
 				session.setAttribute("memberLoginVO", memberLoginVO); 
+				session.setAttribute("memberId", memberLoginVO.getMemberId()); 
 				String url = "/front-end/web/front-index2.html";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
