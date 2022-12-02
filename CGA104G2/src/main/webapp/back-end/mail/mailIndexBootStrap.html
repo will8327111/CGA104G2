@@ -35,6 +35,10 @@
 	.btn-primary{
 		margin-left: 400px;
 	}
+	#backButton{
+		margin-left: 530px;
+		font-size:15px;
+	}
 </style>
 
 
@@ -111,7 +115,7 @@
 								   		<button id="addMail" class="btn btn-primary">新增郵件</button>
 								   </div>
                                    <div id="showAllMail" class="showAllMail">
-										<table id="getAllMail" class='table table_sm'>
+										<table id="getAllMail" class="table table-hover">
 											<tr>
 												<th>郵件編號</th>
 												<th>住戶編號</th>
@@ -396,6 +400,7 @@
    		       		       timepicker:false,       //timepicker:true,
    		       		       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
    		       		       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+   		       		 minDate:0,
    	       	     	});	
        	        });
 	            
@@ -472,7 +477,7 @@
 					<tr id="allMail">
 					</tr>
 					</table>
-					<div><input type='button' id='backButton' value='回首頁'></div>`),
+					<div><input type='button' class='btn btn-primary' id='backButton' value='回首頁'></div>`),
 
 					 
 					 
@@ -584,6 +589,7 @@
   		       		       timepicker:false,       //timepicker:true,
   		       		       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
   		       		       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+  		       		  		minDate:0,
   	       	     	});	
       	        });
             
