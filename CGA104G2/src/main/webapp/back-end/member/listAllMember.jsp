@@ -145,7 +145,7 @@
                                             <th>郵遞區號</th>
                                             <th>住址</th>
                                             <th>點數</th>
-<%--                                            <th>頭貼</th>--%>
+                                            <th>頭貼</th>
                                             <th>加入時間</th>
                                             <th>身份別</th>
                                             <th>帳號狀態</th>
@@ -172,7 +172,7 @@
                                                 <td>${memberVO.memberPost}</td>
                                                 <td>${memberVO.memberAddress}</td>
                                                 <td>${memberVO.memberPoints}</td>
-<%--                                                <td><img src="${pageContext.request.contextPath}/member/PicuploadServlet?memberid=${memberVO.memberId}" width="150px" class="rounded"></td>--%>
+                                                <td><img src="${pageContext.request.contextPath}/member/PicuploadServlet?memberid=${memberVO.memberId}" width="150px" class="rounded"></td>
                                                 <td>${memberVO.regDate}</td>
                                                 <td>${memberVO.memberIdState}</td>
                                                 <td>${memberVO.acState}</td>
