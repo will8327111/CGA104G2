@@ -146,8 +146,8 @@
                 <section id="faq" class="scroll-point">
                     <form method="get"
                           action="<%=request.getContextPath()%>/bulletinboard/bulletinboard.do">
-                        <p><h3><i class="fa-solid fa-angles-left"></i>
-                            <a href="<%=request.getContextPath()%>/front-end/bulletinboard/bbNews2.jsp">回公佈欄文章一覽</a></h3></p>
+                        <p><h3><a href="<%=request.getContextPath()%>/front-end/bulletinboard/bbNews2.jsp"><i class="fa-solid fa-angles-left"></i>
+                            回公佈欄文章一覽</a></h3></p>
                         <p><h3>請選擇想查看的特定文章類別：</h3></p>
                         <div>
                             <select  name="bbclass" id="select-bbclass" >
@@ -166,6 +166,17 @@
                         </div>
                     </form>
                     <br>
+                    <h3>
+                        <c:choose>
+                            <c:when test="${empty bulletinboardVO.bbClass}">
+                                <p>目前所在公佈欄類別沒有文章</p>
+                            </c:when>
+                            <c:otherwise>
+                                <p>目前顯示之公佈欄類別為：</p>
+                                <td>【${bulletinboardVO.bbClass}】</td>
+                            </c:otherwise>
+                        </c:choose>
+                        </h3>
     <%@ include file="bbPage.file" %>
     <p><i class="fa-solid fa-star"></i>New!</p>
                     <c:forEach items="${list}" var="bulletinboardVO" begin="<%=pageIndex%>"
@@ -175,15 +186,7 @@
                             <section class="open">
                                 <h3 class="title">
                                     <p>${bulletinboardVO.bbPostdate} </p>
-                        <c:choose>
-                            <c:when test="${empty list}">
-                                <td>沒有文章</td>
-                            </c:when>
-                            <c:otherwise>
-                                <td>【${bulletinboardVO.bbClass}】</td>
-                            </c:otherwise>
-                        </c:choose>
-<%--                                        【${bulletinboardVO.bbClass}】　--%>
+                                        【${bulletinboardVO.bbClass}】　
                                     <p>${bulletinboardVO.bbTitle}</p>
                                 </h3>
                                 <div class="box">
