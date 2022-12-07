@@ -55,24 +55,25 @@ public class BulletinboardService {
 
         return bulletinboardVO;
     }
+//    刪除
     public void deleteBulletinboard(Integer bbSubId) {
         dao.delete(bbSubId);
     }
+//    以ID查找
     public BulletinboardVO getOneBulletinboard(Integer bbSubId) {
         return dao.findByPrimaryKey(bbSubId);
     }
-
-
+//     全部
     public List<BulletinboardVO> getAll() {
         return dao.getAll();
     }
-    public List<BulletinboardVO> getAllOn() {
-        return dao.getAllOn();
-    }
-
-    public List<BulletinboardVO> findClass(String bbClass) {
+//    上架全部
+    public List<BulletinboardVO> getAllOn() { return dao.getAllOn(); }
+//    選擇上架+特定類別
+    public List<BulletinboardVO> getBbSelect(String bbClass) { return dao.getBbSelect(bbClass); }
+//    找類別
+    public BulletinboardVO findClass(String bbClass) {
         return dao.findClass(bbClass);
     }
-
 }
 

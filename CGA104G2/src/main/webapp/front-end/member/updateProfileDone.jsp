@@ -68,8 +68,8 @@
     <nav id="pc-nav">
         <!--!!固定!! logo-->
         <div>
-            <h1><a disabled href="${pageContext.request.contextPath}/front-end/web/front-index2.html">
-                <img src="${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台" style="width: 50%; display: flex;justify-content: flex-start; flex-direction: inherit;"></a></h1>
+            <h1>
+                <img src="${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans4.png" alt="陪你e生e世　社區服務平台" style="width: 50%; display: flex;justify-content: flex-start; flex-direction: inherit;"></h1>
         </div>
     </nav>
     <ul>
@@ -104,8 +104,8 @@
     <main id="main-area-content">
         <section id="about" class="scroll-point">
             <h3 style="display:flex; justify-content:space-around; ">
-                <span class="bgextend">== 修改資訊成功!!! 5秒後會登出,或請點選重新登入 ==</span>
-                <div id="timeBox"></div>
+                <span class="bgextend">== 修改資訊完成。 05秒後會自動跳轉,請重新登入,或請點選登出 ==
+                    <div id="timeBox"></div></span>
             </h3>
             <h2>
                 <span class="bgextend">
@@ -242,7 +242,24 @@
 
 
 <script>
-    // 設定秒數
+    // 禁止返回上一頁
+    function prohibitPreviousPage(){
+
+        if(navigator.userAgent.indexOf('Firefox') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Firefox') + 8)) >= 3.6 ){
+            //Firefox
+            setTimeout("fn_forward()",1);
+            window.history.go(1);
+        }else{ //IE.Chrome.Edge
+            window.history.forward();
+        }
+    }
+    function fn_forward() {
+        history.forward();
+        setTimeout("fn_forward()",1);
+    }
+    prohibitPreviousPage();
+
+    // 設定秒數自動跳轉
     var count = 5;
     function countDown(){
         document.getElementById("timeBox").innerHTML= count;

@@ -5,10 +5,17 @@
 <%@ page isELIgnored="false"%>
 
 <%
+    String memberSex = new String(request.getParameter("membersex"));
     MemberService memberSvc = new MemberService();
-    List<MemberVO> list = memberSvc.getAll();
+    List<MemberVO> list = memberSvc.getSelected(memberSex);
     pageContext.setAttribute("list", list);
 %>
+<%
+    MemberService memberSvc2 =new MemberService();
+    MemberVO memberVO = memberSvc2.findByMemberSex(memberSex);
+    pageContext.setAttribute("memberVO", memberVO);
+%>
+
 
 <!--繁體中文-->
 <html lang="zh-Hant">
@@ -248,8 +255,6 @@
                     <div class="col-12 col-md-6 order-md-1 order-last">
                         <h3>住戶資訊：所有住戶名單</h3>
                         <p class="text-subtitle text-muted">管理社區所有住戶帳號等資料</p>
-                        <h4><img src="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/back.svg" width="30" height="30" alt="返回">
-                            <a href="${pageContext.request.contextPath}/back-end/member/listAllMember.jsp">返回上一頁</a></h4>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -262,7 +267,8 @@
                 </div>
             </div>
             <section class="section">
-
+                <h4><img src="${pageContext.request.contextPath}/resources/back-end/assets/images/main/favicons/back.svg" width="30" height="30" alt="返回">
+                    <a href="${pageContext.request.contextPath}/back-end/member/listAllMember.jsp">返回上一頁</a></h4>
                         <ul>
                             <div class="card text-center">
                                 <div class="card-header">
@@ -274,14 +280,18 @@
                                           action="<%=request.getContextPath()%>/member/member.do">
                                         <b>請選擇住戶性別: </b>
                                         <select name="membersex" class="form-select-sm">
-                                        <option value='女性'>女性</option>
-                                        <option value='男性'>男性</option>
-                                        <option value='保留'>保留</option>
-                                    </select>
-                                    <input type="hidden" name="action" value="getSelected">
+                                        <option value="女性"
+                                                <c:if test="${memberVO.memberSex==('女性')}"> selected="selected"</c:if>>女性</option>
+                                        <option value="男性"
+                                                <c:if test="${memberVO.memberSex==('男性')}"> selected="selected"</c:if>>男性</option>
+                                        <option value="保留"
+                                                <c:if test="${memberVO.memberSex==('保留')}"> selected="selected"</c:if>>保留</option>
+                                        </select>
+                                        <input type="hidden" name="action" value="getSelected">
                                         <input type="submit" value="確定" class="btn btn-sm btn-outline-primary">
                                     </form>
-                                    <p>搜尋：<input type="search" class="table-filter" data-table="order-table" placeholder="請輸入關鍵字"></p>
+
+                                        <p>搜尋：<input type="search" class="table-filter" data-table="order-table" placeholder="請輸入關鍵字"></p>
                                     </div>
                                     <table id="table03" class="order-table">
                                         <tr>
@@ -308,9 +318,8 @@
 
                                         </tr>
 
-                                        <%@ include file="page1.file" %>
-                                        <c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>"
-                                                   end="<%=pageIndex+rowsPerPage-1%>">
+<%--                                        <%@ include file="page1.file" %>--%>
+                                        <c:forEach var="memberVO" items="${list}" >
                                             <tr>
                                                 <th class="fixed head">${memberVO.memberId}</th>
 
@@ -354,7 +363,7 @@
                             </div>
                         </ul>
 
-                        <%@ include file="page2.file" %>
+<%--                        <%@ include file="page2.file" %>--%>
 
                     </div>
                 </div>

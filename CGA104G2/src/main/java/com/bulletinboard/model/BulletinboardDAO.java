@@ -48,8 +48,18 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
             "SELECT * from bulletin_board where BB_SUB_ID = ? order by BB_SUB_ID DESC ;";
 
     //差詢類別
-    private static final String GET_BB_Class =
-            "SELECT  BB_TITLE,BB_CONTENT,BB_POSTDATE from bulletin_board where BB_CLASS like ?";
+    private static final String GET_BB_CLASS =
+            "SELECT  BB_CLASS,BB_TITLE,BB_CONTENT,BB_POSTDATE " +
+                    "from bulletin_board where BB_CLASS =? and BB_ARTICAL_STATE=1 order by BB_SUB_ID DESC;";
+
+private static final String GET_BB_SELECT =
+               "SELECT bb.BB_SUB_ID,bb.BB_CLASS,bb.BB_TITLE,bb.BB_CONTENT,bb.BB_POSTDATE,bb.BB_UPDATE,bbp.BB_PIC\n" +
+                    "from bulletin_board bb\n" +
+                    "        left join bulletin_board_pictures bbp\n" +
+                    "              on bb.BB_SUB_ID = bbp.BB_SUB_ID\n" +
+                    "where bb.BB_CLASS=? \n" +
+                    "  and BB_ARTICAL_STATE=1 order by 1 DESC;";
+//                    "where BB_ARTICAL_STATE=1 order by 1 DESC;";
 
     //刪除
     private static final String DELETE =
@@ -347,6 +357,69 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
 //                bulletinboardVO.setBmId(rs.getInt("BM_ID"));
 
                 list.add(bulletinboardVO);
+                System.out.println(rs.getString("BB_CLASS"));
+
+            }
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("資料庫發生錯誤! "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
+    }
+    @Override
+    public List<BulletinboardVO> getBbSelect(String bbClass){
+        List<BulletinboardVO> list = new ArrayList<BulletinboardVO>();
+        BulletinboardVO bulletinboardVO = null;
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_BB_SELECT);
+            pstmt.setString(1,bbClass);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                //  Domain objects
+                bulletinboardVO = new BulletinboardVO();
+//                bulletinboardVO.setBbSubId(rs.getInt("BB_SUB_ID"));
+                bulletinboardVO.setBbClass(rs.getString("BB_CLASS"));
+                bulletinboardVO.setBbTitle(rs.getString("BB_TITLE"));
+                bulletinboardVO.setBbContent(rs.getString("BB_CONTENT"));
+                bulletinboardVO.setBbPostdate(rs.getDate("BB_POSTDATE"));
+                bulletinboardVO.setBbUpdate(rs.getDate("BB_UPDATE"));
+//                bulletinboardVO.setBbArticalState(rs.getInt("BB_ARTICAL_STATE"));
+//                bulletinboardVO.setBmId(rs.getInt("BM_ID"));
+
+                list.add(bulletinboardVO);
+//                System.out.println(rs.getString("BB_CLASS"));
             }
             // Handle any driver errors
         } catch (SQLException se) {
@@ -379,12 +452,11 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
         return list;
     }
 
-
     //照類別查詢
 
     @Override
-    public List<BulletinboardVO> findClass(String bbClass) {
-        List<BulletinboardVO> list = new ArrayList<BulletinboardVO>();
+    public BulletinboardVO findClass(String bbClass) {
+
         BulletinboardVO bulletinboardVO = null;
 
         Connection con = null;
@@ -394,11 +466,8 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
         try {
 
             con = ds.getConnection();
-            pstmt = con.prepareStatement(GET_BB_Class);
-
+            pstmt = con.prepareStatement(GET_BB_SELECT);
             pstmt.setString(1, bbClass);
-            rs = pstmt.executeQuery();
-
 
             rs = pstmt.executeQuery();
 
@@ -406,13 +475,13 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
                 //  Domain objects
                 bulletinboardVO = new BulletinboardVO();
 
-//                bulletinboardVO.setBbTitle(rs.getString("BB_CLASS"));
+                bulletinboardVO.setBbSubId(rs.getInt("BB_SUB_ID"));
+                bulletinboardVO.setBbClass(rs.getString("BB_CLASS"));
                 bulletinboardVO.setBbTitle(rs.getString("BB_TITLE"));
                 bulletinboardVO.setBbContent(rs.getString("BB_CONTENT"));
                 bulletinboardVO.setBbPostdate(rs.getDate("BB_POSTDATE"));
-//                bulletinboardVO.setBbUpdate(rs.getDate("BB_UPDATE"));
+                bulletinboardVO.setBbUpdate(rs.getDate("BB_UPDATE"));
 
-                list.add(bulletinboardVO);
             }
             // Handle any driver errors
         } catch (SQLException se) {
@@ -442,7 +511,7 @@ public class BulletinboardDAO implements BulletinboardDAO_interface {
                 }
             }
         }
-        return list;
+        return bulletinboardVO;
     }
 
 }

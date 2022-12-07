@@ -116,7 +116,7 @@
                                     <tr>
                                         <td>住戶暱稱:</td>
                                         <td><input type="TEXT" name="membernickname" size="40" class="form-control"
-                                                   value="<%= (memberVO==null)? "" : memberVO.getMemberNickname()%>" placeholder="小可" />
+                                                   value="<%= (memberVO==null)? "" : memberVO.getMemberNickname()%>" placeholder="" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -163,7 +163,7 @@
                                     <tr>
                                         <td>住戶市話:</td>
                                         <td><input type="TEXT" name="membertel" size="40" class="form-control"
-                                                   value="<%= (memberVO==null)? "" : memberVO.getMemberTel()%>" placeholder="035687852"/>
+                                                   value="<%= (memberVO==null)? "" : memberVO.getMemberTel()%>" placeholder=""/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -181,7 +181,7 @@
                                     <tr style="display: none">
                                         <td><span style="color: red; "><b>*</b></span>住戶點數:</td>
                                         <td><input type="TEXT" name="memberpoints" size="40" class="form-control"
-                                                   value="<%= (memberVO==null)? "1000" : memberVO.getMemberPoints()%>"/>
+                                                   value="<%= (memberVO==null)? "50" : memberVO.getMemberPoints()%>"/>
                                         </td>
                                     </tr>
                                     <tr>

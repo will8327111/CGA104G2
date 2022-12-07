@@ -46,6 +46,12 @@ public class MemberDAO implements MemberDAO_interface {
                     "MEMBER_BUILDING=?,MEMBER_EMAIL=? ,MEMBER_MOBILE=? ,MEMBER_TEL=? ,MEMBER_POST=? ," +
                     "MEMBER_ADDRESS=? , MEMBER_POINTS=?,MEMBER_PIC=? ,REG_DATE=? ,MEMBER_ID_STATE=? ,AC_STATE=? where MEMBER_ID = ?";
 
+    private static final String GET_SELECTED =
+            "SELECT * from MEMBER where MEMBER_SEX=? ";
+    //以性別搜尋
+    private static final String GET_ONE_BY_MEMBERSEX =
+            "SELECT * from MEMBER where MEMBER_SEX=? ";
+
     //新增
     @Override
     public void insert(MemberVO memberVO) {
@@ -93,6 +99,7 @@ public class MemberDAO implements MemberDAO_interface {
             }
         }
     }
+
     //修改
     @Override
     public void update(MemberVO memberVO) {
@@ -115,7 +122,7 @@ public class MemberDAO implements MemberDAO_interface {
             pstmt.setString(10, memberVO.getMemberPost());
             pstmt.setString(11, memberVO.getMemberAddress());
             pstmt.setInt(12, memberVO.getMemberPoints());
-            pstmt.setBytes(13,memberVO.getMemberPic());
+            pstmt.setBytes(13, memberVO.getMemberPic());
             pstmt.setDate(14, memberVO.getRegDate());
             pstmt.setInt(15, memberVO.getMemberIdState());
             pstmt.setInt(16, memberVO.getAcState());
@@ -290,6 +297,146 @@ public class MemberDAO implements MemberDAO_interface {
             // Handle any driver errors
         } catch (SQLException se) {
             throw new RuntimeException("資料庫發生錯誤! "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
+    }
+
+//搜尋性別
+    @Override
+    public MemberVO findByMemberSex(String memberSex) {
+
+        MemberVO memberVO = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_ONE_BY_MEMBERSEX);
+            pstmt.setString(1, memberSex);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                //  Domain objects
+                memberVO = new MemberVO();
+                memberVO.setMemberId(rs.getInt("MEMBER_ID"));
+                memberVO.setMemberAc(rs.getString("MEMBER_AC"));
+                memberVO.setMemberPw(rs.getString("MEMBER_PW"));
+                memberVO.setMemberName(rs.getString("MEMBER_NAME"));
+                memberVO.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
+                memberVO.setMemberSex(rs.getString("MEMBER_SEX"));
+                memberVO.setMemberBuilding(rs.getString("MEMBER_BUILDING"));
+                memberVO.setMemberEmail(rs.getString("MEMBER_EMAIL"));
+                memberVO.setMemberMobile(rs.getString("MEMBER_MOBILE"));
+                memberVO.setMemberTel(rs.getString("MEMBER_TEL"));
+                memberVO.setMemberPost(rs.getString("MEMBER_POST"));
+                memberVO.setMemberAddress(rs.getString("MEMBER_ADDRESS"));
+                memberVO.setMemberPoints(rs.getInt("MEMBER_POINTS"));
+                memberVO.setMemberPic(rs.getBytes("MEMBER_PIC"));
+                memberVO.setRegDate(rs.getDate("REG_DATE"));
+                memberVO.setMemberIdState(rs.getInt("MEMBER_ID_STATE"));
+                memberVO.setAcState(rs.getInt("AC_STATE"));
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("Couldn't load database driver. "
+                    + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return memberVO;
+    }
+//選擇搜尋性別
+    @Override
+    public List<MemberVO> getSelected(String memberSex) {
+        List<MemberVO> list = new ArrayList<MemberVO>();
+        MemberVO memberVO = null;
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            con = ds.getConnection();
+            pstmt = con.prepareStatement(GET_SELECTED);
+
+            pstmt.setString(1, memberSex);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                //  Domain objects
+                memberVO = new MemberVO();
+                memberVO.setMemberId(rs.getInt("MEMBER_ID"));
+                memberVO.setMemberAc(rs.getString("MEMBER_AC"));
+                memberVO.setMemberPw(rs.getString("MEMBER_PW"));
+                memberVO.setMemberName(rs.getString("MEMBER_NAME"));
+                memberVO.setMemberNickname(rs.getString("MEMBER_NICKNAME"));
+                memberVO.setMemberSex(rs.getString("MEMBER_SEX"));
+                memberVO.setMemberBuilding(rs.getString("MEMBER_BUILDING"));
+                memberVO.setMemberEmail(rs.getString("MEMBER_EMAIL"));
+                memberVO.setMemberMobile(rs.getString("MEMBER_MOBILE"));
+                memberVO.setMemberTel(rs.getString("MEMBER_TEL"));
+                memberVO.setMemberPost(rs.getString("MEMBER_POST"));
+                memberVO.setMemberAddress(rs.getString("MEMBER_ADDRESS"));
+                memberVO.setMemberPoints(rs.getInt("MEMBER_POINTS"));
+                memberVO.setMemberPic(rs.getBytes("MEMBER_PIC"));
+                memberVO.setRegDate(rs.getDate("REG_DATE"));
+                memberVO.setMemberIdState(rs.getInt("MEMBER_ID_STATE"));
+                memberVO.setAcState(rs.getInt("AC_STATE"));
+
+                list.add(memberVO);
+                System.out.println(rs.getString("member_sex"));
+            }
+
+            // Handle any driver errors
+        } catch (SQLException se) {
+            throw new RuntimeException("Couldn't load database driver. "
                     + se.getMessage());
             // Clean up JDBC resources
         } finally {

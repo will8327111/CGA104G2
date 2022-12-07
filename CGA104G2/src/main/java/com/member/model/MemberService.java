@@ -74,4 +74,10 @@ public class MemberService {
     public List<MemberVO> getAll() {
         return dao.getAll();
     }
+    public List<MemberVO> getSelected(String memberSex) {
+        return dao.getSelected(memberSex);
+    }
+    public MemberVO findByMemberSex(String memberSex) {
+        return dao.findByMemberSex(memberSex);
+    }
 }

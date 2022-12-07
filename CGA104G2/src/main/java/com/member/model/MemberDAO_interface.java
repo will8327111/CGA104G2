@@ -12,4 +12,8 @@ public interface MemberDAO_interface {
     public MemberVO findByPrimaryKey(Integer memberId);
 
     public List<MemberVO> getAll();
+
+    public List<MemberVO> getSelected(String memberSex);
+
+    public MemberVO findByMemberSex(String memberSex);
 }
