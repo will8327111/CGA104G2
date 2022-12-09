@@ -126,7 +126,7 @@
                                 <div class="row">
                                     <div class="row-cols-md-10">
                                         <li><a href="${pageContext.request.contextPath}/back-end/bulletinboard/addBboard.jsp">新增公佈欄</a> <br><br></li>
-                                        <li><a href='${pageContext.request.contextPath}/back-end/bulletinboard/listAllBboard.jsp'>全部公布欄管理</a>  <br><br></li>
+                                        <li><a href='${pageContext.request.contextPath}/back-end/bulletinboard/listAllBboard.jsp'>全部公佈欄管理</a>  <br><br></li>
                                         <li>
                                             <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/bulletinboard/bulletinboard.do">
                                                 <b>請輸入公佈欄編號 (如數字：1):</b>

@@ -5,6 +5,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
+import java.sql.Connection;
 import java.util.*;
 import java.sql.Date;
 import com.bulletinboard.model.*;
@@ -16,6 +17,7 @@ import com.bulletinboard.model.*;
         maxRequestSize=1024*1024*100)    // 100 MB
 
 public class BulletinboardServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         doPost(req, res);
@@ -23,7 +25,10 @@ public class BulletinboardServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
+        res.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
+        PrintWriter out = res.getWriter();
+        HttpSession session = req.getSession();
 
         if ("getOneBb_For_Display".equals(action)) {
 
@@ -287,23 +292,26 @@ public class BulletinboardServlet extends HttpServlet {
         //查詢類別
         if ("getClass".equals(action)) {
 
-                List<String> errorMsgs = new LinkedList<String>();
-
-                req.setAttribute("errorMsgs", errorMsgs);
-
                 /*==========1.接收請求參數==========*/
-                String bbClass = new String(req.getParameter("bbclass"));
+                String bbClass = req.getParameter("bbclass");
 
                 /*==========2.查詢資料==========*/
 
                 BulletinboardService bulletinboardSvc = new BulletinboardService();
-                bulletinboardSvc.findClass(bbClass);
+                BulletinboardVO bulletinboardVO= bulletinboardSvc.findClass(bbClass);
 
                 /***************************3.查詢完成,準備轉交(Send the Success view)*************/
-                String url = "/front-end/bulletinboard/bbNews2.jsp";
+                session.setAttribute("bulletinboardVO", bulletinboardVO);
+                String url = "/front-end/bulletinboard/bbNewsClass.jsp";
                 RequestDispatcher successView = req.getRequestDispatcher(url);
                 successView.forward(req, res);
             }
+
+        if ("getBbSelect".equals(action)) {
+            String url = "/front-end/bulletinboard/bbNewsClass.jsp";
+            RequestDispatcher successView = req.getRequestDispatcher(url);
+            successView.forward(req, res);
+        }
 
         }
 }

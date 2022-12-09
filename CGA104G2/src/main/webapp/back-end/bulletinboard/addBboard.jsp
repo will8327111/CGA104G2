@@ -172,13 +172,13 @@
                                     <tr>
                                         <td><span style="color: red; width: inherit; "><b>*</b></span>發佈日期:</td>
                                         <td><input type="text" name="bbpostdate" size="15" class="form-control"
-                                                   value="<%= (bulletinboardVO==null)? "2022-11-29" : bulletinboardVO.getBbPostdate()%>"/></td>
+                                                   value="<%= (bulletinboardVO==null)? "2022-12-03" : bulletinboardVO.getBbPostdate()%>"/></td>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td><span style="color: red; width: inherit; "><b>*</b></span>更新日期:</td>
                                         <td><input type="text" name="bbupdate" size="15" class="form-control"
-                                                   value="<%= (bulletinboardVO==null)? "2022-11-29" : bulletinboardVO.getBbUpdate()%>"/></td>
+                                                   value="<%= (bulletinboardVO==null)? "2022-12-03" : bulletinboardVO.getBbUpdate()%>"/></td>
                                     </tr>
                                     <tr>
                                         <td><span style="color: red; "><b>*</b></span>發佈狀態:</td>

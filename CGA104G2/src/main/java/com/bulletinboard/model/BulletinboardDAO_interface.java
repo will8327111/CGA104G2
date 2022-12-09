@@ -23,8 +23,11 @@ public interface BulletinboardDAO_interface {
     //上架的全部
     List<BulletinboardVO> getAllOn();
 
+    // 選擇上架+特定類別
+    List<BulletinboardVO> getBbSelect(String bbClass);
+
     //查詢類別
-        List<BulletinboardVO> findClass(String bbClass);
+        BulletinboardVO findClass(String bbClass);
 
 
 }

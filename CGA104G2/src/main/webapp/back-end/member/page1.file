@@ -36,4 +36,4 @@ pageIndex=pageIndexArray[pageNumber-1];
 <b>第<%=whichPage%>/<%=pageNumber%>頁</b>
 <%}%>
 
-<b>●社區住戶名單: 共<font color=red><%=rowNumber%></font>筆</b>
+<b>●目前社區住戶: 共<font color=red><%=rowNumber%></font>名</b>

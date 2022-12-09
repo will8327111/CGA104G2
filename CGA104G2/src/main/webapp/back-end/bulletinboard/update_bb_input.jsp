@@ -40,12 +40,12 @@
                 <div class='d-flex justify-content-between align-items-center '>
 
                     <div class='sidebar-toggler  x'>
-                        <a href='#' class='sidebar-hide d-xl-none d-block'><i class='bi bi-x bi-middle'></i></a>
+                        <a href='${pageContext.request.contextPath}/back-end/bulletinboard/listAllBboard.jsp"' class='sidebar-hide d-xl-none d-block'><i class='bi bi-x bi-middle'></i></a>
                     </div>
                 </div>
             </div>
             <div class='logo'>
-                <a href='${pageContext.request.contextPath}/back-end/web/index-test.html'><img src='${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans4.png' alt='Logo' srcset=''
+                <a href='${pageContext.request.contextPath}/back-end/bulletinboard/bb_select_page.jsp'><img src='${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans4.png' alt='Logo' srcset=''
                                                                                                width='80%'></a>
             </div>
             <div class='sidebar-menu'>
@@ -112,7 +112,7 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="back-index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/back-end/bulletinboard/listAllBboard.jsp">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Home Page</li>
                                 </ol>
                             </nav>

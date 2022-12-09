@@ -51,7 +51,7 @@
     </ul>
     </c:if>
 
-    <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/member/member.do" name="form1" enctype="multipart/form-data">
+    <FORM METHOD="post" id="update-form" ACTION="${pageContext.request.contextPath}/member/member.do" name="form1" enctype="multipart/form-data">
         <div class="page-content" style="display: flex; justify-content: space-around;">
             <section class="section">
                 <div class="card" style="width: 28rem;">
@@ -66,7 +66,7 @@
 
                                     <tr>
                                         <td><span style="color: red; "><b>*</b></span>帳號:</td>
-                                        <td><input type="TEXT" name="memberac" size="40" class="form-control"
+                                        <td><input type="TEXT" name="memberac" size="40" class="form-control" required
                                                    value="<%=memberVO.getMemberAc()%>"/></td>
                                     </tr>
 
@@ -75,7 +75,7 @@
                                         <td><span style="color: red; "><b>*</b></span>密碼:</td>
                                         <td>
                                             <div class="form-floating">
-                                            <input type="password" name="memberpw" size="40" class="form-control" id="floatingPassword" placeholder="Password"
+                                            <input type="password" name="memberpw" size="40" class="form-control" id="floatingPassword" placeholder="Password" required
                                                    value="<%=memberVO.getMemberPw()%>"/>
                                             <label for="floatingPassword">請輸入密碼</label>
                                             <i id="checkEye" class="fas bi-eye-fill"></i>
@@ -86,7 +86,7 @@
 
                                     <tr>
                                         <td><span style="color: red; "><b>*</b></span>姓名:</td>
-                                        <td><input type="TEXT" name="membername" size="40" class="form-control"
+                                        <td><input type="TEXT" name="membername" size="40" class="form-control" required
                                                    value="<%=memberVO.getMemberName()%>"/></td>
                                     </tr>
 
@@ -100,7 +100,7 @@
                                         <td><span style="color: red; "><b>*</b></span>性別:</td>
 
                                         <td>
-                                            <select size="1" name="membersex" class="form-select">
+                                            <select size="1" name="membersex" class="form-select" required>
                                                 <option value="男性" <c:if test="${memberVO.memberSex==('男性')}">selected="selected"</c:if>>男性</option>
                                                 <option value="女性" <c:if test="${memberVO.memberSex==('女性')}">selected="selected"</c:if>>女性</option>
                                                 <option value="保留" <c:if test="${memberVO.memberSex==('保留')}">selected="selected"</c:if>>保留</option>
@@ -122,7 +122,7 @@
                                         <td><span style="color: red; "><b>*</b></span>email:</td>
                                         <td>
                                             <div class="form-floating">
-                                                <input type="TEXT" name="memberemail" size="40" class="form-control" id="floatingInput"
+                                                <input type="TEXT" name="memberemail" size="40" class="form-control" id="floatingInput" required
                                                        value="<%=memberVO.getMemberEmail()%>"/>
                                                 <label for="floatingInput">example@gmail.com</label>
                                             </div>
@@ -130,7 +130,7 @@
 
                                     <tr>
                                         <td><span style="color: red; "><b>*</b></span>手機:</td>
-                                        <td><input type="TEXT" name="membermobile" size="40" class="form-control"
+                                        <td><input type="TEXT" name="membermobile" size="40" class="form-control" required
                                                    value="<%=memberVO.getMemberMobile()%>"/></td>
                                     </tr>
 
@@ -142,13 +142,13 @@
 
                                     <tr>
                                         <td><span style="color: red; "><b>*</b></span>郵遞區號:</td>
-                                        <td><input type="TEXT" name="memberpost" size="40" class="form-control"
+                                        <td><input type="TEXT" name="memberpost" size="40" class="form-control" required
                                                    value="<%=memberVO.getMemberPost()%>"/></td>
                                     </tr>
 
                                     <tr>
                                         <td><span style="color: red; "><b>*</b></span>住址:</td>
-                                        <td><input type="TEXT" name="memberaddress" size="40" class="form-control"
+                                        <td><input type="TEXT" name="memberaddress" size="40" class="form-control" required
                                                    value="<%=memberVO.getMemberAddress()%>"/></td>
                                     </tr>
 
@@ -202,7 +202,7 @@
                     </div>
                     <input type="hidden" name="action" value="updateProfile">
                     <input type="hidden" name="memberid" value="<%=memberVO.getMemberId()%>"/>
-                    <input type="submit" class="btn btn-outline-primary" value="送出修改">
+                    <input id="update-confirm" type="submit" onclick="swalConfirm()" class="btn btn-outline-primary" value="送出修改">
                 </div>
             </section>
         </div>
@@ -237,9 +237,9 @@
      });
 
 </script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        //JQ 密碼眼睛
+        //JQ password eye
         $("#checkEye").click(function () {
         if($(this).hasClass('bi-eye-fill')){
          $("#floatingPassword").attr('type', 'text');
@@ -249,23 +249,23 @@
         $(this).toggleClass('bi-eye-fill').toggleClass('bi-eye-slash');
         });
 
-        // 禁止返回上一頁
-        function prohibitPreviousPage(){
-
-            if(navigator.userAgent.indexOf('Firefox') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Firefox') + 8)) >= 3.6 ){
-                //Firefox
-                setTimeout("fn_forward()",1);
-                window.history.go(1);
-            }else{ //IE.Chrome.Edge
-                window.history.forward();
-            }
-        }
+        // prohibitPrevious
+        // function prohibitPreviousPage(){
+        //
+        //     if(navigator.userAgent.indexOf('Firefox') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Firefox') + 8)) >= 3.6 ){
+        //         //Firefox
+        //         setTimeout("fn_forward()",1);
+        //         window.history.go(1);
+        //     }else{ //IE.Chrome.Edge
+        //         window.history.forward();
+        //     }
+        // }
         function fn_forward() {
             history.forward();
             setTimeout("fn_forward()",1);
         }
     </script>
-    <script type="text/javascript">prohibitpreviouspage();</script>
+
 </body>
 
 </html>

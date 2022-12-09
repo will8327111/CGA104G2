@@ -5,7 +5,9 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
+import java.lang.reflect.Member;
 import java.net.http.HttpClient;
+import java.sql.Date;
 import java.util.*;
 
 import com.member.model.*;
@@ -183,11 +185,11 @@ public class MemberServlet extends HttpServlet {
                 errorMsgs.add("請填入正確數字格式.");
             }
 
-            java.sql.Date regDate = null;
+            Date regDate = null;
             try {
-                regDate = java.sql.Date.valueOf(req.getParameter("regdate").trim());
+                regDate = Date.valueOf(req.getParameter("regdate").trim());
             } catch (IllegalArgumentException e) {
-                regDate = new java.sql.Date(System.currentTimeMillis());
+                regDate = new Date(System.currentTimeMillis());
                 errorMsgs.add("日期沒有輸入或是格式錯誤,請重新輸入!");
             }
 
@@ -351,11 +353,11 @@ public class MemberServlet extends HttpServlet {
                 errorMsgs.add("請填入正確數字格式.");
             }
 
-            java.sql.Date regDate = null;
+            Date regDate = null;
             try {
-                regDate = java.sql.Date.valueOf(req.getParameter("regdate").trim());
+                regDate = Date.valueOf(req.getParameter("regdate").trim());
             } catch (IllegalArgumentException e) {
-                regDate = new java.sql.Date(System.currentTimeMillis());
+                regDate = new Date(System.currentTimeMillis());
                 errorMsgs.add("日期沒有輸入或是格式錯誤,請重新輸入!");
             }
 
@@ -488,11 +490,11 @@ public class MemberServlet extends HttpServlet {
                 errorMsgs.add("請填數字.");
             }
 
-            java.sql.Date regDate = null;
+            Date regDate = null;
             try {
-                regDate = java.sql.Date.valueOf(req.getParameter("regdate").trim());
+                regDate = Date.valueOf(req.getParameter("regdate").trim());
             } catch (IllegalArgumentException e) {
-                regDate = new java.sql.Date(System.currentTimeMillis());
+                regDate = new Date(System.currentTimeMillis());
                 errorMsgs.add("日期沒有輸入或是格式錯誤,請重新輸入!");
             }
 
@@ -578,7 +580,12 @@ public class MemberServlet extends HttpServlet {
             successView.forward(req, res);
 
         }
-
+//查住戶性別
+        if ("getSelected".equals(action)) {
+            String url = "/back-end/member/listAllMemberBySex.jsp";
+            RequestDispatcher successView = req.getRequestDispatcher(url);
+            successView.forward(req, res);
+        }
 //        ======住戶登出======
         if ("memberLogOut".equals(action)) {
             session.invalidate();

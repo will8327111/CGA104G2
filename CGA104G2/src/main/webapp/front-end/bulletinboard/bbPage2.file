@@ -20,6 +20,6 @@
         <%for (int i=1; i<=pageNumber; i++){%>
         <option value="<%=i%>">第 <%=i%> 頁
             <%}%>
-    </select>    <input style="color: #3c55ab; font-size: 16px;" type="submit"  value="確定" >
+    </select>    <input style="color: #3c55ab; font-size: 16px;" type="submit" class="select-btn"  value="確定" >
 </FORM>
 <%}%>

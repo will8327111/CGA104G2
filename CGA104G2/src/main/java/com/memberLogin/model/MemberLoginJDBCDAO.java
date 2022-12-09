@@ -44,7 +44,7 @@ public class MemberLoginJDBCDAO implements MemberLoginDAO_interface {
 				memberLoginVO.setMemberPost(rs.getString("member_post"));
 				memberLoginVO.setMemberAddress(rs.getString("member_address"));
 				memberLoginVO.setMemberPoints(rs.getInt("member_points"));
-				memberLoginVO.setMemberPic(rs.getByte("member_pic"));
+//				memberLoginVO.setMemberPic(rs.getByte("member_pic"));
 				memberLoginVO.setRegDate(rs.getDate("reg_date"));
 				memberLoginVO.setMemberIdState(rs.getShort("member_id_state"));
 				memberLoginVO.setAcState(rs.getShort("ac_state"));

@@ -26,8 +26,149 @@
     <title>陪你e生e世　社區服務平台：住戶Home</title>
     <!-- !!固定!! 旁邊導覽列sidebar menu start (不是js動態產生的,放body)-->
     <script src="${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js"></script>
-    <!-- !!固定!! 旁邊導覽列sidebar menu end -->
 </head>
+    <!-- !!固定!! 旁邊導覽列sidebar menu start -->
+    <%--    <script src="${pageContext.request.contextPath}/resources/back-end/assets/js/sidebar.js"></script>--%>
+
+    <div id='app'>
+        <div id='sidebar' class='active' >
+            <div class='sidebar-wrapper active'>
+                <div class='sidebar-header position-relative'>
+                    <div class='d-flex justify-content-between align-items-center '>
+
+                        <div class='sidebar-toggler  x'>
+                            <a href='#' class='sidebar-hide d-xl-none d-block'><i class='bi bi-x bi-middle'></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class='logo'>
+                    <a href='${pageContext.request.contextPath}/back-end/web/backEndHomeMgr.html'><img src='${pageContext.request.contextPath}/resources/front-end/assets/img/logo11_trans4.png' alt='Logo' srcset=''
+                                                                                                       width='80%'></a>
+                </div>
+                <div class='sidebar-menu'>
+                    <ul class='menu'>
+
+                        <li class='sidebar-item  has-sub'>
+                            <a href='#' class='sidebar-link'>
+                                <i class='bi bi-person-badge-fill'></i>
+                                <span>住戶資訊</span>
+                            </a>
+                            <ul class='submenu '>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/member/memberHome.jsp'>住戶管理</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/member/select_page.jsp'>住戶查詢</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class='sidebar-item'>
+                            <a href='${pageContext.request.contextPath}/back-end/mail/mailIndexBootStrap.html' class='sidebar-link'>
+                                <i class='bi bi-clipboard-check'></i>
+                                <span>郵件</span>
+                            </a>
+                        </li>
+
+                        <li class='sidebar-item has-sub'>
+                            <a href='#' class='sidebar-link'>
+                                <i class='bi bi-calculator'></i>
+                                <span>社區帳單</span>
+                            </a>
+                            <ul class='submenu '>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/member/bill.do?action=getAll'>帳單管理</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class='sidebar-item  has-sub'>
+                            <a href='#' class='sidebar-link'>
+                                <i class='bi bi-calendar-check-fill'></i>
+                                <span>公共設施</span>
+                            </a>
+                            <ul class='submenu '>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/ame/addAme.jsp'>新增公設</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/ame/controlAme.jsp'>公設管理</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='.html'>維修公設</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class='sidebar-item  has-sub'>
+                            <a href='#' class='sidebar-link'>
+                                <i class='bi bi-spotify'></i>
+                                <span>活動</span>
+                            </a>
+                            <ul class='submenu'>
+                                <li class='submenu-item'>
+                                    <a href='${pageContext.request.contextPath}/back-end/activity/management.html'>管理活動檢舉</a>
+                                </li>
+                                <li class='submenu-item'>
+                                    <a href='${pageContext.request.contextPath}/back-end/activity/history.html'>檢舉紀錄</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class='sidebar-item  has-sub'>
+                            <a href='#' class='sidebar-link'>
+                                <i class='bi bi-tools'></i>
+                                <span>檢舉與維修服務</span>
+                            </a>
+                            <ul class='submenu '>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/privateReport/privateReportInfo.jsp'>住戶檢舉</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/maintenanceRecord/maintenanceRecordInfo.jsp'>住戶維修提報</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class='sidebar-item'>
+                            <a href='${pageContext.request.contextPath}/back-end/store/storeIndexBootStrap.html' class='sidebar-link'>
+                                <i class='bi bi-pin-map-fill'></i>
+                                <span>特約商店</span>
+                            </a>
+                        </li>
+
+                        <li class='sidebar-item has-sub'>
+                            <a href='.html' class='sidebar-link'>
+                                <i class='bi bi-file-earmark-medical-fill'></i>
+                                <span>管理員帳號與權限</span>
+                            </a>
+                            <ul class='submenu '>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/backstageAccount/listOneInfo.jsp'>我的資訊</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/backstageAccount/listAllInfo.jsp'>所有管理員資訊</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/backstageAuthorization/listOneAuthorization.jsp'>我的權限</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/backstageAuthorization/listAllAuthorization.jsp'>所有管理員權限功能</a>
+                                </li>
+                                <li class='submenu-item '>
+                                    <a href='${pageContext.request.contextPath}/back-end/backstageCapabilities/listAllCapabilities.jsp'>權限功能列表</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    <!-- !!固定!! 旁邊導覽列sidebar menu end -->
+
 
 <body>
 <!-- !!固定!! 右上方 navbar end -->
@@ -237,7 +378,6 @@
 </div>
 
 
-
 <%--<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->--%>
 
 <link rel="stylesheet" type="text/css"
@@ -260,13 +400,9 @@
     $('#f_date1').datetimepicker({
         theme: '',              //theme: 'dark',
         timepicker:true,       //timepicker:true,
-        step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+        step: 1,                //step: 60
         format: 'Y-m-d',         //format:'Y-m-d H:i:s',
         value: '<%=memberVO.getRegDate()%>', // value: new Date()
-<%--        //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含--%>
-<%--        //startDate:	            '2017/07/10',  // 起始日--%>
-<%--        //minDate:               '-1970-01-01', // 去除今日(不含)之前--%>
-<%--        //maxDate:               '+1970-01-01'  // 去除今日(不含)之後--%>
     });
 
 </script>
